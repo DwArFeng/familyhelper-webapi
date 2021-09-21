@@ -1,0 +1,48 @@
+<assembly xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>release</id>
+
+    <formats>
+        <format>tar.gz</format>
+        <format>dir</format>
+    </formats>
+
+    <fileSets>
+        <fileSet>
+            <outputDirectory>conf/familyhelper-webapi/dubbo</outputDirectory>
+            <directory>../familyhelper-webapi-node/src/main/resources/dubbo</directory>
+            <includes>
+                <include>*.properties</include>
+            </includes>
+            <fileMode>0644</fileMode>
+        </fileSet>
+        <fileSet>
+            <outputDirectory>conf/familyhelper-webapi/familyhelper</outputDirectory>
+            <directory>../familyhelper-webapi-node/src/main/resources/familyhelper</directory>
+            <includes>
+                <include>*.properties</include>
+            </includes>
+            <fileMode>0644</fileMode>
+        </fileSet>
+    </fileSets>
+
+    <files>
+        <file>
+            <outputDirectory>webapps</outputDirectory>
+            <source>../familyhelper-webapi-node/target/familyhelper-webapi.war</source>
+            <filtered>false</filtered>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <outputDirectory>./</outputDirectory>
+            <source>../README.md</source>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <outputDirectory>./</outputDirectory>
+            <source>../CHANGELOG.md</source>
+            <fileMode>0644</fileMode>
+        </file>
+    </files>
+</assembly>
