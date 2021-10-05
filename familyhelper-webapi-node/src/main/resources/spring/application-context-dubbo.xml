@@ -46,9 +46,6 @@
     <dubbo:reference id="rbacPexpMaintainService"
                      interface="com.dwarfeng.rbacds.stack.service.PexpMaintainService"
                      retries="3" timeout="60000"/>
-    <dubbo:reference id="rbacRoleGroupMaintainService"
-                     interface="com.dwarfeng.rbacds.stack.service.RoleGroupMaintainService"
-                     retries="3" timeout="60000"/>
     <dubbo:reference id="rbacPermissionGroupMaintainService"
                      interface="com.dwarfeng.rbacds.stack.service.PermissionGroupMaintainService"
                      retries="3" timeout="60000"/>

@@ -4,7 +4,13 @@
 
 #### 功能构建
 
-- 创建项目，复制代码。
+- 完成部分系统级别的 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionGroupController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PexpController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.RoleController。
 
 #### Bug修复
 

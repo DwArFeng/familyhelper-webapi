@@ -78,6 +78,15 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-sdk</artifactId>
         </dependency>
+        <!-- rbac组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>rbac-distributed-service-stack</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>rbac-distributed-service-sdk</artifactId>
+        </dependency>
         <!-- 程序自身引用 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
