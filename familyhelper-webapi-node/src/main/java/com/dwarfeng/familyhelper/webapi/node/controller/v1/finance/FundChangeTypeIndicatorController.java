@@ -1,9 +1,9 @@
-package com.dwarfeng.familyhelper.webapi.node.controller.v1.system;
+package com.dwarfeng.familyhelper.webapi.node.controller.v1.finance;
 
-import com.dwarfeng.familyhelper.webapi.stack.service.system.PermissionResponseService;
-import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonPermission;
-import com.dwarfeng.rbacds.sdk.bean.entity.WebInputPermission;
-import com.dwarfeng.rbacds.stack.bean.entity.Permission;
+import com.dwarfeng.familyhelper.finance.sdk.bean.entity.FastJsonFundChangeTypeIndicator;
+import com.dwarfeng.familyhelper.finance.sdk.bean.entity.WebInputFundChangeTypeIndicator;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChangeTypeIndicator;
+import com.dwarfeng.familyhelper.webapi.stack.service.finance.FundChangeTypeIndicatorResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
@@ -24,7 +24,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
 
 /**
  * 权限控制器。
@@ -33,24 +32,24 @@ import java.util.Objects;
  * @since 1.0.0
  */
 @RestController
-@RequestMapping("/api/v1/system")
-public class PermissionController {
+@RequestMapping("/api/v1/finance")
+public class FundChangeTypeIndicatorController {
 
-    private final PermissionResponseService service;
+    private final FundChangeTypeIndicatorResponseService service;
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<Permission, FastJsonPermission> beanTransformer;
+    private final BeanTransformer<FundChangeTypeIndicator, FastJsonFundChangeTypeIndicator> beanTransformer;
 
-    public PermissionController(
-            PermissionResponseService service, ServiceExceptionMapper sem,
-            BeanTransformer<Permission, FastJsonPermission> beanTransformer
+    public FundChangeTypeIndicatorController(
+            FundChangeTypeIndicatorResponseService service, ServiceExceptionMapper sem,
+            BeanTransformer<FundChangeTypeIndicator, FastJsonFundChangeTypeIndicator> beanTransformer
     ) {
         this.service = service;
         this.sem = sem;
         this.beanTransformer = beanTransformer;
     }
 
-    @GetMapping("/permission/{id}/exists")
+    @GetMapping("/fund-change-type-indicator/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
@@ -62,50 +61,54 @@ public class PermissionController {
         }
     }
 
-    @GetMapping("/permission/{id}")
+    @GetMapping("/fund-change-type-indicator/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<FastJsonPermission> get(HttpServletRequest request, @PathVariable("id") String id) {
+    public FastJsonResponseData<FastJsonFundChangeTypeIndicator> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
-            Permission permission = service.get(new StringIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonPermission.of(permission)));
+            FundChangeTypeIndicator fundChangeTypeIndicator = service.get(new StringIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonFundChangeTypeIndicator.of(fundChangeTypeIndicator)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonPermission.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonFundChangeTypeIndicator.class, e, sem));
         }
     }
 
-    @PostMapping("/permission")
+    @PostMapping("/fund-change-type-indicator")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputPermission webInputPermission, BindingResult bindingResult) {
+            @RequestBody @Validated(Insert.class) WebInputFundChangeTypeIndicator webInputFundChangeTypeIndicator,
+            BindingResult bindingResult
+    ) {
         try {
-            Permission permission = WebInputPermission.toStackBean(webInputPermission);
-            StringIdKey insert = service.insert(permission);
+            FundChangeTypeIndicator fundChangeTypeIndicator = WebInputFundChangeTypeIndicator.toStackBean(webInputFundChangeTypeIndicator);
+            StringIdKey insert = service.insert(fundChangeTypeIndicator);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonStringIdKey.class, e, sem));
         }
     }
 
-    @PatchMapping("/permission")
+    @PatchMapping("/fund-change-type-indicator")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPermission webInputPermission, BindingResult bindingResult) {
+            @RequestBody @Validated WebInputFundChangeTypeIndicator webInputFundChangeTypeIndicator,
+            BindingResult bindingResult
+    ) {
         try {
-            service.update(WebInputPermission.toStackBean(webInputPermission));
+            service.update(WebInputFundChangeTypeIndicator.toStackBean(webInputFundChangeTypeIndicator));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
         }
     }
 
-    @DeleteMapping("/permission/{id}")
+    @DeleteMapping("/fund-change-type-indicator/{id}")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
@@ -117,41 +120,15 @@ public class PermissionController {
         }
     }
 
-    @GetMapping("/permission/all")
+    @GetMapping("/fund-change-type-indicator/all")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermission>> all(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonFundChangeTypeIndicator>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            PagedData<Permission> all = service.all(new PagingInfo(page, rows));
-            PagedData<FastJsonPermission> transform = PagingUtil.transform(all, beanTransformer);
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
-        }
-    }
-
-    @GetMapping(value = {
-            "/permission-group/{permissionGroupId}/permission", "/permission-group//permission"
-    })
-    @BehaviorAnalyse
-    @SkipRecord
-    @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermission>> childForGroup(
-            HttpServletRequest request,
-            @PathVariable(required = false, value = "permissionGroupId") String permissionGroupId,
-            @RequestParam("page") int page, @RequestParam("rows") int rows
-    ) {
-        try {
-            StringIdKey permissionGroupKey = null;
-            if (Objects.nonNull(permissionGroupId)) {
-                permissionGroupKey = new StringIdKey(permissionGroupId);
-            }
-            PagedData<Permission> childForGroup = service.childForGroup(
-                    permissionGroupKey, new PagingInfo(page, rows)
-            );
-            PagedData<FastJsonPermission> transform = PagingUtil.transform(childForGroup, beanTransformer);
+            PagedData<FundChangeTypeIndicator> all = service.all(new PagingInfo(page, rows));
+            PagedData<FastJsonFundChangeTypeIndicator> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));

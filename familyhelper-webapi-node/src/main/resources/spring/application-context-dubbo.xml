@@ -4,7 +4,8 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd"
+>
 
     <dubbo:application name="familyhelper-api-web-node">
         <dubbo:parameter key="qos.enable" value="false"/>
@@ -23,32 +24,72 @@
     <!-- 向注册中心注册暴露服务地址,注册消费者服务 -->
     <!-- acckeeper -->
     <dubbo:reference id="acckeeperLoginService" interface="com.dwarfeng.acckeeper.stack.service.LoginService"
-                     retries="0" timeout="60000"/>
+                     retries="0" timeout="60000" check="false"/>
     <dubbo:reference id="acckeeperPasswordService" interface="com.dwarfeng.acckeeper.stack.service.PasswordService"
-                     retries="0" timeout="60000"/>
+                     retries="0" timeout="60000" check="false"/>
     <dubbo:reference id="acckeeperAccountService" interface="com.dwarfeng.acckeeper.stack.service.AccountService"
-                     retries="0" timeout="60000"/>
+                     retries="0" timeout="60000" check="false"/>
     <dubbo:reference id="acckeeperAccountMaintainService"
                      interface="com.dwarfeng.acckeeper.stack.service.AccountMaintainService"
-                     retries="0" timeout="60000"/>
+                     retries="0" timeout="60000" check="false"/>
     <!-- rbac -->
     <dubbo:reference id="rbacPermissionLookupService"
                      interface="com.dwarfeng.rbacds.stack.service.PermissionLookupService"
-                     retries="3" timeout="60000"/>
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="rbacUserMaintainService" interface="com.dwarfeng.rbacds.stack.service.UserMaintainService"
-                     retries="3" timeout="60000"/>
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="rbacRoleMaintainService"
                      interface="com.dwarfeng.rbacds.stack.service.RoleMaintainService"
-                     retries="3" timeout="60000"/>
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="rbacPermissionMaintainService"
                      interface="com.dwarfeng.rbacds.stack.service.PermissionMaintainService"
-                     retries="3" timeout="60000"/>
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="rbacPexpMaintainService"
                      interface="com.dwarfeng.rbacds.stack.service.PexpMaintainService"
-                     retries="3" timeout="60000"/>
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="rbacPermissionGroupMaintainService"
                      interface="com.dwarfeng.rbacds.stack.service.PermissionGroupMaintainService"
-                     retries="3" timeout="60000"/>
+                     retries="3" timeout="60000" check="false"/>
+    <!-- familyhelper-finance -->
+    <dubbo:reference id="familyhelperFinanceAccountBookMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceAccountBookOperateService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceBankCardMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceFundChangeMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceBankCardOperateService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceBalanceOperateService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.BalanceOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceFundChangeOperateService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceUserMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinancePoabMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.PoabMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceBankCardTypeIndicatorMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardTypeIndicatorMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceFundChangeTypeIndicatorMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeTypeIndicatorMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceTotalBalanceHistoryMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.TotalBalanceHistoryMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceBankCardBalanceHistoryMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardBalanceHistoryMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <!-- snowflake -->
-    <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService"/>
+    <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService" check="false"/>
 </beans>

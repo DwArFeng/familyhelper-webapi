@@ -4,13 +4,22 @@
 
 #### 功能构建
 
-- 完成部分系统级别的 Controller。
+- 完成部分系统设置 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionGroupController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PexpController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.RoleController。
+
+- 完成资金管理 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.AccountBookController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.BankCardBalanceHistoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.BankCardController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.BankCardTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.FundChangeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.FundChangeTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.TotalBalanceHistoryController。
 
 #### Bug修复
 

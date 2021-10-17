@@ -38,5 +38,10 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>rbac-distributed-service-stack</artifactId>
         </dependency>
+        <!-- familyhelper-finance组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>familyhelper-finance-stack</artifactId>
+        </dependency>
     </dependencies>
 </project>

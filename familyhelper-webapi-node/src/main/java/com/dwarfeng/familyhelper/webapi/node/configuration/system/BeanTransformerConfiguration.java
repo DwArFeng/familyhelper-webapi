@@ -1,4 +1,4 @@
-package com.dwarfeng.familyhelper.webapi.node.configuration;
+package com.dwarfeng.familyhelper.webapi.node.configuration.system;
 
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispPermissionGroup;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.system.FastJsonAccount;
@@ -18,12 +18,12 @@ import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class SystemBeanTransformerConfiguration {
+@Configuration("systemBeanTransformerConfiguration")
+public class BeanTransformerConfiguration {
 
     private final Mapper mapper;
 
-    public SystemBeanTransformerConfiguration(Mapper mapper) {
+    public BeanTransformerConfiguration(Mapper mapper) {
         this.mapper = mapper;
     }
 

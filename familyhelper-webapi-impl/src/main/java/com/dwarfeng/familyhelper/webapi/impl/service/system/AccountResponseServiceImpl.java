@@ -28,17 +28,23 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     private final AccountService accountService;
     private final PasswordService passwordService;
     private final UserMaintainService rbacUserMaintainService;
+    private final com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
+            familyhelperFinanceUserMaintainService;
 
     public AccountResponseServiceImpl(
             @Qualifier("acckeeperAccountMaintainService") AccountMaintainService accountMaintainService,
             @Qualifier("acckeeperAccountService") AccountService accountService,
             @Qualifier("acckeeperPasswordService") PasswordService passwordService,
-            @Qualifier("rbacUserMaintainService") UserMaintainService rbacUserMaintainService
+            @Qualifier("rbacUserMaintainService") UserMaintainService rbacUserMaintainService,
+            @Qualifier("familyhelperFinanceUserMaintainService")
+                    com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
+                    familyhelperFinanceUserMaintainService
     ) {
         this.accountMaintainService = accountMaintainService;
         this.accountService = accountService;
         this.passwordService = passwordService;
         this.rbacUserMaintainService = rbacUserMaintainService;
+        this.familyhelperFinanceUserMaintainService = familyhelperFinanceUserMaintainService;
     }
 
     @Override
@@ -72,6 +78,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     public void delete(StringIdKey key) throws ServiceException {
         accountMaintainService.delete(key);
         rbacUserMaintainService.deleteIfExists(key);
+        familyhelperFinanceUserMaintainService.deleteIfExists(key);
     }
 
     @Override
@@ -87,7 +94,6 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         );
         return this.transformPagedAcckeeperAccount(lookup);
     }
-
 
     private PagedData<Account> transformPagedAcckeeperAccount(
             PagedData<com.dwarfeng.acckeeper.stack.bean.entity.Account> lookup
@@ -106,7 +112,6 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                 lookup.getRows(), lookup.getCount(), accounts);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public void register(RegisterInfo registerInfo) throws ServiceException {
         StringIdKey accountKey = registerInfo.getKey();
@@ -117,6 +122,11 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         com.dwarfeng.rbacds.stack.bean.entity.User rbacUser =
                 new com.dwarfeng.rbacds.stack.bean.entity.User(accountKey, "通过 account 插入/更新自动生成");
         rbacUserMaintainService.insertOrUpdate(rbacUser);
+        com.dwarfeng.familyhelper.finance.stack.bean.entity.User familyhelperFinanceUser =
+                new com.dwarfeng.familyhelper.finance.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperFinanceUserMaintainService.insertOrUpdate(familyhelperFinanceUser);
     }
 
     @Override
