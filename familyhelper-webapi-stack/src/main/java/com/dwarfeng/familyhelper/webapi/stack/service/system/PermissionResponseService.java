@@ -7,6 +7,8 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
+import java.util.List;
+
 /**
  * 权限响应服务。
  *
@@ -28,4 +30,6 @@ public interface PermissionResponseService extends Service {
     PagedData<Permission> all(PagingInfo pagingInfo) throws ServiceException;
 
     PagedData<Permission> childForGroup(StringIdKey groupKey, PagingInfo pagingInfo) throws ServiceException;
+
+    List<Permission> lookupForUser(StringIdKey userKey) throws ServiceException;
 }

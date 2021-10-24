@@ -25,12 +25,11 @@
     <!-- acckeeper -->
     <dubbo:reference id="acckeeperLoginService" interface="com.dwarfeng.acckeeper.stack.service.LoginService"
                      retries="0" timeout="60000" check="false"/>
-    <dubbo:reference id="acckeeperPasswordService" interface="com.dwarfeng.acckeeper.stack.service.PasswordService"
-                     retries="0" timeout="60000" check="false"/>
-    <dubbo:reference id="acckeeperAccountService" interface="com.dwarfeng.acckeeper.stack.service.AccountService"
-                     retries="0" timeout="60000" check="false"/>
     <dubbo:reference id="acckeeperAccountMaintainService"
                      interface="com.dwarfeng.acckeeper.stack.service.AccountMaintainService"
+                     retries="0" timeout="60000" check="false"/>
+    <dubbo:reference id="acckeeperAccountOperateService"
+                     interface="com.dwarfeng.acckeeper.stack.service.AccountOperateService"
                      retries="0" timeout="60000" check="false"/>
     <!-- rbac -->
     <dubbo:reference id="rbacPermissionLookupService"

@@ -1,14 +1,15 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.system;
 
-import com.dwarfeng.acckeeper.stack.bean.entity.dto.AccountInfo;
+import com.dwarfeng.acckeeper.stack.bean.dto.AccountRegisterInfo;
+import com.dwarfeng.acckeeper.stack.bean.dto.AccountUpdateInfo;
+import com.dwarfeng.acckeeper.stack.bean.dto.PasswordResetInfo;
+import com.dwarfeng.acckeeper.stack.bean.dto.PasswordUpdateInfo;
 import com.dwarfeng.acckeeper.stack.service.AccountMaintainService;
-import com.dwarfeng.acckeeper.stack.service.AccountService;
-import com.dwarfeng.acckeeper.stack.service.PasswordService;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.PasswordResetInfo;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.PasswordUpdateInfo;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.RegisterInfo;
+import com.dwarfeng.acckeeper.stack.service.AccountOperateService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
+import com.dwarfeng.rbacds.stack.bean.entity.Role;
+import com.dwarfeng.rbacds.stack.service.RoleMaintainService;
 import com.dwarfeng.rbacds.stack.service.UserMaintainService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -19,32 +20,35 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class AccountResponseServiceImpl implements AccountResponseService {
 
     private final AccountMaintainService accountMaintainService;
-    private final AccountService accountService;
-    private final PasswordService passwordService;
-    private final UserMaintainService rbacUserMaintainService;
+    private final AccountOperateService accountOperateService;
+    private final com.dwarfeng.rbacds.stack.service.UserMaintainService rbacUserMaintainService;
     private final com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
             familyhelperFinanceUserMaintainService;
+    private final com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService;
 
     public AccountResponseServiceImpl(
             @Qualifier("acckeeperAccountMaintainService") AccountMaintainService accountMaintainService,
-            @Qualifier("acckeeperAccountService") AccountService accountService,
-            @Qualifier("acckeeperPasswordService") PasswordService passwordService,
-            @Qualifier("rbacUserMaintainService") UserMaintainService rbacUserMaintainService,
+            @Qualifier("acckeeperAccountOperateService") AccountOperateService accountOperateService,
+            @Qualifier("rbacUserMaintainService")
+                    UserMaintainService rbacUserMaintainService,
             @Qualifier("familyhelperFinanceUserMaintainService")
                     com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
-                    familyhelperFinanceUserMaintainService
+                    familyhelperFinanceUserMaintainService,
+            @Qualifier("rbacRoleMaintainService")
+                    com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService
     ) {
         this.accountMaintainService = accountMaintainService;
-        this.accountService = accountService;
-        this.passwordService = passwordService;
+        this.accountOperateService = accountOperateService;
         this.rbacUserMaintainService = rbacUserMaintainService;
         this.familyhelperFinanceUserMaintainService = familyhelperFinanceUserMaintainService;
+        this.rbacRoleMaintainService = rbacRoleMaintainService;
     }
 
     @Override
@@ -57,28 +61,29 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         com.dwarfeng.acckeeper.stack.bean.entity.Account account = accountMaintainService.get(key);
         return new Account(
                 key,
-                "敬请期待",
+                account.getDisplayName(),
                 account.isEnabled(),
                 account.getRemark()
         );
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
-    public void update(Account account) throws ServiceException {
-        StringIdKey accountKey = account.getKey();
-        AccountInfo accountInfo = new AccountInfo(accountKey, account.isEnabled(), account.getRemark());
-        com.dwarfeng.rbacds.stack.bean.entity.User rbacUser =
-                new com.dwarfeng.rbacds.stack.bean.entity.User(accountKey, "通过 uiAccount 插入/更新自动生成");
-        accountService.update(accountInfo);
-        rbacUserMaintainService.insertOrUpdate(rbacUser);
+    public void addRoleRelation(StringIdKey accountKey, StringIdKey roleKey) throws ServiceException {
+        rbacUserMaintainService.addRoleRelation(accountKey, roleKey);
     }
 
     @Override
-    public void delete(StringIdKey key) throws ServiceException {
-        accountMaintainService.delete(key);
-        rbacUserMaintainService.deleteIfExists(key);
-        familyhelperFinanceUserMaintainService.deleteIfExists(key);
+    public void deleteRoleRelation(StringIdKey accountKey, StringIdKey roleKey) throws ServiceException {
+        rbacUserMaintainService.deleteRoleRelation(accountKey, roleKey);
+    }
+
+    @Override
+    public void resetRoleRelation(StringIdKey accountKey, List<StringIdKey> roleKeys) throws ServiceException {
+        List<StringIdKey> oldRoleKeys = rbacRoleMaintainService.lookup(
+                RoleMaintainService.ROLE_FOR_USER, new Object[]{accountKey}
+        ).getData().stream().map(Role::getKey).collect(Collectors.toList());
+        rbacUserMaintainService.batchDeleteRoleRelations(accountKey, oldRoleKeys);
+        rbacUserMaintainService.batchAddRoleRelations(accountKey, roleKeys);
     }
 
     @Override
@@ -95,6 +100,14 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         return this.transformPagedAcckeeperAccount(lookup);
     }
 
+    @Override
+    public PagedData<Account> displayNameLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
+        PagedData<com.dwarfeng.acckeeper.stack.bean.entity.Account> lookup = accountMaintainService.lookup(
+                AccountMaintainService.DISPLAY_NAME_LIKE, new Object[]{pattern}
+        );
+        return this.transformPagedAcckeeperAccount(lookup);
+    }
+
     private PagedData<Account> transformPagedAcckeeperAccount(
             PagedData<com.dwarfeng.acckeeper.stack.bean.entity.Account> lookup
     ) {
@@ -103,7 +116,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             StringIdKey key = acckeeperAccount.getKey();
             accounts.add(new Account(
                     key,
-                    "敬请期待",
+                    acckeeperAccount.getDisplayName(),
                     acckeeperAccount.isEnabled(),
                     acckeeperAccount.getRemark()
             ));
@@ -112,13 +125,26 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                 lookup.getRows(), lookup.getCount(), accounts);
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
-    public void register(RegisterInfo registerInfo) throws ServiceException {
-        StringIdKey accountKey = registerInfo.getKey();
-        accountService.register(
-                new AccountInfo(accountKey, registerInfo.isEnabled(), "调用 familyhelper-web 相关接口注册的账户"),
-                registerInfo.getPassword()
-        );
+    public void register(AccountRegisterInfo accountRegisterInfo) throws ServiceException {
+        StringIdKey accountKey = accountRegisterInfo.getAccountKey();
+        accountOperateService.register(accountRegisterInfo);
+        com.dwarfeng.rbacds.stack.bean.entity.User rbacUser =
+                new com.dwarfeng.rbacds.stack.bean.entity.User(accountKey, "通过 account 插入/更新自动生成");
+        rbacUserMaintainService.insertOrUpdate(rbacUser);
+        com.dwarfeng.familyhelper.finance.stack.bean.entity.User familyhelperFinanceUser =
+                new com.dwarfeng.familyhelper.finance.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperFinanceUserMaintainService.insertOrUpdate(familyhelperFinanceUser);
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public void update(AccountUpdateInfo accountUpdateInfo) throws ServiceException {
+        StringIdKey accountKey = accountUpdateInfo.getAccountKey();
+        accountOperateService.update(accountUpdateInfo);
         com.dwarfeng.rbacds.stack.bean.entity.User rbacUser =
                 new com.dwarfeng.rbacds.stack.bean.entity.User(accountKey, "通过 account 插入/更新自动生成");
         rbacUserMaintainService.insertOrUpdate(rbacUser);
@@ -130,12 +156,26 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     }
 
     @Override
-    public void updatePassword(StringIdKey key, PasswordUpdateInfo passwordUpdateInfo) throws ServiceException {
-        passwordService.updatePassword(key, passwordUpdateInfo.getOldPassword(), passwordUpdateInfo.getNewPassword());
+    public void delete(StringIdKey key) throws ServiceException {
+        accountOperateService.delete(key);
+        rbacUserMaintainService.deleteIfExists(key);
+        familyhelperFinanceUserMaintainService.deleteIfExists(key);
+    }
+
+    @Override
+    public void updatePassword(PasswordUpdateInfo passwordUpdateInfo) throws ServiceException {
+        accountOperateService.updatePassword(passwordUpdateInfo);
+        accountOperateService.invalid(passwordUpdateInfo.getAccountKey());
     }
 
     @Override
     public void resetPassword(PasswordResetInfo passwordResetInfo) throws ServiceException {
-        passwordService.resetPassword(passwordResetInfo.getAccountKey(), passwordResetInfo.getNewPassword());
+        accountOperateService.resetPassword(passwordResetInfo);
+        accountOperateService.invalid(passwordResetInfo.getAccountKey());
+    }
+
+    @Override
+    public void invalid(StringIdKey key) throws ServiceException {
+        accountOperateService.invalid(key);
     }
 }

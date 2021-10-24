@@ -1,27 +1,25 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.system;
 
+import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputLoginInfo;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.system.JSFixedFastJsonLoginResponse;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.system.WebInputLoginRequest;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.system.FastJsonAccount;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.LoginRequest;
 import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.LoginResponse;
-import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.LoginResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
+import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
-import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
-import org.dozer.Mapper;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 登录控制器。
@@ -34,27 +32,62 @@ import java.util.List;
 public class LoginController {
 
     private final LoginResponseService loginResponseService;
-    private final TokenHandler tokenHandler;
-    private final Mapper mapper;
+
     private final ServiceExceptionMapper sem;
 
     public LoginController(
-            LoginResponseService loginResponseService, TokenHandler tokenHandler, Mapper mapper,
+            LoginResponseService loginResponseService,
+            TokenHandler tokenHandler,
             ServiceExceptionMapper sem
     ) {
         this.loginResponseService = loginResponseService;
-        this.tokenHandler = tokenHandler;
-        this.mapper = mapper;
         this.sem = sem;
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login/is-login")
+    @BehaviorAnalyse
+    @LoginRequired
+    @BindingCheck
+    public FastJsonResponseData<Boolean> isLogin(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLongIdKey loginStateKey, BindingResult bindingResult
+    ) {
+        try {
+            boolean result = loginResponseService.isLogin(WebInputLongIdKey.toStackBean(loginStateKey));
+            return FastJsonResponseData.of(ResponseDataUtil.good(result));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+        }
+    }
+
+    @PostMapping("/login/inspect-login-state")
+    @BehaviorAnalyse
+    @LoginRequired
+    @BindingCheck
+    public FastJsonResponseData<JSFixedFastJsonLoginResponse> inspectLoginState(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLongIdKey loginStateKey, BindingResult bindingResult
+    ) {
+        try {
+            LoginResponse loginResponse = loginResponseService.inspectLoginState(
+                    WebInputLongIdKey.toStackBean(loginStateKey)
+            );
+            JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
+            return FastJsonResponseData.of(ResponseDataUtil.good(of));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonLoginResponse.class, e, sem));
+        }
+    }
+
+    @PostMapping("/login/login")
     @BehaviorAnalyse
     @BindingCheck
     public FastJsonResponseData<JSFixedFastJsonLoginResponse> login(
-            @RequestBody @Validated WebInputLoginRequest loginRequest, BindingResult bindingResult) {
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLoginInfo loginInfo, BindingResult bindingResult
+    ) {
         try {
-            LoginResponse loginResponse = loginResponseService.login(mapper.map(loginRequest, LoginRequest.class));
+            LoginResponse loginResponse = loginResponseService.login(WebInputLoginInfo.toStackBean(loginInfo));
             JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
             return FastJsonResponseData.of(ResponseDataUtil.good(of));
         } catch (Exception e) {
@@ -62,14 +95,16 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/postpone")
+    @PostMapping("/login/postpone")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonLoginResponse> postpone(HttpServletRequest request) {
+    @BindingCheck
+    public FastJsonResponseData<JSFixedFastJsonLoginResponse> postpone(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLongIdKey loginStateKey, BindingResult bindingResult
+    ) {
         try {
-            long tokenId = tokenHandler.getTokenId(request);
-            loginResponseService.postpone(new LongIdKey(tokenId));
-            LoginResponse loginResponse = loginResponseService.getLoginResponse(new LongIdKey(tokenId));
+            LoginResponse loginResponse = loginResponseService.postpone(WebInputLongIdKey.toStackBean(loginStateKey));
             JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
             return FastJsonResponseData.of(ResponseDataUtil.good(of));
         } catch (Exception e) {
@@ -77,54 +112,16 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/my-login-state")
-    @BehaviorAnalyse
-    @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonLoginResponse> myLoginState(HttpServletRequest request) {
-        try {
-            long tokenId = tokenHandler.getTokenId(request);
-            LoginResponse loginResponse = loginResponseService.getLoginResponse(new LongIdKey(tokenId));
-            JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
-            return FastJsonResponseData.of(ResponseDataUtil.good(of));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonLoginResponse.class, e, sem));
-        }
-    }
-
-    @GetMapping("/my-permissions")
-    @BehaviorAnalyse
-    @LoginRequired
-    public FastJsonResponseData<List<String>> myPermissions(HttpServletRequest request) {
-        try {
-            long tokenId = tokenHandler.getTokenId(request);
-            List<String> permissions = loginResponseService.getPermissions(new LongIdKey(tokenId));
-            return FastJsonResponseData.of(ResponseDataUtil.good(permissions));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(List.class, e, sem));
-        }
-    }
-
-    @PostMapping("/logout")
+    @PostMapping("/login/logout")
     @BehaviorAnalyse
     @BindingCheck
-    public FastJsonResponseData<Object> logout(HttpServletRequest request) {
+    public FastJsonResponseData<Object> logout(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLongIdKey loginStateKey, BindingResult bindingResult
+    ) {
         try {
-            long tokenId = tokenHandler.getTokenId(request);
-            loginResponseService.logout(new LongIdKey(tokenId));
+            loginResponseService.logout(WebInputLongIdKey.toStackBean(loginStateKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
-        }
-    }
-
-    @GetMapping("/who-am-i")
-    @BehaviorAnalyse
-    @BindingCheck
-    public FastJsonResponseData<FastJsonAccount> whoAmI(HttpServletRequest request) {
-        try {
-            long tokenId = tokenHandler.getTokenId(request);
-            Account uiAccount = loginResponseService.whoAmI(new LongIdKey(tokenId));
-            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonAccount.of(uiAccount)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
         }

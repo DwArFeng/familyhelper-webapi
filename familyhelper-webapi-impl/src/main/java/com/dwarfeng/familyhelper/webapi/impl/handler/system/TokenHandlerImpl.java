@@ -35,6 +35,12 @@ public class TokenHandlerImpl implements TokenHandler {
     }
 
     @Override
+    public LongIdKey getLoginStateKey(HttpServletRequest httpServletRequest) {
+        long loginStateId = Long.parseLong(httpServletRequest.getHeader(tokenKey));
+        return new LongIdKey(loginStateId);
+    }
+
+    @Override
     public StringIdKey getAccountKey(HttpServletRequest httpServletRequest) throws HandlerException {
         try {
             long tokenId = Long.parseLong(httpServletRequest.getHeader(tokenKey));

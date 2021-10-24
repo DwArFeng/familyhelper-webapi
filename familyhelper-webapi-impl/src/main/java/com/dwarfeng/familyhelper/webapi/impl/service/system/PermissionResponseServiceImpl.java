@@ -2,6 +2,7 @@ package com.dwarfeng.familyhelper.webapi.impl.service.system;
 
 import com.dwarfeng.familyhelper.webapi.stack.service.system.PermissionResponseService;
 import com.dwarfeng.rbacds.stack.bean.entity.Permission;
+import com.dwarfeng.rbacds.stack.service.PermissionLookupService;
 import com.dwarfeng.rbacds.stack.service.PermissionMaintainService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -10,16 +11,21 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class PermissionResponseServiceImpl implements PermissionResponseService {
 
     private final PermissionMaintainService permissionMaintainService;
+    private final PermissionLookupService permissionLookupService;
 
     public PermissionResponseServiceImpl(
-            @Qualifier("rbacPermissionMaintainService") PermissionMaintainService permissionMaintainService
+            @Qualifier("rbacPermissionMaintainService") PermissionMaintainService permissionMaintainService,
+            @Qualifier("rbacPermissionLookupService") PermissionLookupService permissionLookupService
     ) {
         this.permissionMaintainService = permissionMaintainService;
+        this.permissionLookupService = permissionLookupService;
     }
 
     @Override
@@ -59,5 +65,10 @@ public class PermissionResponseServiceImpl implements PermissionResponseService 
         return permissionMaintainService.lookup(
                 PermissionMaintainService.CHILD_FOR_GROUP, new Object[]{groupKey}, pagingInfo
         );
+    }
+
+    @Override
+    public List<Permission> lookupForUser(StringIdKey userKey) throws ServiceException {
+        return permissionLookupService.lookupForUser(userKey);
     }
 }

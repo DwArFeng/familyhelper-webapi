@@ -30,4 +30,6 @@ public interface RoleResponseService extends Service {
     void deleteAccountRelation(StringIdKey roleIdKey, StringIdKey accountKey) throws ServiceException;
 
     PagedData<Role> all(PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<Role> childForAccount(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
 }

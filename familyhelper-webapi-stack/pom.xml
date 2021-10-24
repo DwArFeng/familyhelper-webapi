@@ -33,6 +33,15 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
+        <!-- acckeeper组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>account-keeper-stack</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>account-keeper-sdk</artifactId>
+        </dependency>
         <!-- rbac组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

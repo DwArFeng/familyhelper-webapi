@@ -159,4 +159,21 @@ public class RoleController {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
         }
     }
+
+    @GetMapping("/account/{accountId}/role")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonRole>> childForAccount(
+            HttpServletRequest request,
+            @PathVariable("accountId") String accountId, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<Role> all = service.childForAccount(new StringIdKey(accountId), new PagingInfo(page, rows));
+            PagedData<FastJsonRole> transform = PagingUtil.transform(all, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
 }

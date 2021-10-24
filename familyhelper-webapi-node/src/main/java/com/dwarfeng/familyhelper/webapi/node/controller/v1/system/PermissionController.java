@@ -9,6 +9,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
+import com.dwarfeng.subgrade.sdk.bean.key.WebInputStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
@@ -24,7 +25,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 权限控制器。
@@ -155,6 +158,23 @@ public class PermissionController {
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
+    @PostMapping("/permission/lookup-for-user")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public FastJsonResponseData<List<FastJsonPermission>> lookupForUser(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputStringIdKey userKey, BindingResult bindingResult
+    ) {
+        try {
+            List<Permission> permissions = service.lookupForUser(WebInputStringIdKey.toStackBean(userKey));
+            List<FastJsonPermission> result = permissions.stream().map(FastJsonPermission::of).collect(Collectors.toList());
+            return FastJsonResponseData.of(ResponseDataUtil.good(result));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(List.class, e, sem));
         }
     }
 }

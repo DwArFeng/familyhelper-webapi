@@ -59,4 +59,9 @@ public class RoleResponseServiceImpl implements RoleResponseService {
     public PagedData<Role> all(PagingInfo pagingInfo) throws ServiceException {
         return roleMaintainService.lookup(pagingInfo);
     }
+
+    @Override
+    public PagedData<Role> childForAccount(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException {
+        return roleMaintainService.lookup(RoleMaintainService.ROLE_FOR_USER, new Object[]{accountKey}, pagingInfo);
+    }
 }
