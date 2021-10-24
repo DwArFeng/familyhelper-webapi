@@ -103,7 +103,7 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
     public PagedData<DispAccountBook> allPermittedDisp(StringIdKey accountKey, PagingInfo pagingInfo)
             throws ServiceException {
         PagedData<Poab> lookup = poabMaintainService.lookup(
-                PoabMaintainService.CHILD_FOR_USER, new Object[]{accountKey}
+                PoabMaintainService.CHILD_FOR_USER, new Object[]{accountKey}, pagingInfo
         );
         List<DispAccountBook> dispAccountBooks = new ArrayList<>();
         for (Poab poab : lookup.getData()) {
@@ -120,7 +120,8 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
             throws ServiceException {
         PagedData<Poab> lookup = poabMaintainService.lookup(
                 PoabMaintainService.CHILD_FOR_USER_PERMISSION_LEVEL_EQUALS,
-                new Object[]{accountKey, Poab.PERMISSION_LEVEL_OWNER}
+                new Object[]{accountKey, Poab.PERMISSION_LEVEL_OWNER},
+                pagingInfo
         );
         List<DispAccountBook> dispAccountBooks = new ArrayList<>();
         for (Poab poab : lookup.getData()) {

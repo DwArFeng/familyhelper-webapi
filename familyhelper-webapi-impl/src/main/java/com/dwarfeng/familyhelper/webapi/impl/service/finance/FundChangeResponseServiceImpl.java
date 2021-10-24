@@ -70,7 +70,7 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
     public PagedData<FundChange> childForAccountBook(LongIdKey accountBookKey, PagingInfo pagingInfo)
             throws ServiceException {
         return fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}
+                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}, pagingInfo
         );
     }
 
@@ -78,7 +78,7 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
     public PagedData<FundChange> childForAccountBookDesc(LongIdKey accountBookKey, PagingInfo pagingInfo)
             throws ServiceException {
         return fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_DESC, new Object[]{accountBookKey}
+                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_DESC, new Object[]{accountBookKey}, pagingInfo
         );
     }
 
@@ -87,7 +87,9 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
             LongIdKey accountBookKey, String changeType, PagingInfo pagingInfo
     ) throws ServiceException {
         return fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS, new Object[]{accountBookKey, changeType}
+                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS,
+                new Object[]{accountBookKey, changeType},
+                pagingInfo
         );
     }
 
@@ -97,7 +99,8 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
     ) throws ServiceException {
         return fundChangeMaintainService.lookup(
                 FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS_DESC,
-                new Object[]{accountBookKey, changeType}
+                new Object[]{accountBookKey, changeType},
+                pagingInfo
         );
     }
 
@@ -126,7 +129,7 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
             StringIdKey accountKey, LongIdKey accountBookKey, PagingInfo pagingInfo
     ) throws ServiceException {
         PagedData<FundChange> lookup = fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}
+                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}, pagingInfo
         );
         List<DispFundChange> dispFundChanges = new ArrayList<>();
         for (FundChange fundChange : lookup.getData()) {
@@ -143,7 +146,7 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
             StringIdKey accountKey, LongIdKey accountBookKey, PagingInfo pagingInfo
     ) throws ServiceException {
         PagedData<FundChange> lookup = fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_DESC, new Object[]{accountBookKey}
+                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_DESC, new Object[]{accountBookKey}, pagingInfo
         );
         List<DispFundChange> dispFundChanges = new ArrayList<>();
         for (FundChange fundChange : lookup.getData()) {
@@ -160,7 +163,9 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
             StringIdKey accountKey, LongIdKey accountBookKey, String changeType, PagingInfo pagingInfo
     ) throws ServiceException {
         PagedData<FundChange> lookup = fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS, new Object[]{accountBookKey, changeType}
+                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS,
+                new Object[]{accountBookKey, changeType},
+                pagingInfo
         );
         List<DispFundChange> dispFundChanges = new ArrayList<>();
         for (FundChange fundChange : lookup.getData()) {
@@ -178,7 +183,8 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
     ) throws ServiceException {
         PagedData<FundChange> lookup = fundChangeMaintainService.lookup(
                 FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS_DESC,
-                new Object[]{accountBookKey, changeType}
+                new Object[]{accountBookKey, changeType},
+                pagingInfo
         );
         List<DispFundChange> dispFundChanges = new ArrayList<>();
         for (FundChange fundChange : lookup.getData()) {

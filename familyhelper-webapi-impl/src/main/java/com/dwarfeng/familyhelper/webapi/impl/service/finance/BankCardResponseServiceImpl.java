@@ -73,7 +73,7 @@ public class BankCardResponseServiceImpl implements BankCardResponseService {
     public PagedData<BankCard> childForAccountBook(LongIdKey accountBookKey, PagingInfo pagingInfo)
             throws ServiceException {
         return bankCardMaintainService.lookup(
-                BankCardMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}
+                BankCardMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}, pagingInfo
         );
     }
 
@@ -102,7 +102,7 @@ public class BankCardResponseServiceImpl implements BankCardResponseService {
             StringIdKey accountKey, LongIdKey accountBookKey, PagingInfo pagingInfo
     ) throws ServiceException {
         PagedData<BankCard> lookup = bankCardMaintainService.lookup(
-                BankCardMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}
+                BankCardMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}, pagingInfo
         );
         List<DispBankCard> dispBankCards = new ArrayList<>();
         for (BankCard bankCard : lookup.getData()) {
