@@ -134,10 +134,30 @@ public class AccountController {
     @SkipRecord
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAccount>> all(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             PagedData<Account> all = accountResponseService.all(new PagingInfo(page, rows));
             PagedData<FastJsonAccount> transform = PagingUtil.transform(all, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
+    @GetMapping("/role/{roleId}/account")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAccount>> childForRole(
+            HttpServletRequest request,
+            @PathVariable("roleId") String roleId, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<Account> childForRole = accountResponseService.childForRole(
+                    new StringIdKey(roleId), new PagingInfo(page, rows)
+            );
+            PagedData<FastJsonAccount> transform = PagingUtil.transform(childForRole, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));

@@ -9,6 +9,7 @@ import com.dwarfeng.acckeeper.stack.service.AccountOperateService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
 import com.dwarfeng.rbacds.stack.bean.entity.Role;
+import com.dwarfeng.rbacds.stack.bean.entity.User;
 import com.dwarfeng.rbacds.stack.service.RoleMaintainService;
 import com.dwarfeng.rbacds.stack.service.UserMaintainService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -93,6 +94,14 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     }
 
     @Override
+    public PagedData<Account> childForRole(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException {
+        PagedData<User> lookup = rbacUserMaintainService.lookup(
+                UserMaintainService.CHILD_FOR_ROLE, new Object[]{accountKey}, pagingInfo
+        );
+        return this.transformPagedRbacUser(lookup);
+    }
+
+    @Override
     public PagedData<Account> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
         PagedData<com.dwarfeng.acckeeper.stack.bean.entity.Account> lookup = accountMaintainService.lookup(
                 AccountMaintainService.ID_LIKE, new Object[]{pattern}
@@ -114,6 +123,24 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         List<Account> accounts = new ArrayList<>();
         for (com.dwarfeng.acckeeper.stack.bean.entity.Account acckeeperAccount : lookup.getData()) {
             StringIdKey key = acckeeperAccount.getKey();
+            accounts.add(new Account(
+                    key,
+                    acckeeperAccount.getDisplayName(),
+                    acckeeperAccount.isEnabled(),
+                    acckeeperAccount.getRemark()
+            ));
+        }
+        return new PagedData<>(lookup.getCurrentPage(), lookup.getTotalPages(),
+                lookup.getRows(), lookup.getCount(), accounts);
+    }
+
+    private PagedData<Account> transformPagedRbacUser(
+            PagedData<com.dwarfeng.rbacds.stack.bean.entity.User> lookup
+    ) throws ServiceException {
+        List<Account> accounts = new ArrayList<>();
+        for (com.dwarfeng.rbacds.stack.bean.entity.User user : lookup.getData()) {
+            StringIdKey key = user.getKey();
+            com.dwarfeng.acckeeper.stack.bean.entity.Account acckeeperAccount = accountMaintainService.get(key);
             accounts.add(new Account(
                     key,
                     acckeeperAccount.getDisplayName(),
