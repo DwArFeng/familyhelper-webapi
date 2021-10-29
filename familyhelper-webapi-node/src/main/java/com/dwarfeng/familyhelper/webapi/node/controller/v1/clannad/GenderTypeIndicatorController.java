@@ -1,9 +1,9 @@
-package com.dwarfeng.familyhelper.webapi.node.controller.v1.finance;
+package com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad;
 
-import com.dwarfeng.familyhelper.finance.sdk.bean.entity.FastJsonBankCardTypeIndicator;
-import com.dwarfeng.familyhelper.finance.sdk.bean.entity.WebInputBankCardTypeIndicator;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCardTypeIndicator;
-import com.dwarfeng.familyhelper.webapi.stack.service.finance.BankCardTypeIndicatorResponseService;
+import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonGenderTypeIndicator;
+import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.WebInputGenderTypeIndicator;
+import com.dwarfeng.familyhelper.clannad.stack.bean.entity.GenderTypeIndicator;
+import com.dwarfeng.familyhelper.webapi.stack.service.clannad.GenderTypeIndicatorResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
@@ -26,30 +26,30 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 银行卡类型指示器控制器。
+ * 性别类型指示器控制器。
  *
  * @author DwArFeng
- * @since 1.0.0
+ * @since 1.0.1
  */
 @RestController
-@RequestMapping("/api/v1/finance")
-public class BankCardTypeIndicatorController {
+@RequestMapping("/api/v1/clannad")
+public class GenderTypeIndicatorController {
 
-    private final BankCardTypeIndicatorResponseService service;
+    private final GenderTypeIndicatorResponseService service;
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<BankCardTypeIndicator, FastJsonBankCardTypeIndicator> beanTransformer;
+    private final BeanTransformer<GenderTypeIndicator, FastJsonGenderTypeIndicator> beanTransformer;
 
-    public BankCardTypeIndicatorController(
-            BankCardTypeIndicatorResponseService service, ServiceExceptionMapper sem,
-            BeanTransformer<BankCardTypeIndicator, FastJsonBankCardTypeIndicator> beanTransformer
+    public GenderTypeIndicatorController(
+            GenderTypeIndicatorResponseService service, ServiceExceptionMapper sem,
+            BeanTransformer<GenderTypeIndicator, FastJsonGenderTypeIndicator> beanTransformer
     ) {
         this.service = service;
         this.sem = sem;
         this.beanTransformer = beanTransformer;
     }
 
-    @GetMapping("/bank-card-type-indicator/{id}/exists")
+    @GetMapping("/gender-type-indicator/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
@@ -61,54 +61,54 @@ public class BankCardTypeIndicatorController {
         }
     }
 
-    @GetMapping("/bank-card-type-indicator/{id}")
+    @GetMapping("/gender-type-indicator/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<FastJsonBankCardTypeIndicator> get(HttpServletRequest request, @PathVariable("id") String id) {
+    public FastJsonResponseData<FastJsonGenderTypeIndicator> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
-            BankCardTypeIndicator bankCardTypeIndicator = service.get(new StringIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonBankCardTypeIndicator.of(bankCardTypeIndicator)));
+            GenderTypeIndicator genderTypeIndicator = service.get(new StringIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonGenderTypeIndicator.of(genderTypeIndicator)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonBankCardTypeIndicator.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonGenderTypeIndicator.class, e, sem));
         }
     }
 
-    @PostMapping("/bank-card-type-indicator")
+    @PostMapping("/gender-type-indicator")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputBankCardTypeIndicator webInputBankCardTypeIndicator,
+            @RequestBody @Validated(Insert.class) WebInputGenderTypeIndicator webInputGenderTypeIndicator,
             BindingResult bindingResult
     ) {
         try {
-            BankCardTypeIndicator bankCardTypeIndicator = WebInputBankCardTypeIndicator.toStackBean(webInputBankCardTypeIndicator);
-            StringIdKey insert = service.insert(bankCardTypeIndicator);
+            GenderTypeIndicator genderTypeIndicator = WebInputGenderTypeIndicator.toStackBean(webInputGenderTypeIndicator);
+            StringIdKey insert = service.insert(genderTypeIndicator);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonStringIdKey.class, e, sem));
         }
     }
 
-    @PatchMapping("/bank-card-type-indicator")
+    @PatchMapping("/gender-type-indicator")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputBankCardTypeIndicator webInputBankCardTypeIndicator,
+            @RequestBody @Validated WebInputGenderTypeIndicator webInputGenderTypeIndicator,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputBankCardTypeIndicator.toStackBean(webInputBankCardTypeIndicator));
+            service.update(WebInputGenderTypeIndicator.toStackBean(webInputGenderTypeIndicator));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
         }
     }
 
-    @DeleteMapping("/bank-card-type-indicator/{id}")
+    @DeleteMapping("/gender-type-indicator/{id}")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
@@ -120,15 +120,15 @@ public class BankCardTypeIndicatorController {
         }
     }
 
-    @GetMapping("/bank-card-type-indicator/all")
+    @GetMapping("/gender-type-indicator/all")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonBankCardTypeIndicator>> all(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonGenderTypeIndicator>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            PagedData<BankCardTypeIndicator> all = service.all(new PagingInfo(page, rows));
-            PagedData<FastJsonBankCardTypeIndicator> transform = PagingUtil.transform(all, beanTransformer);
+            PagedData<GenderTypeIndicator> all = service.all(new PagingInfo(page, rows));
+            PagedData<FastJsonGenderTypeIndicator> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));

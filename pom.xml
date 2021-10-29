@@ -56,6 +56,7 @@
         <acckeeper.version>1.4.1.a</acckeeper.version>
         <rbac.version>1.4.0.a</rbac.version>
         <familyhelper-finance.version>1.2.3.a</familyhelper-finance.version>
+        <familyhelper-clannad.version>1.1.0.a</familyhelper-clannad.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -387,6 +388,17 @@
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-finance-sdk</artifactId>
                 <version>${familyhelper-finance.version}</version>
+            </dependency>
+            <!-- familyhelper-clannad组件 -->
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>familyhelper-clannad-stack</artifactId>
+                <version>${familyhelper-clannad.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>familyhelper-clannad-sdk</artifactId>
+                <version>${familyhelper-clannad.version}</version>
             </dependency>
             <!-- 程序自身引用 -->
             <dependency>

@@ -2,7 +2,10 @@
 
 ### Release_1.0.1_20211029_build_A
 
-- (无)
+#### 功能构建
+
+- 完成我与家庭 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.GenderTypeIndicatorController。
 
 #### Bug修复
 

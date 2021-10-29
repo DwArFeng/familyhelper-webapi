@@ -52,5 +52,10 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-finance-stack</artifactId>
         </dependency>
+        <!-- familyhelper-clannad组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>familyhelper-clannad-stack</artifactId>
+        </dependency>
     </dependencies>
 </project>

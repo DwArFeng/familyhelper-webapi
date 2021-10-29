@@ -89,6 +89,10 @@
     <dubbo:reference id="familyhelperFinanceBankCardBalanceHistoryMaintainService"
                      interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardBalanceHistoryMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <!-- familyhelper-clannad -->
+    <dubbo:reference id="familyhelperClannadGenderTypeIndicatorMaintainService"
+                     interface="com.dwarfeng.familyhelper.clannad.stack.service.GenderTypeIndicatorMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <!-- snowflake -->
     <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService" check="false"/>
 </beans>
