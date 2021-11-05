@@ -5,7 +5,7 @@ import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputAccountUpdateInfo;
 import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputPasswordResetInfo;
 import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputPasswordUpdateInfo;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.system.FastJsonAccount;
-import com.dwarfeng.familyhelper.webapi.sdk.util.ValidateList;
+import com.dwarfeng.familyhelper.webapi.sdk.cna.ValidateList;
 import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

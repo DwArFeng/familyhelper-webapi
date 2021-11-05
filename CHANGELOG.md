@@ -5,7 +5,7 @@
 #### 功能构建
 
 - 完成我与家庭 Controller。
-  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.GenderTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.ProfileTypeIndicatorController。
 
 #### Bug修复
 

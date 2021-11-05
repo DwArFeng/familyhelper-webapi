@@ -125,7 +125,8 @@ public class FundChangeTypeIndicatorController {
     @SkipRecord
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonFundChangeTypeIndicator>> all(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             PagedData<FundChangeTypeIndicator> all = service.all(new PagingInfo(page, rows));
             PagedData<FastJsonFundChangeTypeIndicator> transform = PagingUtil.transform(all, beanTransformer);

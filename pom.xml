@@ -55,8 +55,8 @@
         <subgrade.version>1.2.0.b</subgrade.version>
         <acckeeper.version>1.4.1.a</acckeeper.version>
         <rbac.version>1.4.0.a</rbac.version>
-        <familyhelper-finance.version>1.2.3.a</familyhelper-finance.version>
-        <familyhelper-clannad.version>1.1.0.a</familyhelper-clannad.version>
+        <familyhelper-finance.version>1.2.5.a</familyhelper-finance.version>
+        <familyhelper-clannad.version>1.1.1.a</familyhelper-clannad.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
