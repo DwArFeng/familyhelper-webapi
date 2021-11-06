@@ -35,6 +35,8 @@ public interface AccountResponseService extends Service {
 
     PagedData<Account> childForRole(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
 
+    PagedData<Account> childForProfileGuest(StringIdKey profileKey, PagingInfo pagingInfo) throws ServiceException;
+
     PagedData<Account> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
 
     PagedData<Account> displayNameLike(String pattern, PagingInfo pagingInfo) throws ServiceException;

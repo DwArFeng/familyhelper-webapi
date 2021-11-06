@@ -93,8 +93,14 @@
     <dubbo:reference id="familyhelperClannadProfileMaintainService"
                      interface="com.dwarfeng.familyhelper.clannad.stack.service.ProfileMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperClannadProfileOperateService"
+                     interface="com.dwarfeng.familyhelper.clannad.stack.service.ProfileOperateService"
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="familyhelperClannadProfileTypeIndicatorMaintainService"
                      interface="com.dwarfeng.familyhelper.clannad.stack.service.ProfileTypeIndicatorMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperClannadPoprMaintainService"
+                     interface="com.dwarfeng.familyhelper.clannad.stack.service.PoprMaintainService"
                      retries="3" timeout="60000" check="false"/>
     <!-- snowflake -->
     <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService" check="false"/>

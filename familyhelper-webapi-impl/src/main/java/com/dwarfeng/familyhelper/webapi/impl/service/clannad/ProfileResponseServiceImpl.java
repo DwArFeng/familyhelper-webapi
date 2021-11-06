@@ -1,10 +1,12 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.clannad;
 
 import com.dwarfeng.familyhelper.clannad.sdk.enumeration.ProfileTypeCategory;
+import com.dwarfeng.familyhelper.clannad.stack.bean.dto.ProfileUpdateInfo;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Profile;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.ProfileTypeIndicator;
 import com.dwarfeng.familyhelper.clannad.stack.bean.key.ProfileTypeIndicatorKey;
 import com.dwarfeng.familyhelper.clannad.stack.service.ProfileMaintainService;
+import com.dwarfeng.familyhelper.clannad.stack.service.ProfileOperateService;
 import com.dwarfeng.familyhelper.clannad.stack.service.ProfileTypeIndicatorMaintainService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispProfile;
 import com.dwarfeng.familyhelper.webapi.stack.service.clannad.ProfileResponseService;
@@ -13,6 +15,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Service
@@ -21,15 +24,18 @@ public class ProfileResponseServiceImpl implements ProfileResponseService {
 
     private final ProfileMaintainService profileMaintainService;
     private final ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService;
+    private final ProfileOperateService profileOperateService;
 
     public ProfileResponseServiceImpl(
             @Qualifier("familyhelperClannadProfileMaintainService")
                     ProfileMaintainService profileMaintainService,
             @Qualifier("familyhelperClannadProfileTypeIndicatorMaintainService")
-                    ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService
+                    ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService,
+            @Qualifier("familyhelperClannadProfileOperateService") ProfileOperateService profileOperateService
     ) {
         this.profileMaintainService = profileMaintainService;
         this.profileTypeIndicatorMaintainService = profileTypeIndicatorMaintainService;
+        this.profileOperateService = profileOperateService;
     }
 
     @Override
@@ -105,7 +111,22 @@ public class ProfileResponseServiceImpl implements ProfileResponseService {
     }
 
     @Override
-    public void updateProfile(Profile profile) throws ServiceException {
-        profileMaintainService.insertOrUpdate(profile);
+    public void updateProfile(StringIdKey userKey, ProfileUpdateInfo profileUpdateInfo) throws ServiceException {
+        profileOperateService.updateProfile(userKey, profileUpdateInfo);
+    }
+
+    @Override
+    public void addGuestPermission(StringIdKey ownerUserKey, StringIdKey guestUserKey) throws ServiceException {
+        profileOperateService.addGuestPermission(ownerUserKey, guestUserKey);
+    }
+
+    @Override
+    public void removeGuestPermission(StringIdKey ownerUserKey, StringIdKey guestUserKey) throws ServiceException {
+        profileOperateService.removeGuestPermission(ownerUserKey, guestUserKey);
+    }
+
+    @Override
+    public void resetGuestPermission(StringIdKey ownerUserKey, Collection<StringIdKey> guestUserKeys) throws ServiceException {
+        profileOperateService.resetGuestPermission(ownerUserKey, guestUserKeys);
     }
 }

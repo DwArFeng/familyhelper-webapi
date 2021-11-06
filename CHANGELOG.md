@@ -6,6 +6,7 @@
 
 - 完成我与家庭 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.ProfileTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.ProfileController。
 
 #### Bug修复
 

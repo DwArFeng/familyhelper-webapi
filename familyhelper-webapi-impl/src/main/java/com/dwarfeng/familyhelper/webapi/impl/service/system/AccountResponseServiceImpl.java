@@ -6,6 +6,8 @@ import com.dwarfeng.acckeeper.stack.bean.dto.PasswordResetInfo;
 import com.dwarfeng.acckeeper.stack.bean.dto.PasswordUpdateInfo;
 import com.dwarfeng.acckeeper.stack.service.AccountMaintainService;
 import com.dwarfeng.acckeeper.stack.service.AccountOperateService;
+import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Popr;
+import com.dwarfeng.familyhelper.clannad.stack.service.PoprMaintainService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
 import com.dwarfeng.rbacds.stack.bean.entity.Role;
@@ -33,23 +35,24 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     private final com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
             familyhelperFinanceUserMaintainService;
     private final com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService;
+    private final PoprMaintainService poprMaintainService;
 
     public AccountResponseServiceImpl(
             @Qualifier("acckeeperAccountMaintainService") AccountMaintainService accountMaintainService,
             @Qualifier("acckeeperAccountOperateService") AccountOperateService accountOperateService,
-            @Qualifier("rbacUserMaintainService")
-                    UserMaintainService rbacUserMaintainService,
+            @Qualifier("rbacUserMaintainService") UserMaintainService rbacUserMaintainService,
             @Qualifier("familyhelperFinanceUserMaintainService")
                     com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
                     familyhelperFinanceUserMaintainService,
-            @Qualifier("rbacRoleMaintainService")
-                    com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService
+            @Qualifier("rbacRoleMaintainService") RoleMaintainService rbacRoleMaintainService,
+            @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService
     ) {
         this.accountMaintainService = accountMaintainService;
         this.accountOperateService = accountOperateService;
         this.rbacUserMaintainService = rbacUserMaintainService;
         this.familyhelperFinanceUserMaintainService = familyhelperFinanceUserMaintainService;
         this.rbacRoleMaintainService = rbacRoleMaintainService;
+        this.poprMaintainService = poprMaintainService;
     }
 
     @Override
@@ -102,6 +105,15 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     }
 
     @Override
+    public PagedData<Account> childForProfileGuest(StringIdKey profileKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        PagedData<Popr> lookup = poprMaintainService.lookup(
+                PoprMaintainService.CHILD_FOR_PROFILE, new Object[]{profileKey}, pagingInfo
+        );
+        return this.transformPagedClannadPopr(lookup);
+    }
+
+    @Override
     public PagedData<Account> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
         PagedData<com.dwarfeng.acckeeper.stack.bean.entity.Account> lookup = accountMaintainService.lookup(
                 AccountMaintainService.ID_LIKE, new Object[]{pattern}
@@ -150,6 +162,23 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         }
         return new PagedData<>(lookup.getCurrentPage(), lookup.getTotalPages(),
                 lookup.getRows(), lookup.getCount(), accounts);
+    }
+
+    private PagedData<Account> transformPagedClannadPopr(PagedData<Popr> lookup) throws ServiceException {
+        List<Account> accounts = new ArrayList<>();
+        for (Popr popr : lookup.getData()) {
+            StringIdKey key = new StringIdKey(popr.getKey().getUserId());
+            com.dwarfeng.acckeeper.stack.bean.entity.Account acckeeperAccount = accountMaintainService.get(key);
+            accounts.add(new Account(
+                    key,
+                    acckeeperAccount.getDisplayName(),
+                    acckeeperAccount.isEnabled(),
+                    acckeeperAccount.getRemark()
+            ));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), accounts
+        );
     }
 
     @SuppressWarnings("DuplicatedCode")

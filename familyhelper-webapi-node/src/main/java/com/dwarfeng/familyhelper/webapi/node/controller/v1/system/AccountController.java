@@ -164,6 +164,25 @@ public class AccountController {
         }
     }
 
+    @GetMapping("/profile/{profileId}/account/guest")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAccount>> childForProfileGuest(
+            HttpServletRequest request,
+            @PathVariable("profileId") String profileId, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<Account> childForProfileGuest = accountResponseService.childForProfileGuest(
+                    new StringIdKey(profileId), new PagingInfo(page, rows)
+            );
+            PagedData<FastJsonAccount> transform = PagingUtil.transform(childForProfileGuest, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
     @GetMapping("/account/id-like")
     @BehaviorAnalyse
     @SkipRecord
