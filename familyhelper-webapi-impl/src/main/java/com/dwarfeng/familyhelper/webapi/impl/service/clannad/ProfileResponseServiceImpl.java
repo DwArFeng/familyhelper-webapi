@@ -27,8 +27,7 @@ public class ProfileResponseServiceImpl implements ProfileResponseService {
     private final ProfileOperateService profileOperateService;
 
     public ProfileResponseServiceImpl(
-            @Qualifier("familyhelperClannadProfileMaintainService")
-                    ProfileMaintainService profileMaintainService,
+            @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
             @Qualifier("familyhelperClannadProfileTypeIndicatorMaintainService")
                     ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService,
             @Qualifier("familyhelperClannadProfileOperateService") ProfileOperateService profileOperateService

@@ -102,6 +102,9 @@
     <dubbo:reference id="familyhelperClannadPoprMaintainService"
                      interface="com.dwarfeng.familyhelper.clannad.stack.service.PoprMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperClannadUserMaintainService"
+                     interface="com.dwarfeng.familyhelper.clannad.stack.service.UserMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <!-- snowflake -->
     <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService" check="false"/>
 </beans>

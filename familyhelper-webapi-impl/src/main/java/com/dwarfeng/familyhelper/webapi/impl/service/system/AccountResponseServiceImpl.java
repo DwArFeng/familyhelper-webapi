@@ -7,7 +7,9 @@ import com.dwarfeng.acckeeper.stack.bean.dto.PasswordUpdateInfo;
 import com.dwarfeng.acckeeper.stack.service.AccountMaintainService;
 import com.dwarfeng.acckeeper.stack.service.AccountOperateService;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Popr;
+import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Profile;
 import com.dwarfeng.familyhelper.clannad.stack.service.PoprMaintainService;
+import com.dwarfeng.familyhelper.clannad.stack.service.ProfileMaintainService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
 import com.dwarfeng.rbacds.stack.bean.entity.Role;
@@ -18,6 +20,7 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +37,11 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     private final com.dwarfeng.rbacds.stack.service.UserMaintainService rbacUserMaintainService;
     private final com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
             familyhelperFinanceUserMaintainService;
+    private final com.dwarfeng.familyhelper.clannad.stack.service.UserMaintainService
+            familyhelperClannadUserMaintainService;
     private final com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService;
     private final PoprMaintainService poprMaintainService;
+    private final ProfileMaintainService profileMaintainService;
 
     public AccountResponseServiceImpl(
             @Qualifier("acckeeperAccountMaintainService") AccountMaintainService accountMaintainService,
@@ -44,15 +50,21 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             @Qualifier("familyhelperFinanceUserMaintainService")
                     com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
                     familyhelperFinanceUserMaintainService,
+            @Qualifier("familyhelperClannadUserMaintainService")
+                    com.dwarfeng.familyhelper.clannad.stack.service.UserMaintainService
+                    familyhelperClannadUserMaintainService,
             @Qualifier("rbacRoleMaintainService") RoleMaintainService rbacRoleMaintainService,
-            @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService
+            @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService,
+            @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService
     ) {
         this.accountMaintainService = accountMaintainService;
         this.accountOperateService = accountOperateService;
         this.rbacUserMaintainService = rbacUserMaintainService;
         this.familyhelperFinanceUserMaintainService = familyhelperFinanceUserMaintainService;
+        this.familyhelperClannadUserMaintainService = familyhelperClannadUserMaintainService;
         this.rbacRoleMaintainService = rbacRoleMaintainService;
         this.poprMaintainService = poprMaintainService;
+        this.profileMaintainService = profileMaintainService;
     }
 
     @Override
@@ -194,6 +206,19 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperFinanceUserMaintainService.insertOrUpdate(familyhelperFinanceUser);
+        com.dwarfeng.familyhelper.clannad.stack.bean.entity.User familyhelperClannadUser =
+                new com.dwarfeng.familyhelper.clannad.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperClannadUserMaintainService.insertOrUpdate(familyhelperClannadUser);
+        Profile profile = new Profile(
+                accountKey, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
+                StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
+                StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
+                StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
+                StringUtils.EMPTY
+        );
+        profileMaintainService.insertOrUpdate(profile);
     }
 
     @SuppressWarnings("DuplicatedCode")
@@ -209,6 +234,11 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperFinanceUserMaintainService.insertOrUpdate(familyhelperFinanceUser);
+        com.dwarfeng.familyhelper.clannad.stack.bean.entity.User familyhelperClannadUser =
+                new com.dwarfeng.familyhelper.clannad.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperClannadUserMaintainService.insertOrUpdate(familyhelperClannadUser);
     }
 
     @Override
@@ -216,6 +246,8 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         accountOperateService.delete(key);
         rbacUserMaintainService.deleteIfExists(key);
         familyhelperFinanceUserMaintainService.deleteIfExists(key);
+        familyhelperClannadUserMaintainService.deleteIfExists(key);
+        profileMaintainService.deleteIfExists(key);
     }
 
     @Override
