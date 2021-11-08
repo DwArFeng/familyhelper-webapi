@@ -4,6 +4,8 @@ import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonProfile;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonProfileTypeIndicator;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Profile;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.ProfileTypeIndicator;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.FastJsonDispProfile;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispProfile;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import org.dozer.Mapper;
@@ -22,6 +24,11 @@ public class BeanTransformerConfiguration {
     @Bean
     public BeanTransformer<Profile, FastJsonProfile> profileBeanTransformer() {
         return new DozerBeanTransformer<>(Profile.class, FastJsonProfile.class, mapper);
+    }
+
+    @Bean
+    public BeanTransformer<DispProfile, FastJsonDispProfile> dispProfileBeanTransformer() {
+        return new DozerBeanTransformer<>(DispProfile.class, FastJsonDispProfile.class, mapper);
     }
 
     @Bean

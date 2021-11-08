@@ -2,20 +2,26 @@ package com.dwarfeng.familyhelper.webapi.impl.service.clannad;
 
 import com.dwarfeng.familyhelper.clannad.sdk.enumeration.ProfileTypeCategory;
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.ProfileUpdateInfo;
+import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Popr;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Profile;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.ProfileTypeIndicator;
 import com.dwarfeng.familyhelper.clannad.stack.bean.key.ProfileTypeIndicatorKey;
+import com.dwarfeng.familyhelper.clannad.stack.service.PoprMaintainService;
 import com.dwarfeng.familyhelper.clannad.stack.service.ProfileMaintainService;
 import com.dwarfeng.familyhelper.clannad.stack.service.ProfileOperateService;
 import com.dwarfeng.familyhelper.clannad.stack.service.ProfileTypeIndicatorMaintainService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispProfile;
 import com.dwarfeng.familyhelper.webapi.stack.service.clannad.ProfileResponseService;
+import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
+import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -25,16 +31,19 @@ public class ProfileResponseServiceImpl implements ProfileResponseService {
     private final ProfileMaintainService profileMaintainService;
     private final ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService;
     private final ProfileOperateService profileOperateService;
+    private final PoprMaintainService poprMaintainService;
 
     public ProfileResponseServiceImpl(
             @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
             @Qualifier("familyhelperClannadProfileTypeIndicatorMaintainService")
                     ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService,
-            @Qualifier("familyhelperClannadProfileOperateService") ProfileOperateService profileOperateService
+            @Qualifier("familyhelperClannadProfileOperateService") ProfileOperateService profileOperateService,
+            @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService
     ) {
         this.profileMaintainService = profileMaintainService;
         this.profileTypeIndicatorMaintainService = profileTypeIndicatorMaintainService;
         this.profileOperateService = profileOperateService;
+        this.poprMaintainService = poprMaintainService;
     }
 
     @Override
@@ -48,9 +57,41 @@ public class ProfileResponseServiceImpl implements ProfileResponseService {
     }
 
     @Override
+    public PagedData<Profile> childForPermittedAccount(StringIdKey accountKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        PagedData<Popr> lookup = poprMaintainService.lookup(
+                PoprMaintainService.CHILD_FOR_USER, new Object[]{accountKey}, pagingInfo
+        );
+        List<Profile> profiles = new ArrayList<>();
+        for (Popr popr : lookup.getData()) {
+            StringIdKey profileKey = new StringIdKey(popr.getKey().getProfileId());
+            profiles.add(get(profileKey));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCurrentPage(), profiles
+        );
+    }
+
+    @Override
     public DispProfile getDisp(StringIdKey key) throws ServiceException {
         Profile profile = profileMaintainService.get(key);
         return dispProfileFromProfile(profile);
+    }
+
+    @Override
+    public PagedData<DispProfile> childForPermittedAccountDisp(StringIdKey accountKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        PagedData<Popr> lookup = poprMaintainService.lookup(
+                PoprMaintainService.CHILD_FOR_USER, new Object[]{accountKey}, pagingInfo
+        );
+        List<DispProfile> dispProfiles = new ArrayList<>();
+        for (Popr popr : lookup.getData()) {
+            StringIdKey profileKey = new StringIdKey(popr.getKey().getProfileId());
+            dispProfiles.add(getDisp(profileKey));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCurrentPage(), dispProfiles
+        );
     }
 
     private DispProfile dispProfileFromProfile(Profile profile) throws ServiceException {

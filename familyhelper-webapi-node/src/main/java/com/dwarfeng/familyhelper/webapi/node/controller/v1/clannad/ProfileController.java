@@ -9,11 +9,16 @@ import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispProfile;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.clannad.ProfileResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
+import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
+import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
+import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
+import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import org.springframework.validation.BindingResult;
@@ -37,14 +42,22 @@ public class ProfileController {
 
     private final ServiceExceptionMapper sem;
 
+    private final BeanTransformer<Profile, FastJsonProfile> profileBeanTransformer;
+    private final BeanTransformer<DispProfile, FastJsonDispProfile> dispProfileBeanTransformer;
+
     private final TokenHandler tokenHandler;
 
-
     public ProfileController(
-            ProfileResponseService service, ServiceExceptionMapper sem, TokenHandler tokenHandler
+            ProfileResponseService service,
+            ServiceExceptionMapper sem,
+            BeanTransformer<Profile, FastJsonProfile> profileBeanTransformer,
+            BeanTransformer<DispProfile, FastJsonDispProfile> dispProfileBeanTransformer,
+            TokenHandler tokenHandler
     ) {
         this.service = service;
         this.sem = sem;
+        this.profileBeanTransformer = profileBeanTransformer;
+        this.dispProfileBeanTransformer = dispProfileBeanTransformer;
         this.tokenHandler = tokenHandler;
     }
 
@@ -72,6 +85,26 @@ public class ProfileController {
         }
     }
 
+    @GetMapping("/account/{accountId}/profile/permitted")
+    @BehaviorAnalyse
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonProfile>> childForPermittedAccount(
+            HttpServletRequest request, @PathVariable("accountId") String accountId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<Profile> childForPermittedAccount = service.childForPermittedAccount(
+                    new StringIdKey(accountId), new PagingInfo(page, rows)
+            );
+            PagedData<FastJsonProfile> transform = PagingUtil.transform(
+                    childForPermittedAccount, profileBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
     @GetMapping("/profile/{id}/disp")
     @BehaviorAnalyse
     @LoginRequired
@@ -83,6 +116,26 @@ public class ProfileController {
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonDispProfile.of(dispProfile)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonDispProfile.class, e, sem));
+        }
+    }
+
+    @GetMapping("/account/{accountId}/profile/permitted/disp")
+    @BehaviorAnalyse
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispProfile>> childForPermittedAccountDisp(
+            HttpServletRequest request, @PathVariable("accountId") String accountId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<DispProfile> childForPermittedAccountDisp = service.childForPermittedAccountDisp(
+                    new StringIdKey(accountId), new PagingInfo(page, rows)
+            );
+            PagedData<FastJsonDispProfile> transform = PagingUtil.transform(
+                    childForPermittedAccountDisp, dispProfileBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
         }
     }
 
