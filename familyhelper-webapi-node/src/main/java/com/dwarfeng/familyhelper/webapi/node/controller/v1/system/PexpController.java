@@ -96,7 +96,8 @@ public class PexpController {
     @LoginRequired
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPexp webInputPexp, BindingResult bindingResult) {
+            @RequestBody @Validated WebInputPexp webInputPexp, BindingResult bindingResult
+    ) {
         try {
             service.update(WebInputPexp.toStackBean(webInputPexp));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
@@ -123,7 +124,8 @@ public class PexpController {
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPexp>> childForRole(
             HttpServletRequest request,
-            @PathVariable("roleId") String roleId, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            @PathVariable("roleId") String roleId, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             PagedData<Pexp> all = service.childForRole(new StringIdKey(roleId), new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonPexp> transform = PagingUtil.transform(all, beanTransformer);

@@ -1,7 +1,9 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.clannad;
 
+import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonNickname;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonProfile;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonProfileTypeIndicator;
+import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Nickname;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Profile;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.ProfileTypeIndicator;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.FastJsonDispProfile;
@@ -35,5 +37,10 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<ProfileTypeIndicator, FastJsonProfileTypeIndicator>
     profileTypeIndicatorBeanTransformer() {
         return new DozerBeanTransformer<>(ProfileTypeIndicator.class, FastJsonProfileTypeIndicator.class, mapper);
+    }
+
+    @Bean
+    public BeanTransformer<Nickname, FastJsonNickname> nicknameBeanTransformer() {
+        return new DozerBeanTransformer<>(Nickname.class, FastJsonNickname.class, mapper);
     }
 }

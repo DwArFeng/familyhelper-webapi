@@ -7,6 +7,7 @@
 - 完成我与家庭 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.ProfileTypeIndicatorController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.ProfileController。
+  - com.dwarfeng.familyhelper.webapi.stack.service.clannad.NicknameResponseService。
 
 - 优化用户的注册逻辑。
   - 用户注册时，自动插入一个字段完全是空字符串的个人简介。
