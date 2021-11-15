@@ -8,8 +8,11 @@ import com.dwarfeng.acckeeper.stack.service.AccountMaintainService;
 import com.dwarfeng.acckeeper.stack.service.AccountOperateService;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Popr;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Profile;
+import com.dwarfeng.familyhelper.clannad.stack.bean.key.NicknameKey;
+import com.dwarfeng.familyhelper.clannad.stack.service.NicknameMaintainService;
 import com.dwarfeng.familyhelper.clannad.stack.service.PoprMaintainService;
 import com.dwarfeng.familyhelper.clannad.stack.service.ProfileMaintainService;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
 import com.dwarfeng.rbacds.stack.bean.entity.Role;
@@ -42,6 +45,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     private final com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService;
     private final PoprMaintainService poprMaintainService;
     private final ProfileMaintainService profileMaintainService;
+    private final NicknameMaintainService nicknameMaintainService;
 
     public AccountResponseServiceImpl(
             @Qualifier("acckeeperAccountMaintainService") AccountMaintainService accountMaintainService,
@@ -55,7 +59,8 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                     familyhelperClannadUserMaintainService,
             @Qualifier("rbacRoleMaintainService") RoleMaintainService rbacRoleMaintainService,
             @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService,
-            @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService
+            @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
+            @Qualifier("familyhelperClannadNicknameMaintainService") NicknameMaintainService nicknameMaintainService
     ) {
         this.accountMaintainService = accountMaintainService;
         this.accountOperateService = accountOperateService;
@@ -65,6 +70,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         this.rbacRoleMaintainService = rbacRoleMaintainService;
         this.poprMaintainService = poprMaintainService;
         this.profileMaintainService = profileMaintainService;
+        this.nicknameMaintainService = nicknameMaintainService;
     }
 
     @Override
@@ -133,14 +139,6 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         return this.transformPagedAcckeeperAccount(lookup);
     }
 
-    @Override
-    public PagedData<Account> displayNameLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
-        PagedData<com.dwarfeng.acckeeper.stack.bean.entity.Account> lookup = accountMaintainService.lookup(
-                AccountMaintainService.DISPLAY_NAME_LIKE, new Object[]{pattern}
-        );
-        return this.transformPagedAcckeeperAccount(lookup);
-    }
-
     private PagedData<Account> transformPagedAcckeeperAccount(
             PagedData<com.dwarfeng.acckeeper.stack.bean.entity.Account> lookup
     ) {
@@ -191,6 +189,34 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         return new PagedData<>(
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), accounts
         );
+    }
+
+    @Override
+    public DispAccount getDisp(StringIdKey subjectUserKey, StringIdKey objectUserKey) throws ServiceException {
+        Account account = get(objectUserKey);
+        return dispAccountFromAccount(subjectUserKey, objectUserKey, account);
+    }
+
+    private DispAccount dispAccountFromAccount(StringIdKey subjectUserKey, StringIdKey objectUserKey, Account account)
+            throws ServiceException {
+        String displayName;
+
+        // 1. 如果主语用户对宾语用户具有昵称，则 displayName 显示为昵称。
+        NicknameKey nicknameKey = new NicknameKey(subjectUserKey.getStringId(), objectUserKey.getStringId());
+        Profile profile = profileMaintainService.get(objectUserKey);
+        if (nicknameMaintainService.exists(nicknameKey)) {
+            displayName = nicknameMaintainService.get(nicknameKey).getCall();
+        }
+        // 2. 如果宾语用户的个人简介中名称不为空，则 displayName 显示为个人简介的名称。
+        else if (!StringUtils.isEmpty(profile.getName())) {
+            displayName = profile.getName();
+        }
+        // 3. displayName 显示为 account 的 name。
+        else {
+            displayName = account.getName();
+        }
+
+        return DispAccount.of(account, displayName);
     }
 
     @SuppressWarnings("DuplicatedCode")

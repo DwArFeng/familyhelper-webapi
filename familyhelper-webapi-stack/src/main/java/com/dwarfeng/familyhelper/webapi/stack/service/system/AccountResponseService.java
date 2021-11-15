@@ -4,6 +4,7 @@ import com.dwarfeng.acckeeper.stack.bean.dto.AccountRegisterInfo;
 import com.dwarfeng.acckeeper.stack.bean.dto.AccountUpdateInfo;
 import com.dwarfeng.acckeeper.stack.bean.dto.PasswordResetInfo;
 import com.dwarfeng.acckeeper.stack.bean.dto.PasswordUpdateInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -39,7 +40,7 @@ public interface AccountResponseService extends Service {
 
     PagedData<Account> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
 
-    PagedData<Account> displayNameLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
+    DispAccount getDisp(StringIdKey subjectUserKey, StringIdKey objectUserKey) throws ServiceException;
 
     void register(AccountRegisterInfo accountRegisterInfo) throws ServiceException;
 

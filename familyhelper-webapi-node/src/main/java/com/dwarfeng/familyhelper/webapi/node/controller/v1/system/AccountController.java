@@ -4,9 +4,12 @@ import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputAccountRegisterInfo;
 import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputAccountUpdateInfo;
 import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputPasswordResetInfo;
 import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputPasswordUpdateInfo;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispAccount;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.system.FastJsonAccount;
 import com.dwarfeng.familyhelper.webapi.sdk.cna.ValidateList;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
+import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
@@ -45,14 +48,18 @@ public class AccountController {
 
     private final BeanTransformer<Account, FastJsonAccount> beanTransformer;
 
+    private final TokenHandler tokenHandler;
+
     public AccountController(
             AccountResponseService accountResponseService,
             ServiceExceptionMapper sem,
-            BeanTransformer<Account, FastJsonAccount> beanTransformer
+            BeanTransformer<Account, FastJsonAccount> beanTransformer,
+            TokenHandler tokenHandler
     ) {
         this.accountResponseService = accountResponseService;
         this.sem = sem;
         this.beanTransformer = beanTransformer;
+        this.tokenHandler = tokenHandler;
     }
 
     @GetMapping("/account/{id}/exists")
@@ -72,8 +79,8 @@ public class AccountController {
     @LoginRequired
     public FastJsonResponseData<FastJsonAccount> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
-            Account Account = accountResponseService.get(new StringIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonAccount.of(Account)));
+            Account account = accountResponseService.get(new StringIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonAccount.of(account)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonAccount.class, e, sem));
         }
@@ -199,21 +206,18 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/account/display-name-like")
+    @GetMapping("/account/{id}/disp")
     @BehaviorAnalyse
-    @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAccount>> displayNameLike(
-            HttpServletRequest request,
-            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+    public FastJsonResponseData<FastJsonDispAccount> getDisp(
+            HttpServletRequest request, @PathVariable("id") String id
+    ) {
         try {
-            PagedData<Account> displayNameLike = accountResponseService.displayNameLike(
-                    pattern, new PagingInfo(page, rows)
-            );
-            PagedData<FastJsonAccount> transform = PagingUtil.transform(displayNameLike, beanTransformer);
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+            StringIdKey subjectUserKey = tokenHandler.getAccountKey(request);
+            DispAccount dispAccount = accountResponseService.getDisp(subjectUserKey, new StringIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonDispAccount.of(dispAccount)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonDispAccount.class, e, sem));
         }
     }
 
