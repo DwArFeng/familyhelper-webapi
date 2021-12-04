@@ -13,6 +13,10 @@
 - 优化用户的注册逻辑。
   - 用户注册时，自动插入一个字段完全是空字符串的个人简介。
 
+- 实现时间 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.TimeController。
+  - 解决了潜在的客户端与服务端时间不一致导致的无法登陆的问题。
+
 #### Bug修复
 
 - (无)
