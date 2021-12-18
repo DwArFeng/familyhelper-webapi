@@ -5,9 +5,11 @@ import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispAccountBook;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispBankCard;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispFundChange;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispPoab;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispBankCard;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispFundChange;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispPoab;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import org.dozer.Mapper;
@@ -77,5 +79,15 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(
                 BankCardBalanceHistory.class, JSFixedFastJsonBankCardBalanceHistory.class, mapper
         );
+    }
+
+    @Bean
+    public BeanTransformer<Poab, JSFixedFastJsonPoab> poabBeanTransformer() {
+        return new DozerBeanTransformer<>(Poab.class, JSFixedFastJsonPoab.class, mapper);
+    }
+
+    @Bean
+    public BeanTransformer<DispPoab, JSFixedFastJsonDispPoab> dispPoabBeanTransformer() {
+        return new DozerBeanTransformer<>(DispPoab.class, JSFixedFastJsonDispPoab.class, mapper);
     }
 }

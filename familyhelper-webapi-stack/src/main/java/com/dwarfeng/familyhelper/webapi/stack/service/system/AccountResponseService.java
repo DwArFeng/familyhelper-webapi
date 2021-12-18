@@ -40,7 +40,10 @@ public interface AccountResponseService extends Service {
 
     PagedData<Account> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
 
-    DispAccount getDisp(StringIdKey subjectUserKey, StringIdKey objectUserKey) throws ServiceException;
+    DispAccount getDisp(StringIdKey key, StringIdKey inspectAccountKey) throws ServiceException;
+
+    PagedData<DispAccount> idLikeDisp(String pattern, PagingInfo pagingInfo, StringIdKey inspectAccountKey)
+            throws ServiceException;
 
     void register(AccountRegisterInfo accountRegisterInfo) throws ServiceException;
 

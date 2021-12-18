@@ -2,6 +2,8 @@ package com.dwarfeng.familyhelper.webapi.stack.service.finance;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -34,10 +36,13 @@ public interface AccountBookResponseService extends Service {
     LongIdKey createAccountBook(StringIdKey userKey, AccountBookCreateInfo accountBookCreateInfo)
             throws ServiceException;
 
-    void updateAccountBook(StringIdKey userKey, LongIdKey accountBookKey, AccountBookUpdateInfo accountBookUpdateInfo)
-            throws ServiceException;
+    void updateAccountBook(StringIdKey userKey, AccountBookUpdateInfo accountBookUpdateInfo) throws ServiceException;
 
     void removeAccountBook(StringIdKey userKey, LongIdKey accountBookKey) throws ServiceException;
+
+    void upsertPermission(StringIdKey userKey, PermissionUpsertInfo permissionUpsertInfo) throws ServiceException;
+
+    void removePermission(StringIdKey userKey, PermissionRemoveInfo permissionRemoveInfo) throws ServiceException;
 
     void recordCommit(StringIdKey userKey, LongIdKey accountBookKey) throws ServiceException;
 

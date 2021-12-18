@@ -2,6 +2,8 @@ package com.dwarfeng.familyhelper.webapi.impl.service.finance;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService;
@@ -9,7 +11,7 @@ import com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService
 import com.dwarfeng.familyhelper.finance.stack.service.BalanceOperateService;
 import com.dwarfeng.familyhelper.finance.stack.service.PoabMaintainService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
-import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.service.finance.AccountBookResponseService;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -85,17 +88,14 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
         Poab myPoab = relatedPoabs.stream().filter(
                 p -> Objects.equals(p.getKey().getStringId(), inspectAccountKey.getStringId())
         ).findFirst().orElse(null);
-        Account ownerAccount = null;
+        DispAccount ownerAccount = null;
         if (Objects.nonNull(ownerPoab)) {
-            ownerAccount = accountResponseService.get(new StringIdKey(ownerPoab.getKey().getStringId()));
+            ownerAccount = accountResponseService.getDisp(
+                    inspectAccountKey, new StringIdKey(ownerPoab.getKey().getStringId())
+            );
         }
-        boolean ownerFlag = false;
-        boolean guestFlag = false;
-        if (Objects.nonNull(myPoab)) {
-            ownerFlag = Objects.equals(myPoab.getPermissionLevel(), Poab.PERMISSION_LEVEL_OWNER);
-            guestFlag = Objects.equals(myPoab.getPermissionLevel(), Poab.PERMISSION_LEVEL_GUEST);
-        }
-        return DispAccountBook.of(accountBook, ownerAccount, ownerFlag, guestFlag);
+        Integer permissionLevel = Optional.ofNullable(myPoab).map(Poab::getPermissionLevel).orElse(null);
+        return DispAccountBook.of(accountBook, ownerAccount, permissionLevel);
     }
 
     @SuppressWarnings("DuplicatedCode")
@@ -107,7 +107,7 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
         );
         List<DispAccountBook> dispAccountBooks = new ArrayList<>();
         for (Poab poab : lookup.getData()) {
-            dispAccountBooks.add(dispAccountBookFromPoab(poab));
+            dispAccountBooks.add(dispAccountBookFromPoab(poab, accountKey));
         }
         return new PagedData<>(
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispAccountBooks
@@ -125,16 +125,14 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
         );
         List<DispAccountBook> dispAccountBooks = new ArrayList<>();
         for (Poab poab : lookup.getData()) {
-            dispAccountBooks.add(dispAccountBookFromPoab(poab));
+            dispAccountBooks.add(dispAccountBookFromPoab(poab, accountKey));
         }
         return new PagedData<>(
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispAccountBooks
         );
     }
 
-    private DispAccountBook dispAccountBookFromPoab(Poab poab) throws ServiceException {
-        boolean ownerFlag = Objects.equals(poab.getPermissionLevel(), Poab.PERMISSION_LEVEL_OWNER);
-        boolean guestFlag = Objects.equals(poab.getPermissionLevel(), Poab.PERMISSION_LEVEL_GUEST);
+    private DispAccountBook dispAccountBookFromPoab(Poab poab, StringIdKey inspectAccountKey) throws ServiceException {
         AccountBook accountBook = accountBookMaintainService.get(new LongIdKey(poab.getKey().getLongId()));
         List<Poab> relatedPoabs = poabMaintainService.lookup(
                 PoabMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBook.getKey()}
@@ -142,11 +140,14 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
         Poab ownerPoab = relatedPoabs.stream().filter(
                 p -> Objects.equals(p.getPermissionLevel(), Poab.PERMISSION_LEVEL_OWNER)
         ).findFirst().orElse(null);
-        Account ownerAccount = null;
+        DispAccount ownerAccount = null;
         if (Objects.nonNull(ownerPoab)) {
-            ownerAccount = accountResponseService.get(new StringIdKey(ownerPoab.getKey().getStringId()));
+            ownerAccount = accountResponseService.getDisp(
+                    new StringIdKey(ownerPoab.getKey().getStringId()), inspectAccountKey
+            );
         }
-        return DispAccountBook.of(accountBook, ownerAccount, ownerFlag, guestFlag);
+        Integer permissionLevel = poab.getPermissionLevel();
+        return DispAccountBook.of(accountBook, ownerAccount, permissionLevel);
     }
 
     @Override
@@ -156,15 +157,24 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
     }
 
     @Override
-    public void updateAccountBook(
-            StringIdKey userKey, LongIdKey accountBookKey, AccountBookUpdateInfo accountBookUpdateInfo
-    ) throws ServiceException {
-        accountBookOperateService.updateAccountBook(userKey, accountBookKey, accountBookUpdateInfo);
+    public void updateAccountBook(StringIdKey userKey, AccountBookUpdateInfo accountBookUpdateInfo)
+            throws ServiceException {
+        accountBookOperateService.updateAccountBook(userKey, accountBookUpdateInfo);
     }
 
     @Override
     public void removeAccountBook(StringIdKey userKey, LongIdKey accountBookKey) throws ServiceException {
         accountBookOperateService.removeAccountBook(userKey, accountBookKey);
+    }
+
+    @Override
+    public void upsertPermission(StringIdKey userKey, PermissionUpsertInfo permissionUpsertInfo) throws ServiceException {
+        accountBookOperateService.upsertPermission(userKey, permissionUpsertInfo);
+    }
+
+    @Override
+    public void removePermission(StringIdKey userKey, PermissionRemoveInfo permissionRemoveInfo) throws ServiceException {
+        accountBookOperateService.removePermission(userKey, permissionRemoveInfo);
     }
 
     @Override

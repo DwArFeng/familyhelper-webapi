@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
-import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 
@@ -17,16 +17,16 @@ import java.util.Objects;
  */
 public class DispAccountBook implements Dto {
 
-    private static final long serialVersionUID = 402264194446632476L;
+    private static final long serialVersionUID = 5012447170219306828L;
 
     public static DispAccountBook of(
-            AccountBook accountBook, Account ownerAccount, boolean ownerFlag, boolean guestFlag) {
+            AccountBook accountBook, DispAccount ownerAccount, Integer permissionLevel) {
         if (Objects.isNull(accountBook)) {
             return null;
         } else {
             return new DispAccountBook(
                     accountBook.getKey(), accountBook.getName(), accountBook.getLastRecordedDate(),
-                    accountBook.getTotalValue(), accountBook.getRemark(), ownerAccount, ownerFlag, guestFlag
+                    accountBook.getTotalValue(), accountBook.getRemark(), ownerAccount, permissionLevel
             );
         }
     }
@@ -36,16 +36,18 @@ public class DispAccountBook implements Dto {
     private Date lastRecordedDate;
     private BigDecimal totalValue;
     private String remark;
-    private Account ownerAccount;
-    private boolean ownerFlag;
-    private boolean guestFlag;
+    private DispAccount ownerAccount;
+    /**
+     * @since 1.0.2
+     */
+    private Integer permissionLevel;
 
     public DispAccountBook() {
     }
 
     public DispAccountBook(
             LongIdKey key, String name, Date lastRecordedDate, BigDecimal totalValue, String remark,
-            Account ownerAccount, boolean ownerFlag, boolean guestFlag
+            DispAccount ownerAccount, Integer permissionLevel
     ) {
         this.key = key;
         this.name = name;
@@ -53,8 +55,7 @@ public class DispAccountBook implements Dto {
         this.totalValue = totalValue;
         this.remark = remark;
         this.ownerAccount = ownerAccount;
-        this.ownerFlag = ownerFlag;
-        this.guestFlag = guestFlag;
+        this.permissionLevel = permissionLevel;
     }
 
     public LongIdKey getKey() {
@@ -97,28 +98,20 @@ public class DispAccountBook implements Dto {
         this.remark = remark;
     }
 
-    public Account getOwnerAccount() {
+    public DispAccount getOwnerAccount() {
         return ownerAccount;
     }
 
-    public void setOwnerAccount(Account ownerAccount) {
+    public void setOwnerAccount(DispAccount ownerAccount) {
         this.ownerAccount = ownerAccount;
     }
 
-    public boolean isOwnerFlag() {
-        return ownerFlag;
+    public Integer getPermissionLevel() {
+        return permissionLevel;
     }
 
-    public void setOwnerFlag(boolean ownerFlag) {
-        this.ownerFlag = ownerFlag;
-    }
-
-    public boolean isGuestFlag() {
-        return guestFlag;
-    }
-
-    public void setGuestFlag(boolean guestFlag) {
-        this.guestFlag = guestFlag;
+    public void setPermissionLevel(Integer permissionLevel) {
+        this.permissionLevel = permissionLevel;
     }
 
     @Override
@@ -130,8 +123,7 @@ public class DispAccountBook implements Dto {
                 ", totalValue=" + totalValue +
                 ", remark='" + remark + '\'' +
                 ", ownerAccount=" + ownerAccount +
-                ", ownerFlag=" + ownerFlag +
-                ", guestFlag=" + guestFlag +
+                ", permissionLevel=" + permissionLevel +
                 '}';
     }
 }

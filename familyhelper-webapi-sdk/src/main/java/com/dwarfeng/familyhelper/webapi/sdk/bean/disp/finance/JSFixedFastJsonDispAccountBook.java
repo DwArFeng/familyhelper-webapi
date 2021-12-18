@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.system.FastJsonAccount;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
 import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
@@ -18,7 +18,7 @@ import java.util.Objects;
  */
 public class JSFixedFastJsonDispAccountBook implements Dto {
 
-    private static final long serialVersionUID = 3983307944081409147L;
+    private static final long serialVersionUID = -9016688850535905087L;
 
     public static JSFixedFastJsonDispAccountBook of(DispAccountBook dispAccountBook) {
         if (Objects.isNull(dispAccountBook)) {
@@ -30,9 +30,8 @@ public class JSFixedFastJsonDispAccountBook implements Dto {
                     dispAccountBook.getLastRecordedDate(),
                     dispAccountBook.getTotalValue(),
                     dispAccountBook.getRemark(),
-                    FastJsonAccount.of(dispAccountBook.getOwnerAccount()),
-                    dispAccountBook.isOwnerFlag(),
-                    dispAccountBook.isGuestFlag()
+                    FastJsonDispAccount.of(dispAccountBook.getOwnerAccount()),
+                    dispAccountBook.getPermissionLevel()
             );
         }
     }
@@ -53,20 +52,20 @@ public class JSFixedFastJsonDispAccountBook implements Dto {
     private String remark;
 
     @JSONField(name = "owner_account", ordinal = 6)
-    private FastJsonAccount ownerAccount;
+    private FastJsonDispAccount ownerAccount;
 
-    @JSONField(name = "owner_flag", ordinal = 7)
-    private boolean ownerFlag;
-
-    @JSONField(name = "guest_flag", ordinal = 8)
-    private boolean guestFlag;
+    /**
+     * @since 1.0.2
+     */
+    @JSONField(name = "permission_level", ordinal = 7)
+    private Integer permissionLevel;
 
     public JSFixedFastJsonDispAccountBook() {
     }
 
     public JSFixedFastJsonDispAccountBook(
             JSFixedFastJsonLongIdKey key, String name, Date lastRecordedDate, BigDecimal totalValue, String remark,
-            FastJsonAccount ownerAccount, boolean ownerFlag, boolean guestFlag
+            FastJsonDispAccount ownerAccount, Integer permissionLevel
     ) {
         this.key = key;
         this.name = name;
@@ -74,8 +73,7 @@ public class JSFixedFastJsonDispAccountBook implements Dto {
         this.totalValue = totalValue;
         this.remark = remark;
         this.ownerAccount = ownerAccount;
-        this.ownerFlag = ownerFlag;
-        this.guestFlag = guestFlag;
+        this.permissionLevel = permissionLevel;
     }
 
     public JSFixedFastJsonLongIdKey getKey() {
@@ -118,28 +116,20 @@ public class JSFixedFastJsonDispAccountBook implements Dto {
         this.remark = remark;
     }
 
-    public FastJsonAccount getOwnerAccount() {
+    public FastJsonDispAccount getOwnerAccount() {
         return ownerAccount;
     }
 
-    public void setOwnerAccount(FastJsonAccount ownerAccount) {
+    public void setOwnerAccount(FastJsonDispAccount ownerAccount) {
         this.ownerAccount = ownerAccount;
     }
 
-    public boolean isOwnerFlag() {
-        return ownerFlag;
+    public Integer getPermissionLevel() {
+        return permissionLevel;
     }
 
-    public void setOwnerFlag(boolean ownerFlag) {
-        this.ownerFlag = ownerFlag;
-    }
-
-    public boolean isGuestFlag() {
-        return guestFlag;
-    }
-
-    public void setGuestFlag(boolean guestFlag) {
-        this.guestFlag = guestFlag;
+    public void setPermissionLevel(Integer permissionLevel) {
+        this.permissionLevel = permissionLevel;
     }
 
     @Override
@@ -151,8 +141,7 @@ public class JSFixedFastJsonDispAccountBook implements Dto {
                 ", totalValue=" + totalValue +
                 ", remark='" + remark + '\'' +
                 ", ownerAccount=" + ownerAccount +
-                ", ownerFlag=" + ownerFlag +
-                ", guestFlag=" + guestFlag +
+                ", permissionLevel=" + permissionLevel +
                 '}';
     }
 }

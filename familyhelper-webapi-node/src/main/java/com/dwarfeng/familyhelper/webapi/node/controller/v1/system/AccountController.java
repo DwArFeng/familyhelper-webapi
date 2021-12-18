@@ -46,19 +46,22 @@ public class AccountController {
 
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<Account, FastJsonAccount> beanTransformer;
+    private final BeanTransformer<Account, FastJsonAccount> accountBeanTransformer;
+    private final BeanTransformer<DispAccount, FastJsonDispAccount> dispAccountBeanTransformer;
 
     private final TokenHandler tokenHandler;
 
     public AccountController(
             AccountResponseService accountResponseService,
             ServiceExceptionMapper sem,
-            BeanTransformer<Account, FastJsonAccount> beanTransformer,
+            BeanTransformer<Account, FastJsonAccount> accountBeanTransformer,
+            BeanTransformer<DispAccount, FastJsonDispAccount> dispAccountBeanTransformer,
             TokenHandler tokenHandler
     ) {
         this.accountResponseService = accountResponseService;
         this.sem = sem;
-        this.beanTransformer = beanTransformer;
+        this.accountBeanTransformer = accountBeanTransformer;
+        this.dispAccountBeanTransformer = dispAccountBeanTransformer;
         this.tokenHandler = tokenHandler;
     }
 
@@ -145,7 +148,7 @@ public class AccountController {
     ) {
         try {
             PagedData<Account> all = accountResponseService.all(new PagingInfo(page, rows));
-            PagedData<FastJsonAccount> transform = PagingUtil.transform(all, beanTransformer);
+            PagedData<FastJsonAccount> transform = PagingUtil.transform(all, accountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
@@ -164,7 +167,7 @@ public class AccountController {
             PagedData<Account> childForRole = accountResponseService.childForRole(
                     new StringIdKey(roleId), new PagingInfo(page, rows)
             );
-            PagedData<FastJsonAccount> transform = PagingUtil.transform(childForRole, beanTransformer);
+            PagedData<FastJsonAccount> transform = PagingUtil.transform(childForRole, accountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
@@ -183,7 +186,7 @@ public class AccountController {
             PagedData<Account> childForProfileGuest = accountResponseService.childForProfileGuest(
                     new StringIdKey(profileId), new PagingInfo(page, rows)
             );
-            PagedData<FastJsonAccount> transform = PagingUtil.transform(childForProfileGuest, beanTransformer);
+            PagedData<FastJsonAccount> transform = PagingUtil.transform(childForProfileGuest, accountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
@@ -199,7 +202,7 @@ public class AccountController {
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
             PagedData<Account> idLike = accountResponseService.idLike(pattern, new PagingInfo(page, rows));
-            PagedData<FastJsonAccount> transform = PagingUtil.transform(idLike, beanTransformer);
+            PagedData<FastJsonAccount> transform = PagingUtil.transform(idLike, accountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
@@ -213,11 +216,30 @@ public class AccountController {
             HttpServletRequest request, @PathVariable("id") String id
     ) {
         try {
-            StringIdKey subjectUserKey = tokenHandler.getAccountKey(request);
-            DispAccount dispAccount = accountResponseService.getDisp(subjectUserKey, new StringIdKey(id));
+            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            DispAccount dispAccount = accountResponseService.getDisp(new StringIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonDispAccount.of(dispAccount)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonDispAccount.class, e, sem));
+        }
+    }
+
+    @GetMapping("/account/id-like/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispAccount>> idLikeDisp(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+        try {
+            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            PagedData<DispAccount> idLike = accountResponseService.idLikeDisp(
+                    pattern, new PagingInfo(page, rows), inspectAccountKey
+            );
+            PagedData<FastJsonDispAccount> transform = PagingUtil.transform(idLike, dispAccountBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
         }
     }
 

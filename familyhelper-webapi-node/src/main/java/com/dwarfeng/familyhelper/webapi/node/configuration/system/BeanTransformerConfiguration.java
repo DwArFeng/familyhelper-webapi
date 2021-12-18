@@ -1,7 +1,9 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.system;
 
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispAccount;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispPermissionGroup;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.system.FastJsonAccount;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispPermissionGroup;
 import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
 import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonPermission;
@@ -30,6 +32,11 @@ public class BeanTransformerConfiguration {
     @Bean
     public BeanTransformer<Account, FastJsonAccount> accountBeanTransformer() {
         return new DozerBeanTransformer<>(Account.class, FastJsonAccount.class, mapper);
+    }
+
+    @Bean
+    public BeanTransformer<DispAccount, FastJsonDispAccount> dispAccountBeanTransformer() {
+        return new DozerBeanTransformer<>(DispAccount.class, FastJsonDispAccount.class, mapper);
     }
 
     @Bean

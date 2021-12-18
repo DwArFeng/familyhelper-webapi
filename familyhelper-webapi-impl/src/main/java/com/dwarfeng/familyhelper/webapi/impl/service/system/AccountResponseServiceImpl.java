@@ -192,18 +192,31 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     }
 
     @Override
-    public DispAccount getDisp(StringIdKey subjectUserKey, StringIdKey objectUserKey) throws ServiceException {
-        Account account = get(objectUserKey);
-        return dispAccountFromAccount(subjectUserKey, objectUserKey, account);
+    public DispAccount getDisp(StringIdKey key, StringIdKey inspectAccountKey) throws ServiceException {
+        Account account = get(key);
+        return dispAccountFromAccount(account, inspectAccountKey);
     }
 
-    private DispAccount dispAccountFromAccount(StringIdKey subjectUserKey, StringIdKey objectUserKey, Account account)
+    @Override
+    public PagedData<DispAccount> idLikeDisp(String pattern, PagingInfo pagingInfo, StringIdKey inspectAccountKey)
+            throws ServiceException {
+        PagedData<Account> lookup = idLike(pattern, pagingInfo);
+        List<DispAccount> dispAccounts = new ArrayList<>();
+        for (Account account : lookup.getData()) {
+            dispAccounts.add(dispAccountFromAccount(account, inspectAccountKey));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispAccounts
+        );
+    }
+
+    private DispAccount dispAccountFromAccount(Account account, StringIdKey inspectAccountKey)
             throws ServiceException {
         String displayName;
 
         // 1. 如果主语用户对宾语用户具有昵称，则 displayName 显示为昵称。
-        NicknameKey nicknameKey = new NicknameKey(subjectUserKey.getStringId(), objectUserKey.getStringId());
-        Profile profile = profileMaintainService.get(objectUserKey);
+        NicknameKey nicknameKey = new NicknameKey(inspectAccountKey.getStringId(), account.getKey().getStringId());
+        Profile profile = profileMaintainService.get(account.getKey());
         if (nicknameMaintainService.exists(nicknameKey)) {
             displayName = nicknameMaintainService.get(nicknameKey).getCall();
         }
