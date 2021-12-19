@@ -1,11 +1,11 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.finance;
 
+import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputBankCardBalanceRecordInfo;
 import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputBankCardCreateInfo;
 import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputBankCardUpdateInfo;
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonBankCard;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispBankCard;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.finance.WebInputBalanceRecordInfo;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispBankCard;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.finance.BankCardResponseService;
@@ -14,6 +14,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
+import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
@@ -187,43 +188,35 @@ public class BankCardController {
         }
     }
 
-    @PostMapping(value = {
-            "/account-book/{accountBookId}/bank-card/create", "/account-book//bank-card/create"
-    })
+    @PostMapping("/bank-card/create")
     @BehaviorAnalyse
     @BindingCheck
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createBankCard(
             HttpServletRequest request,
-            @PathVariable(required = false, value = "accountBookId") Long accountBookId,
             @RequestBody @Validated WebInputBankCardCreateInfo bankCardCreateInfo, BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            LongIdKey accountBookKey = null;
-            if (Objects.nonNull(accountBookId)) {
-                accountBookKey = new LongIdKey(accountBookId);
-            }
             LongIdKey result = service.createBankCard(
-                    accountKey, accountBookKey, WebInputBankCardCreateInfo.toStackBean(bankCardCreateInfo));
+                    accountKey, WebInputBankCardCreateInfo.toStackBean(bankCardCreateInfo)
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
         }
     }
 
-    @PostMapping("/bank-card/{id}/update")
+    @PostMapping("/bank-card/update")
     @BehaviorAnalyse
     @BindingCheck
     public FastJsonResponseData<Object> updateBankCard(
-            HttpServletRequest request, @PathVariable("id") Long id,
-            @RequestBody @Validated WebInputBankCardUpdateInfo webInputBankCardUpdateInfo,
-            BindingResult bindingResult
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputBankCardUpdateInfo webInputBankCardUpdateInfo, BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.updateBankCard(
-                    accountKey, new LongIdKey(id),
-                    WebInputBankCardUpdateInfo.toStackBean(webInputBankCardUpdateInfo)
+                    accountKey, WebInputBankCardUpdateInfo.toStackBean(webInputBankCardUpdateInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -231,28 +224,33 @@ public class BankCardController {
         }
     }
 
-    @PostMapping("/bank-card/{id}/remove")
+    @PostMapping("/bank-card/remove")
     @BehaviorAnalyse
-    public FastJsonResponseData<Object> removeBankCard(HttpServletRequest request, @PathVariable("id") Long id) {
+    @BindingCheck
+    public FastJsonResponseData<Object> removeBankCard(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLongIdKey bankCardKey, BindingResult bindingResult
+    ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.removeBankCard(accountKey, new LongIdKey(id));
+            service.removeBankCard(accountKey, WebInputLongIdKey.toStackBean(bankCardKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
         }
     }
 
-    @PostMapping("/bank-card/{id}/record-balance")
+    @PostMapping("/bank-card/record-balance")
     @BehaviorAnalyse
     public FastJsonResponseData<Object> recordBalance(
-            HttpServletRequest request, @PathVariable("id") Long id,
-            @RequestBody @Validated WebInputBalanceRecordInfo balanceRecordInfo, BindingResult bindingResult
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputBankCardBalanceRecordInfo bankCardBalanceRecordInfo,
+            BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.recordBalance(
-                    accountKey, new LongIdKey(id), WebInputBalanceRecordInfo.toStackBean(balanceRecordInfo)
+                    accountKey, WebInputBankCardBalanceRecordInfo.toStackBean(bankCardBalanceRecordInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -260,12 +258,15 @@ public class BankCardController {
         }
     }
 
-    @PostMapping("/bank-card/{id}/rollback-balance")
+    @PostMapping("/bank-card/rollback-balance")
     @BehaviorAnalyse
-    public FastJsonResponseData<Object> rollbackBalance(HttpServletRequest request, @PathVariable("id") Long id) {
+    public FastJsonResponseData<Object> rollbackBalance(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLongIdKey bankCardKey, BindingResult bindingResult
+    ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.rollbackBalance(accountKey, new LongIdKey(id));
+            service.rollbackBalance(accountKey, WebInputLongIdKey.toStackBean(bankCardKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));

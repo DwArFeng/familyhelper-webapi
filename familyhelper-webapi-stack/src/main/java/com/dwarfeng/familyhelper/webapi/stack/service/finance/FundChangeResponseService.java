@@ -58,11 +58,9 @@ public interface FundChangeResponseService extends Service {
             StringIdKey accountKey, LongIdKey accountBookKey, String changeType, PagingInfo pagingInfo
     ) throws ServiceException;
 
-    LongIdKey recordFundChange(StringIdKey userKey, LongIdKey accountBookKey, FundChangeRecordInfo fundChangeRecordInfo)
-            throws ServiceException;
+    LongIdKey recordFundChange(StringIdKey userKey, FundChangeRecordInfo fundChangeRecordInfo) throws ServiceException;
 
-    void updateFundChange(StringIdKey userKey, LongIdKey fundChangeKey, FundChangeUpdateInfo fundChangeUpdateInfo)
-            throws ServiceException;
+    void updateFundChange(StringIdKey userKey, FundChangeUpdateInfo fundChangeUpdateInfo) throws ServiceException;
 
     void removeFundChange(StringIdKey userKey, LongIdKey fundChangeKey) throws ServiceException;
 }

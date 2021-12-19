@@ -212,17 +212,15 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
     }
 
     @Override
-    public LongIdKey recordFundChange(
-            StringIdKey userKey, LongIdKey accountBookKey, FundChangeRecordInfo fundChangeRecordInfo
-    ) throws ServiceException {
-        return fundChangeOperateService.recordFundChange(userKey, accountBookKey, fundChangeRecordInfo);
+    public LongIdKey recordFundChange(StringIdKey userKey, FundChangeRecordInfo fundChangeRecordInfo)
+            throws ServiceException {
+        return fundChangeOperateService.recordFundChange(userKey, fundChangeRecordInfo);
     }
 
     @Override
-    public void updateFundChange(
-            StringIdKey userKey, LongIdKey fundChangeKey, FundChangeUpdateInfo fundChangeUpdateInfo
-    ) throws ServiceException {
-        fundChangeOperateService.updateFundChange(userKey, fundChangeKey, fundChangeUpdateInfo);
+    public void updateFundChange(StringIdKey userKey, FundChangeUpdateInfo fundChangeUpdateInfo)
+            throws ServiceException {
+        fundChangeOperateService.updateFundChange(userKey, fundChangeUpdateInfo);
     }
 
     @Override

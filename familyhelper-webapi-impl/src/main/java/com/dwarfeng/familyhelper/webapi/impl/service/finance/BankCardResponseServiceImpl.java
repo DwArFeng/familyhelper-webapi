@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.finance;
 
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardBalanceRecordInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
@@ -10,7 +11,6 @@ import com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService;
 import com.dwarfeng.familyhelper.finance.stack.service.BankCardTypeIndicatorMaintainService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispBankCard;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.finance.BalanceRecordInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.finance.AccountBookResponseService;
 import com.dwarfeng.familyhelper.webapi.stack.service.finance.BankCardResponseService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -128,17 +128,14 @@ public class BankCardResponseServiceImpl implements BankCardResponseService {
     }
 
     @Override
-    public LongIdKey createBankCard(
-            StringIdKey userKey, LongIdKey accountBookKey, BankCardCreateInfo bankCardCreateInfo
-    ) throws ServiceException {
-        return bankCardOperateService.createBankCard(userKey, accountBookKey, bankCardCreateInfo);
+    public LongIdKey createBankCard(StringIdKey userKey, BankCardCreateInfo bankCardCreateInfo) throws
+            ServiceException {
+        return bankCardOperateService.createBankCard(userKey, bankCardCreateInfo);
     }
 
     @Override
-    public void updateBankCard(
-            StringIdKey userKey, LongIdKey bankCardKey, BankCardUpdateInfo bankCardUpdateInfo
-    ) throws ServiceException {
-        bankCardOperateService.updateBankCard(userKey, bankCardKey, bankCardUpdateInfo);
+    public void updateBankCard(StringIdKey userKey, BankCardUpdateInfo bankCardUpdateInfo) throws ServiceException {
+        bankCardOperateService.updateBankCard(userKey, bankCardUpdateInfo);
     }
 
     @Override
@@ -147,9 +144,9 @@ public class BankCardResponseServiceImpl implements BankCardResponseService {
     }
 
     @Override
-    public void recordBalance(StringIdKey userKey, LongIdKey bankCardKey, BalanceRecordInfo balanceRecordInfo)
+    public void recordBalance(StringIdKey userKey, BankCardBalanceRecordInfo bankCardBalanceRecordInfo)
             throws ServiceException {
-        balanceOperateService.recordBankCardBalance(userKey, bankCardKey, balanceRecordInfo.getBalance());
+        balanceOperateService.recordBankCardBalance(userKey, bankCardBalanceRecordInfo);
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
+import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
@@ -351,43 +352,36 @@ public class FundChangeController {
         }
     }
 
-    @PostMapping(value = {
-            "/account-book/{accountBookId}/fund-change/record", "/account-book//fund-change/record"
-    })
+    @PostMapping("/fund-change/record")
     @BehaviorAnalyse
     @BindingCheck
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> recordFundChange(
             HttpServletRequest request,
-            @PathVariable(required = false, value = "accountBookId") Long accountBookId,
             @RequestBody @Validated WebInputFundChangeRecordInfo fundChangeRecordInfo, BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            LongIdKey accountBookKey = null;
-            if (Objects.nonNull(accountBookId)) {
-                accountBookKey = new LongIdKey(accountBookId);
-            }
             LongIdKey result = service.recordFundChange(
-                    accountKey, accountBookKey, WebInputFundChangeRecordInfo.toStackBean(fundChangeRecordInfo));
+                    accountKey, WebInputFundChangeRecordInfo.toStackBean(fundChangeRecordInfo)
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
         }
     }
 
-    @PostMapping("/fund-change/{id}/update")
+    @PostMapping("/fund-change/update")
     @BehaviorAnalyse
     @BindingCheck
     public FastJsonResponseData<Object> updateFundChange(
-            HttpServletRequest request, @PathVariable("id") Long id,
+            HttpServletRequest request,
             @RequestBody @Validated WebInputFundChangeUpdateInfo webInputFundChangeUpdateInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.updateFundChange(
-                    accountKey, new LongIdKey(id),
-                    WebInputFundChangeUpdateInfo.toStackBean(webInputFundChangeUpdateInfo)
+                    accountKey, WebInputFundChangeUpdateInfo.toStackBean(webInputFundChangeUpdateInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -395,12 +389,15 @@ public class FundChangeController {
         }
     }
 
-    @PostMapping("/fund-change/{id}/remove")
+    @PostMapping("/fund-change/remove")
     @BehaviorAnalyse
-    public FastJsonResponseData<Object> removeFundChange(HttpServletRequest request, @PathVariable("id") Long id) {
+    public FastJsonResponseData<Object> removeFundChange(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLongIdKey fundChangeKey, BindingResult bindingResult
+    ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.removeFundChange(accountKey, new LongIdKey(id));
+            service.removeFundChange(accountKey, WebInputLongIdKey.toStackBean(fundChangeKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));

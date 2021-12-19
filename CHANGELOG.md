@@ -9,6 +9,9 @@
 - 更新 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.AccountBookController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.AccountBookController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.BankCardController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.FundChangeController。
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.PoabController。

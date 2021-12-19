@@ -1,10 +1,10 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.finance;
 
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardBalanceRecordInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispBankCard;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.finance.BalanceRecordInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
@@ -36,15 +36,13 @@ public interface BankCardResponseService extends Service {
             StringIdKey accountKey, LongIdKey accountBookKey, PagingInfo pagingInfo
     ) throws ServiceException;
 
-    LongIdKey createBankCard(StringIdKey userKey, LongIdKey accountBookKey, BankCardCreateInfo bankCardCreateInfo)
-            throws ServiceException;
+    LongIdKey createBankCard(StringIdKey userKey, BankCardCreateInfo bankCardCreateInfo) throws ServiceException;
 
-    void updateBankCard(StringIdKey userKey, LongIdKey bankCardKey, BankCardUpdateInfo bankCardUpdateInfo)
-            throws ServiceException;
+    void updateBankCard(StringIdKey userKey, BankCardUpdateInfo bankCardUpdateInfo) throws ServiceException;
 
     void removeBankCard(StringIdKey userKey, LongIdKey bankCardKey) throws ServiceException;
 
-    void recordBalance(StringIdKey userKey, LongIdKey bankCardKey, BalanceRecordInfo balanceRecordInfo)
+    void recordBalance(StringIdKey userKey, BankCardBalanceRecordInfo bankCardBalanceRecordInfo)
             throws ServiceException;
 
     void rollbackBalance(StringIdKey userKey, LongIdKey bankCardKey) throws ServiceException;

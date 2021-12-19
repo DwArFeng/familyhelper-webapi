@@ -7,7 +7,6 @@ import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputPermissionUpsertIn
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonAccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispAccountBook;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.finance.WebInputBalanceRecordInfo;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.finance.AccountBookResponseService;
@@ -193,13 +192,14 @@ public class AccountBookController {
 
     @PostMapping("/account-book/remove")
     @BehaviorAnalyse
+    @BindingCheck
     public FastJsonResponseData<Object> removeAccountBook(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputLongIdKey webInputLongIdKey, BindingResult bindingResult
+            @RequestBody @Validated WebInputLongIdKey accountBookKey, BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.removeAccountBook(accountKey, WebInputLongIdKey.toStackBean(webInputLongIdKey));
+            service.removeAccountBook(accountKey, WebInputLongIdKey.toStackBean(accountBookKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
@@ -208,6 +208,7 @@ public class AccountBookController {
 
     @PostMapping("/account-book/upsert-permission")
     @BehaviorAnalyse
+    @BindingCheck
     public FastJsonResponseData<Object> upsertPermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPermissionUpsertInfo webInputPermissionUpsertInfo,
@@ -226,6 +227,7 @@ public class AccountBookController {
 
     @PostMapping("/account-book/remove-permission")
     @BehaviorAnalyse
+    @BindingCheck
     public FastJsonResponseData<Object> removePermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPermissionRemoveInfo webInputPermissionRemoveInfo,
@@ -242,27 +244,32 @@ public class AccountBookController {
         }
     }
 
-    @PostMapping("/account-book/{id}/record-commit")
+    @PostMapping("/account-book/record-commit")
     @BehaviorAnalyse
+    @BindingCheck
     public FastJsonResponseData<Object> recordCommit(
-            HttpServletRequest request, @PathVariable("id") Long id,
-            @RequestBody @Validated WebInputBalanceRecordInfo balanceRecordInfo, BindingResult bindingResult
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLongIdKey accountBookKey, BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.recordCommit(accountKey, new LongIdKey(id));
+            service.recordCommit(accountKey, WebInputLongIdKey.toStackBean(accountBookKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
         }
     }
 
-    @PostMapping("/account-book/{id}/rollback-all")
+    @PostMapping("/account-book/rollback-all")
     @BehaviorAnalyse
-    public FastJsonResponseData<Object> rollbackAll(HttpServletRequest request, @PathVariable("id") Long id) {
+    @BindingCheck
+    public FastJsonResponseData<Object> rollbackAll(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputLongIdKey accountBookKey, BindingResult bindingResult
+    ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.rollbackAll(accountKey, new LongIdKey(id));
+            service.rollbackAll(accountKey, WebInputLongIdKey.toStackBean(accountBookKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
