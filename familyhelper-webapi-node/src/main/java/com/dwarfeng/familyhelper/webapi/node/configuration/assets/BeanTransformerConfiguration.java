@@ -1,8 +1,10 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.assets;
 
+import com.dwarfeng.familyhelper.assets.sdk.bean.entity.FastJsonItemTypeIndicator;
 import com.dwarfeng.familyhelper.assets.sdk.bean.entity.JSFixedFastJsonAssetCatalog;
 import com.dwarfeng.familyhelper.assets.sdk.bean.entity.JSFixedFastJsonPoac;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.AssetCatalog;
+import com.dwarfeng.familyhelper.assets.stack.bean.entity.ItemTypeIndicator;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.Poac;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispAssetCatalog;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispPoac;
@@ -31,6 +33,12 @@ public class BeanTransformerConfiguration {
     @Bean
     public BeanTransformer<DispAssetCatalog, JSFixedFastJsonDispAssetCatalog> dispAssetCatalogBeanTransformer() {
         return new DozerBeanTransformer<>(DispAssetCatalog.class, JSFixedFastJsonDispAssetCatalog.class, mapper);
+    }
+
+    @Bean
+    public BeanTransformer<ItemTypeIndicator, FastJsonItemTypeIndicator>
+    itemTypeIndicatorBeanTransformer() {
+        return new DozerBeanTransformer<>(ItemTypeIndicator.class, FastJsonItemTypeIndicator.class, mapper);
     }
 
     @Bean
