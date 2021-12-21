@@ -1,15 +1,15 @@
-package com.dwarfeng.familyhelper.webapi.node.controller.v1.finance;
+package com.dwarfeng.familyhelper.webapi.node.controller.v1.assets;
 
-import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputAccountBookCreateInfo;
-import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputAccountBookUpdateInfo;
-import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputPermissionRemoveInfo;
-import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputPermissionUpsertInfo;
-import com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonAccountBook;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispAccountBook;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
+import com.dwarfeng.familyhelper.assets.sdk.bean.dto.WebInputAssetCatalogCreateInfo;
+import com.dwarfeng.familyhelper.assets.sdk.bean.dto.WebInputAssetCatalogUpdateInfo;
+import com.dwarfeng.familyhelper.assets.sdk.bean.dto.WebInputPermissionRemoveInfo;
+import com.dwarfeng.familyhelper.assets.sdk.bean.dto.WebInputPermissionUpsertInfo;
+import com.dwarfeng.familyhelper.assets.sdk.bean.entity.JSFixedFastJsonAssetCatalog;
+import com.dwarfeng.familyhelper.assets.stack.bean.entity.AssetCatalog;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispAssetCatalog;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispAssetCatalog;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
-import com.dwarfeng.familyhelper.webapi.stack.service.finance.AccountBookResponseService;
+import com.dwarfeng.familyhelper.webapi.stack.service.assets.AssetCatalogResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
@@ -33,38 +33,38 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 账本控制器。
+ * 资产目录控制器。
  *
  * @author DwArFeng
  * @since 1.0.0
  */
 @RestController
-@RequestMapping("/api/v1/finance")
-public class AccountBookController {
+@RequestMapping("/api/v1/assets")
+public class AssetCatalogController {
 
-    private final AccountBookResponseService service;
+    private final AssetCatalogResponseService service;
 
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<AccountBook, JSFixedFastJsonAccountBook> accountBookBeanTransformer;
-    private final BeanTransformer<DispAccountBook, JSFixedFastJsonDispAccountBook> dispAccountBookBeanTransformer;
+    private final BeanTransformer<AssetCatalog, JSFixedFastJsonAssetCatalog> assetCatalogBeanTransformer;
+    private final BeanTransformer<DispAssetCatalog, JSFixedFastJsonDispAssetCatalog> dispAssetCatalogBeanTransformer;
 
     private final TokenHandler tokenHandler;
 
-    public AccountBookController(
-            AccountBookResponseService service, ServiceExceptionMapper sem,
-            BeanTransformer<AccountBook, JSFixedFastJsonAccountBook> accountBookBeanTransformer,
-            BeanTransformer<DispAccountBook, JSFixedFastJsonDispAccountBook> dispAccountBookBeanTransformer,
+    public AssetCatalogController(
+            AssetCatalogResponseService service, ServiceExceptionMapper sem,
+            BeanTransformer<AssetCatalog, JSFixedFastJsonAssetCatalog> assetCatalogBeanTransformer,
+            BeanTransformer<DispAssetCatalog, JSFixedFastJsonDispAssetCatalog> dispAssetCatalogBeanTransformer,
             TokenHandler tokenHandler
     ) {
         this.service = service;
         this.sem = sem;
-        this.accountBookBeanTransformer = accountBookBeanTransformer;
-        this.dispAccountBookBeanTransformer = dispAccountBookBeanTransformer;
+        this.assetCatalogBeanTransformer = assetCatalogBeanTransformer;
+        this.dispAssetCatalogBeanTransformer = dispAssetCatalogBeanTransformer;
         this.tokenHandler = tokenHandler;
     }
 
-    @GetMapping("/account-book/{id}/exists")
+    @GetMapping("/asset-catalog/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") Long id) {
@@ -76,113 +76,113 @@ public class AccountBookController {
         }
     }
 
-    @GetMapping("/account-book/{id}")
+    @GetMapping("/asset-catalog/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonAccountBook> get(HttpServletRequest request, @PathVariable("id") Long id) {
+    public FastJsonResponseData<JSFixedFastJsonAssetCatalog> get(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
-            AccountBook accountBook = service.get(new LongIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonAccountBook.of(accountBook)));
+            AssetCatalog assetCatalog = service.get(new LongIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonAssetCatalog.of(assetCatalog)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonAccountBook.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonAssetCatalog.class, e, sem));
         }
     }
 
-    @GetMapping("/account-book/all")
+    @GetMapping("/asset-catalog/all")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonAccountBook>> all(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonAssetCatalog>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            PagedData<AccountBook> all = service.all(new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonAccountBook> transform = PagingUtil.transform(all, accountBookBeanTransformer);
+            PagedData<AssetCatalog> all = service.all(new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonAssetCatalog> transform = PagingUtil.transform(all, assetCatalogBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
         }
     }
 
-    @GetMapping("/account-book/{id}/disp")
+    @GetMapping("/asset-catalog/{id}/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonDispAccountBook> getDisp(
+    public FastJsonResponseData<JSFixedFastJsonDispAssetCatalog> getDisp(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
             StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
-            DispAccountBook dispAccountBook = service.getDisp(new LongIdKey(id), inspectAccountKey);
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispAccountBook.of(dispAccountBook)));
+            DispAssetCatalog dispAssetCatalog = service.getDisp(new LongIdKey(id), inspectAccountKey);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispAssetCatalog.of(dispAssetCatalog)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonDispAccountBook.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonDispAssetCatalog.class, e, sem));
         }
     }
 
-    @GetMapping("/account-book/all-permitted/disp")
+    @GetMapping("/asset-catalog/all-permitted/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispAccountBook>> allPermittedDisp(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispAssetCatalog>> allPermittedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispAccountBook> allPermittedDisp = service.allPermittedDisp(
+            PagedData<DispAssetCatalog> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonDispAccountBook> transform = PagingUtil.transform(
-                    allPermittedDisp, dispAccountBookBeanTransformer);
+            PagedData<JSFixedFastJsonDispAssetCatalog> transform = PagingUtil.transform(
+                    allPermittedDisp, dispAssetCatalogBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
         }
     }
 
-    @GetMapping("/account-book/all-owned/disp")
+    @GetMapping("/asset-catalog/all-owned/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispAccountBook>> allOwnedDisp(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispAssetCatalog>> allOwnedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispAccountBook> allOwnedDisp = service.allOwnedDisp(
+            PagedData<DispAssetCatalog> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonDispAccountBook> transform = PagingUtil.transform(
-                    allOwnedDisp, dispAccountBookBeanTransformer);
+            PagedData<JSFixedFastJsonDispAssetCatalog> transform = PagingUtil.transform(
+                    allOwnedDisp, dispAssetCatalogBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
         }
     }
 
-    @PostMapping("/account-book/create")
+    @PostMapping("/asset-catalog/create")
     @BehaviorAnalyse
     @BindingCheck
-    public FastJsonResponseData<JSFixedFastJsonLongIdKey> createAccountBook(
+    public FastJsonResponseData<JSFixedFastJsonLongIdKey> createAssetCatalog(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputAccountBookCreateInfo accountBookCreateInfo, BindingResult bindingResult) {
+            @RequestBody @Validated WebInputAssetCatalogCreateInfo assetCatalogCreateInfo, BindingResult bindingResult) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            LongIdKey result = service.createAccountBook(
-                    accountKey, WebInputAccountBookCreateInfo.toStackBean(accountBookCreateInfo));
+            LongIdKey result = service.createAssetCatalog(
+                    accountKey, WebInputAssetCatalogCreateInfo.toStackBean(assetCatalogCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
         }
     }
 
-    @PostMapping("/account-book/update")
+    @PostMapping("/asset-catalog/update")
     @BehaviorAnalyse
     @BindingCheck
-    public FastJsonResponseData<Object> updateAccountBook(
+    public FastJsonResponseData<Object> updateAssetCatalog(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputAccountBookUpdateInfo webInputAccountBookUpdateInfo,
+            @RequestBody @Validated WebInputAssetCatalogUpdateInfo webInputAssetCatalogUpdateInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.updateAccountBook(
-                    accountKey, WebInputAccountBookUpdateInfo.toStackBean(webInputAccountBookUpdateInfo)
+            service.updateAssetCatalog(
+                    accountKey, WebInputAssetCatalogUpdateInfo.toStackBean(webInputAssetCatalogUpdateInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -190,16 +190,16 @@ public class AccountBookController {
         }
     }
 
-    @PostMapping("/account-book/remove")
+    @PostMapping("/asset-catalog/remove")
     @BehaviorAnalyse
     @BindingCheck
-    public FastJsonResponseData<Object> removeAccountBook(
+    public FastJsonResponseData<Object> removeAssetCatalog(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputLongIdKey accountBookKey, BindingResult bindingResult
+            @RequestBody @Validated WebInputLongIdKey assetCatalogKey, BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.removeAccountBook(accountKey, WebInputLongIdKey.toStackBean(accountBookKey));
+            service.removeAssetCatalog(accountKey, WebInputLongIdKey.toStackBean(assetCatalogKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
@@ -207,7 +207,7 @@ public class AccountBookController {
     }
 
     @SuppressWarnings("DuplicatedCode")
-    @PostMapping("/account-book/upsert-permission")
+    @PostMapping("/asset-catalog/upsert-permission")
     @BehaviorAnalyse
     @BindingCheck
     public FastJsonResponseData<Object> upsertPermission(
@@ -227,7 +227,7 @@ public class AccountBookController {
     }
 
     @SuppressWarnings("DuplicatedCode")
-    @PostMapping("/account-book/remove-permission")
+    @PostMapping("/asset-catalog/remove-permission")
     @BehaviorAnalyse
     @BindingCheck
     public FastJsonResponseData<Object> removePermission(
@@ -240,38 +240,6 @@ public class AccountBookController {
             service.removePermission(
                     accountKey, WebInputPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );
-            return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
-        }
-    }
-
-    @PostMapping("/account-book/record-commit")
-    @BehaviorAnalyse
-    @BindingCheck
-    public FastJsonResponseData<Object> recordCommit(
-            HttpServletRequest request,
-            @RequestBody @Validated WebInputLongIdKey accountBookKey, BindingResult bindingResult
-    ) {
-        try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.recordCommit(accountKey, WebInputLongIdKey.toStackBean(accountBookKey));
-            return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
-        }
-    }
-
-    @PostMapping("/account-book/rollback-all")
-    @BehaviorAnalyse
-    @BindingCheck
-    public FastJsonResponseData<Object> rollbackAll(
-            HttpServletRequest request,
-            @RequestBody @Validated WebInputLongIdKey accountBookKey, BindingResult bindingResult
-    ) {
-        try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.rollbackAll(accountKey, WebInputLongIdKey.toStackBean(accountBookKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));

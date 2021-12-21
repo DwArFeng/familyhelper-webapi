@@ -1,12 +1,12 @@
-package com.dwarfeng.familyhelper.webapi.node.controller.v1.finance;
+package com.dwarfeng.familyhelper.webapi.node.controller.v1.assets;
 
-import com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonPoab;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
-import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispPoab;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispPoab;
+import com.dwarfeng.familyhelper.assets.sdk.bean.entity.JSFixedFastJsonPoac;
+import com.dwarfeng.familyhelper.assets.stack.bean.entity.Poac;
+import com.dwarfeng.familyhelper.assets.stack.bean.key.PoacKey;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispPoac;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispPoac;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
-import com.dwarfeng.familyhelper.webapi.stack.service.finance.PoabResponseService;
+import com.dwarfeng.familyhelper.webapi.stack.service.assets.PoacResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
@@ -25,113 +25,113 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 账本权限控制器。
+ * 资产目录权限控制器。
  *
  * @author DwArFeng
  * @since 1.0.0
  */
 @RestController
-@RequestMapping("/api/v1/finance")
-public class PoabController {
+@RequestMapping("/api/v1/assets")
+public class PoacController {
 
-    private final PoabResponseService service;
+    private final PoacResponseService service;
 
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<Poab, JSFixedFastJsonPoab> poabBeanTransformer;
-    private final BeanTransformer<DispPoab, JSFixedFastJsonDispPoab> dispPoabBeanTransformer;
+    private final BeanTransformer<Poac, JSFixedFastJsonPoac> poacBeanTransformer;
+    private final BeanTransformer<DispPoac, JSFixedFastJsonDispPoac> dispPoacBeanTransformer;
 
     private final TokenHandler tokenHandler;
 
-    public PoabController(
-            PoabResponseService service,
+    public PoacController(
+            PoacResponseService service,
             ServiceExceptionMapper sem,
-            BeanTransformer<Poab, JSFixedFastJsonPoab> poabBeanTransformer,
-            BeanTransformer<DispPoab, JSFixedFastJsonDispPoab> dispPoabBeanTransformer,
+            BeanTransformer<Poac, JSFixedFastJsonPoac> poacBeanTransformer,
+            BeanTransformer<DispPoac, JSFixedFastJsonDispPoac> dispPoacBeanTransformer,
             TokenHandler tokenHandler
     ) {
         this.service = service;
         this.sem = sem;
-        this.poabBeanTransformer = poabBeanTransformer;
-        this.dispPoabBeanTransformer = dispPoabBeanTransformer;
+        this.poacBeanTransformer = poacBeanTransformer;
+        this.dispPoacBeanTransformer = dispPoacBeanTransformer;
         this.tokenHandler = tokenHandler;
     }
 
-    @GetMapping("/poab/{longId}&{stringId}/exists")
+    @GetMapping("/poac/{longId}&{stringId}/exists")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            boolean exists = service.exists(new PoabKey(longId, stringId));
+            boolean exists = service.exists(new PoacKey(longId, stringId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
         }
     }
 
-    @GetMapping("/poab/{longId}&{stringId}")
+    @GetMapping("/poac/{longId}&{stringId}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPoab> get(
+    public FastJsonResponseData<JSFixedFastJsonPoac> get(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            Poab poab = service.get(new PoabKey(longId, stringId));
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPoab.of(poab)));
+            Poac poac = service.get(new PoacKey(longId, stringId));
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPoac.of(poac)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPoab.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPoac.class, e, sem));
         }
     }
 
-    @GetMapping("/poab/{longId}&{stringId}/disp")
+    @GetMapping("/poac/{longId}&{stringId}/disp")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonDispPoab> getDisp(
+    public FastJsonResponseData<JSFixedFastJsonDispPoac> getDisp(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
             StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
-            DispPoab dispPoab = service.getDisp(new PoabKey(longId, stringId), inspectAccountKey);
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPoab.of(dispPoab)));
+            DispPoac dispPoac = service.getDisp(new PoacKey(longId, stringId), inspectAccountKey);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPoac.of(dispPoac)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonDispPoab.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonDispPoac.class, e, sem));
         }
     }
 
-    @GetMapping("/account-book/{accountBookId}/poab")
+    @GetMapping("/asset-catalog/{assetCatalogId}/poac")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPoab>> childForAccountBook(
-            HttpServletRequest request, @PathVariable("accountBookId") Long accountBookId,
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPoac>> childForAssetCatalog(
+            HttpServletRequest request, @PathVariable("assetCatalogId") Long assetCatalogId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            PagedData<Poab> childForAccountBook = service.childForAccountBook(
-                    new LongIdKey(accountBookId), new PagingInfo(page, rows)
+            PagedData<Poac> childForAssetCatalog = service.childForAssetCatalog(
+                    new LongIdKey(assetCatalogId), new PagingInfo(page, rows)
             );
-            PagedData<JSFixedFastJsonPoab> transform = PagingUtil.transform(childForAccountBook, poabBeanTransformer);
+            PagedData<JSFixedFastJsonPoac> transform = PagingUtil.transform(childForAssetCatalog, poacBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
         }
     }
 
-    @GetMapping("/account-book/{accountBookId}/poab/disp")
+    @GetMapping("/asset-catalog/{assetCatalogId}/poac/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPoab>> childForAccountBookDisp(
-            HttpServletRequest request, @PathVariable("accountBookId") Long accountBookId,
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPoac>> childForAssetCatalogDisp(
+            HttpServletRequest request, @PathVariable("assetCatalogId") Long assetCatalogId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
             StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispPoab> childForAccountBookDisp = service.childForAccountBookDisp(
-                    new LongIdKey(accountBookId), new PagingInfo(page, rows), inspectAccountKey
+            PagedData<DispPoac> childForAssetCatalogDisp = service.childForAssetCatalogDisp(
+                    new LongIdKey(assetCatalogId), new PagingInfo(page, rows), inspectAccountKey
             );
-            PagedData<JSFixedFastJsonDispPoab> transform = PagingUtil.transform(
-                    childForAccountBookDisp, dispPoabBeanTransformer
+            PagedData<JSFixedFastJsonDispPoac> transform = PagingUtil.transform(
+                    childForAssetCatalogDisp, dispPoacBeanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {

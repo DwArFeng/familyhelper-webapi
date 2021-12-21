@@ -17,6 +17,8 @@
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.PoabController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.AssetCatalogController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.PoacController。
 
 #### Bug修复
 

@@ -114,6 +114,19 @@
     <dubbo:reference id="familyhelperClannadAvatarOperateService"
                      interface="com.dwarfeng.familyhelper.clannad.stack.service.AvatarOperateService"
                      retries="3" timeout="60000" check="false"/>
+    <!-- familyhelper-assets -->
+    <dubbo:reference id="familyhelperAssetsAssetCatalogMaintainService"
+                     interface="com.dwarfeng.familyhelper.assets.stack.service.AssetCatalogMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperAssetsAssetCatalogOperateService"
+                     interface="com.dwarfeng.familyhelper.assets.stack.service.AssetCatalogOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperAssetsUserMaintainService"
+                     interface="com.dwarfeng.familyhelper.assets.stack.service.UserMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperAssetsPoacMaintainService"
+                     interface="com.dwarfeng.familyhelper.assets.stack.service.PoacMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <!-- snowflake -->
     <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService" check="false"/>
 </beans>

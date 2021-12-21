@@ -42,6 +42,8 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             familyhelperFinanceUserMaintainService;
     private final com.dwarfeng.familyhelper.clannad.stack.service.UserMaintainService
             familyhelperClannadUserMaintainService;
+    private final com.dwarfeng.familyhelper.assets.stack.service.UserMaintainService
+            familyhelperAssetsUserMaintainService;
     private final com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService;
     private final PoprMaintainService poprMaintainService;
     private final ProfileMaintainService profileMaintainService;
@@ -57,6 +59,9 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             @Qualifier("familyhelperClannadUserMaintainService")
                     com.dwarfeng.familyhelper.clannad.stack.service.UserMaintainService
                     familyhelperClannadUserMaintainService,
+            @Qualifier("familyhelperAssetsUserMaintainService")
+                    com.dwarfeng.familyhelper.assets.stack.service.UserMaintainService
+                    familyhelperAssetsUserMaintainService,
             @Qualifier("rbacRoleMaintainService") RoleMaintainService rbacRoleMaintainService,
             @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService,
             @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
@@ -67,6 +72,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         this.rbacUserMaintainService = rbacUserMaintainService;
         this.familyhelperFinanceUserMaintainService = familyhelperFinanceUserMaintainService;
         this.familyhelperClannadUserMaintainService = familyhelperClannadUserMaintainService;
+        this.familyhelperAssetsUserMaintainService = familyhelperAssetsUserMaintainService;
         this.rbacRoleMaintainService = rbacRoleMaintainService;
         this.poprMaintainService = poprMaintainService;
         this.profileMaintainService = profileMaintainService;
@@ -250,6 +256,11 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperClannadUserMaintainService.insertOrUpdate(familyhelperClannadUser);
+        com.dwarfeng.familyhelper.assets.stack.bean.entity.User familyhelperAssetsUser =
+                new com.dwarfeng.familyhelper.assets.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperAssetsUserMaintainService.insertOrUpdate(familyhelperAssetsUser);
         Profile profile = new Profile(
                 accountKey, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
                 StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
@@ -278,6 +289,11 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperClannadUserMaintainService.insertOrUpdate(familyhelperClannadUser);
+        com.dwarfeng.familyhelper.assets.stack.bean.entity.User familyhelperAssetsUser =
+                new com.dwarfeng.familyhelper.assets.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperAssetsUserMaintainService.insertOrUpdate(familyhelperAssetsUser);
     }
 
     @Override
@@ -286,6 +302,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         rbacUserMaintainService.deleteIfExists(key);
         familyhelperFinanceUserMaintainService.deleteIfExists(key);
         familyhelperClannadUserMaintainService.deleteIfExists(key);
+        familyhelperAssetsUserMaintainService.deleteIfExists(key);
         profileMaintainService.deleteIfExists(key);
     }
 
