@@ -130,6 +130,9 @@
     <dubbo:reference id="familyhelperAssetsItemTypeIndicatorMaintainService"
                      interface="com.dwarfeng.familyhelper.assets.stack.service.ItemTypeIndicatorMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperAssetsItemLabelMaintainService"
+                     interface="com.dwarfeng.familyhelper.assets.stack.service.ItemLabelMaintainService"
+                     retries="3" timeout="60000" check="false"/>
 
     <!-- snowflake -->
     <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService" check="false"/>

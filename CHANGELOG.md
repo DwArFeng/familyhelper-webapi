@@ -20,6 +20,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.AssetCatalogController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.PoacController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.ItemTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.ItemLabelController。
 
 #### Bug修复
 
