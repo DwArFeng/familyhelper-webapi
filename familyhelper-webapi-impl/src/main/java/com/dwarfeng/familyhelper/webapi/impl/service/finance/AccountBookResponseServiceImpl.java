@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.finance;
 
+import com.dwarfeng.familyhelper.finance.sdk.util.Constants;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
@@ -83,7 +84,7 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
                 PoabMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBook.getKey()}
         ).getData();
         Poab ownerPoab = relatedPoabs.stream().filter(
-                p -> Objects.equals(p.getPermissionLevel(), Poab.PERMISSION_LEVEL_OWNER)
+                p -> Objects.equals(p.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)
         ).findFirst().orElse(null);
         Poab myPoab = relatedPoabs.stream().filter(
                 p -> Objects.equals(p.getKey().getStringId(), inspectAccountKey.getStringId())
@@ -120,7 +121,7 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
             throws ServiceException {
         PagedData<Poab> lookup = poabMaintainService.lookup(
                 PoabMaintainService.CHILD_FOR_USER_PERMISSION_LEVEL_EQUALS,
-                new Object[]{accountKey, Poab.PERMISSION_LEVEL_OWNER},
+                new Object[]{accountKey, Constants.PERMISSION_LEVEL_OWNER},
                 pagingInfo
         );
         List<DispAccountBook> dispAccountBooks = new ArrayList<>();
@@ -138,7 +139,7 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
                 PoabMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBook.getKey()}
         ).getData();
         Poab ownerPoab = relatedPoabs.stream().filter(
-                p -> Objects.equals(p.getPermissionLevel(), Poab.PERMISSION_LEVEL_OWNER)
+                p -> Objects.equals(p.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)
         ).findFirst().orElse(null);
         DispAccount ownerAccount = null;
         if (Objects.nonNull(ownerPoab)) {

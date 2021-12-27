@@ -1,16 +1,12 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.assets;
 
-import com.dwarfeng.familyhelper.assets.sdk.bean.entity.FastJsonItemLabel;
-import com.dwarfeng.familyhelper.assets.sdk.bean.entity.FastJsonItemTypeIndicator;
-import com.dwarfeng.familyhelper.assets.sdk.bean.entity.JSFixedFastJsonAssetCatalog;
-import com.dwarfeng.familyhelper.assets.sdk.bean.entity.JSFixedFastJsonPoac;
-import com.dwarfeng.familyhelper.assets.stack.bean.entity.AssetCatalog;
-import com.dwarfeng.familyhelper.assets.stack.bean.entity.ItemLabel;
-import com.dwarfeng.familyhelper.assets.stack.bean.entity.ItemTypeIndicator;
-import com.dwarfeng.familyhelper.assets.stack.bean.entity.Poac;
+import com.dwarfeng.familyhelper.assets.sdk.bean.entity.*;
+import com.dwarfeng.familyhelper.assets.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispAssetCatalog;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispItem;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispPoac;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispAssetCatalog;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispItem;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispPoac;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
@@ -51,6 +47,16 @@ public class BeanTransformerConfiguration {
     @Bean
     public BeanTransformer<DispPoac, JSFixedFastJsonDispPoac> dispPoacBeanTransformer() {
         return new DozerBeanTransformer<>(DispPoac.class, JSFixedFastJsonDispPoac.class, mapper);
+    }
+
+    @Bean
+    public BeanTransformer<Item, JSFixedFastJsonItem> itemBeanTransformer() {
+        return new DozerBeanTransformer<>(Item.class, JSFixedFastJsonItem.class, mapper);
+    }
+
+    @Bean
+    public BeanTransformer<DispItem, JSFixedFastJsonDispItem> dispItemBeanTransformer() {
+        return new DozerBeanTransformer<>(DispItem.class, JSFixedFastJsonDispItem.class, mapper);
     }
 
     @Bean

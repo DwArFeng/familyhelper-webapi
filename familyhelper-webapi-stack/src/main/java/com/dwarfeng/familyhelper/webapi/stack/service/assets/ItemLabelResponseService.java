@@ -7,6 +7,8 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
+import java.util.List;
+
 /**
  * 项目标签响应服务。
  *
@@ -24,6 +26,8 @@ public interface ItemLabelResponseService extends Service {
     void update(ItemLabel itemLabel) throws ServiceException;
 
     void delete(StringIdKey key) throws ServiceException;
+
+    boolean allExits(List<StringIdKey> keys) throws ServiceException;
 
     PagedData<ItemLabel> all(PagingInfo pagingInfo) throws ServiceException;
 }

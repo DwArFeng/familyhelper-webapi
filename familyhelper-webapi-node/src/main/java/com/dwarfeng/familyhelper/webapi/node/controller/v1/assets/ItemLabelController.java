@@ -3,12 +3,14 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.assets;
 import com.dwarfeng.familyhelper.assets.sdk.bean.entity.FastJsonItemLabel;
 import com.dwarfeng.familyhelper.assets.sdk.bean.entity.WebInputItemLabel;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.ItemLabel;
+import com.dwarfeng.familyhelper.webapi.sdk.cna.ValidateList;
 import com.dwarfeng.familyhelper.webapi.stack.service.assets.ItemLabelResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
+import com.dwarfeng.subgrade.sdk.bean.key.WebInputStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
@@ -24,6 +26,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.stream.Collectors;
 
 /**
  * 项目标签控制器。
@@ -117,6 +120,24 @@ public class ItemLabelController {
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+        }
+    }
+
+    @PostMapping("/item-label/all-exists")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public FastJsonResponseData<Boolean> allExists(
+            HttpServletRequest request, @RequestBody @Validated ValidateList<WebInputStringIdKey> keys,
+            BindingResult bindingResult
+    ) {
+        try {
+            boolean exists = service.allExits(
+                    keys.stream().map(WebInputStringIdKey::toStackBean).collect(Collectors.toList())
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(exists));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
         }
     }
 

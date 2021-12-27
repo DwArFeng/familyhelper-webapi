@@ -10,6 +10,8 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class ItemLabelResponseServiceImpl implements ItemLabelResponseService {
@@ -46,6 +48,11 @@ public class ItemLabelResponseServiceImpl implements ItemLabelResponseService {
     @Override
     public void delete(StringIdKey key) throws ServiceException {
         itemLabelMaintainService.delete(key);
+    }
+
+    @Override
+    public boolean allExits(List<StringIdKey> keys) throws ServiceException {
+        return itemLabelMaintainService.allExists(keys);
     }
 
     @Override

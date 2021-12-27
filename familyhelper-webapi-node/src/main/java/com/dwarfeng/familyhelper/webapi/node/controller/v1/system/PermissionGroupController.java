@@ -114,8 +114,8 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Object> delete(
-            HttpServletRequest request,
-            @PathVariable("id") String id, @RequestParam("nested") boolean nested) {
+            HttpServletRequest request, @PathVariable("id") String id, @RequestParam("nested") boolean nested
+    ) {
         try {
             if (nested) {
                 service.nestedDelete(new StringIdKey(id));
@@ -168,7 +168,8 @@ public class PermissionGroupController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermissionGroup>> childForParent(
             HttpServletRequest request,
             @PathVariable(required = false, value = "parentId") String parentId,
-            @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             StringIdKey parentKey = null;
             if (Objects.nonNull(parentId)) {

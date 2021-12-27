@@ -127,6 +127,12 @@
     <dubbo:reference id="familyhelperAssetsPoacMaintainService"
                      interface="com.dwarfeng.familyhelper.assets.stack.service.PoacMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperAssetsItemMaintainService"
+                     interface="com.dwarfeng.familyhelper.assets.stack.service.ItemMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperAssetsItemOperateService"
+                     interface="com.dwarfeng.familyhelper.assets.stack.service.ItemOperateService"
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="familyhelperAssetsItemTypeIndicatorMaintainService"
                      interface="com.dwarfeng.familyhelper.assets.stack.service.ItemTypeIndicatorMaintainService"
                      retries="3" timeout="60000" check="false"/>

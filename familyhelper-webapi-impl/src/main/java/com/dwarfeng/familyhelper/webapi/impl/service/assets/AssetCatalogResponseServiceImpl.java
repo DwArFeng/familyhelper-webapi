@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.assets;
 
+import com.dwarfeng.familyhelper.assets.sdk.util.Constants;
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.AssetCatalogCreateInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.AssetCatalogUpdateInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.PermissionRemoveInfo;
@@ -78,7 +79,7 @@ public class AssetCatalogResponseServiceImpl implements AssetCatalogResponseServ
                 PoacMaintainService.CHILD_FOR_ASSET_CATALOG, new Object[]{assetCatalog.getKey()}
         ).getData();
         Poac ownerPoac = relatedPoacs.stream().filter(
-                p -> Objects.equals(p.getPermissionLevel(), Poac.PERMISSION_LEVEL_OWNER)
+                p -> Objects.equals(p.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)
         ).findFirst().orElse(null);
         Poac myPoac = relatedPoacs.stream().filter(
                 p -> Objects.equals(p.getKey().getStringId(), inspectAccountKey.getStringId())
@@ -115,7 +116,7 @@ public class AssetCatalogResponseServiceImpl implements AssetCatalogResponseServ
             throws ServiceException {
         PagedData<Poac> lookup = poacMaintainService.lookup(
                 PoacMaintainService.CHILD_FOR_USER_PERMISSION_LEVEL_EQUALS,
-                new Object[]{accountKey, Poac.PERMISSION_LEVEL_OWNER},
+                new Object[]{accountKey, Constants.PERMISSION_LEVEL_OWNER},
                 pagingInfo
         );
         List<DispAssetCatalog> dispAssetCatalogs = new ArrayList<>();
@@ -133,7 +134,7 @@ public class AssetCatalogResponseServiceImpl implements AssetCatalogResponseServ
                 PoacMaintainService.CHILD_FOR_ASSET_CATALOG, new Object[]{assetCatalog.getKey()}
         ).getData();
         Poac ownerPoac = relatedPoacs.stream().filter(
-                p -> Objects.equals(p.getPermissionLevel(), Poac.PERMISSION_LEVEL_OWNER)
+                p -> Objects.equals(p.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)
         ).findFirst().orElse(null);
         DispAccount ownerAccount = null;
         if (Objects.nonNull(ownerPoac)) {
