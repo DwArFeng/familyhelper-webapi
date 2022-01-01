@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad;
 
 import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonAvatarInfo;
-import com.dwarfeng.familyhelper.clannad.stack.bean.dto.AvatarDownloadInfo;
+import com.dwarfeng.familyhelper.clannad.stack.bean.dto.Avatar;
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.AvatarUploadInfo;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.AvatarInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.clannad.AvatarResponseService;
@@ -89,11 +89,11 @@ public class AvatarController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            AvatarDownloadInfo avatarDownloadInfo = service.downloadAvatar(new StringIdKey(stringId));
+            Avatar avatar = service.downloadAvatar(new StringIdKey(stringId));
             // 将文件名转换成 HTTP 标准文件名编码下的格式。
-            String fileName = adjustFileNameEncoding(avatarDownloadInfo.getOriginName());
+            String fileName = adjustFileNameEncoding(avatar.getOriginName());
             headers.add("Content-Disposition", "attachment;filename=" + fileName);
-            body = avatarDownloadInfo.getContent();
+            body = avatar.getContent();
         } catch (Exception e) {
             body = FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
         }

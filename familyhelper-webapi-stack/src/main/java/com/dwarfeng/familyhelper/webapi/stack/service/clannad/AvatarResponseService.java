@@ -1,6 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.clannad;
 
-import com.dwarfeng.familyhelper.clannad.stack.bean.dto.AvatarDownloadInfo;
+import com.dwarfeng.familyhelper.clannad.stack.bean.dto.Avatar;
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.AvatarUploadInfo;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.AvatarInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
@@ -19,7 +19,7 @@ public interface AvatarResponseService extends Service {
 
     AvatarInfo get(StringIdKey key) throws ServiceException;
 
-    AvatarDownloadInfo downloadAvatar(StringIdKey userKey) throws ServiceException;
+    Avatar downloadAvatar(StringIdKey userKey) throws ServiceException;
 
     void uploadAvatar(StringIdKey userKey, AvatarUploadInfo avatarUploadInfo) throws ServiceException;
 }
