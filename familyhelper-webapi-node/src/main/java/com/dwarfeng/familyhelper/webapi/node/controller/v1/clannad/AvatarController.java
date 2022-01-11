@@ -100,6 +100,7 @@ public class AvatarController {
         return new ResponseEntity<>(body, headers, HttpStatus.OK);
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/avatar/{stringId}/upload")
     @BehaviorAnalyse
     @BindingCheck
