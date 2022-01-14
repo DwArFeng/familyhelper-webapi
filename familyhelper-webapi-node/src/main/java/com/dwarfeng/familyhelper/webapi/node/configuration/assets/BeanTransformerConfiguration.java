@@ -69,4 +69,9 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<ItemCoverInfo, JSFixedFastJsonItemCoverInfo> itemCoverInfoBeanTransformer() {
         return new DozerBeanTransformer<>(ItemCoverInfo.class, JSFixedFastJsonItemCoverInfo.class, mapper);
     }
+
+    @Bean
+    public BeanTransformer<ItemFileInfo, JSFixedFastJsonItemFileInfo> itemFileInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(ItemFileInfo.class, JSFixedFastJsonItemFileInfo.class, mapper);
+    }
 }

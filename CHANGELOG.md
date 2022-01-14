@@ -23,6 +23,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.ItemLabelController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.ItemController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.ItemCoverController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.ItemFileController。
 
 - 升级 `familyhelper-clannad` 依赖版本为 `1.2.0.a`，并解决兼容性问题。
 

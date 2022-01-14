@@ -38,6 +38,7 @@
         <jsqlparser.version>0.9.1</jsqlparser.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>
         <dubbo.version>2.7.1</dubbo.version>
+        <hessian.version>4.0.38</hessian.version>
         <jetty.version>9.4.12.v20180830</jetty.version>
         <netty.version>4.1.43.Final</netty.version>
         <curator.version>4.2.0</curator.version>
@@ -125,6 +126,11 @@
                     </exclusion>
                 </exclusions>
                 <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.caucho</groupId>
+                <artifactId>hessian</artifactId>
+                <version>${hessian.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>

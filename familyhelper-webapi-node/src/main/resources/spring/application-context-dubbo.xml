@@ -17,6 +17,8 @@
     <!-- dubbo协议 -->
     <dubbo:protocol name="dubbo" port="${dubbo.protocol.dubbo.port}" host="${dubbo.protocol.dubbo.host}"
                     dispatcher="message" threadpool="fixed" threads="100"/>
+    <!-- hessian协议 -->
+    <dubbo:protocol name="hessian" port="${hessian.protocol.dubbo.port}" server="jetty"/>
 
     <!-- 默认使用dubbo协议 -->
     <dubbo:provider protocol="dubbo"/>
@@ -144,6 +146,12 @@
                      retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="familyhelperAssetsItemCoverOperateService"
                      interface="com.dwarfeng.familyhelper.assets.stack.service.ItemCoverOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperAssetsItemFileInfoMaintainService"
+                     interface="com.dwarfeng.familyhelper.assets.stack.service.ItemFileInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperAssetsItemFileOperateService"
+                     interface="com.dwarfeng.familyhelper.assets.stack.service.ItemFileOperateService"
                      retries="3" timeout="60000" check="false"/>
 
     <!-- snowflake -->

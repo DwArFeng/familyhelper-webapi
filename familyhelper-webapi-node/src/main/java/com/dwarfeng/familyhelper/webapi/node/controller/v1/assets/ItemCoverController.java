@@ -99,7 +99,7 @@ public class ItemCoverController {
     @GetMapping("item/{itemId}/item-cover")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonItemCoverInfo>> get(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonItemCoverInfo>> childForItem(
             HttpServletRequest request,
             @PathVariable("itemId") long itemId,
             @RequestParam("page") int page, @RequestParam("rows") int rows
