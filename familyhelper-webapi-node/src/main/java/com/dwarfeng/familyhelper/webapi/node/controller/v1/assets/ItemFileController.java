@@ -3,6 +3,7 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.assets;
 import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.familyhelper.assets.sdk.bean.entity.JSFixedFastJsonItemFileInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFile;
+import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFileUpdateInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFileUploadInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.ItemFileInfo;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
@@ -44,6 +45,11 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/api/v1/assets")
 public class ItemFileController {
+
+    /**
+     * IO 传输设定的缓冲容量。
+     */
+    private static final int IO_TRANS_BUFFER_SIZE = 4096;
 
     private final ItemFileResponseService service;
 
@@ -252,7 +258,7 @@ public class ItemFileController {
             String originFileName = file.getOriginalFilename();
             byte[] content;
             try (InputStream in = file.getInputStream(); ByteArrayOutputStream bout = new ByteArrayOutputStream()) {
-                IOUtil.trans(in, bout, 4096);
+                IOUtil.trans(in, bout, IO_TRANS_BUFFER_SIZE);
                 bout.flush();
                 content = bout.toByteArray();
             }
@@ -260,6 +266,51 @@ public class ItemFileController {
             // 将文件内容转换为接口需要的格式，并上传。
             service.uploadItemFile(
                     accountKey, new ItemFileUploadInfo(new LongIdKey(itemId), originFileName, content)
+            );
+
+            // 返回响应结果。
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @PostMapping("/item-file/{itemFileId}/update")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public FastJsonResponseData<Object> updateItemFile(
+            HttpServletRequest request, @PathVariable("itemFileId") Long itemFileId
+    ) {
+        try {
+            // 通过请求解析用户。
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+
+            // 确认请求合法。
+            if (!commonsMultipartResolver.isMultipart(request)) {
+                throw new IllegalStateException("请求不是标准的文件上传请求");
+            }
+
+            //获取 multiRequest 中的文件。
+            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartFile file = multipartHttpServletRequest.getFile("file");
+            if (Objects.isNull(file)) {
+                throw new IllegalStateException("请求体中缺少 file 属性");
+            }
+
+            // 解析文件内容。
+            String originFileName = file.getOriginalFilename();
+            byte[] content;
+            try (InputStream in = file.getInputStream(); ByteArrayOutputStream bout = new ByteArrayOutputStream()) {
+                IOUtil.trans(in, bout, IO_TRANS_BUFFER_SIZE);
+                bout.flush();
+                content = bout.toByteArray();
+            }
+
+            // 将文件内容转换为接口需要的格式，并上传。
+            service.updateItemFile(
+                    accountKey, new ItemFileUpdateInfo(new LongIdKey(itemFileId), originFileName, content)
             );
 
             // 返回响应结果。

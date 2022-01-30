@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.assets;
 
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFile;
+import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFileUpdateInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFileUploadInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.ItemFileInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -39,6 +40,8 @@ public interface ItemFileResponseService extends Service {
     ItemFile downloadItemFile(StringIdKey userKey, LongIdKey itemFileKey) throws ServiceException;
 
     void uploadItemFile(StringIdKey userKey, ItemFileUploadInfo itemFileUploadInfo) throws ServiceException;
+
+    void updateItemFile(StringIdKey userKey, ItemFileUpdateInfo itemFileUpdateInfo) throws ServiceException;
 
     void removeItemFile(StringIdKey userKey, LongIdKey itemFileKey) throws ServiceException;
 }

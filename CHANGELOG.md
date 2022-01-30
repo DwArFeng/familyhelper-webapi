@@ -14,6 +14,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.AccountBookController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.BankCardController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.FundChangeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.ItemFileController。
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.PoabController。

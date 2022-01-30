@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.assets;
 
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFile;
+import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFileUpdateInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFileUploadInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.ItemFileInfo;
 import com.dwarfeng.familyhelper.assets.stack.service.ItemFileInfoMaintainService;
@@ -88,6 +89,11 @@ public class ItemFileResponseServiceImpl implements ItemFileResponseService {
     @Override
     public void uploadItemFile(StringIdKey userKey, ItemFileUploadInfo itemFileUploadInfo) throws ServiceException {
         itemFileOperateService.uploadItemFile(userKey, itemFileUploadInfo);
+    }
+
+    @Override
+    public void updateItemFile(StringIdKey userKey, ItemFileUpdateInfo itemFileUpdateInfo) throws ServiceException {
+        itemFileOperateService.updateItemFile(userKey, itemFileUpdateInfo);
     }
 
     @Override
