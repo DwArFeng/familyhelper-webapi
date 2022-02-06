@@ -62,5 +62,10 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-assets-stack</artifactId>
         </dependency>
+        <!-- familyhelper-project组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>familyhelper-project-stack</artifactId>
+        </dependency>
     </dependencies>
 </project>
