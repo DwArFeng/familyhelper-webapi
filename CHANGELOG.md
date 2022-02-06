@@ -6,6 +6,9 @@
 
 - 升级部分依赖版本。
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.TaskTypeIndicatorController。
+
 #### Bug修复
 
 - (无)
