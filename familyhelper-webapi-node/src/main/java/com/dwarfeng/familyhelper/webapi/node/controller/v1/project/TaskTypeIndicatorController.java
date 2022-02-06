@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  * 项目类型指示器控制器。
  *
  * @author DwArFeng
- * @since 1.0.2
+ * @since 1.0.3
  */
 @RestController
 @RequestMapping("/api/v1/project")

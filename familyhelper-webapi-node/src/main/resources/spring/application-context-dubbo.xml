@@ -154,6 +154,15 @@
                      interface="com.dwarfeng.familyhelper.assets.stack.service.ItemFileOperateService"
                      retries="3" timeout="60000" check="false"/>
     <!-- familyhelper-project -->
+    <dubbo:reference id="familyhelperProjectProjectMaintainService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.ProjectMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectProjectOperateService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.ProjectOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectPopMaintainService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.PopMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="familyhelperProjectTaskTypeIndicatorMaintainService"
                      interface="com.dwarfeng.familyhelper.project.stack.service.TaskTypeIndicatorMaintainService"
                      retries="3" timeout="60000" check="false"/>

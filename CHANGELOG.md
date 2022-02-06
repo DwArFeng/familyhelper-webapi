@@ -8,6 +8,7 @@
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.TaskTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.ProjectController。
 
 #### Bug修复
 
