@@ -20,7 +20,7 @@ import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration("projectBeanTransformerConfiguration")
+@Configuration("project.beanTransformerConfiguration")
 public class BeanTransformerConfiguration {
 
     private final Mapper mapper;
@@ -29,22 +29,22 @@ public class BeanTransformerConfiguration {
         this.mapper = mapper;
     }
 
-    @Bean
+    @Bean("project.projectBeanTransformer")
     public BeanTransformer<Project, JSFixedFastJsonProject> projectBeanTransformer() {
         return new DozerBeanTransformer<>(Project.class, JSFixedFastJsonProject.class, mapper);
     }
 
-    @Bean
+    @Bean("project.dispProjectBeanTransformer")
     public BeanTransformer<DispProject, JSFixedFastJsonDispProject> dispProjectBeanTransformer() {
         return new DozerBeanTransformer<>(DispProject.class, JSFixedFastJsonDispProject.class, mapper);
     }
 
-    @Bean
+    @Bean("project.popBeanTransformer")
     public BeanTransformer<Pop, JSFixedFastJsonPop> popBeanTransformer() {
         return new DozerBeanTransformer<>(Pop.class, JSFixedFastJsonPop.class, mapper);
     }
 
-    @Bean
+    @Bean("project.dispPopBeanTransformer")
     public BeanTransformer<DispPop, JSFixedFastJsonDispPop> dispPopBeanTransformer() {
         return new DozerBeanTransformer<>(DispPop.class, JSFixedFastJsonDispPop.class, mapper);
     }
@@ -55,12 +55,12 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(TaskTypeIndicator.class, FastJsonTaskTypeIndicator.class, mapper);
     }
 
-    @Bean
+    @Bean("project.taskBeanTransformer")
     public BeanTransformer<Task, JSFixedFastJsonTask> taskBeanTransformer() {
         return new DozerBeanTransformer<>(Task.class, JSFixedFastJsonTask.class, mapper);
     }
 
-    @Bean
+    @Bean("project.dispTaskBeanTransformer")
     public BeanTransformer<DispTask, JSFixedFastJsonDispTask> dispTaskBeanTransformer() {
         return new DozerBeanTransformer<>(DispTask.class, JSFixedFastJsonDispTask.class, mapper);
     }

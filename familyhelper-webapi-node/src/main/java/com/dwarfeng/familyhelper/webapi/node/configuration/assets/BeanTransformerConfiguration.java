@@ -14,7 +14,7 @@ import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration("assetsBeanTransformerConfiguration")
+@Configuration("assets.beanTransformerConfiguration")
 public class BeanTransformerConfiguration {
 
     private final Mapper mapper;
@@ -23,12 +23,12 @@ public class BeanTransformerConfiguration {
         this.mapper = mapper;
     }
 
-    @Bean
+    @Bean("assets.assetCatalogBeanTransformer")
     public BeanTransformer<AssetCatalog, JSFixedFastJsonAssetCatalog> assetCatalogBeanTransformer() {
         return new DozerBeanTransformer<>(AssetCatalog.class, JSFixedFastJsonAssetCatalog.class, mapper);
     }
 
-    @Bean
+    @Bean("assets.dispAssetCatalogBeanTransformer")
     public BeanTransformer<DispAssetCatalog, JSFixedFastJsonDispAssetCatalog> dispAssetCatalogBeanTransformer() {
         return new DozerBeanTransformer<>(DispAssetCatalog.class, JSFixedFastJsonDispAssetCatalog.class, mapper);
     }
@@ -39,22 +39,22 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(ItemTypeIndicator.class, FastJsonItemTypeIndicator.class, mapper);
     }
 
-    @Bean
+    @Bean("assets.poacBeanTransformer")
     public BeanTransformer<Poac, JSFixedFastJsonPoac> poacBeanTransformer() {
         return new DozerBeanTransformer<>(Poac.class, JSFixedFastJsonPoac.class, mapper);
     }
 
-    @Bean
+    @Bean("assets.dispPoacBeanTransformer")
     public BeanTransformer<DispPoac, JSFixedFastJsonDispPoac> dispPoacBeanTransformer() {
         return new DozerBeanTransformer<>(DispPoac.class, JSFixedFastJsonDispPoac.class, mapper);
     }
 
-    @Bean
+    @Bean("assets.itemBeanTransformer")
     public BeanTransformer<Item, JSFixedFastJsonItem> itemBeanTransformer() {
         return new DozerBeanTransformer<>(Item.class, JSFixedFastJsonItem.class, mapper);
     }
 
-    @Bean
+    @Bean("assets.dispItemBeanTransformer")
     public BeanTransformer<DispItem, JSFixedFastJsonDispItem> dispItemBeanTransformer() {
         return new DozerBeanTransformer<>(DispItem.class, JSFixedFastJsonDispItem.class, mapper);
     }
@@ -65,12 +65,12 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(ItemLabel.class, FastJsonItemLabel.class, mapper);
     }
 
-    @Bean
+    @Bean("assets.itemCoverInfoBeanTransformer")
     public BeanTransformer<ItemCoverInfo, JSFixedFastJsonItemCoverInfo> itemCoverInfoBeanTransformer() {
         return new DozerBeanTransformer<>(ItemCoverInfo.class, JSFixedFastJsonItemCoverInfo.class, mapper);
     }
 
-    @Bean
+    @Bean("assets.itemFileInfoBeanTransformer")
     public BeanTransformer<ItemFileInfo, JSFixedFastJsonItemFileInfo> itemFileInfoBeanTransformer() {
         return new DozerBeanTransformer<>(ItemFileInfo.class, JSFixedFastJsonItemFileInfo.class, mapper);
     }

@@ -20,7 +20,7 @@ import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration("systemBeanTransformerConfiguration")
+@Configuration("system.beanTransformerConfiguration")
 public class BeanTransformerConfiguration {
 
     private final Mapper mapper;
@@ -29,37 +29,37 @@ public class BeanTransformerConfiguration {
         this.mapper = mapper;
     }
 
-    @Bean
+    @Bean("system.accountBeanTransformer")
     public BeanTransformer<Account, FastJsonAccount> accountBeanTransformer() {
         return new DozerBeanTransformer<>(Account.class, FastJsonAccount.class, mapper);
     }
 
-    @Bean
+    @Bean("system.dispAccountBeanTransformer")
     public BeanTransformer<DispAccount, FastJsonDispAccount> dispAccountBeanTransformer() {
         return new DozerBeanTransformer<>(DispAccount.class, FastJsonDispAccount.class, mapper);
     }
 
-    @Bean
+    @Bean("system.permissionBeanTransformer")
     public BeanTransformer<Permission, FastJsonPermission> permissionBeanTransformer() {
         return new DozerBeanTransformer<>(Permission.class, FastJsonPermission.class, mapper);
     }
 
-    @Bean
+    @Bean("system.roleBeanTransformer")
     public BeanTransformer<Role, FastJsonRole> roleBeanTransformer() {
         return new DozerBeanTransformer<>(Role.class, FastJsonRole.class, mapper);
     }
 
-    @Bean
+    @Bean("system.pexpBeanTransformer")
     public BeanTransformer<Pexp, JSFixedFastJsonPexp> pexpBeanTransformer() {
         return new DozerBeanTransformer<>(Pexp.class, JSFixedFastJsonPexp.class, mapper);
     }
 
-    @Bean
+    @Bean("system.permissionGroupBeanTransformer")
     public BeanTransformer<PermissionGroup, FastJsonPermissionGroup> permissionGroupBeanTransformer() {
         return new DozerBeanTransformer<>(PermissionGroup.class, FastJsonPermissionGroup.class, mapper);
     }
 
-    @Bean
+    @Bean("system.dispPermissionGroupBeanTransformer")
     public BeanTransformer<DispPermissionGroup, FastJsonDispPermissionGroup> dispPermissionGroupBeanTransformer() {
         return new DozerBeanTransformer<>(DispPermissionGroup.class, FastJsonDispPermissionGroup.class, mapper);
     }

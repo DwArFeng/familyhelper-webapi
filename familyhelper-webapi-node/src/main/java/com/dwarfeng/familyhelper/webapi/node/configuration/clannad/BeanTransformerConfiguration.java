@@ -14,7 +14,7 @@ import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration("clannadBeanTransformerConfiguration")
+@Configuration("clannad.beanTransformerConfiguration")
 public class BeanTransformerConfiguration {
 
     private final Mapper mapper;
@@ -23,12 +23,12 @@ public class BeanTransformerConfiguration {
         this.mapper = mapper;
     }
 
-    @Bean
+    @Bean("clannad.profileBeanTransformer")
     public BeanTransformer<Profile, FastJsonProfile> profileBeanTransformer() {
         return new DozerBeanTransformer<>(Profile.class, FastJsonProfile.class, mapper);
     }
 
-    @Bean
+    @Bean("clannad.dispProfileBeanTransformer")
     public BeanTransformer<DispProfile, FastJsonDispProfile> dispProfileBeanTransformer() {
         return new DozerBeanTransformer<>(DispProfile.class, FastJsonDispProfile.class, mapper);
     }
@@ -39,7 +39,7 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(ProfileTypeIndicator.class, FastJsonProfileTypeIndicator.class, mapper);
     }
 
-    @Bean
+    @Bean("clannad.nicknameBeanTransformer")
     public BeanTransformer<Nickname, FastJsonNickname> nicknameBeanTransformer() {
         return new DozerBeanTransformer<>(Nickname.class, FastJsonNickname.class, mapper);
     }

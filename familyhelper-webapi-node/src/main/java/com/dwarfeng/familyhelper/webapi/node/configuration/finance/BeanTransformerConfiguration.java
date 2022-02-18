@@ -16,7 +16,7 @@ import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration("financeBeanTransformerConfiguration")
+@Configuration("finance.beanTransformerConfiguration")
 public class BeanTransformerConfiguration {
 
     private final Mapper mapper;
@@ -25,12 +25,12 @@ public class BeanTransformerConfiguration {
         this.mapper = mapper;
     }
 
-    @Bean
+    @Bean("finance.accountBookBeanTransformer")
     public BeanTransformer<AccountBook, JSFixedFastJsonAccountBook> accountBookBeanTransformer() {
         return new DozerBeanTransformer<>(AccountBook.class, JSFixedFastJsonAccountBook.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.dispAccountBookBeanTransformer")
     public BeanTransformer<DispAccountBook, JSFixedFastJsonDispAccountBook> dispAccountBookBeanTransformer() {
         return new DozerBeanTransformer<>(DispAccountBook.class, JSFixedFastJsonDispAccountBook.class, mapper);
     }
@@ -41,12 +41,12 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(BankCardTypeIndicator.class, FastJsonBankCardTypeIndicator.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.bankCardBeanTransformer")
     public BeanTransformer<BankCard, JSFixedFastJsonBankCard> bankCardBeanTransformer() {
         return new DozerBeanTransformer<>(BankCard.class, JSFixedFastJsonBankCard.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.dispBankCardBeanTransformer")
     public BeanTransformer<DispBankCard, JSFixedFastJsonDispBankCard> dispBankCardBeanTransformer() {
         return new DozerBeanTransformer<>(DispBankCard.class, JSFixedFastJsonDispBankCard.class, mapper);
     }
@@ -57,12 +57,12 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.fundChangeBeanTransformer")
     public BeanTransformer<FundChange, JSFixedFastJsonFundChange> fundChangeBeanTransformer() {
         return new DozerBeanTransformer<>(FundChange.class, JSFixedFastJsonFundChange.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.dispFundChangeBeanTransformer")
     public BeanTransformer<DispFundChange, JSFixedFastJsonDispFundChange> dispFundChangeBeanTransformer() {
         return new DozerBeanTransformer<>(DispFundChange.class, JSFixedFastJsonDispFundChange.class, mapper);
     }
@@ -81,12 +81,12 @@ public class BeanTransformerConfiguration {
         );
     }
 
-    @Bean
+    @Bean("finance.poabBeanTransformer")
     public BeanTransformer<Poab, JSFixedFastJsonPoab> poabBeanTransformer() {
         return new DozerBeanTransformer<>(Poab.class, JSFixedFastJsonPoab.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.dispPoabBeanTransformer")
     public BeanTransformer<DispPoab, JSFixedFastJsonDispPoab> dispPoabBeanTransformer() {
         return new DozerBeanTransformer<>(DispPoab.class, JSFixedFastJsonDispPoab.class, mapper);
     }

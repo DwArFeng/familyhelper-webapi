@@ -12,6 +12,8 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.ProjectController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.PopController。
 
+- 优化 BeanTransformer 的 bean 名称。
+
 #### Bug修复
 
 - (无)
