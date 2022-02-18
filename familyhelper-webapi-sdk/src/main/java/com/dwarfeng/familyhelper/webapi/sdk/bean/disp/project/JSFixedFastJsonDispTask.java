@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class JSFixedFastJsonDispTask implements Dto {
 
-    private static final long serialVersionUID = -1042109530908058414L;
+    private static final long serialVersionUID = 4612956525932067390L;
 
     public static JSFixedFastJsonDispTask of(DispTask dispTask) {
         if (Objects.isNull(dispTask)) {
@@ -28,7 +28,6 @@ public class JSFixedFastJsonDispTask implements Dto {
                     JSFixedFastJsonLongIdKey.of(dispTask.getProjectKey()),
                     dispTask.getType(),
                     dispTask.getName(),
-                    dispTask.getDescription(),
                     dispTask.getRemark(),
                     dispTask.getStatus(),
                     dispTask.getCreatedDate(),
@@ -54,34 +53,31 @@ public class JSFixedFastJsonDispTask implements Dto {
     @JSONField(name = "name", ordinal = 4)
     private String name;
 
-    @JSONField(name = "description", ordinal = 5)
-    private String description;
-
-    @JSONField(name = "remark", ordinal = 6)
+    @JSONField(name = "remark", ordinal = 5)
     private String remark;
 
-    @JSONField(name = "status", ordinal = 7)
+    @JSONField(name = "status", ordinal = 6)
     private int status;
 
-    @JSONField(name = "created_date", ordinal = 8)
+    @JSONField(name = "created_date", ordinal = 7)
     private Date createdDate;
 
-    @JSONField(name = "modified_date", ordinal = 9)
+    @JSONField(name = "modified_date", ordinal = 8)
     private Date modifiedDate;
 
-    @JSONField(name = "finished_date", ordinal = 10)
+    @JSONField(name = "finished_date", ordinal = 9)
     private Date finishedDate;
 
-    @JSONField(name = "total_mission_count", ordinal = 11)
+    @JSONField(name = "total_mission_count", ordinal = 10)
     private int totalMissionCount;
 
-    @JSONField(name = "finished_mission_count", ordinal = 12)
+    @JSONField(name = "finished_mission_count", ordinal = 11)
     private int finishedMissionCount;
 
-    @JSONField(name = "project", ordinal = 13)
+    @JSONField(name = "project", ordinal = 12)
     private JSFixedFastJsonDispProject project;
 
-    @JSONField(name = "type_indicator", ordinal = 14)
+    @JSONField(name = "type_indicator", ordinal = 13)
     private FastJsonTaskTypeIndicator typeIndicator;
 
     public JSFixedFastJsonDispTask() {
@@ -89,7 +85,7 @@ public class JSFixedFastJsonDispTask implements Dto {
 
     public JSFixedFastJsonDispTask(
             JSFixedFastJsonLongIdKey key, JSFixedFastJsonLongIdKey projectKey, String type, String name,
-            String description, String remark, int status, Date createdDate, Date modifiedDate, Date finishedDate,
+            String remark, int status, Date createdDate, Date modifiedDate, Date finishedDate,
             int totalMissionCount, int finishedMissionCount, JSFixedFastJsonDispProject project,
             FastJsonTaskTypeIndicator typeIndicator
     ) {
@@ -97,7 +93,6 @@ public class JSFixedFastJsonDispTask implements Dto {
         this.projectKey = projectKey;
         this.type = type;
         this.name = name;
-        this.description = description;
         this.remark = remark;
         this.status = status;
         this.createdDate = createdDate;
@@ -139,14 +134,6 @@ public class JSFixedFastJsonDispTask implements Dto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getRemark() {
@@ -223,12 +210,11 @@ public class JSFixedFastJsonDispTask implements Dto {
 
     @Override
     public String toString() {
-        return "DispTask{" +
+        return "JSFixedFastJsonDispTask{" +
                 "key=" + key +
                 ", projectKey=" + projectKey +
                 ", type='" + type + '\'' +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
                 ", remark='" + remark + '\'' +
                 ", status=" + status +
                 ", createdDate=" + createdDate +

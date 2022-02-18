@@ -16,14 +16,14 @@ import java.util.Objects;
  */
 public class DispTask implements Dto {
 
-    private static final long serialVersionUID = -8804930502194047407L;
+    private static final long serialVersionUID = 8988149336622216253L;
 
     public static DispTask of(Task task, DispProject dispProject, TaskTypeIndicator typeIndicator) {
         if (Objects.isNull(task)) {
             return null;
         } else {
             return new DispTask(
-                    task.getKey(), task.getProjectKey(), task.getType(), task.getName(), task.getDescription(),
+                    task.getKey(), task.getProjectKey(), task.getType(), task.getName(),
                     task.getRemark(), task.getStatus(), task.getCreatedDate(), task.getModifiedDate(),
                     task.getFinishedDate(), task.getTotalMissionCount(), task.getFinishedMissionCount(),
                     dispProject, typeIndicator
@@ -35,7 +35,6 @@ public class DispTask implements Dto {
     private LongIdKey projectKey;
     private String type;
     private String name;
-    private String description;
     private String remark;
     private int status;
     private Date createdDate;
@@ -50,7 +49,7 @@ public class DispTask implements Dto {
     }
 
     public DispTask(
-            LongIdKey key, LongIdKey projectKey, String type, String name, String description, String remark,
+            LongIdKey key, LongIdKey projectKey, String type, String name, String remark,
             int status, Date createdDate, Date modifiedDate, Date finishedDate, int totalMissionCount,
             int finishedMissionCount, DispProject project, TaskTypeIndicator typeIndicator
     ) {
@@ -58,7 +57,6 @@ public class DispTask implements Dto {
         this.projectKey = projectKey;
         this.type = type;
         this.name = name;
-        this.description = description;
         this.remark = remark;
         this.status = status;
         this.createdDate = createdDate;
@@ -100,14 +98,6 @@ public class DispTask implements Dto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getRemark() {
@@ -189,7 +179,6 @@ public class DispTask implements Dto {
                 ", projectKey=" + projectKey +
                 ", type='" + type + '\'' +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
                 ", remark='" + remark + '\'' +
                 ", status=" + status +
                 ", createdDate=" + createdDate +
