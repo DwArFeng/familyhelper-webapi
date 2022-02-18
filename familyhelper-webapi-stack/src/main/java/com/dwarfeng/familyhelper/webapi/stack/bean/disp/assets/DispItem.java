@@ -26,7 +26,7 @@ public class DispItem implements Dto {
             Item item, DispAssetCatalog assetCatalog, ItemTypeIndicator typeIndicator, List<ItemLabel> labels,
             boolean hasNoChild
     ) {
-        if (Objects.isNull(assetCatalog)) {
+        if (Objects.isNull(item)) {
             return null;
         } else {
             return new DispItem(

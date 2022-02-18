@@ -163,6 +163,12 @@
     <dubbo:reference id="familyhelperProjectPopMaintainService"
                      interface="com.dwarfeng.familyhelper.project.stack.service.PopMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectTaskMaintainService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.TaskMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectTaskOperateService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.TaskOperateService"
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="familyhelperProjectTaskTypeIndicatorMaintainService"
                      interface="com.dwarfeng.familyhelper.project.stack.service.TaskTypeIndicatorMaintainService"
                      retries="3" timeout="60000" check="false"/>

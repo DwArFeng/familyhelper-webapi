@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 资产目录控制器。
+ * 工程控制器。
  *
  * @author DwArFeng
  * @since 1.0.3
