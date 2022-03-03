@@ -14,6 +14,8 @@
 
 - 优化 BeanTransformer 的 bean 名称。
 
+- 添加项目的许可证。
+
 #### Bug修复
 
 - (无)
