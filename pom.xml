@@ -446,21 +446,6 @@
                 <artifactId>familyhelper-webapi-impl</artifactId>
                 <version>1.0.3.a-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>com.dwarfeng</groupId>
-                <artifactId>familyhelper-webapi-node-common</artifactId>
-                <version>1.0.0.a-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dwarfeng</groupId>
-                <artifactId>familyhelper-webapi-node-tomcat</artifactId>
-                <version>1.0.0.a-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dwarfeng</groupId>
-                <artifactId>familyhelper-webapi-node-standalone</artifactId>
-                <version>1.0.0.a-SNAPSHOT</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
