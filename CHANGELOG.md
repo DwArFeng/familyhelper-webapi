@@ -11,6 +11,8 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.TaskTypeIndicatorController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.ProjectController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.PopController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.MemoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.MemoFileController。
 
 - 优化 BeanTransformer 的 bean 名称。
 

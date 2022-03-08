@@ -172,6 +172,18 @@
     <dubbo:reference id="familyhelperProjectTaskTypeIndicatorMaintainService"
                      interface="com.dwarfeng.familyhelper.project.stack.service.TaskTypeIndicatorMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectMemoMaintainService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.MemoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectMemoOperateService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.MemoOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectMemoFileInfoMaintainService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.MemoFileInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectMemoFileOperateService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.MemoFileOperateService"
+                     retries="3" timeout="60000" check="false"/>
 
     <!-- snowflake -->
     <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService" check="false"/>

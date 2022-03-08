@@ -1,13 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.project;
 
-import com.dwarfeng.familyhelper.project.sdk.bean.entity.FastJsonTaskTypeIndicator;
-import com.dwarfeng.familyhelper.project.sdk.bean.entity.JSFixedFastJsonPop;
-import com.dwarfeng.familyhelper.project.sdk.bean.entity.JSFixedFastJsonProject;
-import com.dwarfeng.familyhelper.project.sdk.bean.entity.JSFixedFastJsonTask;
-import com.dwarfeng.familyhelper.project.stack.bean.entity.Pop;
-import com.dwarfeng.familyhelper.project.stack.bean.entity.Project;
-import com.dwarfeng.familyhelper.project.stack.bean.entity.Task;
-import com.dwarfeng.familyhelper.project.stack.bean.entity.TaskTypeIndicator;
+import com.dwarfeng.familyhelper.project.sdk.bean.entity.*;
+import com.dwarfeng.familyhelper.project.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.project.JSFixedFastJsonDispPop;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.project.JSFixedFastJsonDispProject;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.project.JSFixedFastJsonDispTask;
@@ -63,5 +57,15 @@ public class BeanTransformerConfiguration {
     @Bean("project.dispTaskBeanTransformer")
     public BeanTransformer<DispTask, JSFixedFastJsonDispTask> dispTaskBeanTransformer() {
         return new DozerBeanTransformer<>(DispTask.class, JSFixedFastJsonDispTask.class, mapper);
+    }
+
+    @Bean("project.memoBeanTransformer")
+    public BeanTransformer<Memo, JSFixedFastJsonMemo> memoBeanTransformer() {
+        return new DozerBeanTransformer<>(Memo.class, JSFixedFastJsonMemo.class, mapper);
+    }
+
+    @Bean("project.memoFileInfoBeanTransformer")
+    public BeanTransformer<MemoFileInfo, JSFixedFastJsonMemoFileInfo> memoFileInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(MemoFileInfo.class, JSFixedFastJsonMemoFileInfo.class, mapper);
     }
 }
