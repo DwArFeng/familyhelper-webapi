@@ -207,7 +207,6 @@ public class ItemFileController {
         }
     }
 
-
     @GetMapping("/item-file/{itemFileId}/download")
     @BehaviorAnalyse
     @BindingCheck

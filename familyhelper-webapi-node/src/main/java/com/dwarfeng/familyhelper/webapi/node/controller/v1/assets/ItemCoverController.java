@@ -117,7 +117,6 @@ public class ItemCoverController {
         }
     }
 
-
     @GetMapping("/item-cover/{itemCoverId}/download")
     @BehaviorAnalyse
     @BindingCheck
