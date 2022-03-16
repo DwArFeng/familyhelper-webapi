@@ -3,7 +3,9 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.clannad;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonNickname;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonProfile;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonProfileTypeIndicator;
+import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.JSFixedFastJsonNotification;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Nickname;
+import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Notification;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Profile;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.ProfileTypeIndicator;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.FastJsonDispProfile;
@@ -33,7 +35,7 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(DispProfile.class, FastJsonDispProfile.class, mapper);
     }
 
-    @Bean
+    @Bean("clannad.profileTypeIndicatorBeanTransformer")
     public BeanTransformer<ProfileTypeIndicator, FastJsonProfileTypeIndicator>
     profileTypeIndicatorBeanTransformer() {
         return new DozerBeanTransformer<>(ProfileTypeIndicator.class, FastJsonProfileTypeIndicator.class, mapper);
@@ -42,5 +44,10 @@ public class BeanTransformerConfiguration {
     @Bean("clannad.nicknameBeanTransformer")
     public BeanTransformer<Nickname, FastJsonNickname> nicknameBeanTransformer() {
         return new DozerBeanTransformer<>(Nickname.class, FastJsonNickname.class, mapper);
+    }
+
+    @Bean("clannad.notificationBeanTransformer")
+    public BeanTransformer<Notification, JSFixedFastJsonNotification> notificationBeanTransformer() {
+        return new DozerBeanTransformer<>(Notification.class, JSFixedFastJsonNotification.class, mapper);
     }
 }

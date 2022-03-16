@@ -6,6 +6,9 @@
 
 - 升级 `account-keeper` 版本为 `1.4.2.a`。
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.NotificationController。
+
 #### Bug修复
 
 - (无)

@@ -116,6 +116,12 @@
     <dubbo:reference id="familyhelperClannadAvatarOperateService"
                      interface="com.dwarfeng.familyhelper.clannad.stack.service.AvatarOperateService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperClannadNotificationMaintainService"
+                     interface="com.dwarfeng.familyhelper.clannad.stack.service.NotificationMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperClannadNotificationOperateService"
+                     interface="com.dwarfeng.familyhelper.clannad.stack.service.NotificationOperateService"
+                     retries="3" timeout="60000" check="false"/>
     <!-- familyhelper-assets -->
     <dubbo:reference id="familyhelperAssetsAssetCatalogMaintainService"
                      interface="com.dwarfeng.familyhelper.assets.stack.service.AssetCatalogMaintainService"
