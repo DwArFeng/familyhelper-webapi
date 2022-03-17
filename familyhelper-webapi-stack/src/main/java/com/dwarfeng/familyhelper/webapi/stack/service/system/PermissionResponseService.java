@@ -29,6 +29,8 @@ public interface PermissionResponseService extends Service {
 
     PagedData<Permission> all(PagingInfo pagingInfo) throws ServiceException;
 
+    PagedData<Permission> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
+
     PagedData<Permission> childForGroup(StringIdKey groupKey, PagingInfo pagingInfo) throws ServiceException;
 
     List<Permission> lookupForUser(StringIdKey userKey) throws ServiceException;

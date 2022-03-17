@@ -59,6 +59,11 @@ public class PermissionResponseServiceImpl implements PermissionResponseService 
     }
 
     @Override
+    public PagedData<Permission> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
+        return permissionMaintainService.lookup(PermissionMaintainService.ID_LIKE, new Object[]{pattern}, pagingInfo);
+    }
+
+    @Override
     public PagedData<com.dwarfeng.rbacds.stack.bean.entity.Permission> childForGroup(
             StringIdKey groupKey, PagingInfo pagingInfo
     ) throws ServiceException {

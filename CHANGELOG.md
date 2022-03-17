@@ -9,6 +9,9 @@
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.NotificationController。
 
+- 优化 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionController。
+
 #### Bug修复
 
 - (无)

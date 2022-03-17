@@ -135,6 +135,23 @@ public class PermissionController {
         }
     }
 
+    @GetMapping("/permission/id-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermission>> idLike(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<Permission> idLike = service.idLike(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonPermission> transform = PagingUtil.transform(idLike, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
     @GetMapping(value = {
             "/permission-group/{permissionGroupId}/permission", "/permission-group//permission"
     })
