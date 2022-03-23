@@ -3,7 +3,6 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.dto.WebInputNotificationCreateInfo;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.JSFixedFastJsonNotification;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Notification;
-import com.dwarfeng.familyhelper.webapi.sdk.cna.ValidateList;
 import com.dwarfeng.familyhelper.webapi.stack.service.clannad.NotificationResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
@@ -11,6 +10,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
+import com.dwarfeng.subgrade.sdk.bean.key.WebInputStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * 通知控制器。
@@ -177,12 +176,40 @@ public class NotificationController {
     @BindingCheck
     public FastJsonResponseData<Object> readNotification(
             HttpServletRequest request,
-            @RequestBody @Validated ValidateList<WebInputLongIdKey> notificationKeys, BindingResult bindingResult
+            @RequestBody @Validated WebInputLongIdKey notificationKey, BindingResult bindingResult
     ) {
         try {
-            service.readNotification(
-                    notificationKeys.stream().map(WebInputLongIdKey::toStackBean).collect(Collectors.toList())
-            );
+            service.readNotification(WebInputLongIdKey.toStackBean(notificationKey));
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+        }
+    }
+
+    @PostMapping("/notification/read-all")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<Object> readAllNotification(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputStringIdKey userKey, BindingResult bindingResult
+    ) {
+        try {
+            service.readAllNotification(WebInputStringIdKey.toStackBean(userKey));
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+        }
+    }
+
+    @PostMapping("/notification/remove-all")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<Object> removeAllNotification(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputStringIdKey userKey, BindingResult bindingResult
+    ) {
+        try {
+            service.removeAllNotification(WebInputStringIdKey.toStackBean(userKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));

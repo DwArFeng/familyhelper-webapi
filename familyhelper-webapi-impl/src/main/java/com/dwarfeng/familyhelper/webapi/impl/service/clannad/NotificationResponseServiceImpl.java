@@ -13,8 +13,6 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class NotificationResponseServiceImpl implements NotificationResponseService {
@@ -55,7 +53,7 @@ public class NotificationResponseServiceImpl implements NotificationResponseServ
     @Override
     public PagedData<Notification> childForUser(StringIdKey userKey, PagingInfo pagingInfo) throws ServiceException {
         return notificationMaintainService.lookup(
-                NotificationMaintainService.CHILD_FOR_USER, new Object[]{userKey}, pagingInfo
+                NotificationMaintainService.CHILD_FOR_USER_NOTIFIED_DATE_DESC, new Object[]{userKey}, pagingInfo
         );
     }
 
@@ -63,7 +61,7 @@ public class NotificationResponseServiceImpl implements NotificationResponseServ
     public PagedData<Notification> childForUserUnread(StringIdKey userKey, PagingInfo pagingInfo)
             throws ServiceException {
         return notificationMaintainService.lookup(
-                NotificationMaintainService.CHILD_FOR_USER_UNREAD, new Object[]{userKey}, pagingInfo
+                NotificationMaintainService.CHILD_FOR_USER_UNREAD_NOTIFIED_DATE_DESC, new Object[]{userKey}, pagingInfo
         );
     }
 
@@ -73,7 +71,17 @@ public class NotificationResponseServiceImpl implements NotificationResponseServ
     }
 
     @Override
-    public void readNotification(List<LongIdKey> notificationKeys) throws ServiceException {
-        notificationOperateService.readNotification(notificationKeys);
+    public void readNotification(LongIdKey notificationKey) throws ServiceException {
+        notificationOperateService.readNotification(notificationKey);
+    }
+
+    @Override
+    public void readAllNotification(StringIdKey userKey) throws ServiceException {
+        notificationOperateService.readAllNotification(userKey);
+    }
+
+    @Override
+    public void removeAllNotification(StringIdKey userKey) throws ServiceException {
+        notificationOperateService.removeAllNotification(userKey);
     }
 }

@@ -9,8 +9,6 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
-import java.util.List;
-
 /**
  * 通知响应服务。
  *
@@ -33,5 +31,9 @@ public interface NotificationResponseService extends Service {
 
     LongIdKey createNotification(NotificationCreateInfo notificationCreateInfo) throws ServiceException;
 
-    void readNotification(List<LongIdKey> notificationKeys) throws ServiceException;
+    void readNotification(LongIdKey notificationKey) throws ServiceException;
+
+    void readAllNotification(StringIdKey userKey) throws ServiceException;
+
+    void removeAllNotification(StringIdKey userKey) throws ServiceException;
 }
