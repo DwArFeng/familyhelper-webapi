@@ -28,7 +28,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class ProjectResponseServiceImpl implements ProjectResponseService {
 
     private final ProjectMaintainService projectMaintainService;
@@ -37,6 +36,7 @@ public class ProjectResponseServiceImpl implements ProjectResponseService {
 
     private final AccountResponseService accountResponseService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ProjectResponseServiceImpl(
             @Qualifier("familyhelperProjectProjectMaintainService") ProjectMaintainService projectMaintainService,
             @Qualifier("familyhelperProjectPopMaintainService") PopMaintainService popMaintainService,

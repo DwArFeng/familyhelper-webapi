@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class PermissionGroupResponseServiceImpl implements PermissionGroupResponseService {
 
     private final PermissionGroupMaintainService service;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PermissionGroupResponseServiceImpl(
             @Qualifier("rbacPermissionGroupMaintainService") PermissionGroupMaintainService service
     ) {

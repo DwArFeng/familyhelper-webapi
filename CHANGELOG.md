@@ -4,7 +4,7 @@
 
 #### 功能构建
 
-- (无)
+- 优化 ResponseService 实现的代码结构，减少 @SuppressWarnings 注解的覆盖范围。
 
 #### Bug修复
 

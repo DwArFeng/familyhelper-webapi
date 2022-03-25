@@ -29,7 +29,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class AccountBookResponseServiceImpl implements AccountBookResponseService {
 
     private final AccountBookMaintainService accountBookMaintainService;
@@ -39,6 +38,7 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
 
     private final AccountResponseService accountResponseService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public AccountBookResponseServiceImpl(
             @Qualifier("familyhelperFinanceAccountBookMaintainService")
                     AccountBookMaintainService accountBookMaintainService,

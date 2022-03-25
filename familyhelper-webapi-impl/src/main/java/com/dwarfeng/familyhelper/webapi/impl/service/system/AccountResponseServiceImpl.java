@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class AccountResponseServiceImpl implements AccountResponseService {
 
     private final AccountMaintainService accountMaintainService;
@@ -49,6 +48,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     private final ProfileMaintainService profileMaintainService;
     private final NicknameMaintainService nicknameMaintainService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public AccountResponseServiceImpl(
             @Qualifier("acckeeperAccountMaintainService") AccountMaintainService accountMaintainService,
             @Qualifier("acckeeperAccountOperateService") AccountOperateService accountOperateService,

@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class ProfileResponseServiceImpl implements ProfileResponseService {
 
     private final ProfileMaintainService profileMaintainService;
@@ -33,6 +32,7 @@ public class ProfileResponseServiceImpl implements ProfileResponseService {
     private final ProfileOperateService profileOperateService;
     private final PoprMaintainService poprMaintainService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ProfileResponseServiceImpl(
             @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
             @Qualifier("familyhelperClannadProfileTypeIndicatorMaintainService")

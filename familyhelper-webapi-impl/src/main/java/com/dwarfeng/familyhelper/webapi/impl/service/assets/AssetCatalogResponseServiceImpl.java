@@ -28,7 +28,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class AssetCatalogResponseServiceImpl implements AssetCatalogResponseService {
 
     private final AssetCatalogMaintainService assetCatalogMaintainService;
@@ -37,6 +36,7 @@ public class AssetCatalogResponseServiceImpl implements AssetCatalogResponseServ
 
     private final AccountResponseService accountResponseService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public AssetCatalogResponseServiceImpl(
             @Qualifier("familyhelperAssetsAssetCatalogMaintainService")
                     AssetCatalogMaintainService assetCatalogMaintainService,

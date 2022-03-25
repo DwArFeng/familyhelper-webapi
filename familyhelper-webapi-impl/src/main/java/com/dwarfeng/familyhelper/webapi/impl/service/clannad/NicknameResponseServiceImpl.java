@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class NicknameResponseServiceImpl implements NicknameResponseService {
 
     private final NicknameMaintainService nicknameMaintainService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public NicknameResponseServiceImpl(
             @Qualifier("familyhelperClannadNicknameMaintainService") NicknameMaintainService nicknameMaintainService
     ) {

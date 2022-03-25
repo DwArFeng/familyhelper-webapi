@@ -15,13 +15,13 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class ItemFileResponseServiceImpl implements ItemFileResponseService {
 
     private final ItemFileInfoMaintainService itemFileInfoMaintainService;
     private final ItemFileOperateService itemFileOperateService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ItemFileResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemFileInfoMaintainService")
                     ItemFileInfoMaintainService itemFileInfoMaintainService,

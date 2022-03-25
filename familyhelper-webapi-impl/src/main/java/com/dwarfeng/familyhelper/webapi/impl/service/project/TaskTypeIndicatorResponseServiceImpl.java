@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class TaskTypeIndicatorResponseServiceImpl implements TaskTypeIndicatorResponseService {
 
     private final TaskTypeIndicatorMaintainService taskTypeIndicatorMaintainService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public TaskTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperProjectTaskTypeIndicatorMaintainService")
                     TaskTypeIndicatorMaintainService taskTypeIndicatorMaintainService

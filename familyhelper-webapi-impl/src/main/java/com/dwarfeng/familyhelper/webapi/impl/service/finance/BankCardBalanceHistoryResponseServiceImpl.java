@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class BankCardBalanceHistoryResponseServiceImpl implements BankCardBalanceHistoryResponseService {
 
     private final BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public BankCardBalanceHistoryResponseServiceImpl(
             @Qualifier("familyhelperFinanceBankCardBalanceHistoryMaintainService")
                     BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService

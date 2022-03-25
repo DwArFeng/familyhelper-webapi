@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class ProfileTypeIndicatorResponseServiceImpl implements ProfileTypeIndicatorResponseService {
 
     private final ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ProfileTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperClannadProfileTypeIndicatorMaintainService")
                     ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService

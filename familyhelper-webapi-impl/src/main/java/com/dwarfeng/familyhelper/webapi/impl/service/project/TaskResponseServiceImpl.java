@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class TaskResponseServiceImpl implements TaskResponseService {
 
     private final TaskMaintainService taskMaintainService;
@@ -33,6 +32,7 @@ public class TaskResponseServiceImpl implements TaskResponseService {
 
     private final ProjectResponseService projectResponseService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public TaskResponseServiceImpl(
             @Qualifier("familyhelperProjectTaskMaintainService") TaskMaintainService taskMaintainService,
             @Qualifier("familyhelperProjectTaskOperateService") TaskOperateService taskOperateService,

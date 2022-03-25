@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class TokenHandlerImpl implements TokenHandler {
 
@@ -21,6 +20,7 @@ public class TokenHandlerImpl implements TokenHandler {
     @Value("${familyhelper.token_key}")
     private String tokenKey;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public TokenHandlerImpl(@Qualifier("acckeeperLoginService") LoginService loginService) {
         this.loginService = loginService;
     }

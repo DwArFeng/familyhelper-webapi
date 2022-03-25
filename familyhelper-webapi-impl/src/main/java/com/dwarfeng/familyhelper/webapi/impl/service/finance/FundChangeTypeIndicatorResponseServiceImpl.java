@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class FundChangeTypeIndicatorResponseServiceImpl implements FundChangeTypeIndicatorResponseService {
 
     private final FundChangeTypeIndicatorMaintainService fundChangeTypeIndicatorMaintainService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public FundChangeTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperFinanceFundChangeTypeIndicatorMaintainService")
                     FundChangeTypeIndicatorMaintainService fundChangeTypeIndicatorMaintainService

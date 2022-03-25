@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class ItemLabelResponseServiceImpl implements ItemLabelResponseService {
 
     private final ItemLabelMaintainService itemLabelMaintainService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ItemLabelResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemLabelMaintainService")
                     ItemLabelMaintainService itemLabelMaintainService

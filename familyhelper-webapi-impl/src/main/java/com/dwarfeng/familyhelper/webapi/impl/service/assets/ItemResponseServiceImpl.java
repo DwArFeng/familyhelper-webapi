@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class ItemResponseServiceImpl implements ItemResponseService {
 
     private final ItemMaintainService itemMaintainService;
@@ -36,6 +35,7 @@ public class ItemResponseServiceImpl implements ItemResponseService {
 
     private final AssetCatalogResponseService assetCatalogResponseService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ItemResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemMaintainService") ItemMaintainService itemMaintainService,
             @Qualifier("familyhelperAssetsItemOperateService") ItemOperateService itemOperateService,

@@ -14,12 +14,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class NotificationResponseServiceImpl implements NotificationResponseService {
 
     private final NotificationMaintainService notificationMaintainService;
     private final NotificationOperateService notificationOperateService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public NotificationResponseServiceImpl(
             @Qualifier("familyhelperClannadNotificationMaintainService")
                     NotificationMaintainService notificationMaintainService,

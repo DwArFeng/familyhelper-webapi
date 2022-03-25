@@ -11,13 +11,13 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class AvatarResponseServiceImpl implements AvatarResponseService {
 
     private final AvatarInfoMaintainService avatarInfoMaintainService;
     private final AvatarOperateService avatarOperateService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public AvatarResponseServiceImpl(
             @Qualifier("familyhelperClannadAvatarInfoMaintainService")
                     AvatarInfoMaintainService avatarInfoMaintainService,

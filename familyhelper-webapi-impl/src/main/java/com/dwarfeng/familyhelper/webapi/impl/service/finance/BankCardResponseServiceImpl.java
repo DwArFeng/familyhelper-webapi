@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class BankCardResponseServiceImpl implements BankCardResponseService {
 
     private final BankCardMaintainService bankCardMaintainService;
@@ -36,6 +35,7 @@ public class BankCardResponseServiceImpl implements BankCardResponseService {
 
     private final AccountBookResponseService accountBookResponseService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public BankCardResponseServiceImpl(
             @Qualifier("familyhelperFinanceBankCardMaintainService")
                     BankCardMaintainService bankCardMaintainService,

@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class RoleResponseServiceImpl implements RoleResponseService {
 
     private final RoleMaintainService roleMaintainService;
     private final UserMaintainService userMaintainService;
     private final AccountOperateService accountOperateService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public RoleResponseServiceImpl(
             @Qualifier("rbacRoleMaintainService") RoleMaintainService roleMaintainService,
             @Qualifier("rbacUserMaintainService") UserMaintainService userMaintainService,

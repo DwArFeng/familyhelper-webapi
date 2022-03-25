@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class FundChangeResponseServiceImpl implements FundChangeResponseService {
 
     private final FundChangeMaintainService fundChangeMaintainService;
@@ -34,6 +33,7 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
 
     private final AccountBookResponseService accountBookResponseService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public FundChangeResponseServiceImpl(
             @Qualifier("familyhelperFinanceFundChangeMaintainService")
                     FundChangeMaintainService fundChangeMaintainService,

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class PoacResponseServiceImpl implements PoacResponseService {
 
     private final PoacMaintainService poacMaintainService;
@@ -29,6 +28,7 @@ public class PoacResponseServiceImpl implements PoacResponseService {
     private final AssetCatalogResponseService assetCatalogResponseService;
     private final AccountResponseService accountResponseService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PoacResponseServiceImpl(
             @Qualifier("familyhelperAssetsPoacMaintainService") PoacMaintainService poacMaintainService,
             AssetCatalogResponseService assetCatalogResponseService,

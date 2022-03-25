@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class PermissionResponseServiceImpl implements PermissionResponseService {
 
     private final PermissionMaintainService permissionMaintainService;
     private final PermissionLookupService permissionLookupService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PermissionResponseServiceImpl(
             @Qualifier("rbacPermissionMaintainService") PermissionMaintainService permissionMaintainService,
             @Qualifier("rbacPermissionLookupService") PermissionLookupService permissionLookupService

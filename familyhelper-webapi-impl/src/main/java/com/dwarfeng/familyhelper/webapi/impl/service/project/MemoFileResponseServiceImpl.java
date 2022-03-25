@@ -15,13 +15,13 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class MemoFileResponseServiceImpl implements MemoFileResponseService {
 
     private final MemoFileInfoMaintainService memoFileInfoMaintainService;
     private final MemoFileOperateService memoFileOperateService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public MemoFileResponseServiceImpl(
             @Qualifier("familyhelperProjectMemoFileInfoMaintainService")
                     MemoFileInfoMaintainService memoFileInfoMaintainService,

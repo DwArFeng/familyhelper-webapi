@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class PopResponseServiceImpl implements PopResponseService {
 
     private final PopMaintainService popMaintainService;
@@ -29,6 +28,7 @@ public class PopResponseServiceImpl implements PopResponseService {
     private final ProjectResponseService projectResponseService;
     private final AccountResponseService accountResponseService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PopResponseServiceImpl(
             @Qualifier("familyhelperProjectPopMaintainService") PopMaintainService popMaintainService,
             ProjectResponseService projectResponseService,

@@ -18,13 +18,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class PexpResponseServiceImpl implements PexpResponseService {
 
     private final PexpMaintainService pexpMaintainService;
     private final UserMaintainService userMaintainService;
     private final AccountOperateService accountOperateService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PexpResponseServiceImpl(
             @Qualifier("rbacPexpMaintainService") PexpMaintainService pexpMaintainService,
             @Qualifier("rbacUserMaintainService") UserMaintainService userMaintainService,

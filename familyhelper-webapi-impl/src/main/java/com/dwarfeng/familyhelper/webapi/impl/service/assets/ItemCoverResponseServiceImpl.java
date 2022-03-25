@@ -15,13 +15,13 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class ItemCoverResponseServiceImpl implements ItemCoverResponseService {
 
     private final ItemCoverInfoMaintainService itemCoverInfoMaintainService;
     private final ItemCoverOperateService itemCoverOperateService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ItemCoverResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemCoverInfoMaintainService")
                     ItemCoverInfoMaintainService itemCoverInfoMaintainService,

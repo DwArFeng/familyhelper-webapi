@@ -16,13 +16,13 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class LoginResponseServiceImpl implements LoginResponseService {
 
     private final LoginService loginService;
 
     private final ServiceExceptionMapper sem;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public LoginResponseServiceImpl(
             @Qualifier("acckeeperLoginService") LoginService loginService,
             ServiceExceptionMapper sem
