@@ -141,11 +141,11 @@ public class MemoController {
         }
     }
 
-    @GetMapping(value = {"/user/{userId}/memo/created-date-desc", "/user//memo/created-date-desc"})
+    @GetMapping(value = {"/user/{userId}/memo/finished", "/user//memo/finished"})
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMemo>> childForUserCreatedDateDesc(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMemo>> childForUserFinished(
             HttpServletRequest request,
             @PathVariable(required = false, value = "userId") String userId,
             @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -155,7 +155,7 @@ public class MemoController {
             if (Objects.nonNull(userId)) {
                 userKey = new StringIdKey(userId);
             }
-            PagedData<Memo> childForUser = service.childForUserCreatedDateDesc(userKey, new PagingInfo(page, rows));
+            PagedData<Memo> childForUser = service.childForUserFinished(userKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonMemo> transform = PagingUtil.transform(childForUser, memoBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
@@ -221,6 +221,18 @@ public class MemoController {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.finishMemo(accountKey, WebInputLongIdKey.toStackBean(memoKey));
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+        }
+    }
+
+    @PostMapping("/memo/remove-finished-memos")
+    @BehaviorAnalyse
+    public FastJsonResponseData<Object> removeFinishedMemos(HttpServletRequest request) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            service.removeFinishedMemos(accountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));

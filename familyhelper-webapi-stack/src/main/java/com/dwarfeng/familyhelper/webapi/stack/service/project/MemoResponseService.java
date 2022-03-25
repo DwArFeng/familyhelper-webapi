@@ -28,7 +28,7 @@ public interface MemoResponseService extends Service {
 
     PagedData<Memo> childForUserInProgress(StringIdKey userKey, PagingInfo pagingInfo) throws ServiceException;
 
-    PagedData<Memo> childForUserCreatedDateDesc(StringIdKey userKey, PagingInfo pagingInfo) throws ServiceException;
+    PagedData<Memo> childForUserFinished(StringIdKey userKey, PagingInfo pagingInfo) throws ServiceException;
 
     LongIdKey createMemo(StringIdKey userKey, MemoCreateInfo memoCreateInfo) throws ServiceException;
 
@@ -37,4 +37,6 @@ public interface MemoResponseService extends Service {
     void removeMemo(StringIdKey userKey, LongIdKey memoKey) throws ServiceException;
 
     void finishMemo(StringIdKey userKey, LongIdKey memoKey) throws ServiceException;
+
+    void removeFinishedMemos(StringIdKey userKey) throws ServiceException;
 }

@@ -46,21 +46,22 @@ public class MemoResponseServiceImpl implements MemoResponseService {
 
     @Override
     public PagedData<Memo> childForUser(StringIdKey userKey, PagingInfo pagingInfo) throws ServiceException {
-        return memoMaintainService.lookup(MemoMaintainService.CHILD_FOR_USER, new Object[]{userKey}, pagingInfo);
+        return memoMaintainService.lookup(
+                MemoMaintainService.CHILD_FOR_USER_CREATED_DATE_DESC, new Object[]{userKey}, pagingInfo
+        );
     }
 
     @Override
     public PagedData<Memo> childForUserInProgress(StringIdKey userKey, PagingInfo pagingInfo) throws ServiceException {
         return memoMaintainService.lookup(
-                MemoMaintainService.CHILD_FOR_USER_IN_PROGRESS, new Object[]{userKey}, pagingInfo
+                MemoMaintainService.CHILD_FOR_USER_IN_PROGRESS_CREATED_DATE_DESC, new Object[]{userKey}, pagingInfo
         );
     }
 
     @Override
-    public PagedData<Memo> childForUserCreatedDateDesc(StringIdKey userKey, PagingInfo pagingInfo)
-            throws ServiceException {
+    public PagedData<Memo> childForUserFinished(StringIdKey userKey, PagingInfo pagingInfo) throws ServiceException {
         return memoMaintainService.lookup(
-                MemoMaintainService.CHILD_FOR_USER_CREATED_DATE_DESC, new Object[]{userKey}, pagingInfo
+                MemoMaintainService.CHILD_FOR_USER_FINISHED_CREATED_DATE_DESC, new Object[]{userKey}, pagingInfo
         );
     }
 
@@ -82,5 +83,10 @@ public class MemoResponseServiceImpl implements MemoResponseService {
     @Override
     public void finishMemo(StringIdKey userKey, LongIdKey memoKey) throws ServiceException {
         memoOperateService.finishMemo(userKey, memoKey);
+    }
+
+    @Override
+    public void removeFinishedMemos(StringIdKey userKey) throws ServiceException {
+        memoOperateService.removeFinishedMemos(userKey);
     }
 }

@@ -6,6 +6,8 @@
 
 - 优化 ResponseService 实现的代码结构，减少 @SuppressWarnings 注解的覆盖范围。
 
+- 增加并优化 MemoController 中的方法。
+
 #### Bug修复
 
 - (无)
