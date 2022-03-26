@@ -60,6 +60,7 @@
         <familyhelper-clannad.version>1.2.2.a</familyhelper-clannad.version>
         <familyhelper-assets.version>1.0.4.a</familyhelper-assets.version>
         <familyhelper-project.version>1.0.1.a</familyhelper-project.version>
+        <settingrepo.version>1.0.0.a</settingrepo.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -429,6 +430,17 @@
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-project-sdk</artifactId>
                 <version>${familyhelper-project.version}</version>
+            </dependency>
+            <!-- settingrepo组件 -->
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>settingrepo-stack</artifactId>
+                <version>${settingrepo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>settingrepo-sdk</artifactId>
+                <version>${settingrepo.version}</version>
             </dependency>
             <!-- 程序自身引用 -->
             <dependency>

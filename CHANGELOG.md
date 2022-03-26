@@ -6,6 +6,9 @@
 
 - 取消 ui 模块 eslint 对换行符的检查。
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.SettingNodeController。
+
 #### Bug修复
 
 - (无)

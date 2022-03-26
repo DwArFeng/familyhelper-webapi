@@ -123,6 +123,15 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-project-sdk</artifactId>
         </dependency>
+        <!-- settingrepo组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>settingrepo-stack</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>settingrepo-sdk</artifactId>
+        </dependency>
         <!-- 程序自身引用 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

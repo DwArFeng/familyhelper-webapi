@@ -80,7 +80,8 @@ public class RoleController {
     @LoginRequired
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputRole webInputRole, BindingResult bindingResult) {
+            @RequestBody @Validated(Insert.class) WebInputRole webInputRole, BindingResult bindingResult
+    ) {
         try {
             Role role = WebInputRole.toStackBean(webInputRole);
             StringIdKey insert = service.insert(role);
@@ -96,7 +97,8 @@ public class RoleController {
     @LoginRequired
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputRole webInputRole, BindingResult bindingResult) {
+            @RequestBody @Validated WebInputRole webInputRole, BindingResult bindingResult
+    ) {
         try {
             service.update(WebInputRole.toStackBean(webInputRole));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
@@ -122,7 +124,8 @@ public class RoleController {
     @LoginRequired
     public FastJsonResponseData<Object> addAccountRelation(
             HttpServletRequest request, @PathVariable("roleId") String roleId,
-            @RequestBody @Validated(Insert.class) WebInputStringIdKey accountKey, BindingResult bindingResult) {
+            @RequestBody @Validated(Insert.class) WebInputStringIdKey accountKey, BindingResult bindingResult
+    ) {
         try {
             service.addAccountRelation(new StringIdKey(roleId), WebInputStringIdKey.toStackBean(accountKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
@@ -136,7 +139,8 @@ public class RoleController {
     @LoginRequired
     public FastJsonResponseData<Object> deleteAccountRelation(
             HttpServletRequest request,
-            @PathVariable("roleId") String roleId, @PathVariable("accountId") String accountId) {
+            @PathVariable("roleId") String roleId, @PathVariable("accountId") String accountId
+    ) {
         try {
             service.deleteAccountRelation(new StringIdKey(roleId), new StringIdKey(accountId));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
@@ -150,7 +154,8 @@ public class RoleController {
     @SkipRecord
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonRole>> all(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             PagedData<Role> all = service.all(new PagingInfo(page, rows));
             PagedData<FastJsonRole> transform = PagingUtil.transform(all, beanTransformer);

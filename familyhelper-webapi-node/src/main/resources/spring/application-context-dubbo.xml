@@ -190,6 +190,19 @@
     <dubbo:reference id="familyhelperProjectMemoFileOperateService"
                      interface="com.dwarfeng.familyhelper.project.stack.service.MemoFileOperateService"
                      retries="3" timeout="60000" check="false"/>
+    <!-- settingrepo -->
+    <dubbo:reference id="settingrepoSettingNodeMaintainService"
+                     interface="com.dwarfeng.settingrepo.stack.service.SettingNodeMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="settingrepoSettingNodeOperateService"
+                     interface="com.dwarfeng.settingrepo.stack.service.SettingNodeOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="settingrepoSettingCategoryMaintainService"
+                     interface="com.dwarfeng.settingrepo.stack.service.SettingCategoryMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="settingrepoFormatterSupportMaintainService"
+                     interface="com.dwarfeng.settingrepo.stack.service.FormatterSupportMaintainService"
+                     retries="3" timeout="60000" check="false"/>
 
     <!-- snowflake -->
     <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService" check="false"/>
