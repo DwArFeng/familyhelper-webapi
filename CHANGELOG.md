@@ -7,7 +7,9 @@
 - 取消 ui 模块 eslint 对换行符的检查。
 
 - 新建 Controller。
-  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.SettingNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.FormatterSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingCategoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingNodeController。
 
 #### Bug修复
 

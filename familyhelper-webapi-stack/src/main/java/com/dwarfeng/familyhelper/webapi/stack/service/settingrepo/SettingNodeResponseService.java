@@ -1,4 +1,4 @@
-package com.dwarfeng.familyhelper.webapi.stack.service.system;
+package com.dwarfeng.familyhelper.webapi.stack.service.settingrepo;
 
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodePutInfo;

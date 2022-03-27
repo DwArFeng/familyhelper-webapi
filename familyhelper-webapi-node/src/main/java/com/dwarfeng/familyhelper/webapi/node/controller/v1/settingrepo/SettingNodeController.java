@@ -1,6 +1,6 @@
-package com.dwarfeng.familyhelper.webapi.node.controller.v1.system;
+package com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo;
 
-import com.dwarfeng.familyhelper.webapi.stack.service.system.SettingNodeResponseService;
+import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.SettingNodeResponseService;
 import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputSettingNodeInspectInfo;
 import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputSettingNodePutInfo;
 import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputSettingNodeRemoveInfo;
@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 1.0.6
  */
 @RestController
-@RequestMapping("/api/v1/system")
+@RequestMapping("/api/v1/settingrepo")
 public class SettingNodeController {
 
     private final SettingNodeResponseService service;

@@ -14,8 +14,6 @@ import com.dwarfeng.rbacds.stack.bean.entity.Permission;
 import com.dwarfeng.rbacds.stack.bean.entity.PermissionGroup;
 import com.dwarfeng.rbacds.stack.bean.entity.Pexp;
 import com.dwarfeng.rbacds.stack.bean.entity.Role;
-import com.dwarfeng.settingrepo.sdk.bean.entity.FastJsonSettingNode;
-import com.dwarfeng.settingrepo.stack.bean.entity.SettingNode;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import org.dozer.Mapper;
@@ -64,10 +62,5 @@ public class BeanTransformerConfiguration {
     @Bean("system.dispPermissionGroupBeanTransformer")
     public BeanTransformer<DispPermissionGroup, FastJsonDispPermissionGroup> dispPermissionGroupBeanTransformer() {
         return new DozerBeanTransformer<>(DispPermissionGroup.class, FastJsonDispPermissionGroup.class, mapper);
-    }
-
-    @Bean("system.settingNodeBeanTransformer")
-    public BeanTransformer<SettingNode, FastJsonSettingNode> settingNodeBeanTransformer() {
-        return new DozerBeanTransformer<>(SettingNode.class, FastJsonSettingNode.class, mapper);
     }
 }
