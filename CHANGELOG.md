@@ -10,6 +10,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.FormatterSupportController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingCategoryController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.TimePointController。
 
 - 优化 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.ProjectController。

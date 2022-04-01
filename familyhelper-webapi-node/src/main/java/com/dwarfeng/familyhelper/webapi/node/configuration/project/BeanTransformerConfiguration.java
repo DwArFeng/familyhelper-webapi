@@ -43,7 +43,7 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(DispPop.class, JSFixedFastJsonDispPop.class, mapper);
     }
 
-    @Bean
+    @Bean("project.taskTypeIndicatorBeanTransformer")
     public BeanTransformer<TaskTypeIndicator, FastJsonTaskTypeIndicator>
     taskTypeIndicatorBeanTransformer() {
         return new DozerBeanTransformer<>(TaskTypeIndicator.class, FastJsonTaskTypeIndicator.class, mapper);
@@ -67,5 +67,10 @@ public class BeanTransformerConfiguration {
     @Bean("project.memoFileInfoBeanTransformer")
     public BeanTransformer<MemoFileInfo, JSFixedFastJsonMemoFileInfo> memoFileInfoBeanTransformer() {
         return new DozerBeanTransformer<>(MemoFileInfo.class, JSFixedFastJsonMemoFileInfo.class, mapper);
+    }
+
+    @Bean("project.timePointBeanTransformer")
+    public BeanTransformer<TimePoint, JSFixedFastJsonTimePoint> timePointBeanTransformer() {
+        return new DozerBeanTransformer<>(TimePoint.class, JSFixedFastJsonTimePoint.class, mapper);
     }
 }
