@@ -64,10 +64,70 @@ public class ProjectResponseServiceImpl implements ProjectResponseService {
         return projectMaintainService.lookup(pagingInfo);
     }
 
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public PagedData<Project> allPermitted(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException {
+        PagedData<Pop> lookup = popMaintainService.lookup(
+                PopMaintainService.CHILD_FOR_USER, new Object[]{accountKey}, pagingInfo
+        );
+        List<Project> projects = new ArrayList<>();
+        for (Pop pop : lookup.getData()) {
+            projects.add(projectMaintainService.get(new LongIdKey(pop.getKey().getLongId())));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), projects
+        );
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public PagedData<Project> allOwned(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException {
+        PagedData<Pop> lookup = popMaintainService.lookup(
+                PopMaintainService.CHILD_FOR_USER_PERMISSION_LEVEL_EQUALS,
+                new Object[]{accountKey, Constants.PERMISSION_LEVEL_OWNER},
+                pagingInfo
+        );
+        List<Project> projects = new ArrayList<>();
+        for (Pop pop : lookup.getData()) {
+            projects.add(projectMaintainService.get(new LongIdKey(pop.getKey().getLongId())));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), projects
+        );
+    }
+
     @Override
     public DispProject getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException {
         Project project = projectMaintainService.get(key);
         return dispProjectFromProject(project, inspectAccountKey);
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public PagedData<DispProject> allPermittedDisp(StringIdKey accountKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        PagedData<Project> lookup = allPermitted(accountKey, pagingInfo);
+        List<DispProject> dispProjects = new ArrayList<>();
+        for (Project project : lookup.getData()) {
+            dispProjects.add(dispProjectFromProject(project, accountKey));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispProjects
+        );
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public PagedData<DispProject> allOwnedDisp(StringIdKey accountKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        PagedData<Project> lookup = allOwned(accountKey, pagingInfo);
+        List<DispProject> dispProjects = new ArrayList<>();
+        for (Project project : lookup.getData()) {
+            dispProjects.add(dispProjectFromProject(project, accountKey));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispProjects
+        );
     }
 
     private DispProject dispProjectFromProject(Project project, StringIdKey inspectAccountKey)
@@ -88,58 +148,6 @@ public class ProjectResponseServiceImpl implements ProjectResponseService {
             );
         }
         Integer permissionLevel = Optional.ofNullable(myPop).map(Pop::getPermissionLevel).orElse(null);
-        return DispProject.of(project, ownerAccount, permissionLevel);
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public PagedData<DispProject> allPermittedDisp(StringIdKey accountKey, PagingInfo pagingInfo)
-            throws ServiceException {
-        PagedData<Pop> lookup = popMaintainService.lookup(
-                PopMaintainService.CHILD_FOR_USER, new Object[]{accountKey}, pagingInfo
-        );
-        List<DispProject> dispProjects = new ArrayList<>();
-        for (Pop pop : lookup.getData()) {
-            dispProjects.add(dispProjectFromPop(pop, accountKey));
-        }
-        return new PagedData<>(
-                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispProjects
-        );
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public PagedData<DispProject> allOwnedDisp(StringIdKey accountKey, PagingInfo pagingInfo)
-            throws ServiceException {
-        PagedData<Pop> lookup = popMaintainService.lookup(
-                PopMaintainService.CHILD_FOR_USER_PERMISSION_LEVEL_EQUALS,
-                new Object[]{accountKey, Constants.PERMISSION_LEVEL_OWNER},
-                pagingInfo
-        );
-        List<DispProject> dispProjects = new ArrayList<>();
-        for (Pop pop : lookup.getData()) {
-            dispProjects.add(dispProjectFromPop(pop, accountKey));
-        }
-        return new PagedData<>(
-                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispProjects
-        );
-    }
-
-    private DispProject dispProjectFromPop(Pop pop, StringIdKey inspectAccountKey) throws ServiceException {
-        Project project = projectMaintainService.get(new LongIdKey(pop.getKey().getLongId()));
-        List<Pop> relatedPops = popMaintainService.lookup(
-                PopMaintainService.CHILD_FOR_PROJECT, new Object[]{project.getKey()}
-        ).getData();
-        Pop ownerPop = relatedPops.stream().filter(
-                p -> Objects.equals(p.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)
-        ).findFirst().orElse(null);
-        DispAccount ownerAccount = null;
-        if (Objects.nonNull(ownerPop)) {
-            ownerAccount = accountResponseService.getDisp(
-                    new StringIdKey(ownerPop.getKey().getStringId()), inspectAccountKey
-            );
-        }
-        Integer permissionLevel = pop.getPermissionLevel();
         return DispProject.of(project, ownerAccount, permissionLevel);
     }
 

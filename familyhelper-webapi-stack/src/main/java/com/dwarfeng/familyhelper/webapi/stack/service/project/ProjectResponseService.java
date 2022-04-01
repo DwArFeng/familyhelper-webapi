@@ -27,6 +27,10 @@ public interface ProjectResponseService extends Service {
 
     PagedData<Project> all(PagingInfo pagingInfo) throws ServiceException;
 
+    PagedData<Project> allPermitted(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<Project> allOwned(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
+
     DispProject getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException;
 
     PagedData<DispProject> allPermittedDisp(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;

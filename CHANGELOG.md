@@ -11,6 +11,9 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingCategoryController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingNodeController。
 
+- 优化 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.ProjectController。
+
 #### Bug修复
 
 - (无)

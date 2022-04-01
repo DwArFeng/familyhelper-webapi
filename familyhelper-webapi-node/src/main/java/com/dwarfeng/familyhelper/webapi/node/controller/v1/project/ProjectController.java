@@ -46,21 +46,21 @@ public class ProjectController {
 
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<Project, JSFixedFastJsonProject> projectBeanTransformer;
-    private final BeanTransformer<DispProject, JSFixedFastJsonDispProject> dispProjectBeanTransformer;
+    private final BeanTransformer<Project, JSFixedFastJsonProject> beanTransformer;
+    private final BeanTransformer<DispProject, JSFixedFastJsonDispProject> dispBeanTransformer;
 
     private final TokenHandler tokenHandler;
 
     public ProjectController(
             ProjectResponseService service, ServiceExceptionMapper sem,
-            BeanTransformer<Project, JSFixedFastJsonProject> projectBeanTransformer,
-            BeanTransformer<DispProject, JSFixedFastJsonDispProject> dispProjectBeanTransformer,
+            BeanTransformer<Project, JSFixedFastJsonProject> beanTransformer,
+            BeanTransformer<DispProject, JSFixedFastJsonDispProject> dispBeanTransformer,
             TokenHandler tokenHandler
     ) {
         this.service = service;
         this.sem = sem;
-        this.projectBeanTransformer = projectBeanTransformer;
-        this.dispProjectBeanTransformer = dispProjectBeanTransformer;
+        this.beanTransformer = beanTransformer;
+        this.dispBeanTransformer = dispBeanTransformer;
         this.tokenHandler = tokenHandler;
     }
 
@@ -96,7 +96,41 @@ public class ProjectController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
             PagedData<Project> all = service.all(new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonProject> transform = PagingUtil.transform(all, projectBeanTransformer);
+            PagedData<JSFixedFastJsonProject> transform = PagingUtil.transform(all, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
+    @GetMapping("/project/all-permitted")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonProject>> allPermitted(
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<Project> allPermitted = service.allPermitted(
+                    accountKey, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonProject> transform = PagingUtil.transform(allPermitted, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
+    @GetMapping("/project/all-owned")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonProject>> allOwned(
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<Project> allOwned = service.allOwned(
+                    accountKey, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonProject> transform = PagingUtil.transform(allOwned, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
@@ -130,7 +164,7 @@ public class ProjectController {
             PagedData<DispProject> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispProject> transform = PagingUtil.transform(
-                    allPermittedDisp, dispProjectBeanTransformer);
+                    allPermittedDisp, dispBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
@@ -148,7 +182,7 @@ public class ProjectController {
             PagedData<DispProject> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispProject> transform = PagingUtil.transform(
-                    allOwnedDisp, dispProjectBeanTransformer);
+                    allOwnedDisp, dispBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
