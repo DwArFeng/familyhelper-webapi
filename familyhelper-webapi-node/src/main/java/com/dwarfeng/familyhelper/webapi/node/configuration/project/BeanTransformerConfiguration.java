@@ -68,9 +68,4 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<MemoFileInfo, JSFixedFastJsonMemoFileInfo> memoFileInfoBeanTransformer() {
         return new DozerBeanTransformer<>(MemoFileInfo.class, JSFixedFastJsonMemoFileInfo.class, mapper);
     }
-
-    @Bean("project.timePointBeanTransformer")
-    public BeanTransformer<TimePoint, JSFixedFastJsonTimePoint> timePointBeanTransformer() {
-        return new DozerBeanTransformer<>(TimePoint.class, JSFixedFastJsonTimePoint.class, mapper);
-    }
 }

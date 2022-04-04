@@ -190,12 +190,6 @@
     <dubbo:reference id="familyhelperProjectMemoFileOperateService"
                      interface="com.dwarfeng.familyhelper.project.stack.service.MemoFileOperateService"
                      retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperTimePointMaintainService"
-                     interface="com.dwarfeng.familyhelper.project.stack.service.TimePointMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperTimePointOperateService"
-                     interface="com.dwarfeng.familyhelper.project.stack.service.TimePointOperateService"
-                     retries="3" timeout="60000" check="false"/>
     <!-- settingrepo -->
     <dubbo:reference id="settingrepoSettingNodeMaintainService"
                      interface="com.dwarfeng.settingrepo.stack.service.SettingNodeMaintainService"
