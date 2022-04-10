@@ -45,21 +45,21 @@ public class TaskController {
 
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<Task, JSFixedFastJsonTask> taskBeanTransformer;
-    private final BeanTransformer<DispTask, JSFixedFastJsonDispTask> dispTaskBeanTransformer;
+    private final BeanTransformer<Task, JSFixedFastJsonTask> beanTransformer;
+    private final BeanTransformer<DispTask, JSFixedFastJsonDispTask> dispBeanTransformer;
 
     private final TokenHandler tokenHandler;
 
     public TaskController(
             TaskResponseService service, ServiceExceptionMapper sem,
-            BeanTransformer<Task, JSFixedFastJsonTask> taskBeanTransformer,
-            BeanTransformer<DispTask, JSFixedFastJsonDispTask> dispTaskBeanTransformer,
+            BeanTransformer<Task, JSFixedFastJsonTask> beanTransformer,
+            BeanTransformer<DispTask, JSFixedFastJsonDispTask> dispBeanTransformer,
             TokenHandler tokenHandler
     ) {
         this.service = service;
         this.sem = sem;
-        this.taskBeanTransformer = taskBeanTransformer;
-        this.dispTaskBeanTransformer = dispTaskBeanTransformer;
+        this.beanTransformer = beanTransformer;
+        this.dispBeanTransformer = dispBeanTransformer;
         this.tokenHandler = tokenHandler;
     }
 
@@ -95,20 +95,19 @@ public class TaskController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
             PagedData<Task> all = service.all(new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonTask> transform = PagingUtil.transform(all, taskBeanTransformer);
+            PagedData<JSFixedFastJsonTask> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
         }
     }
 
-    @GetMapping(value = {
-            "/project/{projectId}/task", "/project//task"
-    })
+    @GetMapping(value = {"/project/{projectId}/task", "/project//task"})
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonTask>> childForProject(
+            HttpServletRequest request,
             @PathVariable(required = false, value = "projectId") Long projectId,
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -117,10 +116,55 @@ public class TaskController {
             if (Objects.nonNull(projectId)) {
                 projectKey = new LongIdKey(projectId);
             }
-            PagedData<Task> childForProject = service.childForProject(
-                    projectKey, new PagingInfo(page, rows));
+            PagedData<Task> childForProject = service.childForProject(projectKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonTask> transform = PagingUtil.transform(
-                    childForProject, taskBeanTransformer);
+                    childForProject, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
+    @GetMapping(value = {"/task/{taskId}/pre-task", "/task//pre-task"})
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonTask>> childForPreTask(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "taskId") Long taskId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            LongIdKey taskKey = null;
+            if (Objects.nonNull(taskId)) {
+                taskKey = new LongIdKey(taskId);
+            }
+            PagedData<Task> childForPreTask = service.childForPreTask(taskKey, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonTask> transform = PagingUtil.transform(
+                    childForPreTask, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
+    @GetMapping(value = {"/task/{taskId}/post-task", "/task//post-task"})
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonTask>> childForPostTask(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "taskId") Long taskId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            LongIdKey taskKey = null;
+            if (Objects.nonNull(taskId)) {
+                taskKey = new LongIdKey(taskId);
+            }
+            PagedData<Task> childForPostTask = service.childForPostTask(taskKey, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonTask> transform = PagingUtil.transform(
+                    childForPostTask, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
@@ -153,16 +197,14 @@ public class TaskController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             PagedData<DispTask> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispTask> transform = PagingUtil.transform(
-                    allDisp, dispTaskBeanTransformer);
+                    allDisp, dispBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
         }
     }
 
-    @GetMapping(value = {
-            "/project/{projectId}/task/disp", "/project//task/disp"
-    })
+    @GetMapping(value = {"/project/{projectId}/task/disp", "/project//task/disp"})
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
@@ -178,9 +220,59 @@ public class TaskController {
                 projectKey = new LongIdKey(projectId);
             }
             PagedData<DispTask> childForProjectDisp = service.childForProjectDisp(
-                    accountKey, projectKey, new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonDispTask> transform = PagingUtil.transform(
-                    childForProjectDisp, dispTaskBeanTransformer);
+                    accountKey, projectKey, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonDispTask> transform = PagingUtil.transform(childForProjectDisp, dispBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
+    @GetMapping(value = {"/task/{taskId}/pre-task/disp", "/task//pre-task/disp"})
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispTask>> childForPreTaskDisp(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "taskId") Long taskId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            LongIdKey taskKey = null;
+            if (Objects.nonNull(taskId)) {
+                taskKey = new LongIdKey(taskId);
+            }
+            PagedData<DispTask> childForPreTask = service.childForPreTaskDisp(
+                    accountKey, taskKey, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonDispTask> transform = PagingUtil.transform(childForPreTask, dispBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+        }
+    }
+
+    @GetMapping(value = {"/task/{taskId}/post-task/disp", "/task//post-task/disp"})
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispTask>> childForPostTaskDisp(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "taskId") Long taskId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            LongIdKey taskKey = null;
+            if (Objects.nonNull(taskId)) {
+                taskKey = new LongIdKey(taskId);
+            }
+            PagedData<DispTask> childForPostTask = service.childForPostTaskDisp(
+                    accountKey, taskKey, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonDispTask> transform = PagingUtil.transform(childForPostTask, dispBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));

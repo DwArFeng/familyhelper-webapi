@@ -69,6 +69,20 @@ public class TaskResponseServiceImpl implements TaskResponseService {
     }
 
     @Override
+    public PagedData<Task> childForPreTask(LongIdKey projectKey, PagingInfo pagingInfo) throws ServiceException {
+        return taskMaintainService.lookup(
+                TaskMaintainService.CHILD_FOR_PRE_TASK, new Object[]{projectKey}, pagingInfo
+        );
+    }
+
+    @Override
+    public PagedData<Task> childForPostTask(LongIdKey projectKey, PagingInfo pagingInfo) throws ServiceException {
+        return taskMaintainService.lookup(
+                TaskMaintainService.CHILD_FOR_POST_TASK, new Object[]{projectKey}, pagingInfo
+        );
+    }
+
+    @Override
     public DispTask getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException {
         Task task = taskMaintainService.get(key);
         return dispTaskFromTask(task, inspectAccountKey);
@@ -78,7 +92,7 @@ public class TaskResponseServiceImpl implements TaskResponseService {
     @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispTask> allDisp(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException {
-        PagedData<Task> lookup = taskMaintainService.lookup(pagingInfo);
+        PagedData<Task> lookup = all(pagingInfo);
         List<DispTask> dispTasks = new ArrayList<>();
         for (Task task : lookup.getData()) {
             dispTasks.add(dispTaskFromTask(task, accountKey));
@@ -92,9 +106,35 @@ public class TaskResponseServiceImpl implements TaskResponseService {
     @Override
     public PagedData<DispTask> childForProjectDisp(StringIdKey accountKey, LongIdKey projectKey, PagingInfo pagingInfo)
             throws ServiceException {
-        PagedData<Task> lookup = taskMaintainService.lookup(
-                TaskMaintainService.CHILD_FOR_PROJECT, new Object[]{projectKey}, pagingInfo
+        PagedData<Task> lookup = childForProject(projectKey, pagingInfo);
+        List<DispTask> dispTasks = new ArrayList<>();
+        for (Task task : lookup.getData()) {
+            dispTasks.add(dispTaskFromTask(task, accountKey));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispTasks
         );
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public PagedData<DispTask> childForPreTaskDisp(StringIdKey accountKey, LongIdKey projectKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        PagedData<Task> lookup = childForPreTask(projectKey, pagingInfo);
+        List<DispTask> dispTasks = new ArrayList<>();
+        for (Task task : lookup.getData()) {
+            dispTasks.add(dispTaskFromTask(task, accountKey));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispTasks
+        );
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public PagedData<DispTask> childForPostTaskDisp(StringIdKey accountKey, LongIdKey projectKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        PagedData<Task> lookup = childForPostTask(projectKey, pagingInfo);
         List<DispTask> dispTasks = new ArrayList<>();
         for (Task task : lookup.getData()) {
             dispTasks.add(dispTaskFromTask(task, accountKey));

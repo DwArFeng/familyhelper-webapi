@@ -27,11 +27,21 @@ public interface TaskResponseService extends Service {
 
     PagedData<Task> childForProject(LongIdKey projectKey, PagingInfo pagingInfo) throws ServiceException;
 
+    PagedData<Task> childForPreTask(LongIdKey projectKey, PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<Task> childForPostTask(LongIdKey projectKey, PagingInfo pagingInfo) throws ServiceException;
+
     DispTask getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException;
 
     PagedData<DispTask> allDisp(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
 
     PagedData<DispTask> childForProjectDisp(StringIdKey accountKey, LongIdKey projectKey, PagingInfo pagingInfo)
+            throws ServiceException;
+
+    PagedData<DispTask> childForPreTaskDisp(StringIdKey accountKey, LongIdKey projectKey, PagingInfo pagingInfo)
+            throws ServiceException;
+
+    PagedData<DispTask> childForPostTaskDisp(StringIdKey accountKey, LongIdKey projectKey, PagingInfo pagingInfo)
             throws ServiceException;
 
     LongIdKey createTask(StringIdKey userKey, TaskCreateInfo taskCreateInfo) throws ServiceException;
