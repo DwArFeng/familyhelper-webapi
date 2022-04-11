@@ -14,6 +14,8 @@
 - 优化 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.ProjectController。
 
+- 优化 familyhelper-webapi-ui 打包的行为。
+
 #### Bug修复
 
 - (无)
