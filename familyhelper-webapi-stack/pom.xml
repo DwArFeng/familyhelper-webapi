@@ -72,5 +72,10 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>settingrepo-stack</artifactId>
         </dependency>
+        <!-- notify组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>notify-stack</artifactId>
+        </dependency>
     </dependencies>
 </project>

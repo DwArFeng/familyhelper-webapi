@@ -10,6 +10,13 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.FormatterSupportController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingCategoryController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifySettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.RouterInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.RouterSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderRelationController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.TopicController。
 
 - 优化 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.ProjectController。

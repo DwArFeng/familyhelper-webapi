@@ -61,6 +61,7 @@
         <familyhelper-assets.version>1.0.4.a</familyhelper-assets.version>
         <familyhelper-project.version>1.1.0.a-SNAPSHOT</familyhelper-project.version>
         <settingrepo.version>1.0.0.a</settingrepo.version>
+        <notify.version>1.0.0.a</notify.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -441,6 +442,17 @@
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>settingrepo-sdk</artifactId>
                 <version>${settingrepo.version}</version>
+            </dependency>
+            <!-- notify组件 -->
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>notify-stack</artifactId>
+                <version>${notify.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>notify-sdk</artifactId>
+                <version>${notify.version}</version>
             </dependency>
             <!-- 程序自身引用 -->
             <dependency>

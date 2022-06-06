@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd"
+<beans
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+        xmlns="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://dubbo.apache.org/schema/dubbo
+        http://dubbo.apache.org/schema/dubbo/dubbo.xsd"
 >
 
     <dubbo:application name="familyhelper-api-web-node">
@@ -202,6 +204,31 @@
                      retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="settingrepoFormatterSupportMaintainService"
                      interface="com.dwarfeng.settingrepo.stack.service.FormatterSupportMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <!-- notify -->
+    <dubbo:reference id="notifyNotifySettingMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.NotifySettingMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifyTopicMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.TopicMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifyRouterInfoMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.RouterInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifyRouterSupportMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.RouterSupportMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifySenderInfoMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.SenderInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifySenderSupportMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.SenderSupportMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifySenderRelationMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.SenderRelationMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifyUserMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.UserMaintainService"
                      retries="3" timeout="60000" check="false"/>
 
     <!-- snowflake -->
