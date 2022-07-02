@@ -71,7 +71,7 @@ public class ItemController {
             boolean exists = service.exists(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -83,7 +83,7 @@ public class ItemController {
             Item item = service.get(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonItem.of(item)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonItem.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -98,7 +98,7 @@ public class ItemController {
             PagedData<JSFixedFastJsonItem> transform = PagingUtil.transform(all, itemBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -123,7 +123,7 @@ public class ItemController {
                     childForAssetCatalog, itemBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -145,7 +145,7 @@ public class ItemController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -167,7 +167,7 @@ public class ItemController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -183,7 +183,7 @@ public class ItemController {
             DispItem dispItem = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispItem.of(dispItem)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonDispItem.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -200,7 +200,7 @@ public class ItemController {
                     allDisp, dispItemBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -227,7 +227,7 @@ public class ItemController {
                     childForAssetCatalogDisp, dispItemBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -250,7 +250,7 @@ public class ItemController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -273,7 +273,7 @@ public class ItemController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -291,7 +291,7 @@ public class ItemController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -309,7 +309,7 @@ public class ItemController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -325,7 +325,7 @@ public class ItemController {
             service.removeItem(accountKey, WebInputLongIdKey.toStackBean(itemKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

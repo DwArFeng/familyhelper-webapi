@@ -38,7 +38,7 @@ public class TimeController {
             Date result = timeResponseService.currentDate();
             return FastJsonResponseData.of(ResponseDataUtil.good(result));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Date.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

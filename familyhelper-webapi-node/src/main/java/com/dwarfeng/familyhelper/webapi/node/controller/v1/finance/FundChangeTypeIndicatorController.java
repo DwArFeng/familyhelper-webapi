@@ -57,7 +57,7 @@ public class FundChangeTypeIndicatorController {
             boolean exists = service.exists(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -69,7 +69,7 @@ public class FundChangeTypeIndicatorController {
             FundChangeTypeIndicator fundChangeTypeIndicator = service.get(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonFundChangeTypeIndicator.of(fundChangeTypeIndicator)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonFundChangeTypeIndicator.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -87,7 +87,7 @@ public class FundChangeTypeIndicatorController {
             StringIdKey insert = service.insert(fundChangeTypeIndicator);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonStringIdKey.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -104,7 +104,7 @@ public class FundChangeTypeIndicatorController {
             service.update(WebInputFundChangeTypeIndicator.toStackBean(webInputFundChangeTypeIndicator));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -116,7 +116,7 @@ public class FundChangeTypeIndicatorController {
             service.delete(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -132,7 +132,7 @@ public class FundChangeTypeIndicatorController {
             PagedData<FastJsonFundChangeTypeIndicator> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

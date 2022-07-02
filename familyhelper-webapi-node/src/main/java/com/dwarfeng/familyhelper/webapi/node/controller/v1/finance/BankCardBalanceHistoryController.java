@@ -55,7 +55,7 @@ public class BankCardBalanceHistoryController {
             boolean exists = service.exists(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -71,7 +71,7 @@ public class BankCardBalanceHistoryController {
                     ResponseDataUtil.good(JSFixedFastJsonBankCardBalanceHistory.of(bankCardBalanceHistory))
             );
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonBankCardBalanceHistory.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -88,7 +88,7 @@ public class BankCardBalanceHistoryController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -114,7 +114,7 @@ public class BankCardBalanceHistoryController {
                     childForBankCard, bankCardBalanceHistoryBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -140,7 +140,7 @@ public class BankCardBalanceHistoryController {
                     childForBankCard, bankCardBalanceHistoryBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

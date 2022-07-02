@@ -60,7 +60,7 @@ public class ItemLabelController {
             boolean exists = service.exists(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -72,7 +72,7 @@ public class ItemLabelController {
             ItemLabel itemLabel = service.get(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonItemLabel.of(itemLabel)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonItemLabel.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -90,7 +90,7 @@ public class ItemLabelController {
             StringIdKey insert = service.insert(itemLabel);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonStringIdKey.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -107,7 +107,7 @@ public class ItemLabelController {
             service.update(WebInputItemLabel.toStackBean(webInputItemLabel));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -119,7 +119,7 @@ public class ItemLabelController {
             service.delete(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -137,7 +137,7 @@ public class ItemLabelController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -152,7 +152,7 @@ public class ItemLabelController {
             PagedData<FastJsonItemLabel> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

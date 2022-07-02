@@ -73,7 +73,7 @@ public class AccountController {
             boolean exists = accountResponseService.exists(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -85,7 +85,7 @@ public class AccountController {
             Account account = accountResponseService.get(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonAccount.of(account)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonAccount.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -100,7 +100,7 @@ public class AccountController {
             accountResponseService.addRoleRelation(new StringIdKey(accountId), new StringIdKey(roleId));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -115,7 +115,7 @@ public class AccountController {
             accountResponseService.deleteRoleRelation(new StringIdKey(accountId), new StringIdKey(roleId));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -135,7 +135,7 @@ public class AccountController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -151,7 +151,7 @@ public class AccountController {
             PagedData<FastJsonAccount> transform = PagingUtil.transform(all, accountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -170,7 +170,7 @@ public class AccountController {
             PagedData<FastJsonAccount> transform = PagingUtil.transform(childForRole, accountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -189,7 +189,7 @@ public class AccountController {
             PagedData<FastJsonAccount> transform = PagingUtil.transform(childForProfileGuest, accountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -205,7 +205,7 @@ public class AccountController {
             PagedData<FastJsonAccount> transform = PagingUtil.transform(idLike, accountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -220,7 +220,7 @@ public class AccountController {
             DispAccount dispAccount = accountResponseService.getDisp(new StringIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonDispAccount.of(dispAccount)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonDispAccount.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -239,7 +239,7 @@ public class AccountController {
             PagedData<FastJsonDispAccount> transform = PagingUtil.transform(idLike, dispAccountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -253,7 +253,7 @@ public class AccountController {
             accountResponseService.register(WebInputAccountRegisterInfo.toStackBean(accountRegisterInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -268,7 +268,7 @@ public class AccountController {
             accountResponseService.update(WebInputAccountUpdateInfo.toStackBean(accountUpdateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -282,7 +282,7 @@ public class AccountController {
             accountResponseService.delete(WebInputStringIdKey.toStackBean(accountKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -297,7 +297,7 @@ public class AccountController {
             accountResponseService.updatePassword(WebInputPasswordUpdateInfo.toStackBean(passwordUpdateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonAccount.of(null)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -313,7 +313,7 @@ public class AccountController {
             accountResponseService.resetPassword(WebInputPasswordResetInfo.toStackBean(passwordResetInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonAccount.of(null)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -327,7 +327,7 @@ public class AccountController {
             accountResponseService.invalid(WebInputStringIdKey.toStackBean(accountKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

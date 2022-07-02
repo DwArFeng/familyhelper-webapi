@@ -61,7 +61,7 @@ public class NicknameController {
             boolean exists = service.exists(new NicknameKey(subjectUserId, objectUserId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -76,7 +76,7 @@ public class NicknameController {
             Nickname nickname = service.get(new NicknameKey(subjectUserId, objectUserId));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonNickname.of(nickname)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonNickname.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -92,7 +92,7 @@ public class NicknameController {
             NicknameKey insert = service.insert(nickname);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonNicknameKey.of(insert)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonNicknameKey.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -108,7 +108,7 @@ public class NicknameController {
             service.update(WebInputNickname.toStackBean(webInputNickname));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -123,7 +123,7 @@ public class NicknameController {
             service.delete(new NicknameKey(subjectUserId, objectUserId));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -142,7 +142,7 @@ public class NicknameController {
             PagedData<FastJsonNickname> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

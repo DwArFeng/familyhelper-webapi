@@ -61,7 +61,7 @@ public class AvatarController {
             boolean exists = service.exists(new StringIdKey(stringId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -75,7 +75,7 @@ public class AvatarController {
             AvatarInfo avatarInfo = service.get(new StringIdKey(stringId));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonAvatarInfo.of(avatarInfo)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonAvatarInfo.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -95,7 +95,7 @@ public class AvatarController {
             headers.add("Content-Disposition", "attachment;filename=" + fileName);
             body = avatar.getContent();
         } catch (Exception e) {
-            body = FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
         return new ResponseEntity<>(body, headers, HttpStatus.OK);
     }
@@ -136,7 +136,7 @@ public class AvatarController {
             // 返回响应结果。
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 

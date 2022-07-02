@@ -65,7 +65,7 @@ public class SenderRelationController {
             boolean exists = service.exists(new SenderRelationKey(notifySettingId, topicId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -82,7 +82,7 @@ public class SenderRelationController {
                     JSFixedFastJsonSenderRelation.of(senderRelation)
             ));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonSenderRelation.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -102,7 +102,7 @@ public class SenderRelationController {
             SenderRelationKey insert = service.insert(senderRelation);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonSenderRelationKey.of(insert)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonSenderRelationKey.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -119,7 +119,7 @@ public class SenderRelationController {
             service.update(WebInputSenderRelation.toStackBean(webInputSenderRelation));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -134,7 +134,7 @@ public class SenderRelationController {
             service.delete(new SenderRelationKey(notifySettingId, topicId));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -150,7 +150,7 @@ public class SenderRelationController {
             PagedData<JSFixedFastJsonSenderRelation> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -167,7 +167,7 @@ public class SenderRelationController {
                     JSFixedFastJsonDispSenderRelation.of(dispSenderRelation)
             ));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonDispSenderRelation.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -183,7 +183,7 @@ public class SenderRelationController {
             PagedData<JSFixedFastJsonDispSenderRelation> transform = PagingUtil.transform(all, dispBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

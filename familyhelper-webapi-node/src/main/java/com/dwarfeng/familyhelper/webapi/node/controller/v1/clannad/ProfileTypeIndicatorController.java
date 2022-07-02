@@ -58,7 +58,7 @@ public class ProfileTypeIndicatorController {
             boolean exists = service.exists(new ProfileTypeIndicatorKey(category, id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -72,7 +72,7 @@ public class ProfileTypeIndicatorController {
             ProfileTypeIndicator profileTypeIndicator = service.get(new ProfileTypeIndicatorKey(category, id));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonProfileTypeIndicator.of(profileTypeIndicator)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonProfileTypeIndicator.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -90,7 +90,7 @@ public class ProfileTypeIndicatorController {
             ProfileTypeIndicatorKey insert = service.insert(profileTypeIndicator);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonProfileTypeIndicatorKey.of(insert)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(FastJsonProfileTypeIndicatorKey.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -107,7 +107,7 @@ public class ProfileTypeIndicatorController {
             service.update(WebInputProfileTypeIndicator.toStackBean(webInputProfileTypeIndicator));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -121,7 +121,7 @@ public class ProfileTypeIndicatorController {
             service.delete(new ProfileTypeIndicatorKey(category, id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -139,7 +139,7 @@ public class ProfileTypeIndicatorController {
             PagedData<FastJsonProfileTypeIndicator> transform = PagingUtil.transform(childForCategory, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

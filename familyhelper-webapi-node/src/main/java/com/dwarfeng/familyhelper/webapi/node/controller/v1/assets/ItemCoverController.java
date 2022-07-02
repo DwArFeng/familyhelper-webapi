@@ -78,7 +78,7 @@ public class ItemCoverController {
             boolean exists = service.exists(new LongIdKey(longId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -92,7 +92,7 @@ public class ItemCoverController {
             ItemCoverInfo itemCoverInfo = service.get(new LongIdKey(longId));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonItemCoverInfo.of(itemCoverInfo)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonItemCoverInfo.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -113,7 +113,7 @@ public class ItemCoverController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonPagedData.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -134,7 +134,7 @@ public class ItemCoverController {
             headers.add("Content-Disposition", "attachment;filename=" + fileName);
             body = itemCover.getContent();
         } catch (Exception e) {
-            body = FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
         return new ResponseEntity<>(body, headers, HttpStatus.OK);
     }
@@ -180,7 +180,7 @@ public class ItemCoverController {
             // 返回响应结果。
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -196,7 +196,7 @@ public class ItemCoverController {
             service.removeItemCover(accountKey, WebInputLongIdKey.toStackBean(itemCoverKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -218,7 +218,7 @@ public class ItemCoverController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }

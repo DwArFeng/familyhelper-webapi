@@ -56,7 +56,7 @@ public class LoginController {
             boolean result = loginResponseService.isLogin(WebInputLongIdKey.toStackBean(loginStateKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(result));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Boolean.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -75,7 +75,7 @@ public class LoginController {
             JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
             return FastJsonResponseData.of(ResponseDataUtil.good(of));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonLoginResponse.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -91,7 +91,7 @@ public class LoginController {
             JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
             return FastJsonResponseData.of(ResponseDataUtil.good(of));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonLoginResponse.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -108,7 +108,7 @@ public class LoginController {
             JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
             return FastJsonResponseData.of(ResponseDataUtil.good(of));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(JSFixedFastJsonLoginResponse.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
@@ -123,7 +123,7 @@ public class LoginController {
             loginResponseService.logout(WebInputLongIdKey.toStackBean(loginStateKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(Object.class, e, sem));
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 }
