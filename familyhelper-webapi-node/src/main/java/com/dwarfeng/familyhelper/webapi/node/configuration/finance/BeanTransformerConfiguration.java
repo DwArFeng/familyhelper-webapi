@@ -90,4 +90,9 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<DispPoab, JSFixedFastJsonDispPoab> dispPoabBeanTransformer() {
         return new DozerBeanTransformer<>(DispPoab.class, JSFixedFastJsonDispPoab.class, mapper);
     }
+
+    @Bean("finance.billFileInfoBeanTransformer")
+    public BeanTransformer<BillFileInfo, JSFixedFastJsonBillFileInfo> billFileInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(BillFileInfo.class, JSFixedFastJsonBillFileInfo.class, mapper);
+    }
 }

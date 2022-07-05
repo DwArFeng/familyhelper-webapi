@@ -93,6 +93,12 @@
     <dubbo:reference id="familyhelperFinanceBankCardBalanceHistoryMaintainService"
                      interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardBalanceHistoryMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceBillFileInfoMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.BillFileInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceBillFileOperateService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.BillFileOperateService"
+                     retries="3" timeout="60000" check="false"/>
     <!-- familyhelper-clannad -->
     <dubbo:reference id="familyhelperClannadProfileMaintainService"
                      interface="com.dwarfeng.familyhelper.clannad.stack.service.ProfileMaintainService"
