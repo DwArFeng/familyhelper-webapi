@@ -1,9 +1,9 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.finance;
 
 import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputAccountBookCreateInfo;
+import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputAccountBookPermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputAccountBookPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputAccountBookUpdateInfo;
-import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputPermissionRemoveInfo;
-import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonAccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispAccountBook;
@@ -212,13 +212,14 @@ public class AccountBookController {
     @BindingCheck
     public FastJsonResponseData<Object> upsertPermission(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPermissionUpsertInfo webInputPermissionUpsertInfo,
+            @RequestBody @Validated WebInputAccountBookPermissionUpsertInfo webInputAccountBookPermissionUpsertInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.upsertPermission(
-                    accountKey, WebInputPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
+                    accountKey,
+                    WebInputAccountBookPermissionUpsertInfo.toStackBean(webInputAccountBookPermissionUpsertInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -232,13 +233,14 @@ public class AccountBookController {
     @BindingCheck
     public FastJsonResponseData<Object> removePermission(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPermissionRemoveInfo webInputPermissionRemoveInfo,
+            @RequestBody @Validated WebInputAccountBookPermissionRemoveInfo webInputAccountBookPermissionRemoveInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removePermission(
-                    accountKey, WebInputPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
+                    accountKey,
+                    WebInputAccountBookPermissionRemoveInfo.toStackBean(webInputAccountBookPermissionRemoveInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

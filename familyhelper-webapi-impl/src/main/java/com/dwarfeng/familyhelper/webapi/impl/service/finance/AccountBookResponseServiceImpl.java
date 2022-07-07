@@ -2,9 +2,9 @@ package com.dwarfeng.familyhelper.webapi.impl.service.finance;
 
 import com.dwarfeng.familyhelper.finance.sdk.util.Constants;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService;
@@ -169,13 +169,15 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
     }
 
     @Override
-    public void upsertPermission(StringIdKey userKey, PermissionUpsertInfo permissionUpsertInfo) throws ServiceException {
-        accountBookOperateService.upsertPermission(userKey, permissionUpsertInfo);
+    public void upsertPermission(StringIdKey userKey, AccountBookPermissionUpsertInfo accountBookPermissionUpsertInfo)
+            throws ServiceException {
+        accountBookOperateService.upsertPermission(userKey, accountBookPermissionUpsertInfo);
     }
 
     @Override
-    public void removePermission(StringIdKey userKey, PermissionRemoveInfo permissionRemoveInfo) throws ServiceException {
-        accountBookOperateService.removePermission(userKey, permissionRemoveInfo);
+    public void removePermission(StringIdKey userKey, AccountBookPermissionRemoveInfo accountBookPermissionRemoveInfo)
+            throws ServiceException {
+        accountBookOperateService.removePermission(userKey, accountBookPermissionRemoveInfo);
     }
 
     @Override
