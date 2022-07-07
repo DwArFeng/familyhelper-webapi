@@ -1,14 +1,12 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.clannad;
 
-import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonNickname;
-import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonProfile;
-import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonProfileTypeIndicator;
-import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.JSFixedFastJsonNotification;
-import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Nickname;
-import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Notification;
-import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Profile;
-import com.dwarfeng.familyhelper.clannad.stack.bean.entity.ProfileTypeIndicator;
+import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.*;
+import com.dwarfeng.familyhelper.clannad.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.FastJsonDispProfile;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.JSFixedFastJsonDispCertificate;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.JSFixedFastJsonDispPoce;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispCertificate;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispPoce;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispProfile;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
@@ -49,5 +47,31 @@ public class BeanTransformerConfiguration {
     @Bean("clannad.notificationBeanTransformer")
     public BeanTransformer<Notification, JSFixedFastJsonNotification> notificationBeanTransformer() {
         return new DozerBeanTransformer<>(Notification.class, JSFixedFastJsonNotification.class, mapper);
+    }
+
+    @Bean("clannad.certificateBeanTransformer")
+    public BeanTransformer<Certificate, JSFixedFastJsonCertificate> certificateBeanTransformer() {
+        return new DozerBeanTransformer<>(Certificate.class, JSFixedFastJsonCertificate.class, mapper);
+    }
+
+    @Bean("clannad.dispCertificateBeanTransformer")
+    public BeanTransformer<DispCertificate, JSFixedFastJsonDispCertificate> dispCertificateBeanTransformer() {
+        return new DozerBeanTransformer<>(DispCertificate.class, JSFixedFastJsonDispCertificate.class, mapper);
+    }
+
+    @Bean("clannad.certificateFileInfoBeanTransformer")
+    public BeanTransformer<CertificateFileInfo, JSFixedFastJsonCertificateFileInfo>
+    certificateFileInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(CertificateFileInfo.class, JSFixedFastJsonCertificateFileInfo.class, mapper);
+    }
+
+    @Bean("clannad.poceBeanTransformer")
+    public BeanTransformer<Poce, JSFixedFastJsonPoce> poceBeanTransformer() {
+        return new DozerBeanTransformer<>(Poce.class, JSFixedFastJsonPoce.class, mapper);
+    }
+
+    @Bean("clannad.dispPoceBeanTransformer")
+    public BeanTransformer<DispPoce, JSFixedFastJsonDispPoce> dispPoceBeanTransformer() {
+        return new DozerBeanTransformer<>(DispPoce.class, JSFixedFastJsonDispPoce.class, mapper);
     }
 }

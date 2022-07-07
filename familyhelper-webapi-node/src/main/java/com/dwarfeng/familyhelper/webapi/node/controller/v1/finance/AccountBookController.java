@@ -79,7 +79,9 @@ public class AccountBookController {
     @GetMapping("/account-book/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonAccountBook> get(HttpServletRequest request, @PathVariable("id") Long id) {
+    public FastJsonResponseData<JSFixedFastJsonAccountBook> get(
+            HttpServletRequest request, @PathVariable("id") Long id
+    ) {
         try {
             AccountBook accountBook = service.get(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonAccountBook.of(accountBook)));
@@ -93,7 +95,8 @@ public class AccountBookController {
     @SkipRecord
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonAccountBook>> all(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             PagedData<AccountBook> all = service.all(new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonAccountBook> transform = PagingUtil.transform(all, accountBookBeanTransformer);
@@ -124,7 +127,8 @@ public class AccountBookController {
     @SkipRecord
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispAccountBook>> allPermittedDisp(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             PagedData<DispAccountBook> allPermittedDisp = service.allPermittedDisp(
@@ -142,7 +146,8 @@ public class AccountBookController {
     @SkipRecord
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispAccountBook>> allOwnedDisp(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             PagedData<DispAccountBook> allOwnedDisp = service.allOwnedDisp(
@@ -160,7 +165,8 @@ public class AccountBookController {
     @BindingCheck
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createAccountBook(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputAccountBookCreateInfo accountBookCreateInfo, BindingResult bindingResult) {
+            @RequestBody @Validated WebInputAccountBookCreateInfo accountBookCreateInfo, BindingResult bindingResult
+    ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             LongIdKey result = service.createAccountBook(

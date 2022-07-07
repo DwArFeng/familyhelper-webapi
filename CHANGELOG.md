@@ -6,6 +6,9 @@
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.BillFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.PoceController。
 
 #### Bug修复
 
