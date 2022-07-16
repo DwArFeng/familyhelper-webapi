@@ -37,7 +37,7 @@ public interface ItemResponseService extends Service {
     PagedData<DispItem> allDisp(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
 
     PagedData<DispItem> childForAssetCatalogDisp(
-            StringIdKey accountKey, LongIdKey assetsCatalogKey, PagingInfo pagingInfo
+            StringIdKey accountKey, LongIdKey assetCatalogKey, PagingInfo pagingInfo
     ) throws ServiceException;
 
     PagedData<DispItem> childForAssetCatalogRootDisp(
