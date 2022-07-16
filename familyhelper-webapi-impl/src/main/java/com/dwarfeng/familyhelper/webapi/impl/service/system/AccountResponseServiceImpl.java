@@ -43,6 +43,8 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             familyhelperClannadUserMaintainService;
     private final com.dwarfeng.familyhelper.assets.stack.service.UserMaintainService
             familyhelperAssetsUserMaintainService;
+    private final com.dwarfeng.familyhelper.life.stack.service.UserMaintainService
+            familyhelperLifeUserMaintainService;
     private final com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService;
     private final PoprMaintainService poprMaintainService;
     private final ProfileMaintainService profileMaintainService;
@@ -54,14 +56,17 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             @Qualifier("acckeeperAccountOperateService") AccountOperateService accountOperateService,
             @Qualifier("rbacUserMaintainService") UserMaintainService rbacUserMaintainService,
             @Qualifier("familyhelperFinanceUserMaintainService")
-                    com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
+            com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
                     familyhelperFinanceUserMaintainService,
             @Qualifier("familyhelperClannadUserMaintainService")
-                    com.dwarfeng.familyhelper.clannad.stack.service.UserMaintainService
+            com.dwarfeng.familyhelper.clannad.stack.service.UserMaintainService
                     familyhelperClannadUserMaintainService,
             @Qualifier("familyhelperAssetsUserMaintainService")
-                    com.dwarfeng.familyhelper.assets.stack.service.UserMaintainService
+            com.dwarfeng.familyhelper.assets.stack.service.UserMaintainService
                     familyhelperAssetsUserMaintainService,
+            @Qualifier("familyhelperLifeUserMaintainService")
+            com.dwarfeng.familyhelper.life.stack.service.UserMaintainService
+                    familyhelperLifeUserMaintainService,
             @Qualifier("rbacRoleMaintainService") RoleMaintainService rbacRoleMaintainService,
             @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService,
             @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
@@ -73,6 +78,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         this.familyhelperFinanceUserMaintainService = familyhelperFinanceUserMaintainService;
         this.familyhelperClannadUserMaintainService = familyhelperClannadUserMaintainService;
         this.familyhelperAssetsUserMaintainService = familyhelperAssetsUserMaintainService;
+        this.familyhelperLifeUserMaintainService = familyhelperLifeUserMaintainService;
         this.rbacRoleMaintainService = rbacRoleMaintainService;
         this.poprMaintainService = poprMaintainService;
         this.profileMaintainService = profileMaintainService;
@@ -261,6 +267,11 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperAssetsUserMaintainService.insertOrUpdate(familyhelperAssetsUser);
+        com.dwarfeng.familyhelper.life.stack.bean.entity.User familyhelperLifeUser =
+                new com.dwarfeng.familyhelper.life.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperLifeUserMaintainService.insertOrUpdate(familyhelperLifeUser);
         Profile profile = new Profile(
                 accountKey, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
                 StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
@@ -294,6 +305,11 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperAssetsUserMaintainService.insertOrUpdate(familyhelperAssetsUser);
+        com.dwarfeng.familyhelper.life.stack.bean.entity.User familyhelperLifeUser =
+                new com.dwarfeng.familyhelper.life.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperLifeUserMaintainService.insertOrUpdate(familyhelperLifeUser);
     }
 
     @Override
@@ -303,6 +319,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         familyhelperFinanceUserMaintainService.deleteIfExists(key);
         familyhelperClannadUserMaintainService.deleteIfExists(key);
         familyhelperAssetsUserMaintainService.deleteIfExists(key);
+        familyhelperLifeUserMaintainService.deleteIfExists(key);
         profileMaintainService.deleteIfExists(key);
     }
 
