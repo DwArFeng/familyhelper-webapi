@@ -67,6 +67,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-project-stack</artifactId>
         </dependency>
+        <!-- familyhelper-life组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>familyhelper-life-stack</artifactId>
+        </dependency>
         <!-- settingrepo组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

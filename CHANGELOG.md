@@ -9,6 +9,8 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateFileController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.PoceController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbSetController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PopbController。
 
 #### Bug修复
 

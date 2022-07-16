@@ -123,6 +123,14 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-project-sdk</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>familyhelper-life-stack</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>familyhelper-life-sdk</artifactId>
+        </dependency>
         <!-- settingrepo组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
