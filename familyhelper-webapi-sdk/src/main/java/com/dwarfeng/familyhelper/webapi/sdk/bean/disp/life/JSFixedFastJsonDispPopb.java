@@ -41,7 +41,7 @@ public class JSFixedFastJsonDispPopb implements Dto {
     @JSONField(name = "remark", ordinal = 3)
     private String remark;
 
-    @JSONField(name = "asset_catalog", ordinal = 4)
+    @JSONField(name = "pb_set", ordinal = 4)
     private JSFixedFastJsonDispPbSet pbSet;
 
     @JSONField(name = "account", ordinal = 5)
