@@ -11,6 +11,8 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.PoceController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbSetController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PopbController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbItemController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbNodeController。
 
 #### Bug修复
 
