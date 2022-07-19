@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class JSFixedFastJsonDispPbSet implements Dto {
 
-    private static final long serialVersionUID = 5620736247188398750L;
+    private static final long serialVersionUID = -8317257153651792153L;
 
     public static JSFixedFastJsonDispPbSet of(DispPbSet dispPbSet) {
         if (Objects.isNull(dispPbSet)) {
@@ -28,6 +28,8 @@ public class JSFixedFastJsonDispPbSet implements Dto {
                     dispPbSet.getName(),
                     dispPbSet.getRemark(),
                     dispPbSet.getCreatedDate(),
+                    dispPbSet.getItemCount(),
+                    dispPbSet.getLastRecordedDate(),
                     FastJsonDispAccount.of(dispPbSet.getOwnerAccount()),
                     dispPbSet.getPermissionLevel()
             );
@@ -46,10 +48,16 @@ public class JSFixedFastJsonDispPbSet implements Dto {
     @JSONField(name = "created_date", ordinal = 4)
     private Date createdDate;
 
-    @JSONField(name = "owner_account", ordinal = 5)
+    @JSONField(name = "item_count", ordinal = 5)
+    private int itemCount;
+
+    @JSONField(name = "last_recorded_date", ordinal = 6)
+    private Date lastRecordedDate;
+
+    @JSONField(name = "owner_account", ordinal = 7)
     private FastJsonDispAccount ownerAccount;
 
-    @JSONField(name = "permission_level", ordinal = 6)
+    @JSONField(name = "permission_level", ordinal = 8)
     private Integer permissionLevel;
 
     public JSFixedFastJsonDispPbSet() {
@@ -57,12 +65,14 @@ public class JSFixedFastJsonDispPbSet implements Dto {
 
     public JSFixedFastJsonDispPbSet(
             JSFixedFastJsonLongIdKey key, String name, String remark, Date createdDate,
-            FastJsonDispAccount ownerAccount, Integer permissionLevel
+            int itemCount, Date lastRecordedDate, FastJsonDispAccount ownerAccount, Integer permissionLevel
     ) {
         this.key = key;
         this.name = name;
         this.remark = remark;
         this.createdDate = createdDate;
+        this.itemCount = itemCount;
+        this.lastRecordedDate = lastRecordedDate;
         this.ownerAccount = ownerAccount;
         this.permissionLevel = permissionLevel;
     }
@@ -99,6 +109,22 @@ public class JSFixedFastJsonDispPbSet implements Dto {
         this.createdDate = createdDate;
     }
 
+    public int getItemCount() {
+        return itemCount;
+    }
+
+    public void setItemCount(int itemCount) {
+        this.itemCount = itemCount;
+    }
+
+    public Date getLastRecordedDate() {
+        return lastRecordedDate;
+    }
+
+    public void setLastRecordedDate(Date lastRecordedDate) {
+        this.lastRecordedDate = lastRecordedDate;
+    }
+
     public FastJsonDispAccount getOwnerAccount() {
         return ownerAccount;
     }
@@ -122,6 +148,8 @@ public class JSFixedFastJsonDispPbSet implements Dto {
                 ", name='" + name + '\'' +
                 ", remark='" + remark + '\'' +
                 ", createdDate=" + createdDate +
+                ", itemCount=" + itemCount +
+                ", lastRecordedDate=" + lastRecordedDate +
                 ", ownerAccount=" + ownerAccount +
                 ", permissionLevel=" + permissionLevel +
                 '}';

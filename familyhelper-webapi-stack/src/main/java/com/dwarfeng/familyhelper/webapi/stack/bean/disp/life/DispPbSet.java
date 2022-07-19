@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class DispPbSet implements Dto {
 
-    private static final long serialVersionUID = 2018555156515416417L;
+    private static final long serialVersionUID = 2775502496795651155L;
 
     public static DispPbSet of(
             PbSet pbSet, DispAccount ownerAccount, Integer permissionLevel) {
@@ -25,7 +25,7 @@ public class DispPbSet implements Dto {
         } else {
             return new DispPbSet(
                     pbSet.getKey(), pbSet.getName(), pbSet.getRemark(), pbSet.getCreatedDate(),
-                    ownerAccount, permissionLevel
+                    pbSet.getItemCount(), pbSet.getLastRecordedDate(), ownerAccount, permissionLevel
             );
         }
     }
@@ -34,6 +34,8 @@ public class DispPbSet implements Dto {
     private String name;
     private String remark;
     private Date createdDate;
+    private int itemCount;
+    private Date lastRecordedDate;
     private DispAccount ownerAccount;
     private Integer permissionLevel;
 
@@ -41,13 +43,15 @@ public class DispPbSet implements Dto {
     }
 
     public DispPbSet(
-            LongIdKey key, String name, String remark, Date createdDate, DispAccount ownerAccount,
-            Integer permissionLevel
+            LongIdKey key, String name, String remark, Date createdDate, int itemCount, Date lastRecordedDate,
+            DispAccount ownerAccount, Integer permissionLevel
     ) {
         this.key = key;
         this.name = name;
         this.remark = remark;
         this.createdDate = createdDate;
+        this.itemCount = itemCount;
+        this.lastRecordedDate = lastRecordedDate;
         this.ownerAccount = ownerAccount;
         this.permissionLevel = permissionLevel;
     }
@@ -84,6 +88,22 @@ public class DispPbSet implements Dto {
         this.createdDate = createdDate;
     }
 
+    public int getItemCount() {
+        return itemCount;
+    }
+
+    public void setItemCount(int itemCount) {
+        this.itemCount = itemCount;
+    }
+
+    public Date getLastRecordedDate() {
+        return lastRecordedDate;
+    }
+
+    public void setLastRecordedDate(Date lastRecordedDate) {
+        this.lastRecordedDate = lastRecordedDate;
+    }
+
     public DispAccount getOwnerAccount() {
         return ownerAccount;
     }
@@ -107,6 +127,8 @@ public class DispPbSet implements Dto {
                 ", name='" + name + '\'' +
                 ", remark='" + remark + '\'' +
                 ", createdDate=" + createdDate +
+                ", itemCount=" + itemCount +
+                ", lastRecordedDate=" + lastRecordedDate +
                 ", ownerAccount=" + ownerAccount +
                 ", permissionLevel=" + permissionLevel +
                 '}';
