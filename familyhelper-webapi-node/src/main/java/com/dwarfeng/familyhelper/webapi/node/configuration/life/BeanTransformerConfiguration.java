@@ -1,13 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.life;
 
-import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonPbItem;
-import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonPbNode;
-import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonPbSet;
-import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonPopb;
-import com.dwarfeng.familyhelper.life.stack.bean.entity.PbItem;
-import com.dwarfeng.familyhelper.life.stack.bean.entity.PbNode;
-import com.dwarfeng.familyhelper.life.stack.bean.entity.PbSet;
-import com.dwarfeng.familyhelper.life.stack.bean.entity.Popb;
+import com.dwarfeng.familyhelper.life.sdk.bean.entity.*;
+import com.dwarfeng.familyhelper.life.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispPbItem;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispPbNode;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispPbSet;
@@ -69,5 +63,10 @@ public class BeanTransformerConfiguration {
     @Bean("life.dispPbItemBeanTransformer")
     public BeanTransformer<DispPbItem, JSFixedFastJsonDispPbItem> dispPbItemBeanTransformer() {
         return new DozerBeanTransformer<>(DispPbItem.class, JSFixedFastJsonDispPbItem.class, mapper);
+    }
+
+    @Bean("life.pbRecordBeanTransformer")
+    public BeanTransformer<PbRecord, JSFixedFastJsonPbRecord> pbRecordBeanTransformer() {
+        return new DozerBeanTransformer<>(PbRecord.class, JSFixedFastJsonPbRecord.class, mapper);
     }
 }
