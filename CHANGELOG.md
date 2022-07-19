@@ -14,6 +14,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbItemController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbFileController。
 
 #### Bug修复
 

@@ -69,4 +69,9 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<PbRecord, JSFixedFastJsonPbRecord> pbRecordBeanTransformer() {
         return new DozerBeanTransformer<>(PbRecord.class, JSFixedFastJsonPbRecord.class, mapper);
     }
+
+    @Bean("life.pbFileInfoBeanTransformer")
+    public BeanTransformer<PbFileInfo, JSFixedFastJsonPbFileInfo> pbFileInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(PbFileInfo.class, JSFixedFastJsonPbFileInfo.class, mapper);
+    }
 }
