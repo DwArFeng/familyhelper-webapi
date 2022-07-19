@@ -45,7 +45,15 @@ public class PbRecordResponseServiceImpl implements PbRecordResponseService {
     }
 
     @Override
-    public PagedData<PbRecord> childForPbItem(LongIdKey pbItemKey, PagingInfo pagingInfo)
+    public PagedData<PbRecord> childForPbItemRecordedDateAsc(LongIdKey pbItemKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        return pbRecordMaintainService.lookup(
+                PbRecordMaintainService.CHILD_FOR_ITEM_RECORDED_DATE_ASC, new Object[]{pbItemKey}, pagingInfo
+        );
+    }
+
+    @Override
+    public PagedData<PbRecord> childForPbItemRecordedDateDesc(LongIdKey pbItemKey, PagingInfo pagingInfo)
             throws ServiceException {
         return pbRecordMaintainService.lookup(
                 PbRecordMaintainService.CHILD_FOR_ITEM_RECORDED_DATE_DESC, new Object[]{pbItemKey}, pagingInfo

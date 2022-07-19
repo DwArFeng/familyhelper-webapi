@@ -24,7 +24,10 @@ public interface PbRecordResponseService extends Service {
 
     PagedData<PbRecord> all(PagingInfo pagingInfo) throws ServiceException;
 
-    PagedData<PbRecord> childForPbItem(LongIdKey pbItemKey, PagingInfo pagingInfo)
+    PagedData<PbRecord> childForPbItemRecordedDateAsc(LongIdKey pbItemKey, PagingInfo pagingInfo)
+            throws ServiceException;
+
+    PagedData<PbRecord> childForPbItemRecordedDateDesc(LongIdKey pbItemKey, PagingInfo pagingInfo)
             throws ServiceException;
 
     LongIdKey createPbRecord(StringIdKey userKey, PbRecordCreateInfo pbRecordCreateInfo)

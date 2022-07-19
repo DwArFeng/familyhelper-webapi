@@ -99,12 +99,12 @@ public class PbRecordController {
     }
 
     @GetMapping(value = {
-            "/pb-item/{pbItemId}/pb-record", "/pb-item//pb-record"
+            "/pb-item/{pbItemId}/pb-record/recorded-date-asc", "/pb-item//pb-record/recorded-date-asc"
     })
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbRecord>> childForPbItem(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbRecord>> childForPbItemRecordedDateAsc(
             HttpServletRequest request,
             @PathVariable(required = false, value = "pbItemId") Long pbItemId,
             @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -114,7 +114,33 @@ public class PbRecordController {
             if (Objects.nonNull(pbItemId)) {
                 pbItemKey = new LongIdKey(pbItemId);
             }
-            PagedData<PbRecord> childForPbItem = service.childForPbItem(
+            PagedData<PbRecord> childForPbItem = service.childForPbItemRecordedDateAsc(
+                    pbItemKey, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonPbRecord> transform = PagingUtil.transform(
+                    childForPbItem, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping(value = {
+            "/pb-item/{pbItemId}/pb-record/recorded-date-desc", "/pb-item//pb-record/recorded-date-desc"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbRecord>> childForPbItemRecordedDateDesc(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "pbItemId") Long pbItemId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            LongIdKey pbItemKey = null;
+            if (Objects.nonNull(pbItemId)) {
+                pbItemKey = new LongIdKey(pbItemId);
+            }
+            PagedData<PbRecord> childForPbItem = service.childForPbItemRecordedDateDesc(
                     pbItemKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonPbRecord> transform = PagingUtil.transform(
                     childForPbItem, beanTransformer);
