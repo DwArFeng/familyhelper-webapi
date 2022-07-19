@@ -54,7 +54,7 @@
         <familyhelper-clannad.version>1.2.3.a-SNAPSHOT</familyhelper-clannad.version>
         <familyhelper-assets.version>1.0.4.a</familyhelper-assets.version>
         <familyhelper-project.version>1.1.0.a</familyhelper-project.version>
-        <familyhelper-life.version>1.0.0.a-SNAPSHOT</familyhelper-life.version>
+        <familyhelper-life.version>1.0.0.a</familyhelper-life.version>
         <settingrepo.version>1.0.0.a</settingrepo.version>
         <notify.version>1.0.0.a</notify.version>
         <!-- Maven插件版本声明 -->
