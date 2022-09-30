@@ -1,8 +1,11 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.note;
 
+import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.familyhelper.note.sdk.bean.dto.WebInputNoteItemCreateInfo;
 import com.dwarfeng.familyhelper.note.sdk.bean.dto.WebInputNoteItemUpdateInfo;
 import com.dwarfeng.familyhelper.note.sdk.bean.entity.JSFixedFastJsonNoteItem;
+import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteFile;
+import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteFileUploadInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteItem;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.note.JSFixedFastJsonDispNoteItem;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispNoteItem;
@@ -24,11 +27,20 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -41,6 +53,11 @@ import java.util.Objects;
 @RequestMapping("/api/v1/note")
 public class NoteItemController {
 
+    /**
+     * IO 传输设定的缓冲容量。
+     */
+    private static final int IO_TRANS_BUFFER_SIZE = 4096;
+
     private final NoteItemResponseService service;
 
     private final ServiceExceptionMapper sem;
@@ -48,18 +65,22 @@ public class NoteItemController {
     private final BeanTransformer<NoteItem, JSFixedFastJsonNoteItem> noteItemBeanTransformer;
     private final BeanTransformer<DispNoteItem, JSFixedFastJsonDispNoteItem> dispNoteItemBeanTransformer;
 
+    private final CommonsMultipartResolver commonsMultipartResolver;
+
     private final TokenHandler tokenHandler;
 
     public NoteItemController(
             NoteItemResponseService service, ServiceExceptionMapper sem,
             BeanTransformer<NoteItem, JSFixedFastJsonNoteItem> noteItemBeanTransformer,
             BeanTransformer<DispNoteItem, JSFixedFastJsonDispNoteItem> dispNoteItemBeanTransformer,
+            CommonsMultipartResolver commonsMultipartResolver,
             TokenHandler tokenHandler
     ) {
         this.service = service;
         this.sem = sem;
         this.noteItemBeanTransformer = noteItemBeanTransformer;
         this.dispNoteItemBeanTransformer = dispNoteItemBeanTransformer;
+        this.commonsMultipartResolver = commonsMultipartResolver;
         this.tokenHandler = tokenHandler;
     }
 
@@ -283,5 +304,76 @@ public class NoteItemController {
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
+    }
+
+    @GetMapping("/note-item/{noteItemId}/download-note-file")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public ResponseEntity<Object> downloadNoteFile(
+            HttpServletRequest request, @PathVariable("noteItemId") Long noteItemId
+    ) {
+        HttpHeaders headers = new HttpHeaders();
+        Object body;
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            NoteFile noteFile = service.downloadNoteFile(accountKey, new LongIdKey(noteItemId));
+            // 将文件名转换成 HTTP 标准文件名编码下的格式。
+            String fileName = adjustFileNameEncoding(Long.toString(noteItemId));
+            headers.add("Content-Disposition", "attachment;filename=" + fileName);
+            body = noteFile.getContent();
+        } catch (Exception e) {
+            body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+        return new ResponseEntity<>(body, headers, HttpStatus.OK);
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @PostMapping("/note-item/{noteItemId}/upload-note-file")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public FastJsonResponseData<Object> uploadNoteFile(
+            HttpServletRequest request, @PathVariable("noteItemId") Long noteItemId
+    ) {
+        try {
+            // 通过请求解析用户。
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+
+            // 确认请求合法。
+            if (!commonsMultipartResolver.isMultipart(request)) {
+                throw new IllegalStateException("请求不是标准的文件上传请求");
+            }
+
+            //获取 multiRequest 中的文件。
+            MultipartHttpServletRequest multipartHttpServletRequest
+                    = commonsMultipartResolver.resolveMultipart(request);
+            MultipartFile file = multipartHttpServletRequest.getFile("file");
+            if (Objects.isNull(file)) {
+                throw new IllegalStateException("请求体中缺少 file 属性");
+            }
+
+            // 解析文件内容。
+            byte[] content;
+            try (InputStream in = file.getInputStream(); ByteArrayOutputStream bout = new ByteArrayOutputStream()) {
+                IOUtil.trans(in, bout, IO_TRANS_BUFFER_SIZE);
+                bout.flush();
+                content = bout.toByteArray();
+            }
+
+            // 将文件内容转换为接口需要的格式，并上传。
+            service.uploadNoteFile(
+                    accountKey, new NoteFileUploadInfo(new LongIdKey(noteItemId), content)
+            );
+
+            // 返回响应结果。
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    private String adjustFileNameEncoding(String fileName) {
+        return new String(fileName.getBytes(), StandardCharsets.ISO_8859_1);
     }
 }

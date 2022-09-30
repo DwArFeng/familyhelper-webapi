@@ -1,5 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.note;
 
+import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteFile;
+import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteFileUploadInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteItemCreateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteItemUpdateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteItem;
@@ -49,4 +51,8 @@ public interface NoteItemResponseService extends Service {
     void updateNoteItem(StringIdKey userKey, NoteItemUpdateInfo noteItemUpdateInfo) throws ServiceException;
 
     void removeNoteItem(StringIdKey userKey, LongIdKey noteItemKey) throws ServiceException;
+
+    NoteFile downloadNoteFile(StringIdKey userKey, LongIdKey noteItemKey) throws ServiceException;
+
+    void uploadNoteFile(StringIdKey userKey, NoteFileUploadInfo noteFileUploadInfo) throws ServiceException;
 }
