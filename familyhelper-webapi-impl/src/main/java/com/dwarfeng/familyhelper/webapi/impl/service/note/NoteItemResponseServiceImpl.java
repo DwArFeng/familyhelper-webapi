@@ -69,9 +69,9 @@ public class NoteItemResponseServiceImpl implements NoteItemResponseService {
     }
 
     @Override
-    public PagedData<NoteItem> childForNoteSetRoot(LongIdKey noteSetKey, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<NoteItem> childForNoteBookRoot(LongIdKey noteBookKey, PagingInfo pagingInfo) throws ServiceException {
         return noteItemMaintainService.lookup(
-                NoteItemMaintainService.CHILD_FOR_BOOK_ROOT, new Object[]{noteSetKey}, pagingInfo
+                NoteItemMaintainService.CHILD_FOR_BOOK_ROOT, new Object[]{noteBookKey}, pagingInfo
         );
     }
 
@@ -98,11 +98,11 @@ public class NoteItemResponseServiceImpl implements NoteItemResponseService {
     }
 
     @Override
-    public PagedData<DispNoteItem> childForNoteSetRootDisp(
-            StringIdKey accountKey, LongIdKey noteSetKey, PagingInfo pagingInfo
+    public PagedData<DispNoteItem> childForNoteBookRootDisp(
+            StringIdKey accountKey, LongIdKey noteBookKey, PagingInfo pagingInfo
     ) throws ServiceException {
         PagedData<NoteItem> lookup = noteItemMaintainService.lookup(
-                NoteItemMaintainService.CHILD_FOR_BOOK_ROOT, new Object[]{noteSetKey}, pagingInfo
+                NoteItemMaintainService.CHILD_FOR_BOOK_ROOT, new Object[]{noteBookKey}, pagingInfo
         );
         return toDispPagedData(lookup, accountKey);
     }
@@ -110,7 +110,7 @@ public class NoteItemResponseServiceImpl implements NoteItemResponseService {
     private DispNoteItem toDisp(NoteItem noteItem, StringIdKey inspectAccountKey) throws ServiceException {
         DispNoteBook book = null;
         if (Objects.nonNull(noteItem.getBookKey())) {
-            book = noteBookResponseService.getDisp(noteItem.getNodeKey(), inspectAccountKey);
+            book = noteBookResponseService.getDisp(noteItem.getBookKey(), inspectAccountKey);
         }
         DispNoteNode node = null;
         if (Objects.nonNull(noteItem.getNodeKey())) {

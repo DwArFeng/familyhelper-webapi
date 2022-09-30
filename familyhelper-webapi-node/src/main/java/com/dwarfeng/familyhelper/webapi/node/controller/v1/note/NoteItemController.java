@@ -128,21 +128,21 @@ public class NoteItemController {
         }
     }
 
-    @GetMapping("/note-set/{noteSetId}/note-item/root")
+    @GetMapping("/note-book/{noteBookId}/note-item/root")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteItem>> childForNoteSetRoot(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteItem>> childForNoteBookRoot(
             HttpServletRequest request,
-            @PathVariable("noteSetId") long noteSetId,
+            @PathVariable("noteBookId") long noteBookId,
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<NoteItem> childForNoteSetRoot = service.childForNoteSetRoot(
-                    new LongIdKey(noteSetId), new PagingInfo(page, rows)
+            PagedData<NoteItem> childForNoteBookRoot = service.childForNoteBookRoot(
+                    new LongIdKey(noteBookId), new PagingInfo(page, rows)
             );
             PagedData<JSFixedFastJsonNoteItem> transform = PagingUtil.transform(
-                    childForNoteSetRoot, noteItemBeanTransformer
+                    childForNoteBookRoot, noteItemBeanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
@@ -210,22 +210,22 @@ public class NoteItemController {
         }
     }
 
-    @GetMapping("/note-set/{noteSetId}/note-item/root/disp")
+    @GetMapping("/note-book/{noteBookId}/note-item/root/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteItem>> childForNoteSetRootDisp(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteItem>> childForNoteBookRootDisp(
             HttpServletRequest request,
-            @PathVariable("noteSetId") long noteSetId,
+            @PathVariable("noteBookId") long noteBookId,
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispNoteItem> childForNoteSetRoot = service.childForNoteSetRootDisp(
-                    accountKey, new LongIdKey(noteSetId), new PagingInfo(page, rows)
+            PagedData<DispNoteItem> childForNoteBookRoot = service.childForNoteBookRootDisp(
+                    accountKey, new LongIdKey(noteBookId), new PagingInfo(page, rows)
             );
             PagedData<JSFixedFastJsonDispNoteItem> transform = PagingUtil.transform(
-                    childForNoteSetRoot, dispNoteItemBeanTransformer
+                    childForNoteBookRoot, dispNoteItemBeanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {

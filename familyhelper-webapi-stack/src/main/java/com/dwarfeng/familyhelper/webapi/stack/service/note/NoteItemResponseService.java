@@ -28,7 +28,7 @@ public interface NoteItemResponseService extends Service {
     PagedData<NoteItem> childForNoteNode(LongIdKey noteNodeKey, PagingInfo pagingInfo)
             throws ServiceException;
 
-    PagedData<NoteItem> childForNoteSetRoot(LongIdKey noteSetKey, PagingInfo pagingInfo)
+    PagedData<NoteItem> childForNoteBookRoot(LongIdKey noteBookKey, PagingInfo pagingInfo)
             throws ServiceException;
 
     DispNoteItem getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException;
@@ -39,8 +39,8 @@ public interface NoteItemResponseService extends Service {
             StringIdKey accountKey, LongIdKey noteNodeKey, PagingInfo pagingInfo
     ) throws ServiceException;
 
-    PagedData<DispNoteItem> childForNoteSetRootDisp(
-            StringIdKey accountKey, LongIdKey noteSetKey, PagingInfo pagingInfo
+    PagedData<DispNoteItem> childForNoteBookRootDisp(
+            StringIdKey accountKey, LongIdKey noteBookKey, PagingInfo pagingInfo
     ) throws ServiceException;
 
     LongIdKey createNoteItem(StringIdKey userKey, NoteItemCreateInfo noteItemCreateInfo)
