@@ -4,6 +4,19 @@
 
 #### 功能构建
 
+- 插件升级。
+  - 升级 `maven-deploy-plugin` 插件版本为 `2.8.2`。
+
+- 依赖升级。
+  - 升级 `slf4j` 依赖版本为 `1.7.5` 以规避漏洞。
+  - 升级 `dutil` 依赖版本为 `beta-0.3.1.a` 以规避漏洞。
+  - 升级 `snowflake` 依赖版本为 `1.4.9.a` 以规避漏洞。
+  - 升级 `subgrade` 依赖版本为 `1.2.10.a` 以规避漏洞。
+  - 升级 `acckeeper` 依赖版本为 `1.4.4.a` 以规避漏洞。
+  - 升级 `rbac` 依赖版本为 `1.4.2.a` 以规避漏洞。
+  - 升级 `settingrepo` 依赖版本为 `1.0.2.a` 以规避漏洞。
+  - 升级 `notify` 依赖版本为 `1.0.4.a` 以规避漏洞。
+
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.BillFileController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateController。
