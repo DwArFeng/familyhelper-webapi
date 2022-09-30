@@ -28,6 +28,11 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbRecordController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.AttachmentFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteBookController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteItemController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.PonbController。
 
 #### Bug修复
 

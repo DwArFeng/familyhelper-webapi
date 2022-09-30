@@ -250,6 +250,37 @@
     <dubbo:reference id="familyhelperLifePbFileOperateService"
                      interface="com.dwarfeng.familyhelper.life.stack.service.PbFileOperateService"
                      retries="3" timeout="60000" check="false"/>
+    <!-- familyhelper-note -->
+    <dubbo:reference id="familyhelperNoteNoteBookMaintainService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.NoteBookMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperNoteNoteBookOperateService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.NoteBookOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperNoteUserMaintainService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.UserMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperNotePonbMaintainService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.PonbMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperNoteNoteNodeMaintainService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.NoteNodeMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperNoteNoteNodeOperateService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.NoteNodeOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperNoteNoteItemMaintainService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.NoteItemMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperNoteNoteItemOperateService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.NoteItemOperateService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperNoteAttachmentFileInfoMaintainService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.AttachmentFileInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperNoteAttachmentFileOperateService"
+                     interface="com.dwarfeng.familyhelper.note.stack.service.AttachmentFileOperateService"
+                     retries="3" timeout="60000" check="false"/>
     <!-- settingrepo -->
     <dubbo:reference id="settingrepoSettingNodeMaintainService"
                      interface="com.dwarfeng.settingrepo.stack.service.SettingNodeMaintainService"
