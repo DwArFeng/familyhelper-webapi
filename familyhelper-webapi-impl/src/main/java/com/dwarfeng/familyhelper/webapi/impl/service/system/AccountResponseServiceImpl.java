@@ -45,6 +45,8 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             familyhelperAssetsUserMaintainService;
     private final com.dwarfeng.familyhelper.life.stack.service.UserMaintainService
             familyhelperLifeUserMaintainService;
+    private final com.dwarfeng.familyhelper.note.stack.service.UserMaintainService
+            familyhelperNoteUserMaintainService;
     private final com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService;
     private final PoprMaintainService poprMaintainService;
     private final ProfileMaintainService profileMaintainService;
@@ -56,17 +58,15 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             @Qualifier("acckeeperAccountOperateService") AccountOperateService accountOperateService,
             @Qualifier("rbacUserMaintainService") UserMaintainService rbacUserMaintainService,
             @Qualifier("familyhelperFinanceUserMaintainService")
-            com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService
-                    familyhelperFinanceUserMaintainService,
+            com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService familyhelperFinanceUserMaintainService,
             @Qualifier("familyhelperClannadUserMaintainService")
-            com.dwarfeng.familyhelper.clannad.stack.service.UserMaintainService
-                    familyhelperClannadUserMaintainService,
+            com.dwarfeng.familyhelper.clannad.stack.service.UserMaintainService familyhelperClannadUserMaintainService,
             @Qualifier("familyhelperAssetsUserMaintainService")
-            com.dwarfeng.familyhelper.assets.stack.service.UserMaintainService
-                    familyhelperAssetsUserMaintainService,
+            com.dwarfeng.familyhelper.assets.stack.service.UserMaintainService familyhelperAssetsUserMaintainService,
             @Qualifier("familyhelperLifeUserMaintainService")
-            com.dwarfeng.familyhelper.life.stack.service.UserMaintainService
-                    familyhelperLifeUserMaintainService,
+            com.dwarfeng.familyhelper.life.stack.service.UserMaintainService familyhelperLifeUserMaintainService,
+            @Qualifier("familyhelperNoteUserMaintainService")
+            com.dwarfeng.familyhelper.note.stack.service.UserMaintainService familyhelperNoteUserMaintainService,
             @Qualifier("rbacRoleMaintainService") RoleMaintainService rbacRoleMaintainService,
             @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService,
             @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
@@ -79,6 +79,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         this.familyhelperClannadUserMaintainService = familyhelperClannadUserMaintainService;
         this.familyhelperAssetsUserMaintainService = familyhelperAssetsUserMaintainService;
         this.familyhelperLifeUserMaintainService = familyhelperLifeUserMaintainService;
+        this.familyhelperNoteUserMaintainService = familyhelperNoteUserMaintainService;
         this.rbacRoleMaintainService = rbacRoleMaintainService;
         this.poprMaintainService = poprMaintainService;
         this.profileMaintainService = profileMaintainService;
@@ -272,6 +273,11 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperLifeUserMaintainService.insertOrUpdate(familyhelperLifeUser);
+        com.dwarfeng.familyhelper.note.stack.bean.entity.User familyhelperNoteUser =
+                new com.dwarfeng.familyhelper.note.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperNoteUserMaintainService.insertOrUpdate(familyhelperNoteUser);
         Profile profile = new Profile(
                 accountKey, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
                 StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
@@ -310,6 +316,11 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperLifeUserMaintainService.insertOrUpdate(familyhelperLifeUser);
+        com.dwarfeng.familyhelper.note.stack.bean.entity.User familyhelperNoteUser =
+                new com.dwarfeng.familyhelper.note.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperNoteUserMaintainService.insertOrUpdate(familyhelperNoteUser);
     }
 
     @Override
@@ -320,6 +331,7 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         familyhelperClannadUserMaintainService.deleteIfExists(key);
         familyhelperAssetsUserMaintainService.deleteIfExists(key);
         familyhelperLifeUserMaintainService.deleteIfExists(key);
+        familyhelperNoteUserMaintainService.deleteIfExists(key);
         profileMaintainService.deleteIfExists(key);
     }
 
