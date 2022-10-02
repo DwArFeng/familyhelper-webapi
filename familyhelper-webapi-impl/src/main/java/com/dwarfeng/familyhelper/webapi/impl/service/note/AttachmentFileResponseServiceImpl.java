@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.note;
 
 import com.dwarfeng.familyhelper.note.stack.bean.dto.AttachmentFile;
+import com.dwarfeng.familyhelper.note.stack.bean.dto.AttachmentFileUpdateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.AttachmentFileUploadInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.AttachmentFileInfo;
 import com.dwarfeng.familyhelper.note.stack.service.AttachmentFileInfoMaintainService;
@@ -62,6 +63,17 @@ public class AttachmentFileResponseServiceImpl implements AttachmentFileResponse
     }
 
     @Override
+    public PagedData<AttachmentFileInfo> childForNoteItemModifiedDateDesc(
+            LongIdKey noteItemKey, PagingInfo pagingInfo
+    ) throws ServiceException {
+        return attachmentFileInfoMaintainService.lookup(
+                AttachmentFileInfoMaintainService.CHILD_FOR_NOTE_ITEM_MODIFIED_DATE_DESC,
+                new Object[]{noteItemKey},
+                pagingInfo
+        );
+    }
+
+    @Override
     public PagedData<AttachmentFileInfo> childForNoteItemOriginNameAsc(
             LongIdKey noteItemKey, PagingInfo pagingInfo
     ) throws ServiceException {
@@ -73,11 +85,11 @@ public class AttachmentFileResponseServiceImpl implements AttachmentFileResponse
     }
 
     @Override
-    public PagedData<AttachmentFileInfo> childForNoteItemModifiedDateAsc(
+    public PagedData<AttachmentFileInfo> childForNoteItemCreatedDateAsc(
             LongIdKey noteItemKey, PagingInfo pagingInfo
     ) throws ServiceException {
         return attachmentFileInfoMaintainService.lookup(
-                AttachmentFileInfoMaintainService.CHILD_FOR_NOTE_ITEM_MODIFIED_DATE_ASC,
+                AttachmentFileInfoMaintainService.CHILD_FOR_NOTE_ITEM_CREATED_DATE_ASC,
                 new Object[]{noteItemKey},
                 pagingInfo
         );
@@ -93,6 +105,12 @@ public class AttachmentFileResponseServiceImpl implements AttachmentFileResponse
     public void uploadAttachmentFile(StringIdKey userKey, AttachmentFileUploadInfo attachmentFileUploadInfo)
             throws ServiceException {
         attachmentFileOperateService.uploadAttachmentFile(userKey, attachmentFileUploadInfo);
+    }
+
+    @Override
+    public void updateAttachmentFile(StringIdKey userKey, AttachmentFileUpdateInfo attachmentFileUpdateInfo)
+            throws ServiceException {
+        attachmentFileOperateService.updateAttachmentFile(userKey, attachmentFileUpdateInfo);
     }
 
     @Override

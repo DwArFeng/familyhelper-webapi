@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.note;
 
 import com.dwarfeng.familyhelper.note.stack.bean.dto.AttachmentFile;
+import com.dwarfeng.familyhelper.note.stack.bean.dto.AttachmentFileUpdateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.AttachmentFileUploadInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.AttachmentFileInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -25,21 +26,24 @@ public interface AttachmentFileResponseService extends Service {
     PagedData<AttachmentFileInfo> childForNoteItem(LongIdKey noteItemKey, PagingInfo pagingInfo)
             throws ServiceException;
 
-    PagedData<AttachmentFileInfo> childForNoteItemInspectedDateDesc(
-            LongIdKey noteItemKey, PagingInfo pagingInfo
-    ) throws ServiceException;
+    PagedData<AttachmentFileInfo> childForNoteItemInspectedDateDesc(LongIdKey noteItemKey, PagingInfo pagingInfo)
+            throws ServiceException;
 
-    PagedData<AttachmentFileInfo> childForNoteItemOriginNameAsc(
-            LongIdKey noteItemKey, PagingInfo pagingInfo
-    ) throws ServiceException;
+    PagedData<AttachmentFileInfo> childForNoteItemModifiedDateDesc(LongIdKey noteItemKey, PagingInfo pagingInfo)
+            throws ServiceException;
 
-    PagedData<AttachmentFileInfo> childForNoteItemModifiedDateAsc(
-            LongIdKey noteItemKey, PagingInfo pagingInfo
-    ) throws ServiceException;
+    PagedData<AttachmentFileInfo> childForNoteItemOriginNameAsc(LongIdKey noteItemKey, PagingInfo pagingInfo)
+            throws ServiceException;
+
+    PagedData<AttachmentFileInfo> childForNoteItemCreatedDateAsc(LongIdKey noteItemKey, PagingInfo pagingInfo)
+            throws ServiceException;
 
     AttachmentFile downloadAttachmentFile(StringIdKey userKey, LongIdKey attachmentFileKey) throws ServiceException;
 
     void uploadAttachmentFile(StringIdKey userKey, AttachmentFileUploadInfo attachmentFileUploadInfo)
+            throws ServiceException;
+
+    void updateAttachmentFile(StringIdKey userKey, AttachmentFileUpdateInfo attachmentFileUpdateInfo)
             throws ServiceException;
 
     void removeAttachmentFile(StringIdKey userKey, LongIdKey attachmentFileKey) throws ServiceException;

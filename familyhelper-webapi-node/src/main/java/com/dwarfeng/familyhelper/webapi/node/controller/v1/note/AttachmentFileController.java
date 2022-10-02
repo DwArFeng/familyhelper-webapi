@@ -3,6 +3,7 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.note;
 import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.familyhelper.note.sdk.bean.entity.JSFixedFastJsonAttachmentFileInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.AttachmentFile;
+import com.dwarfeng.familyhelper.note.stack.bean.dto.AttachmentFileUpdateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.AttachmentFileUploadInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.AttachmentFileInfo;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
@@ -100,7 +101,7 @@ public class AttachmentFileController {
         }
     }
 
-    @GetMapping("attachment-record/{noteItemId}/attachment-file/default")
+    @GetMapping("note-item/{noteItemId}/attachment-file/default")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonAttachmentFileInfo>> childForNoteItem(
@@ -122,7 +123,7 @@ public class AttachmentFileController {
         }
     }
 
-    @GetMapping("attachment-record/{noteItemId}/attachment-file/inspected-date-desc")
+    @GetMapping("note-item/{noteItemId}/attachment-file/inspected-date-desc")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonAttachmentFileInfo>>
@@ -144,7 +145,29 @@ public class AttachmentFileController {
         }
     }
 
-    @GetMapping("attachment-record/{noteItemId}/attachment-file/origin-name-asc")
+    @GetMapping("note-item/{noteItemId}/attachment-file/modified-date-desc")
+    @BehaviorAnalyse
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonAttachmentFileInfo>>
+    childForNoteItemModifiedDateDesc(
+            HttpServletRequest request,
+            @PathVariable("noteItemId") long noteItemId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<AttachmentFileInfo> childForNoteItem = service.childForNoteItemModifiedDateDesc(
+                    new LongIdKey(noteItemId), new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonAttachmentFileInfo> transform = PagingUtil.transform(
+                    childForNoteItem, beanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("note-item/{noteItemId}/attachment-file/origin-name-asc")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonAttachmentFileInfo>>
@@ -166,17 +189,17 @@ public class AttachmentFileController {
         }
     }
 
-    @GetMapping("attachment-record/{noteItemId}/attachment-file/modified-date-asc")
+    @GetMapping("note-item/{noteItemId}/attachment-file/created-date-asc")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonAttachmentFileInfo>>
-    childForNoteItemModifiedDateAsc(
+    childForNoteItemCreatedDateAsc(
             HttpServletRequest request,
             @PathVariable("noteItemId") long noteItemId,
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<AttachmentFileInfo> childForNoteItem = service.childForNoteItemModifiedDateAsc(
+            PagedData<AttachmentFileInfo> childForNoteItem = service.childForNoteItemCreatedDateAsc(
                     new LongIdKey(noteItemId), new PagingInfo(page, rows)
             );
             PagedData<JSFixedFastJsonAttachmentFileInfo> transform = PagingUtil.transform(
@@ -213,7 +236,7 @@ public class AttachmentFileController {
     }
 
     @SuppressWarnings("DuplicatedCode")
-    @PostMapping("/attachment-record/{noteItemId}/attachment-file/upload")
+    @PostMapping("/note-item/{noteItemId}/attachment-file/upload")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
@@ -249,6 +272,52 @@ public class AttachmentFileController {
             // 将文件内容转换为接口需要的格式，并上传。
             service.uploadAttachmentFile(
                     accountKey, new AttachmentFileUploadInfo(new LongIdKey(noteItemId), originFileName, content)
+            );
+
+            // 返回响应结果。
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @PostMapping("/attachment-file/{attachmentFileId}/update")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public FastJsonResponseData<Object> updateAttachmentFile(
+            HttpServletRequest request, @PathVariable("attachmentFileId") Long attachmentFileId
+    ) {
+        try {
+            // 通过请求解析用户。
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+
+            // 确认请求合法。
+            if (!commonsMultipartResolver.isMultipart(request)) {
+                throw new IllegalStateException("请求不是标准的文件上传请求");
+            }
+
+            //获取 multiRequest 中的文件。
+            MultipartHttpServletRequest multipartHttpServletRequest
+                    = commonsMultipartResolver.resolveMultipart(request);
+            MultipartFile file = multipartHttpServletRequest.getFile("file");
+            if (Objects.isNull(file)) {
+                throw new IllegalStateException("请求体中缺少 file 属性");
+            }
+
+            // 解析文件内容。
+            String originFileName = file.getOriginalFilename();
+            byte[] content;
+            try (InputStream in = file.getInputStream(); ByteArrayOutputStream bout = new ByteArrayOutputStream()) {
+                IOUtil.trans(in, bout, IO_TRANS_BUFFER_SIZE);
+                bout.flush();
+                content = bout.toByteArray();
+            }
+
+            // 将文件内容转换为接口需要的格式，并上传。
+            service.updateAttachmentFile(
+                    accountKey, new AttachmentFileUpdateInfo(new LongIdKey(attachmentFileId), originFileName, content)
             );
 
             // 返回响应结果。
