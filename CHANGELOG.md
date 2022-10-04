@@ -19,7 +19,7 @@
   - 升级 `acckeeper` 依赖版本为 `1.4.4.a` 以规避漏洞。
   - 升级 `rbac` 依赖版本为 `1.4.2.a` 以规避漏洞。
   - 升级 `settingrepo` 依赖版本为 `1.0.2.a` 以规避漏洞。
-  - 升级 `notify` 依赖版本为 `1.0.4.a` 以规避漏洞。
+  - 升级 `notify` 依赖版本为 `1.0.5.a` 以规避漏洞。
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.BillFileController。
