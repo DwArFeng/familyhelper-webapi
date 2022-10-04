@@ -145,6 +145,12 @@
     <dubbo:reference id="familyhelperClannadPoceMaintainService"
                      interface="com.dwarfeng.familyhelper.clannad.stack.service.PoceMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperClannadNotifySettingMaintainService"
+                     interface="com.dwarfeng.familyhelper.clannad.stack.service.NotifySettingMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperClannadNotifyTopicMaintainService"
+                     interface="com.dwarfeng.familyhelper.clannad.stack.service.NotifyTopicMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <!-- familyhelper-assets -->
     <dubbo:reference id="familyhelperAssetsAssetCatalogMaintainService"
                      interface="com.dwarfeng.familyhelper.assets.stack.service.AssetCatalogMaintainService"

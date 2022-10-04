@@ -14,13 +14,19 @@ import org.springframework.stereotype.Service;
 public class NotifySettingResponseServiceImpl implements NotifySettingResponseService {
 
     private final NotifySettingMaintainService notifySettingMaintainService;
+    private final com.dwarfeng.familyhelper.clannad.stack.service.NotifySettingMaintainService
+            clannadNotifySettingMaintainService;
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public NotifySettingResponseServiceImpl(
             @Qualifier("notifyNotifySettingMaintainService")
-            NotifySettingMaintainService notifySettingMaintainService
+            NotifySettingMaintainService notifySettingMaintainService,
+            @Qualifier("familyhelperClannadNotifySettingMaintainService")
+            com.dwarfeng.familyhelper.clannad.stack.service.NotifySettingMaintainService
+                    clannadNotifySettingMaintainService
     ) {
         this.notifySettingMaintainService = notifySettingMaintainService;
+        this.clannadNotifySettingMaintainService = clannadNotifySettingMaintainService;
     }
 
     @Override
@@ -35,17 +41,29 @@ public class NotifySettingResponseServiceImpl implements NotifySettingResponseSe
 
     @Override
     public LongIdKey insert(NotifySetting notifySetting) throws ServiceException {
-        return notifySettingMaintainService.insert(notifySetting);
+        LongIdKey notifySettingKey = notifySettingMaintainService.insert(notifySetting);
+        com.dwarfeng.familyhelper.clannad.stack.bean.entity.NotifySetting clannadNotifySetting
+                = new com.dwarfeng.familyhelper.clannad.stack.bean.entity.NotifySetting(
+                notifySettingKey, "通过 notify 模块插入/更新自动生成"
+        );
+        clannadNotifySettingMaintainService.insertOrUpdate(clannadNotifySetting);
+        return notifySettingKey;
     }
 
     @Override
     public void update(NotifySetting notifySetting) throws ServiceException {
         notifySettingMaintainService.update(notifySetting);
+        com.dwarfeng.familyhelper.clannad.stack.bean.entity.NotifySetting clannadNotifySetting
+                = new com.dwarfeng.familyhelper.clannad.stack.bean.entity.NotifySetting(
+                notifySetting.getKey(), "通过 notify 模块插入/更新自动生成"
+        );
+        clannadNotifySettingMaintainService.insertOrUpdate(clannadNotifySetting);
     }
 
     @Override
     public void delete(LongIdKey key) throws ServiceException {
         notifySettingMaintainService.delete(key);
+        clannadNotifySettingMaintainService.deleteIfExists(key);
     }
 
     @Override
