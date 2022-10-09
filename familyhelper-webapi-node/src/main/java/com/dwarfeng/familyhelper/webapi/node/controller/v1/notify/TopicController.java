@@ -1,9 +1,9 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.notify;
 
+import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.notify.FastJsonTopic;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.notify.WebInputTopic;
+import com.dwarfeng.familyhelper.webapi.stack.bean.vo.notify.Topic;
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.TopicResponseService;
-import com.dwarfeng.notify.sdk.bean.entity.FastJsonTopic;
-import com.dwarfeng.notify.sdk.bean.entity.WebInputTopic;
-import com.dwarfeng.notify.stack.bean.entity.Topic;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
@@ -63,9 +63,7 @@ public class TopicController {
     @GetMapping("/topic/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<FastJsonTopic> get(
-            HttpServletRequest request, @PathVariable("id") String id
-    ) {
+    public FastJsonResponseData<FastJsonTopic> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             Topic topic = service.get(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(
@@ -82,8 +80,7 @@ public class TopicController {
     @LoginRequired
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputTopic webInputTopic,
-            BindingResult bindingResult
+            @RequestBody @Validated WebInputTopic webInputTopic, BindingResult bindingResult
     ) {
         try {
             Topic topic = WebInputTopic.toStackBean(
@@ -102,8 +99,7 @@ public class TopicController {
     @LoginRequired
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputTopic webInputTopic,
-            BindingResult bindingResult
+            @RequestBody @Validated WebInputTopic webInputTopic, BindingResult bindingResult
     ) {
         try {
             service.update(WebInputTopic.toStackBean(webInputTopic));

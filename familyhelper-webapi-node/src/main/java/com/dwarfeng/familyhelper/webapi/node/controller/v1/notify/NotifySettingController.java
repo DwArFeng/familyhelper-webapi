@@ -1,9 +1,9 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.notify;
 
+import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.notify.JSFixedFastJsonNotifySetting;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.notify.WebInputNotifySetting;
+import com.dwarfeng.familyhelper.webapi.stack.bean.vo.notify.NotifySetting;
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.NotifySettingResponseService;
-import com.dwarfeng.notify.sdk.bean.entity.JSFixedFastJsonNotifySetting;
-import com.dwarfeng.notify.sdk.bean.entity.WebInputNotifySetting;
-import com.dwarfeng.notify.stack.bean.entity.NotifySetting;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
@@ -82,8 +82,7 @@ public class NotifySettingController {
     @LoginRequired
     public FastJsonResponseData<FastJsonLongIdKey> insert(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputNotifySetting webInputNotifySetting,
-            BindingResult bindingResult
+            @RequestBody @Validated WebInputNotifySetting webInputNotifySetting, BindingResult bindingResult
     ) {
         try {
             NotifySetting notifySetting = WebInputNotifySetting.toStackBean(
@@ -102,8 +101,7 @@ public class NotifySettingController {
     @LoginRequired
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputNotifySetting webInputNotifySetting,
-            BindingResult bindingResult
+            @RequestBody @Validated WebInputNotifySetting webInputNotifySetting, BindingResult bindingResult
     ) {
         try {
             service.update(WebInputNotifySetting.toStackBean(webInputNotifySetting));

@@ -2,8 +2,12 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.notify;
 
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.notify.JSFixedFastJsonDispRouterInfo;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.notify.JSFixedFastJsonDispSenderRelation;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.notify.FastJsonTopic;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.notify.JSFixedFastJsonNotifySetting;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispRouterInfo;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispSenderRelation;
+import com.dwarfeng.familyhelper.webapi.stack.bean.vo.notify.NotifySetting;
+import com.dwarfeng.familyhelper.webapi.stack.bean.vo.notify.Topic;
 import com.dwarfeng.notify.sdk.bean.entity.*;
 import com.dwarfeng.notify.stack.bean.entity.*;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;

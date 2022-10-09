@@ -1,6 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.notify;
 
-import com.dwarfeng.notify.stack.bean.entity.Topic;
+import com.dwarfeng.familyhelper.webapi.stack.bean.vo.notify.Topic;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;

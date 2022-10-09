@@ -4,9 +4,9 @@
 
 #### 功能构建
 
-- 调整响应服务的行为。
-  - com.dwarfeng.familyhelper.webapi.impl.service.notify.TopicResponseServiceImpl。
-  - com.dwarfeng.familyhelper.webapi.impl.service.notify.NotifySettingResponseServiceImpl。
+- 调整 Controller 的行为。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifySettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.TopicController。
 
 - 插件升级。
   - 升级 `maven-deploy-plugin` 插件版本为 `2.8.2`。
