@@ -11,14 +11,16 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
  */
 public class Topic implements Bean {
 
-    private static final long serialVersionUID = -2139226997940758732L;
-
+    private static final long serialVersionUID = 6415444366779704751L;
+    
     private StringIdKey key;
     private String label;
     private boolean enabled;
     private int priority;
     private boolean preferred;
     private long coolDownDuration;
+    private String executorType;
+    private String executorParam;
     private String remark;
 
     public Topic() {
@@ -26,7 +28,7 @@ public class Topic implements Bean {
 
     public Topic(
             StringIdKey key, String label, boolean enabled, int priority, boolean preferred, long coolDownDuration,
-            String remark
+            String executorType, String executorParam, String remark
     ) {
         this.key = key;
         this.label = label;
@@ -34,6 +36,8 @@ public class Topic implements Bean {
         this.priority = priority;
         this.preferred = preferred;
         this.coolDownDuration = coolDownDuration;
+        this.executorType = executorType;
+        this.executorParam = executorParam;
         this.remark = remark;
     }
 
@@ -85,6 +89,22 @@ public class Topic implements Bean {
         this.coolDownDuration = coolDownDuration;
     }
 
+    public String getExecutorType() {
+        return executorType;
+    }
+
+    public void setExecutorType(String executorType) {
+        this.executorType = executorType;
+    }
+
+    public String getExecutorParam() {
+        return executorParam;
+    }
+
+    public void setExecutorParam(String executorParam) {
+        this.executorParam = executorParam;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -102,6 +122,8 @@ public class Topic implements Bean {
                 ", priority=" + priority +
                 ", preferred=" + preferred +
                 ", coolDownDuration=" + coolDownDuration +
+                ", executorType='" + executorType + '\'' +
+                ", executorParam='" + executorParam + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
     }

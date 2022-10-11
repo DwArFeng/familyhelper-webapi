@@ -45,7 +45,7 @@ public class TopicResponseServiceImpl implements TopicResponseService {
         return new Topic(
                 key, notifyTopic.getLabel(), notifyTopic.isEnabled(), notifyTopic.getPriority(),
                 clannadNotifyTopic.isPreferred(), clannadNotifyTopic.getCoolDownDuration(),
-                notifyTopic.getRemark()
+                clannadNotifyTopic.getExecutorType(), clannadNotifyTopic.getExecutorParam(), notifyTopic.getRemark()
         );
     }
 
@@ -58,7 +58,8 @@ public class TopicResponseServiceImpl implements TopicResponseService {
         );
         com.dwarfeng.familyhelper.clannad.stack.bean.entity.NotifyTopic clannadNotifyTopic
                 = new com.dwarfeng.familyhelper.clannad.stack.bean.entity.NotifyTopic(
-                topic.getKey(), "通过 topic 插入/更新自动生成", topic.isPreferred(), topic.getCoolDownDuration()
+                topic.getKey(), "通过 topic 插入/更新自动生成", topic.isPreferred(), topic.getCoolDownDuration(),
+                topic.getExecutorType(), topic.getExecutorParam()
         );
         notifyTopicMaintainService.insert(notifyTopic);
         clannadNotifyTopicMaintainService.insertOrUpdate(clannadNotifyTopic);
@@ -75,7 +76,8 @@ public class TopicResponseServiceImpl implements TopicResponseService {
         );
         com.dwarfeng.familyhelper.clannad.stack.bean.entity.NotifyTopic clannadNotifyTopic
                 = new com.dwarfeng.familyhelper.clannad.stack.bean.entity.NotifyTopic(
-                topic.getKey(), "通过 topic 插入/更新自动生成", topic.isPreferred(), topic.getCoolDownDuration()
+                topic.getKey(), "通过 topic 插入/更新自动生成", topic.isPreferred(), topic.getCoolDownDuration(),
+                topic.getExecutorType(), topic.getExecutorParam()
         );
         notifyTopicMaintainService.update(notifyTopic);
         clannadNotifyTopicMaintainService.insertOrUpdate(clannadNotifyTopic);
@@ -102,7 +104,7 @@ public class TopicResponseServiceImpl implements TopicResponseService {
         return new Topic(
                 notifyTopic.getKey(), notifyTopic.getLabel(), notifyTopic.isEnabled(), notifyTopic.getPriority(),
                 clannadNotifyTopic.isPreferred(), clannadNotifyTopic.getCoolDownDuration(),
-                notifyTopic.getRemark()
+                clannadNotifyTopic.getExecutorType(), clannadNotifyTopic.getExecutorParam(), notifyTopic.getRemark()
         );
     }
 

@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class FastJsonTopic implements Bean {
 
-    private static final long serialVersionUID = 4078741553332975432L;
+    private static final long serialVersionUID = -5199468287168000582L;
 
     public static FastJsonTopic of(Topic topic) {
         if (Objects.isNull(topic)) {
@@ -24,7 +24,7 @@ public class FastJsonTopic implements Bean {
             return new FastJsonTopic(
                     FastJsonStringIdKey.of(topic.getKey()),
                     topic.getLabel(), topic.isEnabled(), topic.getPriority(), topic.isPreferred(),
-                    topic.getCoolDownDuration(), topic.getRemark()
+                    topic.getCoolDownDuration(), topic.getExecutorType(), topic.getExecutorParam(), topic.getRemark()
             );
         }
     }
@@ -47,7 +47,13 @@ public class FastJsonTopic implements Bean {
     @JSONField(name = "cool_down_duration", ordinal = 6)
     private long coolDownDuration;
 
-    @JSONField(name = "remark", ordinal = 7)
+    @JSONField(name = "executor_type", ordinal = 7)
+    private String executorType;
+
+    @JSONField(name = "executor_param", ordinal = 8)
+    private String executorParam;
+
+    @JSONField(name = "remark", ordinal = 9)
     private String remark;
 
     public FastJsonTopic() {
@@ -55,7 +61,7 @@ public class FastJsonTopic implements Bean {
 
     public FastJsonTopic(
             FastJsonStringIdKey key, String label, boolean enabled, int priority, boolean preferred,
-            long coolDownDuration, String remark
+            long coolDownDuration, String executorType, String executorParam, String remark
     ) {
         this.key = key;
         this.label = label;
@@ -63,6 +69,8 @@ public class FastJsonTopic implements Bean {
         this.priority = priority;
         this.preferred = preferred;
         this.coolDownDuration = coolDownDuration;
+        this.executorType = executorType;
+        this.executorParam = executorParam;
         this.remark = remark;
     }
 
@@ -114,6 +122,22 @@ public class FastJsonTopic implements Bean {
         this.coolDownDuration = coolDownDuration;
     }
 
+    public String getExecutorType() {
+        return executorType;
+    }
+
+    public void setExecutorType(String executorType) {
+        this.executorType = executorType;
+    }
+
+    public String getExecutorParam() {
+        return executorParam;
+    }
+
+    public void setExecutorParam(String executorParam) {
+        this.executorParam = executorParam;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -131,6 +155,8 @@ public class FastJsonTopic implements Bean {
                 ", priority=" + priority +
                 ", preferred=" + preferred +
                 ", coolDownDuration=" + coolDownDuration +
+                ", executorType='" + executorType + '\'' +
+                ", executorParam='" + executorParam + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
     }
