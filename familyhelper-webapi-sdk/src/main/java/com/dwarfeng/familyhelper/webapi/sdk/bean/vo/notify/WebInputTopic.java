@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 public class WebInputTopic implements Bean {
 
-    private static final long serialVersionUID = -1414633783059441134L;
+    private static final long serialVersionUID = -6437012662114050664L;
 
     public static Topic toStackBean(WebInputTopic webInputTopic) {
         if (Objects.isNull(webInputTopic)) {
@@ -29,8 +29,7 @@ public class WebInputTopic implements Bean {
             return new Topic(
                     WebInputStringIdKey.toStackBean(webInputTopic.getKey()),
                     webInputTopic.getLabel(), webInputTopic.isEnabled(), webInputTopic.getPriority(),
-                    webInputTopic.isPreferred(), webInputTopic.getCoolDownDuration(), webInputTopic.getExecutorType(),
-                    webInputTopic.getExecutorParam(), webInputTopic.getRemark()
+                    webInputTopic.isPreferred(), webInputTopic.getCoolDownDuration(), webInputTopic.getRemark()
             );
         }
     }
@@ -57,15 +56,6 @@ public class WebInputTopic implements Bean {
 
     @JSONField(name = "cool_down_duration")
     private long coolDownDuration;
-
-    @JSONField(name = "executor_type")
-    @NotNull
-    @NotEmpty
-    @Length(max = com.dwarfeng.familyhelper.clannad.sdk.util.Constraints.LENGTH_TYPE)
-    private String executorType;
-
-    @JSONField(name = "executor_param")
-    private String executorParam;
 
     @JSONField(name = "remark")
     @Length(max = Constraints.LENGTH_REMARK)
@@ -122,22 +112,6 @@ public class WebInputTopic implements Bean {
         this.coolDownDuration = coolDownDuration;
     }
 
-    public String getExecutorType() {
-        return executorType;
-    }
-
-    public void setExecutorType(String executorType) {
-        this.executorType = executorType;
-    }
-
-    public String getExecutorParam() {
-        return executorParam;
-    }
-
-    public void setExecutorParam(String executorParam) {
-        this.executorParam = executorParam;
-    }
-
     public String getRemark() {
         return remark;
     }
@@ -155,8 +129,6 @@ public class WebInputTopic implements Bean {
                 ", priority=" + priority +
                 ", preferred=" + preferred +
                 ", coolDownDuration=" + coolDownDuration +
-                ", executorType='" + executorType + '\'' +
-                ", executorParam='" + executorParam + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
     }
