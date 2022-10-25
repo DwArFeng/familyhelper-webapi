@@ -57,7 +57,7 @@
         <familyhelper-life.version>1.0.0.a</familyhelper-life.version>
         <familyhelper-note.version>1.0.0.a</familyhelper-note.version>
         <settingrepo.version>1.0.2.a</settingrepo.version>
-        <notify.version>1.0.5.a</notify.version>
+        <notify.version>1.0.4.a</notify.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
