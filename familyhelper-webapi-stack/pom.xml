@@ -87,10 +87,5 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>notify-stack</artifactId>
         </dependency>
-        <!-- familyhelper-plugin组件 -->
-        <dependency>
-            <groupId>com.dwarfeng</groupId>
-            <artifactId>familyhelper-plugin-notify</artifactId>
-        </dependency>
     </dependencies>
 </project>

@@ -307,14 +307,23 @@
     <dubbo:reference id="notifyTopicMaintainService"
                      interface="com.dwarfeng.notify.stack.service.TopicMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifyRouterInfoMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.RouterInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifyRouterSupportMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.RouterSupportMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifySenderInfoMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.SenderInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifySenderSupportMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.SenderSupportMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifySenderRelationMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.SenderRelationMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="notifyUserMaintainService"
                      interface="com.dwarfeng.notify.stack.service.UserMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="notifySendExecutorSupportMaintainService"
-                     interface="com.dwarfeng.familyhelper.plugin.notify.service.SendExecutorSupportMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="notifySyncService"
-                     interface="com.dwarfeng.familyhelper.plugin.notify.service.SyncService"
                      retries="3" timeout="60000" check="false"/>
 
     <!-- snowflake -->

@@ -1,8 +1,8 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.notify;
 
-import com.dwarfeng.familyhelper.plugin.notify.bean.entity.FastJsonSendExecutorSupport;
-import com.dwarfeng.familyhelper.plugin.notify.bean.entity.SendExecutorSupport;
-import com.dwarfeng.familyhelper.webapi.stack.service.notify.SendExecutorSupportResponseService;
+import com.dwarfeng.familyhelper.webapi.stack.service.notify.SenderSupportResponseService;
+import com.dwarfeng.notify.sdk.bean.entity.FastJsonSenderSupport;
+import com.dwarfeng.notify.stack.bean.entity.SenderSupport;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
@@ -20,30 +20,30 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 发送执行器支持控制器。
+ * 路由器支持控制器。
  *
  * @author DwArFeng
- * @since 1.0.7
+ * @since 1.0.6
  */
 @RestController
 @RequestMapping("/api/v1/notify")
-public class SendExecutorSupportController {
+public class SenderSupportController {
 
-    private final SendExecutorSupportResponseService service;
+    private final SenderSupportResponseService service;
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<SendExecutorSupport, FastJsonSendExecutorSupport> beanTransformer;
+    private final BeanTransformer<SenderSupport, FastJsonSenderSupport> beanTransformer;
 
-    public SendExecutorSupportController(
-            SendExecutorSupportResponseService service, ServiceExceptionMapper sem,
-            BeanTransformer<SendExecutorSupport, FastJsonSendExecutorSupport> beanTransformer
+    public SenderSupportController(
+            SenderSupportResponseService service, ServiceExceptionMapper sem,
+            BeanTransformer<SenderSupport, FastJsonSenderSupport> beanTransformer
     ) {
         this.service = service;
         this.sem = sem;
         this.beanTransformer = beanTransformer;
     }
 
-    @GetMapping("/send-executor-support/{id}/exists")
+    @GetMapping("/sender-support/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
@@ -55,30 +55,45 @@ public class SendExecutorSupportController {
         }
     }
 
-    @GetMapping("/send-executor-support/{id}")
+    @GetMapping("/sender-support/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<FastJsonSendExecutorSupport> get(
-            HttpServletRequest request, @PathVariable("id") String id
-    ) {
+    public FastJsonResponseData<FastJsonSenderSupport> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
-            SendExecutorSupport sendExecutorSupport = service.get(new StringIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonSendExecutorSupport.of(sendExecutorSupport)));
+            SenderSupport senderSupport = service.get(new StringIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonSenderSupport.of(senderSupport)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/send-executor-support/all")
+    @GetMapping("/sender-support/all")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSendExecutorSupport>> all(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSenderSupport>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<SendExecutorSupport> all = service.all(new PagingInfo(page, rows));
-            PagedData<FastJsonSendExecutorSupport> transform = PagingUtil.transform(all, beanTransformer);
+            PagedData<SenderSupport> all = service.all(new PagingInfo(page, rows));
+            PagedData<FastJsonSenderSupport> transform = PagingUtil.transform(all, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/sender-support/id-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSenderSupport>> idLike(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<SenderSupport> all = service.idLike(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonSenderSupport> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));

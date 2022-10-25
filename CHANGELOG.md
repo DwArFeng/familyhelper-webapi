@@ -37,7 +37,6 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteItemController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.PonbController。
-  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SendExecutorSupportController。
 
 #### Bug修复
 
@@ -45,12 +44,7 @@
 
 #### 功能移除
 
-- 删除 Controller。
-  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.RouterInfoController。
-  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.RouterSupportController。
-  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderInfoController。
-  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderRelationController。
-  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderSupportController。
+- (无)
 
 ---
 
