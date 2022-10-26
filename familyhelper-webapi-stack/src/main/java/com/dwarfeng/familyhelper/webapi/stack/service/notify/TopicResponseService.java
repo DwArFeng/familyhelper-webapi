@@ -11,7 +11,7 @@ import com.dwarfeng.subgrade.stack.service.Service;
  * 主题响应服务。
  *
  * @author DwArFeng
- * @since 1.0.6
+ * @since 1.0.7
  */
 public interface TopicResponseService extends Service {
 
@@ -26,4 +26,6 @@ public interface TopicResponseService extends Service {
     void delete(StringIdKey key) throws ServiceException;
 
     PagedData<Topic> all(PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<Topic> labelLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
 }

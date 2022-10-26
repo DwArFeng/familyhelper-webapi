@@ -52,4 +52,11 @@ public class NotifySettingResponseServiceImpl implements NotifySettingResponseSe
     public PagedData<NotifySetting> all(PagingInfo pagingInfo) throws ServiceException {
         return notifySettingMaintainService.lookup(pagingInfo);
     }
+
+    @Override
+    public PagedData<NotifySetting> labelLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
+        return notifySettingMaintainService.lookup(
+                NotifySettingMaintainService.LABEL_LIKE, new Object[]{pattern}, pagingInfo
+        );
+    }
 }

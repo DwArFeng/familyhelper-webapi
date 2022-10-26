@@ -2,10 +2,10 @@ package com.dwarfeng.familyhelper.webapi.impl.service.notify;
 
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.SenderInfoResponseService;
 import com.dwarfeng.notify.stack.bean.entity.SenderInfo;
+import com.dwarfeng.notify.stack.bean.entity.key.SenderInfoKey;
 import com.dwarfeng.notify.stack.service.SenderInfoMaintainService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
-import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -24,17 +24,17 @@ public class SenderInfoResponseServiceImpl implements SenderInfoResponseService 
     }
 
     @Override
-    public boolean exists(LongIdKey key) throws ServiceException {
+    public boolean exists(SenderInfoKey key) throws ServiceException {
         return senderInfoMaintainService.exists(key);
     }
 
     @Override
-    public SenderInfo get(LongIdKey key) throws ServiceException {
+    public SenderInfo get(SenderInfoKey key) throws ServiceException {
         return senderInfoMaintainService.get(key);
     }
 
     @Override
-    public LongIdKey insert(SenderInfo senderInfo) throws ServiceException {
+    public SenderInfoKey insert(SenderInfo senderInfo) throws ServiceException {
         return senderInfoMaintainService.insert(senderInfo);
     }
 
@@ -44,7 +44,7 @@ public class SenderInfoResponseServiceImpl implements SenderInfoResponseService 
     }
 
     @Override
-    public void delete(LongIdKey key) throws ServiceException {
+    public void delete(SenderInfoKey key) throws ServiceException {
         senderInfoMaintainService.delete(key);
     }
 

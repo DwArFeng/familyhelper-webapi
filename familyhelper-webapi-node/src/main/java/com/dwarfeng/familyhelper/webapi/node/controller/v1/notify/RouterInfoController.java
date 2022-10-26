@@ -1,7 +1,5 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.notify;
 
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.notify.JSFixedFastJsonDispRouterInfo;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispRouterInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.RouterInfoResponseService;
 import com.dwarfeng.notify.sdk.bean.entity.JSFixedFastJsonRouterInfo;
 import com.dwarfeng.notify.sdk.bean.entity.WebInputRouterInfo;
@@ -31,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  * 路由器信息控制器。
  *
  * @author DwArFeng
- * @since 1.0.6
+ * @since 1.0.7
  */
 @RestController("notifyRouterInfoController")
 @RequestMapping("/api/v1/notify")
@@ -41,17 +39,14 @@ public class RouterInfoController {
     private final ServiceExceptionMapper sem;
 
     private final BeanTransformer<RouterInfo, JSFixedFastJsonRouterInfo> beanTransformer;
-    private final BeanTransformer<DispRouterInfo, JSFixedFastJsonDispRouterInfo> dispBeanTransformer;
 
     public RouterInfoController(
             RouterInfoResponseService service, ServiceExceptionMapper sem,
-            BeanTransformer<RouterInfo, JSFixedFastJsonRouterInfo> beanTransformer,
-            BeanTransformer<DispRouterInfo, JSFixedFastJsonDispRouterInfo> dispBeanTransformer
+            BeanTransformer<RouterInfo, JSFixedFastJsonRouterInfo> beanTransformer
     ) {
         this.service = service;
         this.sem = sem;
         this.beanTransformer = beanTransformer;
-        this.dispBeanTransformer = dispBeanTransformer;
     }
 
     @GetMapping("/router-info/{id}/exists")
@@ -129,6 +124,7 @@ public class RouterInfoController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @GetMapping("/router-info/all")
     @BehaviorAnalyse
     @SkipRecord
@@ -156,55 +152,6 @@ public class RouterInfoController {
         try {
             PagedData<RouterInfo> typeEquals = service.typeEquals(pattern, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonRouterInfo> transform = PagingUtil.transform(typeEquals, beanTransformer);
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @GetMapping("/router-info/{id}/disp")
-    @BehaviorAnalyse
-    @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonDispRouterInfo> getDisp(
-            HttpServletRequest request, @PathVariable("id") long id
-    ) {
-        try {
-            DispRouterInfo dispRouterInfo = service.getDisp(new LongIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(
-                    JSFixedFastJsonDispRouterInfo.of(dispRouterInfo)
-            ));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @GetMapping("/router-info/all/disp")
-    @BehaviorAnalyse
-    @SkipRecord
-    @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispRouterInfo>> allDisp(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
-    ) {
-        try {
-            PagedData<DispRouterInfo> all = service.allDisp(new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonDispRouterInfo> transform = PagingUtil.transform(all, dispBeanTransformer);
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @GetMapping("/router-info/type-equals/disp")
-    @BehaviorAnalyse
-    @SkipRecord
-    @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispRouterInfo>> typeEqualsDisp(
-            HttpServletRequest request,
-            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
-    ) {
-        try {
-            PagedData<DispRouterInfo> typeEquals = service.typeEqualsDisp(pattern, new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonDispRouterInfo> transform = PagingUtil.transform(typeEquals, dispBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));

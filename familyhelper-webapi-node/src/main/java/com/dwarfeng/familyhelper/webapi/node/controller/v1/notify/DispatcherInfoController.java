@@ -1,15 +1,14 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.notify;
 
-import com.dwarfeng.familyhelper.webapi.stack.service.notify.SenderInfoResponseService;
-import com.dwarfeng.notify.sdk.bean.entity.JSFixedFastJsonSenderInfo;
-import com.dwarfeng.notify.sdk.bean.entity.WebInputSenderInfo;
-import com.dwarfeng.notify.sdk.bean.entity.key.FastJsonSenderInfoKey;
-import com.dwarfeng.notify.stack.bean.entity.SenderInfo;
-import com.dwarfeng.notify.stack.bean.entity.key.SenderInfoKey;
+import com.dwarfeng.familyhelper.webapi.stack.service.notify.DispatcherInfoResponseService;
+import com.dwarfeng.notify.sdk.bean.entity.FastJsonDispatcherInfo;
+import com.dwarfeng.notify.sdk.bean.entity.WebInputDispatcherInfo;
+import com.dwarfeng.notify.stack.bean.entity.DispatcherInfo;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
+import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
@@ -18,6 +17,7 @@ import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
+import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -26,140 +26,131 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 发送器信息控制器。
+ * 调度器信息控制器。
  *
  * @author DwArFeng
  * @since 1.0.7
  */
-@RestController
+@RestController("notifyDispatcherInfoController")
 @RequestMapping("/api/v1/notify")
-public class SenderInfoController {
+public class DispatcherInfoController {
 
-    private final SenderInfoResponseService service;
+    private final DispatcherInfoResponseService service;
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<SenderInfo, JSFixedFastJsonSenderInfo> beanTransformer;
+    private final BeanTransformer<DispatcherInfo, FastJsonDispatcherInfo> beanTransformer;
 
-    public SenderInfoController(
-            SenderInfoResponseService service, ServiceExceptionMapper sem,
-            BeanTransformer<SenderInfo, JSFixedFastJsonSenderInfo> beanTransformer
+    public DispatcherInfoController(
+            DispatcherInfoResponseService service, ServiceExceptionMapper sem,
+            BeanTransformer<DispatcherInfo, FastJsonDispatcherInfo> beanTransformer
     ) {
         this.service = service;
         this.sem = sem;
         this.beanTransformer = beanTransformer;
     }
 
-    @GetMapping("/sender-info/{notifySettingId}&{topicId}/exists")
+    @GetMapping("/dispatcher-info/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<Boolean> exists(
-            HttpServletRequest request,
-            @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId
-    ) {
+    public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
-            boolean exists = service.exists(new SenderInfoKey(notifySettingId, topicId));
+            boolean exists = service.exists(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/sender-info/{notifySettingId}&{topicId}")
+    @GetMapping("/dispatcher-info/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonSenderInfo> get(
-            HttpServletRequest request,
-            @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId
+    public FastJsonResponseData<FastJsonDispatcherInfo> get(
+            HttpServletRequest request, @PathVariable("id") String id
     ) {
         try {
-            SenderInfo senderInfo = service.get(new SenderInfoKey(notifySettingId, topicId));
+            DispatcherInfo dispatcherInfo = service.get(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(
-                    JSFixedFastJsonSenderInfo.of(senderInfo)
+                    FastJsonDispatcherInfo.of(dispatcherInfo)
             ));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @PostMapping("/sender-info")
+    @PostMapping("/dispatcher-info")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
-    public FastJsonResponseData<FastJsonSenderInfoKey> insert(
+    public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputSenderInfo webInputSenderInfo,
+            @RequestBody @Validated(Insert.class) WebInputDispatcherInfo webInputDispatcherInfo,
             BindingResult bindingResult
     ) {
         try {
-            SenderInfo senderInfo = WebInputSenderInfo.toStackBean(
-                    webInputSenderInfo
-            );
-            SenderInfoKey insert = service.insert(senderInfo);
-            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonSenderInfoKey.of(insert)));
+            DispatcherInfo dispatcherInfo = WebInputDispatcherInfo.toStackBean(webInputDispatcherInfo);
+            StringIdKey insert = service.insert(dispatcherInfo);
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @PatchMapping("/sender-info")
+    @PatchMapping("/dispatcher-info")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputSenderInfo webInputSenderInfo,
+            @RequestBody @Validated WebInputDispatcherInfo webInputDispatcherInfo,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputSenderInfo.toStackBean(webInputSenderInfo));
+            service.update(WebInputDispatcherInfo.toStackBean(webInputDispatcherInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @DeleteMapping("/sender-info/{notifySettingId}&{topicId}")
+    @DeleteMapping("/dispatcher-info/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<Object> delete(
-            HttpServletRequest request,
-            @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId
-    ) {
+    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
         try {
-            service.delete(new SenderInfoKey(notifySettingId, topicId));
+            service.delete(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/sender-info/all")
+    @GetMapping("/dispatcher-info/all")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonSenderInfo>> all(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispatcherInfo>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<SenderInfo> all = service.all(new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonSenderInfo> transform = PagingUtil.transform(all, beanTransformer);
+            PagedData<DispatcherInfo> all = service.all(new PagingInfo(page, rows));
+            PagedData<FastJsonDispatcherInfo> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/sender-info/type-equals")
+    @GetMapping("/dispatcher-info/type-equals")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonSenderInfo>> typeEquals(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispatcherInfo>> typeEquals(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<SenderInfo> typeEquals = service.typeEquals(pattern, new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonSenderInfo> transform = PagingUtil.transform(typeEquals, beanTransformer);
+            PagedData<DispatcherInfo> typeEquals = service.typeEquals(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonDispatcherInfo> transform = PagingUtil.transform(typeEquals, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));

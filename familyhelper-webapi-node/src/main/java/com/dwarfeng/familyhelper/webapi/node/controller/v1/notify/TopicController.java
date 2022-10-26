@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * 通知设置控制器。
  *
  * @author DwArFeng
- * @since 1.0.6
+ * @since 1.0.7
  */
 @RestController
 @RequestMapping("/api/v1/notify")
@@ -134,6 +134,23 @@ public class TopicController {
         try {
             PagedData<Topic> all = service.all(new PagingInfo(page, rows));
             PagedData<FastJsonTopic> transform = PagingUtil.transform(all, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping(value = "/topic/label-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonTopic>> labelLike(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<Topic> labelLike = service.labelLike(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonTopic> transform = PagingUtil.transform(labelLike, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));

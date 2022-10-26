@@ -11,11 +11,24 @@
   - 升级 `slf4j` 依赖版本为 `1.7.5` 以规避漏洞。
   - 升级 `dutil` 依赖版本为 `beta-0.3.1.a` 以规避漏洞。
   - 升级 `snowflake` 依赖版本为 `1.4.9.a` 以规避漏洞。
-  - 升级 `subgrade` 依赖版本为 `1.2.10.a` 以规避漏洞。
+  - 升级 `subgrade` 依赖版本为 `1.2.13.b` 以规避漏洞。
   - 升级 `acckeeper` 依赖版本为 `1.4.4.a` 以规避漏洞。
   - 升级 `rbac` 依赖版本为 `1.4.2.a` 以规避漏洞。
   - 升级 `settingrepo` 依赖版本为 `1.0.2.a` 以规避漏洞。
-  - 升级 `notify` 依赖版本为 `1.0.4.a` 以规避漏洞。
+  - 升级 `notify` 依赖版本为 `1.1.0.a` 以规避漏洞。
+
+- 重构 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.DispatcherInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.DispatcherSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.MetaController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.MetaIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifySettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.RouterInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.RouterSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SendHistoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.TopicController。
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.BillFileController。

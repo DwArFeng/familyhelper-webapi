@@ -11,7 +11,7 @@ import com.dwarfeng.subgrade.stack.service.Service;
  * 发送器支持响应服务。
  *
  * @author DwArFeng
- * @since 1.0.6
+ * @since 1.0.7
  */
 public interface SenderSupportResponseService extends Service {
 

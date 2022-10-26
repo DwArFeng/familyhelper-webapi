@@ -301,11 +301,20 @@
     <dubbo:reference id="notifyTopicMaintainService"
                      interface="com.dwarfeng.notify.stack.service.TopicMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifyUserMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.UserMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="notifyRouterInfoMaintainService"
                      interface="com.dwarfeng.notify.stack.service.RouterInfoMaintainService"
                      retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="notifyRouterSupportMaintainService"
                      interface="com.dwarfeng.notify.stack.service.RouterSupportMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifyDispatcherInfoMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.DispatcherInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifyDispatcherSupportMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.DispatcherSupportMaintainService"
                      retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="notifySenderInfoMaintainService"
                      interface="com.dwarfeng.notify.stack.service.SenderInfoMaintainService"
@@ -313,11 +322,14 @@
     <dubbo:reference id="notifySenderSupportMaintainService"
                      interface="com.dwarfeng.notify.stack.service.SenderSupportMaintainService"
                      retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="notifySenderRelationMaintainService"
-                     interface="com.dwarfeng.notify.stack.service.SenderRelationMaintainService"
+    <dubbo:reference id="notifyMetaMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.MetaMaintainService"
                      retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="notifyUserMaintainService"
-                     interface="com.dwarfeng.notify.stack.service.UserMaintainService"
+    <dubbo:reference id="notifyMetaIndicatorMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.MetaIndicatorMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="notifySendHistoryMaintainService"
+                     interface="com.dwarfeng.notify.stack.service.SendHistoryMaintainService"
                      retries="3" timeout="60000" check="false"/>
 
     <!-- snowflake -->

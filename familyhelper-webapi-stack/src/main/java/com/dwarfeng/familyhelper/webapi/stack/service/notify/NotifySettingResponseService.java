@@ -11,7 +11,7 @@ import com.dwarfeng.subgrade.stack.service.Service;
  * 通知设置响应服务。
  *
  * @author DwArFeng
- * @since 1.0.6
+ * @since 1.0.7
  */
 public interface NotifySettingResponseService extends Service {
 
@@ -26,4 +26,6 @@ public interface NotifySettingResponseService extends Service {
     void delete(LongIdKey key) throws ServiceException;
 
     PagedData<NotifySetting> all(PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<NotifySetting> labelLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
 }

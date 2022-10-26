@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  * 路由器支持控制器。
  *
  * @author DwArFeng
- * @since 1.0.6
+ * @since 1.0.7
  */
 @RestController
 @RequestMapping("/api/v1/notify")

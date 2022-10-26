@@ -51,4 +51,9 @@ public class TopicResponseServiceImpl implements TopicResponseService {
     public PagedData<Topic> all(PagingInfo pagingInfo) throws ServiceException {
         return topicMaintainService.lookup(pagingInfo);
     }
+
+    @Override
+    public PagedData<Topic> labelLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
+        return topicMaintainService.lookup(TopicMaintainService.LABEL_LIKE, new Object[]{pattern}, pagingInfo);
+    }
 }
