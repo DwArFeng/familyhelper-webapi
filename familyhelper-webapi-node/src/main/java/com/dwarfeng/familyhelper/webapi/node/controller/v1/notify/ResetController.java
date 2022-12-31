@@ -1,0 +1,69 @@
+package com.dwarfeng.familyhelper.webapi.node.controller.v1.notify;
+
+import com.dwarfeng.familyhelper.webapi.stack.service.notify.ResetResponseService;
+import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
+import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
+import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
+import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * 重置控制器。
+ *
+ * @author DwArFeng
+ * @since 1.0.7
+ */
+@RestController("notifyResetController")
+@RequestMapping("/api/v1/notify")
+public class ResetController {
+
+    private final ResetResponseService service;
+
+    private final ServiceExceptionMapper sem;
+
+    public ResetController(ResetResponseService service, ServiceExceptionMapper sem) {
+        this.service = service;
+        this.sem = sem;
+    }
+
+    @PostMapping("/reset-route")
+    @BehaviorAnalyse
+    @LoginRequired
+    public FastJsonResponseData<Object> resetRoute(HttpServletRequest request) {
+        try {
+            service.resetRoute();
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @PostMapping("/reset-dispatch")
+    @BehaviorAnalyse
+    @LoginRequired
+    public FastJsonResponseData<Object> resetDispatch(HttpServletRequest request) {
+        try {
+            service.resetDispatch();
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @PostMapping("/reset-send")
+    @BehaviorAnalyse
+    @LoginRequired
+    public FastJsonResponseData<Object> resetSend(HttpServletRequest request) {
+        try {
+            service.resetSend();
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+}

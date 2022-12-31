@@ -46,6 +46,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteItemController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.PonbController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.ResetController。
 
 #### Bug修复
 
