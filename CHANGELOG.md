@@ -47,6 +47,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.PonbController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.ResetController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.RemindDriverSupportController。
 
 #### Bug修复
 

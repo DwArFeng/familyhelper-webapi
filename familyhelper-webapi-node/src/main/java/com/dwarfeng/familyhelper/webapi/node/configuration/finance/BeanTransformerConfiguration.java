@@ -95,4 +95,9 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<BillFileInfo, JSFixedFastJsonBillFileInfo> billFileInfoBeanTransformer() {
         return new DozerBeanTransformer<>(BillFileInfo.class, JSFixedFastJsonBillFileInfo.class, mapper);
     }
+
+    @Bean("finance.remindDriverSupportBeanTransformer")
+    public BeanTransformer<RemindDriverSupport, FastJsonRemindDriverSupport> remindDriverSupportBeanTransformer() {
+        return new DozerBeanTransformer<>(RemindDriverSupport.class, FastJsonRemindDriverSupport.class, mapper);
+    }
 }
