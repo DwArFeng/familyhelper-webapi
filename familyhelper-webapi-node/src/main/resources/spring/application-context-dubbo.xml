@@ -99,6 +99,9 @@
     <dubbo:reference id="familyhelperFinanceBillFileOperateService"
                      interface="com.dwarfeng.familyhelper.finance.stack.service.BillFileOperateService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperFinanceRemindDriverInfoMaintainService"
+                     interface="com.dwarfeng.familyhelper.finance.stack.service.RemindDriverInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="familyhelperFinanceRemindDriverSupportMaintainService"
                      interface="com.dwarfeng.familyhelper.finance.stack.service.RemindDriverSupportMaintainService"
                      retries="3" timeout="60000" check="false"/>
