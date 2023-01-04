@@ -150,6 +150,10 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>settingrepo-sdk</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>settingrepo-impl</artifactId>
+        </dependency>
         <!-- Notify 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

@@ -300,6 +300,9 @@
     <dubbo:reference id="settingrepoFormatterSupportMaintainService"
                      interface="com.dwarfeng.settingrepo.stack.service.FormatterSupportMaintainService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="settingrepoDubboResetter.dubboResetService"
+                     interface="com.dwarfeng.settingrepo.impl.handler.resetter.DubboResetter$DubboResetService"
+                     retries="3" timeout="60000" check="false" cluster="broadcast2"/>
     <!-- notify -->
     <dubbo:reference id="notifyNotifySettingMaintainService"
                      interface="com.dwarfeng.notify.stack.service.NotifySettingMaintainService"
