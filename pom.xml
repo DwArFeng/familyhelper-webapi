@@ -15,7 +15,7 @@
 
     <properties>
         <!-- 进行工程编码声明 -->
-        <!-- 进行JDK版本声明 -->
+        <!-- 进行 JDK 版本声明 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -58,7 +58,7 @@
         <familyhelper-note.version>1.0.0.a</familyhelper-note.version>
         <settingrepo.version>1.0.2.a</settingrepo.version>
         <notify.version>1.2.3.a</notify.version>
-        <!-- Maven插件版本声明 -->
+        <!-- Maven 插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
@@ -70,13 +70,13 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- javassist组件 -->
+            <!-- Javassist 组件 -->
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
                 <version>${javassist.version}</version>
             </dependency>
-            <!-- AspectJ组件 -->
+            <!-- AspectJ 组件 -->
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
@@ -87,19 +87,19 @@
                 <artifactId>zookeeper</artifactId>
                 <version>${zookeeper.version}</version>
             </dependency>
-            <!-- Apache工具组件 -->
+            <!-- Apache 工具组件 -->
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
                 <version>${commons-fileupload.version}</version>
             </dependency>
-            <!-- FastJson Json处理工具包 -->
+            <!-- FastJson Json 处理工具包 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
-            <!-- Dubbo分布式包 -->
+            <!-- Dubbo 分布式包 -->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo</artifactId>
@@ -132,13 +132,13 @@
                 <artifactId>jetty-util</artifactId>
                 <version>${jetty.version}</version>
             </dependency>
-            <!-- Netty网络连接包 -->
+            <!-- Netty 网络连接包 -->
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty.version}</version>
             </dependency>
-            <!-- Curator框架 -->
+            <!-- Curator 框架 -->
             <dependency>
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-recipes</artifactId>
@@ -224,7 +224,7 @@
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
             </dependency>
-            <!-- JSP相关 -->
+            <!-- JSP 相关 -->
             <dependency>
                 <groupId>jstl</groupId>
                 <artifactId>jstl</artifactId>
@@ -252,19 +252,19 @@
                 <artifactId>juel-api</artifactId>
                 <version>${juel.version}</version>
             </dependency>
-            <!-- Hibernate验证器 -->
+            <!-- Hibernate 验证器 -->
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate-validator.version}</version>
             </dependency>
-            <!-- EL组件 -->
+            <!-- EL 组件 -->
             <dependency>
                 <groupId>org.glassfish</groupId>
                 <artifactId>javax.el</artifactId>
                 <version>${el.version}</version>
             </dependency>
-            <!-- Dozer模块 -->
+            <!-- Dozer 模块 -->
             <dependency>
                 <groupId>net.sf.dozer</groupId>
                 <artifactId>dozer</artifactId>
@@ -281,7 +281,7 @@
                 <artifactId>dozer-spring</artifactId>
                 <version>${dozer.version}</version>
             </dependency>
-            <!-- dutil组件 -->
+            <!-- Dutil 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>dutil-basic</artifactId>
@@ -292,13 +292,13 @@
                 <artifactId>dutil-develop</artifactId>
                 <version>${dutil.version}</version>
             </dependency>
-            <!-- SnowFlake服务 -->
+            <!-- Snowflake 服务 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>snowflake-distributed-service-api</artifactId>
                 <version>${snowflake.version}</version>
             </dependency>
-            <!-- subgrade组件 -->
+            <!-- Subgrade 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>subgrade-stack</artifactId>
@@ -338,7 +338,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!-- acckeeper组件 -->
+            <!-- Acckeeper 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>account-keeper-stack</artifactId>
@@ -354,7 +354,7 @@
                 <artifactId>account-keeper-api</artifactId>
                 <version>${acckeeper.version}</version>
             </dependency>
-            <!-- rbac组件 -->
+            <!-- Rbac 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>rbac-distributed-service-stack</artifactId>
@@ -370,7 +370,7 @@
                 <artifactId>rbac-distributed-service-api</artifactId>
                 <version>${rbac.version}</version>
             </dependency>
-            <!-- familyhelper-finance组件 -->
+            <!-- Familyhelper-finance 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-finance-stack</artifactId>
@@ -381,7 +381,7 @@
                 <artifactId>familyhelper-finance-sdk</artifactId>
                 <version>${familyhelper-finance.version}</version>
             </dependency>
-            <!-- familyhelper-clannad组件 -->
+            <!-- Familyhelper-clannad 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-clannad-stack</artifactId>
@@ -392,7 +392,7 @@
                 <artifactId>familyhelper-clannad-sdk</artifactId>
                 <version>${familyhelper-clannad.version}</version>
             </dependency>
-            <!-- familyhelper-assets组件 -->
+            <!-- Familyhelper-assets 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-assets-stack</artifactId>
@@ -403,7 +403,7 @@
                 <artifactId>familyhelper-assets-sdk</artifactId>
                 <version>${familyhelper-assets.version}</version>
             </dependency>
-            <!-- familyhelper-project组件 -->
+            <!-- Familyhelper-project 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-project-stack</artifactId>
@@ -414,7 +414,7 @@
                 <artifactId>familyhelper-project-sdk</artifactId>
                 <version>${familyhelper-project.version}</version>
             </dependency>
-            <!-- familyhelper-life组件 -->
+            <!-- Familyhelper-life 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-life-stack</artifactId>
@@ -425,7 +425,7 @@
                 <artifactId>familyhelper-life-sdk</artifactId>
                 <version>${familyhelper-life.version}</version>
             </dependency>
-            <!-- familyhelper-note组件 -->
+            <!-- Familyhelper-note 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-note-stack</artifactId>
@@ -436,7 +436,7 @@
                 <artifactId>familyhelper-note-sdk</artifactId>
                 <version>${familyhelper-note.version}</version>
             </dependency>
-            <!-- settingrepo组件 -->
+            <!-- Settingrepo 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>settingrepo-stack</artifactId>
@@ -447,7 +447,7 @@
                 <artifactId>settingrepo-sdk</artifactId>
                 <version>${settingrepo.version}</version>
             </dependency>
-            <!-- notify组件 -->
+            <!-- Notify 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>notify-stack</artifactId>

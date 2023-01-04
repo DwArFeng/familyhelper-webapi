@@ -16,24 +16,24 @@
 
     <properties>
         <!-- 进行工程编码声明 -->
-        <!-- 进行JDK版本声明 -->
+        <!-- 进行 JDK 版本声明 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
-        <!-- subgrade组件 -->
+        <!-- Subgrade 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-stack</artifactId>
         </dependency>
-        <!-- JSP相关 -->
+        <!-- JSP 相关 -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
-        <!-- acckeeper组件 -->
+        <!-- Acckeeper 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>account-keeper-stack</artifactId>
@@ -42,47 +42,47 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>account-keeper-sdk</artifactId>
         </dependency>
-        <!-- rbac组件 -->
+        <!-- Rbac 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>rbac-distributed-service-stack</artifactId>
         </dependency>
-        <!-- familyhelper-finance组件 -->
+        <!-- Familyhelper-finance 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-finance-stack</artifactId>
         </dependency>
-        <!-- familyhelper-clannad组件 -->
+        <!-- Familyhelper-clannad 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-clannad-stack</artifactId>
         </dependency>
-        <!-- familyhelper-assets组件 -->
+        <!-- Familyhelper-assets 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-assets-stack</artifactId>
         </dependency>
-        <!-- familyhelper-project组件 -->
+        <!-- Familyhelper-project 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-project-stack</artifactId>
         </dependency>
-        <!-- familyhelper-life组件 -->
+        <!-- Familyhelper-life 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-life-stack</artifactId>
         </dependency>
-        <!-- familyhelper-note组件 -->
+        <!-- Familyhelper-note 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-note-stack</artifactId>
         </dependency>
-        <!-- settingrepo组件 -->
+        <!-- Settingrepo 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>settingrepo-stack</artifactId>
         </dependency>
-        <!-- notify组件 -->
+        <!-- Notify 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>notify-stack</artifactId>

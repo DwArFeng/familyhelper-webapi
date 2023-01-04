@@ -16,19 +16,19 @@
 
     <properties>
         <!-- 进行工程编码声明 -->
-        <!-- 进行JDK版本声明 -->
+        <!-- 进行 JDK 版本声明 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
-        <!-- AspectJ框架 -->
+        <!-- AspectJ 框架 -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
         </dependency>
-        <!-- Spring框架 -->
+        <!-- Spring 框架 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -41,17 +41,17 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
         </dependency>
-        <!-- FastJson Json处理工具包 -->
+        <!-- FastJson Json 处理工具包 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-        <!-- Hibernate验证器 -->
+        <!-- Hibernate 验证器 -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
-        <!-- EL组件 -->
+        <!-- EL 组件 -->
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
@@ -65,7 +65,7 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
-        <!-- JSP相关 -->
+        <!-- JSP 相关 -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -78,7 +78,7 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-sdk</artifactId>
         </dependency>
-        <!-- rbac组件 -->
+        <!-- Rbac 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>rbac-distributed-service-stack</artifactId>
@@ -87,7 +87,7 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>rbac-distributed-service-sdk</artifactId>
         </dependency>
-        <!-- familyhelper-finance组件 -->
+        <!-- Familyhelper-finance 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-finance-stack</artifactId>
@@ -96,7 +96,7 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-finance-sdk</artifactId>
         </dependency>
-        <!-- familyhelper-clannad组件 -->
+        <!-- Familyhelper-clannad 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-clannad-stack</artifactId>
@@ -105,7 +105,7 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-clannad-sdk</artifactId>
         </dependency>
-        <!-- familyhelper-assets组件 -->
+        <!-- Familyhelper-assets 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-assets-stack</artifactId>
@@ -114,7 +114,7 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-assets-sdk</artifactId>
         </dependency>
-        <!-- familyhelper-project组件 -->
+        <!-- Familyhelper-project 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-project-stack</artifactId>
@@ -123,7 +123,7 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-project-sdk</artifactId>
         </dependency>
-        <!-- familyhelper-life组件 -->
+        <!-- Familyhelper-life 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-life-stack</artifactId>
@@ -132,7 +132,7 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-life-sdk</artifactId>
         </dependency>
-        <!-- familyhelper-note组件 -->
+        <!-- Familyhelper-note 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-note-stack</artifactId>
@@ -141,7 +141,7 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-note-sdk</artifactId>
         </dependency>
-        <!-- settingrepo组件 -->
+        <!-- Settingrepo 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>settingrepo-stack</artifactId>
@@ -150,7 +150,7 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>settingrepo-sdk</artifactId>
         </dependency>
-        <!-- notify组件 -->
+        <!-- Notify 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>notify-stack</artifactId>
