@@ -36,7 +36,7 @@
         <jetty.version>9.4.43.v20210629</jetty.version>
         <netty.version>4.1.77.Final</netty.version>
         <curator.version>4.2.0</curator.version>
-        <zookeeper.version>3.4.14</zookeeper.version>
+        <zookeeper.version>3.5.7</zookeeper.version>
         <aspectj.version>1.8.2</aspectj.version>
         <aopalliance.version>1.0</aopalliance.version>
         <spring.data.redis.version>1.7.11.RELEASE</spring.data.redis.version>

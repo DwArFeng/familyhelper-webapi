@@ -102,6 +102,16 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>rbac-distributed-service-stack</artifactId>
         </dependency>
+        <!-- Settingrepo 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>settingrepo-impl</artifactId>
+        </dependency>
+        <!-- Notify 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>notify-impl</artifactId>
+        </dependency>
         <!-- 程序自身组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
