@@ -4,7 +4,8 @@
 
 #### 功能构建
 
-- (无)
+- 为 Controller 添加新方法。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.MemoController。
 
 #### Bug修复
 

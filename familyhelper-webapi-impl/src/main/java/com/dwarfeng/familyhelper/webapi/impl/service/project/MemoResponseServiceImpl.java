@@ -66,6 +66,30 @@ public class MemoResponseServiceImpl implements MemoResponseService {
     }
 
     @Override
+    public PagedData<Memo> childForUserDefaultOrder(StringIdKey userKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        return memoMaintainService.lookup(
+                MemoMaintainService.CHILD_FOR_USER_DEFAULT_ORDER, new Object[]{userKey}, pagingInfo
+        );
+    }
+
+    @Override
+    public PagedData<Memo> childForUserInProgressDefaultOrder(StringIdKey userKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        return memoMaintainService.lookup(
+                MemoMaintainService.CHILD_FOR_USER_IN_PROGRESS_DEFAULT_ORDER, new Object[]{userKey}, pagingInfo
+        );
+    }
+
+    @Override
+    public PagedData<Memo> childForUserFinishedDefaultOrder(StringIdKey userKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        return memoMaintainService.lookup(
+                MemoMaintainService.CHILD_FOR_USER_FINISHED_DEFAULT_ORDER, new Object[]{userKey}, pagingInfo
+        );
+    }
+
+    @Override
     public LongIdKey createMemo(StringIdKey userKey, MemoCreateInfo memoCreateInfo) throws ServiceException {
         return memoOperateService.createMemo(userKey, memoCreateInfo);
     }

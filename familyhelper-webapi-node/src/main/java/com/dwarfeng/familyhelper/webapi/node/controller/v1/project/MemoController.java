@@ -163,6 +163,81 @@ public class MemoController {
         }
     }
 
+    @GetMapping(value = {"/user/{userId}/memo/default-order", "/user//memo/default-order"})
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMemo>> childForUserDefaultOrder(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "userId") String userId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey userKey = null;
+            if (Objects.nonNull(userId)) {
+                userKey = new StringIdKey(userId);
+            }
+            PagedData<Memo> childForUser = service.childForUserDefaultOrder(userKey, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonMemo> transform = PagingUtil.transform(childForUser, memoBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping(
+            value = {
+                    "/user/{userId}/memo/in-progress/default-order",
+                    "/user//memo/in-progress/default-order"
+            }
+    )
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMemo>> childForUserInProgressDefaultOrder(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "userId") String userId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey userKey = null;
+            if (Objects.nonNull(userId)) {
+                userKey = new StringIdKey(userId);
+            }
+            PagedData<Memo> childForUser = service.childForUserInProgressDefaultOrder(
+                    userKey, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonMemo> transform = PagingUtil.transform(childForUser, memoBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping(value = {"/user/{userId}/memo/finished/default-order", "/user//memo/finished/default-order"})
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMemo>> childForUserFinishedDefaultOrder(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "userId") String userId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey userKey = null;
+            if (Objects.nonNull(userId)) {
+                userKey = new StringIdKey(userId);
+            }
+            PagedData<Memo> childForUser = service.childForUserFinishedDefaultOrder(
+                    userKey, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonMemo> transform = PagingUtil.transform(childForUser, memoBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/memo/create")
     @BehaviorAnalyse
     @BindingCheck

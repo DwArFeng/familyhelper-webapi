@@ -30,6 +30,14 @@ public interface MemoResponseService extends Service {
 
     PagedData<Memo> childForUserFinished(StringIdKey userKey, PagingInfo pagingInfo) throws ServiceException;
 
+    PagedData<Memo> childForUserDefaultOrder(StringIdKey userKey, PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<Memo> childForUserInProgressDefaultOrder(StringIdKey userKey, PagingInfo pagingInfo)
+            throws ServiceException;
+
+    PagedData<Memo> childForUserFinishedDefaultOrder(StringIdKey userKey, PagingInfo pagingInfo)
+            throws ServiceException;
+
     LongIdKey createMemo(StringIdKey userKey, MemoCreateInfo memoCreateInfo) throws ServiceException;
 
     void updateMemo(StringIdKey userKey, MemoUpdateInfo memoUpdateInfo) throws ServiceException;
