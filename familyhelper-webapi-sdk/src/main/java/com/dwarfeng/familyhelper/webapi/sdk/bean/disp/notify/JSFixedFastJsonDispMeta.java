@@ -3,7 +3,7 @@ package com.dwarfeng.familyhelper.webapi.sdk.bean.disp.notify;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispMeta;
 import com.dwarfeng.notify.sdk.bean.entity.FastJsonMetaIndicator;
-import com.dwarfeng.notify.sdk.bean.entity.key.JSFixedFastJsonMetaKey;
+import com.dwarfeng.notify.sdk.bean.key.JSFixedFastJsonMetaKey;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
 import java.util.Objects;
@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class JSFixedFastJsonDispMeta implements Dto {
 
-    private static final long serialVersionUID = -4417646669841496281L;
+    private static final long serialVersionUID = -5504888636511498506L;
 
     public static JSFixedFastJsonDispMeta of(DispMeta dispMeta) {
         if (Objects.isNull(dispMeta)) {

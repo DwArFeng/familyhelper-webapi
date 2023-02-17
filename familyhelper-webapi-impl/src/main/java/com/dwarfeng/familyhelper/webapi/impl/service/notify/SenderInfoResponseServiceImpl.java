@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.impl.service.notify;
 
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.SenderInfoResponseService;
 import com.dwarfeng.notify.stack.bean.entity.SenderInfo;
-import com.dwarfeng.notify.stack.bean.entity.key.SenderInfoKey;
+import com.dwarfeng.notify.stack.bean.key.SenderInfoKey;
 import com.dwarfeng.notify.stack.service.SenderInfoMaintainService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;

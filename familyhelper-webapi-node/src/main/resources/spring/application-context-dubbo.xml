@@ -337,9 +337,6 @@
     <dubbo:reference id="notifyMetaIndicatorMaintainService"
                      interface="com.dwarfeng.notify.stack.service.MetaIndicatorMaintainService"
                      retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="notifySendHistoryMaintainService"
-                     interface="com.dwarfeng.notify.stack.service.SendHistoryMaintainService"
-                     retries="3" timeout="60000" check="false"/>
     <dubbo:reference id="notifyDubboResetter.dubboResetService"
                      interface="com.dwarfeng.notify.impl.handler.resetter.DubboResetter$DubboResetService"
                      retries="3" timeout="60000" check="false" cluster="broadcast2"/>

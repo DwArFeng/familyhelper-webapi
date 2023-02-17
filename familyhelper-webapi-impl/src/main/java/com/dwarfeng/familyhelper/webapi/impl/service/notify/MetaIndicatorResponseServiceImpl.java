@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.impl.service.notify;
 
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.MetaIndicatorResponseService;
 import com.dwarfeng.notify.stack.bean.entity.MetaIndicator;
-import com.dwarfeng.notify.stack.bean.entity.key.MetaIndicatorKey;
+import com.dwarfeng.notify.stack.bean.key.MetaIndicatorKey;
 import com.dwarfeng.notify.stack.service.MetaIndicatorMaintainService;
 import com.dwarfeng.notify.stack.service.MetaMaintainService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;

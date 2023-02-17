@@ -6,6 +6,7 @@
 
 - 依赖升级。
   - 升级 `familyhelper-clannad` 依赖版本为 `1.3.0.a` 并解决依赖问题，以应用其新功能。
+  - 升级 `notify` 依赖版本为 `1.3.0.a` 并解决依赖问题，以应用其新功能。
 
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.MemoController。
@@ -16,7 +17,8 @@
 
 #### 功能移除
 
-- (无)
+- 移除 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SendHistoryController。
 
 ---
 

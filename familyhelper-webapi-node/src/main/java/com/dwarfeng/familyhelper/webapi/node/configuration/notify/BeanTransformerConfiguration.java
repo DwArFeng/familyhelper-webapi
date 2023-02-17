@@ -1,9 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.notify;
 
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.notify.JSFixedFastJsonDispMeta;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.notify.JSFixedFastJsonDispSendHistory;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispMeta;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispSendHistory;
 import com.dwarfeng.notify.sdk.bean.entity.*;
 import com.dwarfeng.notify.stack.bean.entity.*;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
@@ -74,15 +72,5 @@ public class BeanTransformerConfiguration {
     @Bean("notify.metaIndicatorBeanTransformer")
     public BeanTransformer<MetaIndicator, FastJsonMetaIndicator> metaIndicatorBeanTransformer() {
         return new DozerBeanTransformer<>(MetaIndicator.class, FastJsonMetaIndicator.class, mapper);
-    }
-
-    @Bean("notify.sendHistoryBeanTransformer")
-    public BeanTransformer<SendHistory, JSFixedFastJsonSendHistory> sendHistoryBeanTransformer() {
-        return new DozerBeanTransformer<>(SendHistory.class, JSFixedFastJsonSendHistory.class, mapper);
-    }
-
-    @Bean("notify.dispSendHistoryBeanTransformer")
-    public BeanTransformer<DispSendHistory, JSFixedFastJsonDispSendHistory> dispSendHistoryBeanTransformer() {
-        return new DozerBeanTransformer<>(DispSendHistory.class, JSFixedFastJsonDispSendHistory.class, mapper);
     }
 }

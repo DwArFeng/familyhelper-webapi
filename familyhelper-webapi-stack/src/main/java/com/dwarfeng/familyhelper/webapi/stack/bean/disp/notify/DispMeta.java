@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify;
 
 import com.dwarfeng.notify.stack.bean.entity.Meta;
 import com.dwarfeng.notify.stack.bean.entity.MetaIndicator;
-import com.dwarfeng.notify.stack.bean.entity.key.MetaKey;
+import com.dwarfeng.notify.stack.bean.key.MetaKey;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
 import java.util.Objects;
