@@ -6,6 +6,7 @@
 
 - 优化响应服务的行为。
   - com.dwarfeng.familyhelper.webapi.impl.service.system.PexpResponseServiceImpl。
+  - com.dwarfeng.familyhelper.webapi.impl.service.system.RoleResponseServiceImpl。
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifyHistoryController。
