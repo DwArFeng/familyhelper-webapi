@@ -14,6 +14,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifySendRecordController。
 
 - 依赖升级。
+  - 升级 `familyhelper-project` 依赖版本为 `1.2.0.a` 并解决依赖问题，以应用其新功能。
   - 升级 `familyhelper-clannad` 依赖版本为 `1.3.0.a` 并解决依赖问题，以应用其新功能。
   - 升级 `notify` 依赖版本为 `1.3.0.a` 并解决依赖问题，以应用其新功能。
 
