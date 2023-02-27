@@ -68,4 +68,16 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<MemoFileInfo, JSFixedFastJsonMemoFileInfo> memoFileInfoBeanTransformer() {
         return new DozerBeanTransformer<>(MemoFileInfo.class, JSFixedFastJsonMemoFileInfo.class, mapper);
     }
+
+    @Bean("project.memoRemindDriverInfoBeanTransformer")
+    public BeanTransformer<MemoRemindDriverInfo, JSFixedFastJsonMemoRemindDriverInfo>
+    memoRemindDriverInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(MemoRemindDriverInfo.class, JSFixedFastJsonMemoRemindDriverInfo.class, mapper);
+    }
+
+    @Bean("project.memoRemindDriverSupportBeanTransformer")
+    public BeanTransformer<MemoRemindDriverSupport, FastJsonMemoRemindDriverSupport>
+    memoRemindDriverSupportBeanTransformer() {
+        return new DozerBeanTransformer<>(MemoRemindDriverSupport.class, FastJsonMemoRemindDriverSupport.class, mapper);
+    }
 }

@@ -219,6 +219,12 @@
     <dubbo:reference id="familyhelperProjectMemoFileOperateService"
                      interface="com.dwarfeng.familyhelper.project.stack.service.MemoFileOperateService"
                      retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectMemoRemindDriverInfoMaintainService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.MemoRemindDriverInfoMaintainService"
+                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference id="familyhelperProjectMemoRemindDriverSupportMaintainService"
+                     interface="com.dwarfeng.familyhelper.project.stack.service.MemoRemindDriverSupportMaintainService"
+                     retries="3" timeout="60000" check="false"/>
     <!-- familyhelper-life -->
     <dubbo:reference id="familyhelperLifePbSetMaintainService"
                      interface="com.dwarfeng.familyhelper.life.stack.service.PbSetMaintainService"
