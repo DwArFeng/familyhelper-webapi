@@ -74,4 +74,18 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<PbFileInfo, JSFixedFastJsonPbFileInfo> pbFileInfoBeanTransformer() {
         return new DozerBeanTransformer<>(PbFileInfo.class, JSFixedFastJsonPbFileInfo.class, mapper);
     }
+
+    @Bean("life.activityTypeIndicatorBeanTransformer")
+    public BeanTransformer<ActivityTypeIndicator, FastJsonActivityTypeIndicator>
+    activityTypeIndicatorBeanTransformer() {
+        return new DozerBeanTransformer<>(ActivityTypeIndicator.class, FastJsonActivityTypeIndicator.class, mapper);
+    }
+
+    @Bean("finance.activityTemplateDriverSupportBeanTransformer")
+    public BeanTransformer<ActivityTemplateDriverSupport, FastJsonActivityTemplateDriverSupport>
+    activityTemplateDriverSupportBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                ActivityTemplateDriverSupport.class, FastJsonActivityTemplateDriverSupport.class, mapper
+        );
+    }
 }

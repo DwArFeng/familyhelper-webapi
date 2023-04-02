@@ -322,6 +322,22 @@
             check="false"
             group="${dubbo.consumer.familyhelper_life.group}"
     />
+    <dubbo:reference
+            id="familyhelperLifeActivityTemplateDriverSupportMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityTemplateDriverSupportMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifeActivityTypeIndicatorMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityTypeIndicatorMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
     <!-- familyhelper-note -->
     <dubbo:reference id="familyhelperNoteNoteBookMaintainService"
                      interface="com.dwarfeng.familyhelper.note.stack.service.NoteBookMaintainService"

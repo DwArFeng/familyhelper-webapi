@@ -4,6 +4,10 @@
 
 #### 功能构建
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateDriverSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTypeIndicatorController。
+
 - 为 dubbo 的消费者增加了分组设置。
   - snowflake。
   - familyhelper-life。
