@@ -14,7 +14,8 @@
 
 #### Bug修复
 
-- (无)
+- 修正部分 Bean 映射器配置 Bean 注册名称的规范性问题。
+  - com.dwarfeng.familyhelper.webapi.node.configuration.finance.BeanTransformerConfiguration。
 
 #### 功能移除
 

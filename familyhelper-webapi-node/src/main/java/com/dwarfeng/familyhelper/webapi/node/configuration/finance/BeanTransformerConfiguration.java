@@ -35,7 +35,7 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(DispAccountBook.class, JSFixedFastJsonDispAccountBook.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.bankCardTypeIndicatorBeanTransformer")
     public BeanTransformer<BankCardTypeIndicator, FastJsonBankCardTypeIndicator>
     bankCardTypeIndicatorBeanTransformer() {
         return new DozerBeanTransformer<>(BankCardTypeIndicator.class, FastJsonBankCardTypeIndicator.class, mapper);
@@ -51,7 +51,7 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(DispBankCard.class, JSFixedFastJsonDispBankCard.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.fundTypeIndicatorBeanTransformer")
     public BeanTransformer<FundChangeTypeIndicator, FastJsonFundChangeTypeIndicator>
     fundChangeTypeIndicatorBeanTransformer() {
         return new DozerBeanTransformer<>(FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, mapper);
@@ -67,13 +67,13 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(DispFundChange.class, JSFixedFastJsonDispFundChange.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.totalBalanceHistoryBeanTransformer")
     public BeanTransformer<TotalBalanceHistory, JSFixedFastJsonTotalBalanceHistory>
     totalBalanceHistoryBeanTransformer() {
         return new DozerBeanTransformer<>(TotalBalanceHistory.class, JSFixedFastJsonTotalBalanceHistory.class, mapper);
     }
 
-    @Bean
+    @Bean("finance.bankCardBalanceHistoryBeanTransformer")
     public BeanTransformer<BankCardBalanceHistory, JSFixedFastJsonBankCardBalanceHistory>
     bankCardBalanceHistoryBeanTransformer() {
         return new DozerBeanTransformer<>(
