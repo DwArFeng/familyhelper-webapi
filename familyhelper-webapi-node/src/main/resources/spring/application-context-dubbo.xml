@@ -226,42 +226,102 @@
                      interface="com.dwarfeng.familyhelper.project.stack.service.MemoRemindDriverSupportMaintainService"
                      retries="3" timeout="60000" check="false"/>
     <!-- familyhelper-life -->
-    <dubbo:reference id="familyhelperLifePbSetMaintainService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbSetMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePbSetOperateService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbSetOperateService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifeUserMaintainService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.UserMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePopbMaintainService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PopbMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePbNodeMaintainService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbNodeMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePbNodeOperateService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbNodeOperateService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePbItemMaintainService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbItemMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePbItemOperateService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbItemOperateService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePbRecordMaintainService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbRecordMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePbRecordOperateService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbRecordOperateService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePbFileInfoMaintainService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbFileInfoMaintainService"
-                     retries="3" timeout="60000" check="false"/>
-    <dubbo:reference id="familyhelperLifePbFileOperateService"
-                     interface="com.dwarfeng.familyhelper.life.stack.service.PbFileOperateService"
-                     retries="3" timeout="60000" check="false"/>
+    <dubbo:reference
+            id="familyhelperLifePbSetMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbSetMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePbSetOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbSetOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifeUserMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.UserMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePopbMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PopbMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePbNodeMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePbNodeOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePbItemMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbItemMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePbItemOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbItemOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePbRecordMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbRecordMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePbRecordOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbRecordOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePbFileInfoMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbFileInfoMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePbFileOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PbFileOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
     <!-- familyhelper-note -->
     <dubbo:reference id="familyhelperNoteNoteBookMaintainService"
                      interface="com.dwarfeng.familyhelper.note.stack.service.NoteBookMaintainService"
@@ -355,7 +415,11 @@
     <dubbo:reference id="notifyDubboResetter.dubboResetService"
                      interface="com.dwarfeng.notify.impl.handler.resetter.DubboResetter$DubboResetService"
                      retries="3" timeout="60000" check="false" cluster="broadcast2"/>
-
     <!-- snowflake -->
-    <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService" check="false"/>
+    <dubbo:reference
+            id="longIdService"
+            interface="com.dwarfeng.sfds.stack.service.LongIdService"
+            check="false"
+            group="${dubbo.consumer.snowflake.group}"
+    />
 </beans>

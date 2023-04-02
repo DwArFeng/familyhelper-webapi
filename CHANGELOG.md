@@ -4,6 +4,10 @@
 
 #### 功能构建
 
+- 为 dubbo 的消费者增加了分组设置。
+  - snowflake。
+  - familyhelper-life。
+
 - 依赖升级。
   - 升级 `familyhelper-note` 依赖版本为 `1.0.4.a` 并解决依赖问题，以应用其新功能。
   - 升级 `familyhelper-life` 依赖版本为 `1.1.0.a` 并解决依赖问题，以应用其新功能。
