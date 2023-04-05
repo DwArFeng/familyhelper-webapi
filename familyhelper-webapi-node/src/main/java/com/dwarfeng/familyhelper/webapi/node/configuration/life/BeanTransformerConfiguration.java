@@ -2,14 +2,8 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.life;
 
 import com.dwarfeng.familyhelper.life.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.*;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispPbItem;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispPbNode;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispPbSet;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispPopb;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbItem;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbNode;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbSet;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPopb;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.*;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.*;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import org.dozer.Mapper;
@@ -87,5 +81,26 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(
                 ActivityTemplateDriverSupport.class, FastJsonActivityTemplateDriverSupport.class, mapper
         );
+    }
+
+    @Bean("life.activityDataSetBeanTransformer")
+    public BeanTransformer<ActivityDataSet, JSFixedFastJsonActivityDataSet> activityDataSetBeanTransformer() {
+        return new DozerBeanTransformer<>(ActivityDataSet.class, JSFixedFastJsonActivityDataSet.class, mapper);
+    }
+
+    @Bean("life.dispActivityDataSetBeanTransformer")
+    public BeanTransformer<DispActivityDataSet, JSFixedFastJsonDispActivityDataSet>
+    dispActivityDataSetBeanTransformer() {
+        return new DozerBeanTransformer<>(DispActivityDataSet.class, JSFixedFastJsonDispActivityDataSet.class, mapper);
+    }
+
+    @Bean("life.poadBeanTransformer")
+    public BeanTransformer<Poad, JSFixedFastJsonPoad> poadBeanTransformer() {
+        return new DozerBeanTransformer<>(Poad.class, JSFixedFastJsonPoad.class, mapper);
+    }
+
+    @Bean("life.dispPoadBeanTransformer")
+    public BeanTransformer<DispPoad, JSFixedFastJsonDispPoad> dispPoadBeanTransformer() {
+        return new DozerBeanTransformer<>(DispPoad.class, JSFixedFastJsonDispPoad.class, mapper);
     }
 }

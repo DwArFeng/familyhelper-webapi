@@ -14,7 +14,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
 /**
- * 资产目录响应服务。
+ * 个人最佳集合响应服务。
  *
  * @author DwArFeng
  * @since 1.0.7

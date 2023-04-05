@@ -1,15 +1,15 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.life;
 
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputPbSetCreateInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputPbSetPermissionRemoveInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputPbSetPermissionUpsertInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputPbSetUpdateInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonPbSet;
-import com.dwarfeng.familyhelper.life.stack.bean.entity.PbSet;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispPbSet;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbSet;
+import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataSetCreateInfo;
+import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataSetPermissionRemoveInfo;
+import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataSetPermissionUpsertInfo;
+import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataSetUpdateInfo;
+import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonActivityDataSet;
+import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityDataSet;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispActivityDataSet;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityDataSet;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
-import com.dwarfeng.familyhelper.webapi.stack.service.life.PbSetResponseService;
+import com.dwarfeng.familyhelper.webapi.stack.service.life.ActivityDataSetResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
@@ -33,39 +33,40 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 个人最佳集合控制器。
+ * 活动数据集控制器。
  *
  * @author DwArFeng
- * @since 1.0.7
+ * @since 1.0.10
  */
 @RestController
 @RequestMapping("/api/v1/life")
-public class PbSetController {
+public class ActivityDataSetController {
 
-    private final PbSetResponseService service;
+    private final ActivityDataSetResponseService service;
 
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<PbSet, JSFixedFastJsonPbSet> pbSetBeanTransformer;
-    private final BeanTransformer<DispPbSet, JSFixedFastJsonDispPbSet> dispPbSetBeanTransformer;
+    private final BeanTransformer<ActivityDataSet, JSFixedFastJsonActivityDataSet> activityDataSetBeanTransformer;
+    private final BeanTransformer<DispActivityDataSet, JSFixedFastJsonDispActivityDataSet>
+            dispActivityDataSetBeanTransformer;
 
     private final TokenHandler tokenHandler;
 
-    public PbSetController(
-            PbSetResponseService service,
+    public ActivityDataSetController(
+            ActivityDataSetResponseService service,
             ServiceExceptionMapper sem,
-            BeanTransformer<PbSet, JSFixedFastJsonPbSet> pbSetBeanTransformer,
-            BeanTransformer<DispPbSet, JSFixedFastJsonDispPbSet> dispPbSetBeanTransformer,
+            BeanTransformer<ActivityDataSet, JSFixedFastJsonActivityDataSet> activityDataSetBeanTransformer,
+            BeanTransformer<DispActivityDataSet, JSFixedFastJsonDispActivityDataSet> dispActivityDataSetBeanTransformer,
             TokenHandler tokenHandler
     ) {
         this.service = service;
         this.sem = sem;
-        this.pbSetBeanTransformer = pbSetBeanTransformer;
-        this.dispPbSetBeanTransformer = dispPbSetBeanTransformer;
+        this.activityDataSetBeanTransformer = activityDataSetBeanTransformer;
+        this.dispActivityDataSetBeanTransformer = dispActivityDataSetBeanTransformer;
         this.tokenHandler = tokenHandler;
     }
 
-    @GetMapping("/pb-set/{id}/exists")
+    @GetMapping("/activity-data-set/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") Long id) {
@@ -77,116 +78,124 @@ public class PbSetController {
         }
     }
 
-    @GetMapping("/pb-set/{id}")
+    @GetMapping("/activity-data-set/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPbSet> get(HttpServletRequest request, @PathVariable("id") Long id) {
+    public FastJsonResponseData<JSFixedFastJsonActivityDataSet> get(
+            HttpServletRequest request, @PathVariable("id") Long id
+    ) {
         try {
-            PbSet pbSet = service.get(new LongIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPbSet.of(pbSet)));
+            ActivityDataSet activityDataSet = service.get(new LongIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonActivityDataSet.of(activityDataSet)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/pb-set/all")
+    @GetMapping("/activity-data-set/all")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbSet>> all(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityDataSet>> all(
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
-            PagedData<PbSet> all = service.all(new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonPbSet> transform = PagingUtil.transform(all, pbSetBeanTransformer);
+            PagedData<ActivityDataSet> all = service.all(new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonActivityDataSet> transform = PagingUtil.transform(
+                    all, activityDataSetBeanTransformer
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/pb-set/{id}/disp")
+    @GetMapping("/activity-data-set/{id}/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonDispPbSet> getDisp(
+    public FastJsonResponseData<JSFixedFastJsonDispActivityDataSet> getDisp(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
             StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
-            DispPbSet dispPbSet = service.getDisp(new LongIdKey(id), inspectAccountKey);
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPbSet.of(dispPbSet)));
+            DispActivityDataSet dispActivityDataSet = service.getDisp(new LongIdKey(id), inspectAccountKey);
+            return FastJsonResponseData.of(
+                    ResponseDataUtil.good(JSFixedFastJsonDispActivityDataSet.of(dispActivityDataSet))
+            );
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/pb-set/all-permitted/disp")
+    @GetMapping("/activity-data-set/all-permitted/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbSet>> allPermittedDisp(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataSet>> allPermittedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispPbSet> allPermittedDisp = service.allPermittedDisp(
+            PagedData<DispActivityDataSet> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonDispPbSet> transform = PagingUtil.transform(
-                    allPermittedDisp, dispPbSetBeanTransformer);
+            PagedData<JSFixedFastJsonDispActivityDataSet> transform = PagingUtil.transform(
+                    allPermittedDisp, dispActivityDataSetBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/pb-set/all-owned/disp")
+    @GetMapping("/activity-data-set/all-owned/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbSet>> allOwnedDisp(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataSet>> allOwnedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispPbSet> allOwnedDisp = service.allOwnedDisp(
+            PagedData<DispActivityDataSet> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonDispPbSet> transform = PagingUtil.transform(
-                    allOwnedDisp, dispPbSetBeanTransformer);
+            PagedData<JSFixedFastJsonDispActivityDataSet> transform = PagingUtil.transform(
+                    allOwnedDisp, dispActivityDataSetBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @PostMapping("/pb-set/create")
+    @PostMapping("/activity-data-set/create")
     @BehaviorAnalyse
     @BindingCheck
-    public FastJsonResponseData<JSFixedFastJsonLongIdKey> createPbSet(
+    public FastJsonResponseData<JSFixedFastJsonLongIdKey> createActivityDataSet(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPbSetCreateInfo pbSetCreateInfo, BindingResult bindingResult
+            @RequestBody @Validated WebInputActivityDataSetCreateInfo activityDataSetCreateInfo,
+            BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            LongIdKey result = service.createPbSet(
-                    accountKey, WebInputPbSetCreateInfo.toStackBean(pbSetCreateInfo));
+            LongIdKey result = service.createActivityDataSet(
+                    accountKey, WebInputActivityDataSetCreateInfo.toStackBean(activityDataSetCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @PostMapping("/pb-set/update")
+    @PostMapping("/activity-data-set/update")
     @BehaviorAnalyse
     @BindingCheck
-    public FastJsonResponseData<Object> updatePbSet(
+    public FastJsonResponseData<Object> updateActivityDataSet(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPbSetUpdateInfo webInputPbSetUpdateInfo,
+            @RequestBody @Validated WebInputActivityDataSetUpdateInfo webInputActivityDataSetUpdateInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.updatePbSet(
-                    accountKey, WebInputPbSetUpdateInfo.toStackBean(webInputPbSetUpdateInfo)
+            service.updateActivityDataSet(
+                    accountKey, WebInputActivityDataSetUpdateInfo.toStackBean(webInputActivityDataSetUpdateInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -194,34 +203,34 @@ public class PbSetController {
         }
     }
 
-    @PostMapping("/pb-set/remove")
+    @PostMapping("/activity-data-set/remove")
     @BehaviorAnalyse
     @BindingCheck
-    public FastJsonResponseData<Object> removePbSet(
+    public FastJsonResponseData<Object> removeActivityDataSet(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputLongIdKey pbSetKey, BindingResult bindingResult
+            @RequestBody @Validated WebInputLongIdKey activityDataSetKey, BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.removePbSet(accountKey, WebInputLongIdKey.toStackBean(pbSetKey));
+            service.removeActivityDataSet(accountKey, WebInputLongIdKey.toStackBean(activityDataSetKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @PostMapping("/pb-set/upsert-permission")
+    @PostMapping("/activity-data-set/upsert-permission")
     @BehaviorAnalyse
     @BindingCheck
     public FastJsonResponseData<Object> upsertPermission(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPbSetPermissionUpsertInfo webInputPermissionUpsertInfo,
+            @RequestBody @Validated WebInputActivityDataSetPermissionUpsertInfo webInputPermissionUpsertInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.upsertPermission(
-                    accountKey, WebInputPbSetPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
+                    accountKey, WebInputActivityDataSetPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -229,18 +238,18 @@ public class PbSetController {
         }
     }
 
-    @PostMapping("/pb-set/remove-permission")
+    @PostMapping("/activity-data-set/remove-permission")
     @BehaviorAnalyse
     @BindingCheck
     public FastJsonResponseData<Object> removePermission(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPbSetPermissionRemoveInfo webInputPermissionRemoveInfo,
+            @RequestBody @Validated WebInputActivityDataSetPermissionRemoveInfo webInputPermissionRemoveInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removePermission(
-                    accountKey, WebInputPbSetPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
+                    accountKey, WebInputActivityDataSetPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

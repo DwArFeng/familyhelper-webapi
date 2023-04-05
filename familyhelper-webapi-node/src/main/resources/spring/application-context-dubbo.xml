@@ -323,6 +323,22 @@
             group="${dubbo.consumer.familyhelper_life.group}"
     />
     <dubbo:reference
+            id="familyhelperLifeActivityDataSetMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataSetMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifeActivityDataSetOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataSetOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
             id="familyhelperLifeActivityTemplateDriverSupportMaintainService"
             interface="com.dwarfeng.familyhelper.life.stack.service.ActivityTemplateDriverSupportMaintainService"
             retries="3"
@@ -333,6 +349,14 @@
     <dubbo:reference
             id="familyhelperLifeActivityTypeIndicatorMaintainService"
             interface="com.dwarfeng.familyhelper.life.stack.service.ActivityTypeIndicatorMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifePoadMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PoadMaintainService"
             retries="3"
             timeout="60000"
             check="false"

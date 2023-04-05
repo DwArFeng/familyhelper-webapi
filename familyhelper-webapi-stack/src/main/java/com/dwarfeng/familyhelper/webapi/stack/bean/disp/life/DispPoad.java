@@ -1,56 +1,56 @@
 package com.dwarfeng.familyhelper.webapi.stack.bean.disp.life;
 
-import com.dwarfeng.familyhelper.life.stack.bean.entity.Popb;
-import com.dwarfeng.familyhelper.life.stack.bean.key.PopbKey;
+import com.dwarfeng.familyhelper.life.stack.bean.entity.Poad;
+import com.dwarfeng.familyhelper.life.stack.bean.key.PoadKey;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
 import java.util.Objects;
 
 /**
- * 可展示个人最佳权限。
+ * 可展示活动数据权限。
  *
  * @author DwArFeng
- * @since 1.0.7
+ * @since 1.0.10
  */
-public class DispPopb implements Dto {
+public class DispPoad implements Dto {
 
-    private static final long serialVersionUID = -1954606801141162754L;
+    private static final long serialVersionUID = -2864059742901946092L;
 
-    public static DispPopb of(
-            Popb Popb, DispPbSet pbSet, DispAccount account
-    ) {
-        if (Objects.isNull(pbSet)) {
+    public static DispPoad of(Poad poad, DispActivityDataSet activityDataSet, DispAccount account) {
+        if (Objects.isNull(poad)) {
             return null;
         } else {
-            return new DispPopb(
-                    Popb.getKey(), Popb.getPermissionLevel(), Popb.getRemark(), pbSet, account
+            return new DispPoad(
+                    poad.getKey(), poad.getPermissionLevel(), poad.getRemark(), activityDataSet, account
             );
         }
     }
 
-    private PopbKey key;
+    private PoadKey key;
     private int permissionLevel;
     private String remark;
-    private DispPbSet pbSet;
+    private DispActivityDataSet activityDataSet;
     private DispAccount account;
 
-    public DispPopb() {
+    public DispPoad() {
     }
 
-    public DispPopb(PopbKey key, int permissionLevel, String remark, DispPbSet pbSet, DispAccount account) {
+    public DispPoad(
+            PoadKey key, int permissionLevel, String remark, DispActivityDataSet activityDataSet, DispAccount account
+    ) {
         this.key = key;
         this.permissionLevel = permissionLevel;
         this.remark = remark;
-        this.pbSet = pbSet;
+        this.activityDataSet = activityDataSet;
         this.account = account;
     }
 
-    public PopbKey getKey() {
+    public PoadKey getKey() {
         return key;
     }
 
-    public void setKey(PopbKey key) {
+    public void setKey(PoadKey key) {
         this.key = key;
     }
 
@@ -70,12 +70,12 @@ public class DispPopb implements Dto {
         this.remark = remark;
     }
 
-    public DispPbSet getPbSet() {
-        return pbSet;
+    public DispActivityDataSet getActivityDataSet() {
+        return activityDataSet;
     }
 
-    public void setPbSet(DispPbSet pbSet) {
-        this.pbSet = pbSet;
+    public void setActivityDataSet(DispActivityDataSet activityDataSet) {
+        this.activityDataSet = activityDataSet;
     }
 
     public DispAccount getAccount() {
@@ -88,11 +88,11 @@ public class DispPopb implements Dto {
 
     @Override
     public String toString() {
-        return "DispPopb{" +
+        return "DispPoad{" +
                 "key=" + key +
                 ", permissionLevel=" + permissionLevel +
                 ", remark='" + remark + '\'' +
-                ", pbSet=" + pbSet +
+                ", activityDataSet=" + activityDataSet +
                 ", account=" + account +
                 '}';
     }
