@@ -4,6 +4,10 @@
 
 #### 功能构建
 
+- 为 Controller 添加新方法。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteItemController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteNodeController。
+
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateDriverSupportController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTypeIndicatorController。

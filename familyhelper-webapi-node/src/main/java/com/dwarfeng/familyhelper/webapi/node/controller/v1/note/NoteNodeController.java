@@ -29,7 +29,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 笔记节点控制器。
@@ -118,9 +120,11 @@ public class NoteNodeController {
                 noteBookKey = new LongIdKey(noteBookId);
             }
             PagedData<NoteNode> childForNoteBook = service.childForNoteBook(
-                    noteBookKey, new PagingInfo(page, rows));
+                    noteBookKey, new PagingInfo(page, rows)
+            );
             PagedData<JSFixedFastJsonNoteNode> transform = PagingUtil.transform(
-                    childForNoteBook, noteNodeBeanTransformer);
+                    childForNoteBook, noteNodeBeanTransformer
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
@@ -165,6 +169,33 @@ public class NoteNodeController {
             PagedData<JSFixedFastJsonNoteNode> transform = PagingUtil.transform(
                     childForParent, noteNodeBeanTransformer
             );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping(value = {
+            "/note-book/{noteBookId}/note-node/name-like", "/note-book//note-node/name-like"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteNode>> childForNoteBookNameLike(
+            @PathVariable(required = false, value = "noteBookId") Long noteBookId,
+            @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            LongIdKey noteBookKey = null;
+            if (Objects.nonNull(noteBookId)) {
+                noteBookKey = new LongIdKey(noteBookId);
+            }
+            PagedData<NoteNode> childForNoteBook = service.childForNoteBookNameLike(
+                    noteBookKey, pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonNoteNode> transform = PagingUtil.transform(
+                    childForNoteBook, noteNodeBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
@@ -278,6 +309,36 @@ public class NoteNodeController {
         }
     }
 
+    @GetMapping(value = {
+            "/note-book/{noteBookId}/note-node/name-like/disp", "/note-book//note-node/name-like/disp"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteNode>> childForNoteBookNameLikeDisp(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "noteBookId") Long noteBookId,
+            @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            LongIdKey noteBookKey = null;
+            if (Objects.nonNull(noteBookId)) {
+                noteBookKey = new LongIdKey(noteBookId);
+            }
+            PagedData<DispNoteNode> childForNoteBook = service.childForNoteBookNameLikeDisp(
+                    accountKey, noteBookKey, pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonDispNoteNode> transform = PagingUtil.transform(
+                    childForNoteBook, dispNoteNodeBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/note-node/create")
     @BehaviorAnalyse
     @BindingCheck
@@ -325,6 +386,23 @@ public class NoteNodeController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removeNoteNode(accountKey, WebInputLongIdKey.toStackBean(noteNodeKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @GetMapping("/note-node/{id}/path-from-root")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<List<JSFixedFastJsonLongIdKey>> pathFromRoot(
+            HttpServletRequest request, @PathVariable("id") Long id
+    ) {
+        try {
+            List<LongIdKey> longIdKeys = service.pathFromRoot(new LongIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    longIdKeys.stream().map(JSFixedFastJsonLongIdKey::of).collect(Collectors.toList())
+            ));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }

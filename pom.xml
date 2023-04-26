@@ -55,7 +55,7 @@
         <familyhelper-assets.version>1.0.4.a</familyhelper-assets.version>
         <familyhelper-project.version>1.2.0.a</familyhelper-project.version>
         <familyhelper-life.version>1.1.0.a</familyhelper-life.version>
-        <familyhelper-note.version>1.0.4.a</familyhelper-note.version>
+        <familyhelper-note.version>1.0.5.a</familyhelper-note.version>
         <settingrepo.version>1.1.2.a</settingrepo.version>
         <notify.version>1.3.0.a</notify.version>
         <!-- Maven 插件版本声明 -->

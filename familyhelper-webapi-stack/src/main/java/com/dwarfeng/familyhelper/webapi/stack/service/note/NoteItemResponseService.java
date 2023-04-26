@@ -13,6 +13,8 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
+import java.util.List;
+
 /**
  * 笔记项目响应服务。
  *
@@ -33,6 +35,9 @@ public interface NoteItemResponseService extends Service {
     PagedData<NoteItem> childForNoteBookRoot(LongIdKey noteBookKey, PagingInfo pagingInfo)
             throws ServiceException;
 
+    PagedData<NoteItem> childForNoteBookNameLike(LongIdKey noteBookKey, String pattern, PagingInfo pagingInfo)
+            throws ServiceException;
+
     DispNoteItem getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException;
 
     PagedData<DispNoteItem> allDisp(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
@@ -45,6 +50,10 @@ public interface NoteItemResponseService extends Service {
             StringIdKey accountKey, LongIdKey noteBookKey, PagingInfo pagingInfo
     ) throws ServiceException;
 
+    PagedData<DispNoteItem> childForNoteBookNameLikeDisp(
+            StringIdKey accountKey, LongIdKey noteBookKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException;
+
     LongIdKey createNoteItem(StringIdKey userKey, NoteItemCreateInfo noteItemCreateInfo)
             throws ServiceException;
 
@@ -55,4 +64,13 @@ public interface NoteItemResponseService extends Service {
     NoteFile downloadNoteFile(StringIdKey userKey, LongIdKey noteItemKey) throws ServiceException;
 
     void uploadNoteFile(StringIdKey userKey, NoteFileUploadInfo noteFileUploadInfo) throws ServiceException;
+
+    /**
+     * 获取指定的笔记项目从根节点到该笔记所属父节点的路径。
+     *
+     * @param key 指定的笔记项目的主键。
+     * @return 指定的笔记项目从根节点到该笔记所属父节点的路径。
+     * @throws ServiceException 服务异常。
+     */
+    List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException;
 }

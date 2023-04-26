@@ -5,8 +5,10 @@ import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteFileUploadInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteItemCreateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteItemUpdateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteItem;
+import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteNode;
 import com.dwarfeng.familyhelper.note.stack.service.NoteItemMaintainService;
 import com.dwarfeng.familyhelper.note.stack.service.NoteItemOperateService;
+import com.dwarfeng.familyhelper.note.stack.service.NoteNodeMaintainService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispNoteBook;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispNoteItem;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispNoteNode;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,19 +33,21 @@ public class NoteItemResponseServiceImpl implements NoteItemResponseService {
 
     private final NoteItemMaintainService noteItemMaintainService;
     private final NoteItemOperateService noteItemOperateService;
+    private final NoteNodeMaintainService noteNodeMaintainService;
 
     private final NoteBookResponseService noteBookResponseService;
     private final NoteNodeResponseService noteNodeResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public NoteItemResponseServiceImpl(
             @Qualifier("familyhelperNoteNoteItemMaintainService") NoteItemMaintainService noteItemMaintainService,
             @Qualifier("familyhelperNoteNoteItemOperateService") NoteItemOperateService noteItemOperateService,
+            @Qualifier("familyhelperNoteNoteNodeMaintainService") NoteNodeMaintainService noteNodeMaintainService,
             NoteBookResponseService noteBookResponseService,
             NoteNodeResponseService noteNodeResponseService
     ) {
         this.noteItemMaintainService = noteItemMaintainService;
         this.noteItemOperateService = noteItemOperateService;
+        this.noteNodeMaintainService = noteNodeMaintainService;
         this.noteBookResponseService = noteBookResponseService;
         this.noteNodeResponseService = noteNodeResponseService;
     }
@@ -66,14 +71,23 @@ public class NoteItemResponseServiceImpl implements NoteItemResponseService {
     public PagedData<NoteItem> childForNoteNode(LongIdKey noteNodeKey, PagingInfo pagingInfo)
             throws ServiceException {
         return noteItemMaintainService.lookup(
-                NoteItemMaintainService.CHILD_FOR_NODE, new Object[]{noteNodeKey}, pagingInfo
+                NoteItemMaintainService.CHILD_FOR_NODE_INDEX_ASC, new Object[]{noteNodeKey}, pagingInfo
         );
     }
 
     @Override
-    public PagedData<NoteItem> childForNoteBookRoot(LongIdKey noteBookKey, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<NoteItem> childForNoteBookRoot(LongIdKey noteBookKey, PagingInfo pagingInfo)
+            throws ServiceException {
         return noteItemMaintainService.lookup(
-                NoteItemMaintainService.CHILD_FOR_BOOK_ROOT, new Object[]{noteBookKey}, pagingInfo
+                NoteItemMaintainService.CHILD_FOR_BOOK_ROOT_INDEX_ASC, new Object[]{noteBookKey}, pagingInfo
+        );
+    }
+
+    @Override
+    public PagedData<NoteItem> childForNoteBookNameLike(LongIdKey noteBookKey, String pattern, PagingInfo pagingInfo)
+            throws ServiceException {
+        return noteItemMaintainService.lookup(
+                NoteItemMaintainService.CHILD_FOR_BOOK_NAME_LIKE, new Object[]{noteBookKey, pattern}, pagingInfo
         );
     }
 
@@ -93,9 +107,7 @@ public class NoteItemResponseServiceImpl implements NoteItemResponseService {
     public PagedData<DispNoteItem> childForNoteNodeDisp(
             StringIdKey accountKey, LongIdKey noteNodeKey, PagingInfo pagingInfo
     ) throws ServiceException {
-        PagedData<NoteItem> lookup = noteItemMaintainService.lookup(
-                NoteItemMaintainService.CHILD_FOR_NODE, new Object[]{noteNodeKey}, pagingInfo
-        );
+        PagedData<NoteItem> lookup = childForNoteNode(noteNodeKey, pagingInfo);
         return toDispPagedData(lookup, accountKey);
     }
 
@@ -103,9 +115,15 @@ public class NoteItemResponseServiceImpl implements NoteItemResponseService {
     public PagedData<DispNoteItem> childForNoteBookRootDisp(
             StringIdKey accountKey, LongIdKey noteBookKey, PagingInfo pagingInfo
     ) throws ServiceException {
-        PagedData<NoteItem> lookup = noteItemMaintainService.lookup(
-                NoteItemMaintainService.CHILD_FOR_BOOK_ROOT, new Object[]{noteBookKey}, pagingInfo
-        );
+        PagedData<NoteItem> lookup = childForNoteBookRoot(noteBookKey, pagingInfo);
+        return toDispPagedData(lookup, accountKey);
+    }
+
+    @Override
+    public PagedData<DispNoteItem> childForNoteBookNameLikeDisp(
+            StringIdKey accountKey, LongIdKey noteBookKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException {
+        PagedData<NoteItem> lookup = childForNoteBookNameLike(noteBookKey, pattern, pagingInfo);
         return toDispPagedData(lookup, accountKey);
     }
 
@@ -158,5 +176,49 @@ public class NoteItemResponseServiceImpl implements NoteItemResponseService {
     @Override
     public void uploadNoteFile(StringIdKey userKey, NoteFileUploadInfo noteFileUploadInfo) throws ServiceException {
         noteItemOperateService.uploadNoteFile(userKey, noteFileUploadInfo);
+    }
+
+    @Override
+    public List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException {
+        // 获取当前的笔记项目。
+        NoteItem noteItem = noteItemMaintainService.get(key);
+
+        // 如果笔记项目没有父节点，则返回空列表。
+        if (Objects.isNull(noteItem.getNodeKey())) {
+            return Collections.emptyList();
+        }
+
+        // 定义结果列表。
+        List<LongIdKey> result = new ArrayList<>();
+
+        // 获取当前笔记本项目的节点主键，作为当前节点主键。
+        LongIdKey anchorKey = noteItem.getNodeKey();
+
+        // 将当前节点主键添加到结果列表中。
+        result.add(anchorKey);
+
+        // 循环获取父节点，直到根节点。
+        while (true) {
+            // 获取当前节点。
+            NoteNode noteNode = noteNodeMaintainService.get(anchorKey);
+
+            // 获取当前节点的父节点主键。
+            LongIdKey parentKey = noteNode.getParentKey();
+
+            // 如果当前节点没有父节点，则跳出循环。
+            if (Objects.isNull(parentKey)) {
+                break;
+            }
+
+            // 将父节点主键添加到结果列表中。
+            result.add(parentKey);
+
+            // 将父节点主键作为当前节点主键。
+            anchorKey = parentKey;
+        }
+
+        // 将结果列表反转，并返回。
+        Collections.reverse(result);
+        return result;
     }
 }

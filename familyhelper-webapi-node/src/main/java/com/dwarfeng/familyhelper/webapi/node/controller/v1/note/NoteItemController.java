@@ -41,7 +41,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 笔记项目控制器。
@@ -171,6 +173,28 @@ public class NoteItemController {
         }
     }
 
+    @GetMapping("/note-book/{noteBookId}/note-item/name-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteItem>> childForNoteBookNameLike(
+            HttpServletRequest request,
+            @PathVariable("noteBookId") long noteBookId, @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<NoteItem> childForNoteBookRoot = service.childForNoteBookNameLike(
+                    new LongIdKey(noteBookId), pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonNoteItem> transform = PagingUtil.transform(
+                    childForNoteBookRoot, noteItemBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @GetMapping("/note-item/{id}/disp")
     @BehaviorAnalyse
     @SkipRecord
@@ -244,6 +268,29 @@ public class NoteItemController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             PagedData<DispNoteItem> childForNoteBookRoot = service.childForNoteBookRootDisp(
                     accountKey, new LongIdKey(noteBookId), new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonDispNoteItem> transform = PagingUtil.transform(
+                    childForNoteBookRoot, dispNoteItemBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/note-book/{noteBookId}/note-item/name-like/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteItem>> childForNoteBookNameLikeDisp(
+            HttpServletRequest request,
+            @PathVariable("noteBookId") long noteBookId, @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<DispNoteItem> childForNoteBookRoot = service.childForNoteBookNameLikeDisp(
+                    accountKey, new LongIdKey(noteBookId), pattern, new PagingInfo(page, rows)
             );
             PagedData<JSFixedFastJsonDispNoteItem> transform = PagingUtil.transform(
                     childForNoteBookRoot, dispNoteItemBeanTransformer
@@ -375,5 +422,22 @@ public class NoteItemController {
 
     private String adjustFileNameEncoding(String fileName) {
         return new String(fileName.getBytes(), StandardCharsets.ISO_8859_1);
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @GetMapping("/note-item/{id}/path-from-root")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<List<JSFixedFastJsonLongIdKey>> pathFromRoot(
+            HttpServletRequest request, @PathVariable("id") Long id
+    ) {
+        try {
+            List<LongIdKey> longIdKeys = service.pathFromRoot(new LongIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    longIdKeys.stream().map(JSFixedFastJsonLongIdKey::of).collect(Collectors.toList())
+            ));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
     }
 }
