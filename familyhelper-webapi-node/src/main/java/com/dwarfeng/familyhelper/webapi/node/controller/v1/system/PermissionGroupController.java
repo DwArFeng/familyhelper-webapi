@@ -26,7 +26,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 权限控制器。
@@ -70,7 +72,9 @@ public class PermissionGroupController {
     @GetMapping("/permission-group/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<FastJsonPermissionGroup> get(HttpServletRequest request, @PathVariable("id") String id) {
+    public FastJsonResponseData<FastJsonPermissionGroup> get(
+            HttpServletRequest request, @PathVariable("id") String id
+    ) {
         try {
             PermissionGroup permissionGroup = service.get(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonPermissionGroup.of(permissionGroup)));
@@ -85,7 +89,9 @@ public class PermissionGroupController {
     @LoginRequired
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputPermissionGroup webInputPermissionGroup, BindingResult bindingResult) {
+            @RequestBody @Validated(Insert.class) WebInputPermissionGroup webInputPermissionGroup,
+            BindingResult bindingResult
+    ) {
         try {
             PermissionGroup permissionGroup = WebInputPermissionGroup.toStackBean(webInputPermissionGroup);
             StringIdKey insert = service.insert(permissionGroup);
@@ -187,6 +193,25 @@ public class PermissionGroupController {
         }
     }
 
+    @GetMapping("/permission-group/name-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermissionGroup>> nameLike(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<PermissionGroup> nameLike = service.nameLike(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(
+                    nameLike, permissionGroupBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @GetMapping("/permission-group/{id}/disp")
     @BehaviorAnalyse
     @LoginRequired
@@ -244,6 +269,41 @@ public class PermissionGroupController {
                     childForParent, dispPermissionGroupBeanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/permission-group/name-like/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispPermissionGroup>> nameLikeDisp(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<DispPermissionGroup> nameLike = service.nameLikeDisp(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonDispPermissionGroup> transform = PagingUtil.transform(
+                    nameLike, dispPermissionGroupBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/permission-group/{id}/path-from-root")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<List<FastJsonStringIdKey>> pathFromRoot(
+            HttpServletRequest request, @PathVariable("id") String id
+    ) {
+        try {
+            List<StringIdKey> stringIdKeys = service.pathFromRoot(new StringIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    stringIdKeys.stream().map(FastJsonStringIdKey::of).collect(Collectors.toList())
+            ));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }

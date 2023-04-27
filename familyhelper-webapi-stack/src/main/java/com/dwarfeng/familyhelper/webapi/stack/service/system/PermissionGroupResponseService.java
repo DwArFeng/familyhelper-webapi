@@ -8,6 +8,8 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
+import java.util.List;
+
 /**
  * 权限组响应服务。
  *
@@ -36,6 +38,8 @@ public interface PermissionGroupResponseService extends Service {
 
     PagedData<PermissionGroup> childForRoot(PagingInfo pagingInfo) throws ServiceException;
 
+    PagedData<PermissionGroup> nameLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
+
     DispPermissionGroup getDisp(StringIdKey key) throws ServiceException;
 
     PagedData<DispPermissionGroup> idLikeDisp(String pattern, PagingInfo pagingInfo)
@@ -45,4 +49,8 @@ public interface PermissionGroupResponseService extends Service {
             throws ServiceException;
 
     PagedData<DispPermissionGroup> childForRootDisp(PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<DispPermissionGroup> nameLikeDisp(String pattern, PagingInfo pagingInfo) throws ServiceException;
+
+    List<StringIdKey> pathFromRoot(StringIdKey key) throws ServiceException;
 }
