@@ -179,6 +179,7 @@ public class PbNodeResponseServiceImpl implements PbNodeResponseService {
         pbNodeOperateService.removePbNode(userKey, pbNodeKey);
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException {
         // 获取当前的笔记节点。

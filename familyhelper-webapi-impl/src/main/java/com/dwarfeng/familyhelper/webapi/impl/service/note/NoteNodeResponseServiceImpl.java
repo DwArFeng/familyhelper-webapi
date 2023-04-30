@@ -179,6 +179,7 @@ public class NoteNodeResponseServiceImpl implements NoteNodeResponseService {
         noteNodeOperateService.removeNoteNode(userKey, noteNodeKey);
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException {
         // 获取当前的笔记节点。

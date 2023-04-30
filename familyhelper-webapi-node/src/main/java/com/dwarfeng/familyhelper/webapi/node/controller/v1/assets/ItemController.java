@@ -29,7 +29,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 项目控制器。
@@ -171,6 +173,28 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/asset-catalog/{assetCatalogId}/item/name-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonItem>> childForAssetCatalogNameLike(
+            HttpServletRequest request,
+            @PathVariable("assetCatalogId") long assetCatalogId, @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<Item> childForNoteBookRoot = service.childForAssetCatalogNameLike(
+                    new LongIdKey(assetCatalogId), pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonItem> transform = PagingUtil.transform(
+                    childForNoteBookRoot, itemBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @GetMapping("/item/{id}/disp")
     @BehaviorAnalyse
     @SkipRecord
@@ -277,6 +301,29 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/asset-catalog/{assetCatalogId}/item/name-like/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispItem>> childForAssetCatalogNameLikeDisp(
+            HttpServletRequest request,
+            @PathVariable("assetCatalogId") long assetCatalogId, @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<DispItem> childForNoteBookRoot = service.childForAssetCatalogNameLikeDisp(
+                    accountKey, new LongIdKey(assetCatalogId), pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonDispItem> transform = PagingUtil.transform(
+                    childForNoteBookRoot, dispItemBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/item/create")
     @BehaviorAnalyse
     @BindingCheck
@@ -324,6 +371,23 @@ public class ItemController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removeItem(accountKey, WebInputLongIdKey.toStackBean(itemKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @GetMapping("/item/{id}/path-from-root")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<List<JSFixedFastJsonLongIdKey>> pathFromRoot(
+            HttpServletRequest request, @PathVariable("id") Long id
+    ) {
+        try {
+            List<LongIdKey> longIdKeys = service.pathFromRoot(new LongIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    longIdKeys.stream().map(JSFixedFastJsonLongIdKey::of).collect(Collectors.toList())
+            ));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
