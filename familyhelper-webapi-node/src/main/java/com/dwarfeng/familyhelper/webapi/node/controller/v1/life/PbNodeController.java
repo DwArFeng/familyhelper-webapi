@@ -29,7 +29,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 个人最佳节点控制器。
@@ -171,6 +173,33 @@ public class PbNodeController {
         }
     }
 
+    @GetMapping(value = {
+            "/pb-set/{pbSetId}/pb-node/name-like", "/pb-set//pb-node/name-like"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbNode>> childForPbSetNameLike(
+            @PathVariable(required = false, value = "pbSetId") Long pbSetId,
+            @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            LongIdKey pbSetKey = null;
+            if (Objects.nonNull(pbSetId)) {
+                pbSetKey = new LongIdKey(pbSetId);
+            }
+            PagedData<PbNode> childForPbSet = service.childForPbSetNameLike(
+                    pbSetKey, pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonPbNode> transform = PagingUtil.transform(
+                    childForPbSet, pbNodeBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @GetMapping("/pb-node/{id}/disp")
     @BehaviorAnalyse
     @SkipRecord
@@ -278,6 +307,36 @@ public class PbNodeController {
         }
     }
 
+    @GetMapping(value = {
+            "/pb-set/{pbSetId}/pb-node/name-like/disp", "/pb-set//pb-node/name-like/disp"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbNode>> childForPbSetNameLikeDisp(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "pbSetId") Long pbSetId,
+            @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            LongIdKey pbSetKey = null;
+            if (Objects.nonNull(pbSetId)) {
+                pbSetKey = new LongIdKey(pbSetId);
+            }
+            PagedData<DispPbNode> childForPbSet = service.childForPbSetNameLikeDisp(
+                    accountKey, pbSetKey, pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonDispPbNode> transform = PagingUtil.transform(
+                    childForPbSet, dispPbNodeBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/pb-node/create")
     @BehaviorAnalyse
     @BindingCheck
@@ -325,6 +384,23 @@ public class PbNodeController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removePbNode(accountKey, WebInputLongIdKey.toStackBean(pbNodeKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @GetMapping("/pb-node/{id}/path-from-root")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<List<JSFixedFastJsonLongIdKey>> pathFromRoot(
+            HttpServletRequest request, @PathVariable("id") Long id
+    ) {
+        try {
+            List<LongIdKey> longIdKeys = service.pathFromRoot(new LongIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    longIdKeys.stream().map(JSFixedFastJsonLongIdKey::of).collect(Collectors.toList())
+            ));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }

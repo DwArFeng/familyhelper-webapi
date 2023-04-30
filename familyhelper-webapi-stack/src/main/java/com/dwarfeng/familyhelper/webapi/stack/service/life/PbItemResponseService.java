@@ -11,6 +11,8 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
+import java.util.List;
+
 /**
  * 个人最佳项目响应服务。
  *
@@ -31,6 +33,9 @@ public interface PbItemResponseService extends Service {
     PagedData<PbItem> childForPbSetRoot(LongIdKey pbSetKey, PagingInfo pagingInfo)
             throws ServiceException;
 
+    PagedData<PbItem> childForPbSetNameLike(LongIdKey pbSetKey, String pattern, PagingInfo pagingInfo)
+            throws ServiceException;
+
     DispPbItem getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException;
 
     PagedData<DispPbItem> allDisp(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
@@ -43,10 +48,23 @@ public interface PbItemResponseService extends Service {
             StringIdKey accountKey, LongIdKey pbSetKey, PagingInfo pagingInfo
     ) throws ServiceException;
 
+    PagedData<DispPbItem> childForPbSetNameLikeDisp(
+            StringIdKey accountKey, LongIdKey pbSetKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException;
+
     LongIdKey createPbItem(StringIdKey userKey, PbItemCreateInfo pbItemCreateInfo)
             throws ServiceException;
 
     void updatePbItem(StringIdKey userKey, PbItemUpdateInfo pbItemUpdateInfo) throws ServiceException;
 
     void removePbItem(StringIdKey userKey, LongIdKey pbItemKey) throws ServiceException;
+
+    /**
+     * 获取指定的个人最佳项目从根节点到该个人最佳所属父节点的路径。
+     *
+     * @param key 指定的个人最佳项目的主键。
+     * @return 指定的个人最佳项目从根节点到该个人最佳所属父节点的路径。
+     * @throws ServiceException 服务异常。
+     */
+    List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException;
 }

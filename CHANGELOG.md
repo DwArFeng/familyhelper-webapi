@@ -8,6 +8,8 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteItemController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionGroupController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbItemController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbNodeController。
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateDriverSupportController。

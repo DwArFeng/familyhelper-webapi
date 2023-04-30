@@ -29,7 +29,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 个人最佳项目控制器。
@@ -150,6 +152,28 @@ public class PbItemController {
         }
     }
 
+    @GetMapping("/pb-set/{pbSetId}/pb-item/name-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbItem>> childForPbBookNameLike(
+            HttpServletRequest request,
+            @PathVariable("pbSetId") long pbSetId, @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<PbItem> childForPbBookRoot = service.childForPbSetNameLike(
+                    new LongIdKey(pbSetId), pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonPbItem> transform = PagingUtil.transform(
+                    childForPbBookRoot, pbItemBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @GetMapping("/pb-item/{id}/disp")
     @BehaviorAnalyse
     @SkipRecord
@@ -233,6 +257,29 @@ public class PbItemController {
         }
     }
 
+    @GetMapping("/pb-set/{pbSetId}/pb-item/name-like/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbItem>> childForPbBookNameLikeDisp(
+            HttpServletRequest request,
+            @PathVariable("pbSetId") long pbSetId, @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<DispPbItem> childForPbBookRoot = service.childForPbSetNameLikeDisp(
+                    accountKey, new LongIdKey(pbSetId), pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonDispPbItem> transform = PagingUtil.transform(
+                    childForPbBookRoot, dispPbItemBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/pb-item/create")
     @BehaviorAnalyse
     @BindingCheck
@@ -280,6 +327,23 @@ public class PbItemController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removePbItem(accountKey, WebInputLongIdKey.toStackBean(pbItemKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @GetMapping("/pb-item/{id}/path-from-root")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<List<JSFixedFastJsonLongIdKey>> pathFromRoot(
+            HttpServletRequest request, @PathVariable("id") Long id
+    ) {
+        try {
+            List<LongIdKey> longIdKeys = service.pathFromRoot(new LongIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    longIdKeys.stream().map(JSFixedFastJsonLongIdKey::of).collect(Collectors.toList())
+            ));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
