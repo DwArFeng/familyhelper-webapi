@@ -29,9 +29,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * 个人最佳项目控制器。
@@ -327,23 +325,6 @@ public class PbItemController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removePbItem(accountKey, WebInputLongIdKey.toStackBean(pbItemKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @GetMapping("/pb-item/{id}/path-from-root")
-    @BehaviorAnalyse
-    @BindingCheck
-    public FastJsonResponseData<List<JSFixedFastJsonLongIdKey>> pathFromRoot(
-            HttpServletRequest request, @PathVariable("id") Long id
-    ) {
-        try {
-            List<LongIdKey> longIdKeys = service.pathFromRoot(new LongIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(
-                    longIdKeys.stream().map(JSFixedFastJsonLongIdKey::of).collect(Collectors.toList())
-            ));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }

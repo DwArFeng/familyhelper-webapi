@@ -26,9 +26,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * 权限控制器。
@@ -43,18 +41,18 @@ public class PermissionGroupController {
     private final PermissionGroupResponseService service;
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<PermissionGroup, FastJsonPermissionGroup> permissionGroupBeanTransformer;
-    private final BeanTransformer<DispPermissionGroup, FastJsonDispPermissionGroup> dispPermissionGroupBeanTransformer;
+    private final BeanTransformer<PermissionGroup, FastJsonPermissionGroup> beanTransformer;
+    private final BeanTransformer<DispPermissionGroup, FastJsonDispPermissionGroup> dispBeanTransformer;
 
     public PermissionGroupController(
             PermissionGroupResponseService service, ServiceExceptionMapper sem,
-            BeanTransformer<PermissionGroup, FastJsonPermissionGroup> permissionGroupBeanTransformer,
-            BeanTransformer<DispPermissionGroup, FastJsonDispPermissionGroup> dispPermissionGroupBeanTransformer
+            BeanTransformer<PermissionGroup, FastJsonPermissionGroup> beanTransformer,
+            BeanTransformer<DispPermissionGroup, FastJsonDispPermissionGroup> dispBeanTransformer
     ) {
         this.service = service;
         this.sem = sem;
-        this.permissionGroupBeanTransformer = permissionGroupBeanTransformer;
-        this.dispPermissionGroupBeanTransformer = dispPermissionGroupBeanTransformer;
+        this.beanTransformer = beanTransformer;
+        this.dispBeanTransformer = dispBeanTransformer;
     }
 
     @GetMapping("/permission-group/{id}/exists")
@@ -142,7 +140,7 @@ public class PermissionGroupController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
             PagedData<PermissionGroup> all = service.all(new PagingInfo(page, rows));
-            PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(all, permissionGroupBeanTransformer);
+            PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
@@ -158,7 +156,7 @@ public class PermissionGroupController {
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
             PagedData<PermissionGroup> idLike = service.idLike(pattern, new PagingInfo(page, rows));
-            PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(idLike, permissionGroupBeanTransformer);
+            PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(idLike, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
@@ -185,7 +183,7 @@ public class PermissionGroupController {
                     parentKey, new PagingInfo(page, rows)
             );
             PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(
-                    childForParent, permissionGroupBeanTransformer
+                    childForParent, beanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
@@ -204,7 +202,7 @@ public class PermissionGroupController {
         try {
             PagedData<PermissionGroup> nameLike = service.nameLike(pattern, new PagingInfo(page, rows));
             PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(
-                    nameLike, permissionGroupBeanTransformer
+                    nameLike, beanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
@@ -239,7 +237,7 @@ public class PermissionGroupController {
                     pattern, new PagingInfo(page, rows)
             );
             PagedData<FastJsonDispPermissionGroup> transform = PagingUtil.transform(
-                    idLike, dispPermissionGroupBeanTransformer
+                    idLike, dispBeanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
@@ -266,7 +264,7 @@ public class PermissionGroupController {
                     parentKey, new PagingInfo(page, rows)
             );
             PagedData<FastJsonDispPermissionGroup> transform = PagingUtil.transform(
-                    childForParent, dispPermissionGroupBeanTransformer
+                    childForParent, dispBeanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
@@ -285,7 +283,7 @@ public class PermissionGroupController {
         try {
             PagedData<DispPermissionGroup> nameLike = service.nameLikeDisp(pattern, new PagingInfo(page, rows));
             PagedData<FastJsonDispPermissionGroup> transform = PagingUtil.transform(
-                    nameLike, dispPermissionGroupBeanTransformer
+                    nameLike, dispBeanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
@@ -296,14 +294,32 @@ public class PermissionGroupController {
     @GetMapping("/permission-group/{id}/path-from-root")
     @BehaviorAnalyse
     @BindingCheck
-    public FastJsonResponseData<List<FastJsonStringIdKey>> pathFromRoot(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermissionGroup>> pathFromRoot(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
         try {
-            List<StringIdKey> stringIdKeys = service.pathFromRoot(new StringIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(
-                    stringIdKeys.stream().map(FastJsonStringIdKey::of).collect(Collectors.toList())
-            ));
+            PagedData<PermissionGroup> pathFromRoot = service.pathFromRoot(new StringIdKey(id));
+            PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(
+                    pathFromRoot, beanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/permission-group/{id}/path-from-root/disp")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispPermissionGroup>> pathFromRootDisp(
+            HttpServletRequest request, @PathVariable("id") String id
+    ) {
+        try {
+            PagedData<DispPermissionGroup> pathFromRoot = service.pathFromRootDisp(new StringIdKey(id));
+            PagedData<FastJsonDispPermissionGroup> transform = PagingUtil.transform(
+                    pathFromRoot, dispBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }

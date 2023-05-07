@@ -41,9 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * 笔记项目控制器。
@@ -422,22 +420,5 @@ public class NoteItemController {
 
     private String adjustFileNameEncoding(String fileName) {
         return new String(fileName.getBytes(), StandardCharsets.ISO_8859_1);
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @GetMapping("/note-item/{id}/path-from-root")
-    @BehaviorAnalyse
-    @BindingCheck
-    public FastJsonResponseData<List<JSFixedFastJsonLongIdKey>> pathFromRoot(
-            HttpServletRequest request, @PathVariable("id") Long id
-    ) {
-        try {
-            List<LongIdKey> longIdKeys = service.pathFromRoot(new LongIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(
-                    longIdKeys.stream().map(JSFixedFastJsonLongIdKey::of).collect(Collectors.toList())
-            ));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
     }
 }

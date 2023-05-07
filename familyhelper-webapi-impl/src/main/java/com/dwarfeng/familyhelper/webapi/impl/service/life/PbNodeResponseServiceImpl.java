@@ -2,6 +2,7 @@ package com.dwarfeng.familyhelper.webapi.impl.service.life;
 
 import com.dwarfeng.familyhelper.life.stack.bean.dto.PbNodeCreateInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.dto.PbNodeUpdateInfo;
+import com.dwarfeng.familyhelper.life.stack.bean.entity.PbItem;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.PbNode;
 import com.dwarfeng.familyhelper.life.stack.service.PbItemMaintainService;
 import com.dwarfeng.familyhelper.life.stack.service.PbNodeMaintainService;
@@ -10,6 +11,7 @@ import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbNode;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbSet;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.PbNodeResponseService;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.PbSetResponseService;
+import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
@@ -133,6 +135,73 @@ public class PbNodeResponseServiceImpl implements PbNodeResponseService {
         return toDispPagedData(lookup, accountKey);
     }
 
+    @Override
+    public PagedData<PbNode> nodePathFromRoot(LongIdKey key) throws ServiceException {
+        // 获取当前的个人最佳节点作为锚点。
+        PbNode anchor = pbNodeMaintainService.get(key);
+
+        // 定义结果列表。
+        List<PbNode> result = new ArrayList<>();
+
+        // 如果锚点的父键不为 null，则循环。
+        while (Objects.nonNull(anchor.getParentKey())) {
+            // 获取锚点的父键对应的权限组。
+            anchor = pbNodeMaintainService.get(anchor.getParentKey());
+            // 将锚点加入结果列表。
+            result.add(anchor);
+        }
+
+        // 将结果列表反转。
+        Collections.reverse(result);
+
+        // 返回结果。
+        return PagingUtil.pagedData(result);
+    }
+
+    @Override
+    public PagedData<DispPbNode> nodePathFromRootDisp(StringIdKey accountKey, LongIdKey key) throws ServiceException {
+        PagedData<PbNode> pathFromRoot = nodePathFromRoot(key);
+        return toDispPagedData(pathFromRoot, accountKey);
+    }
+
+    @Override
+    public PagedData<PbNode> itemPathFromRoot(LongIdKey itemKey) throws ServiceException {
+        // 获取当前的个人最佳项目。
+        PbItem pbItem = pbItemMaintainService.get(itemKey);
+
+        // 如果项目的节点键为 null，则返回空的分页数据。
+        if (Objects.isNull(pbItem.getNodeKey())) {
+            return PagingUtil.pagedData(Collections.emptyList());
+        }
+
+        // 获取当前的个人最佳节点作为锚点。
+        PbNode anchor = pbNodeMaintainService.get(pbItem.getNodeKey());
+
+        // 定义结果列表。
+        List<PbNode> result = new ArrayList<>();
+        result.add(anchor);
+
+        // 如果锚点的父键不为 null，则循环。
+        while (Objects.nonNull(anchor.getParentKey())) {
+            // 获取锚点的父键对应的权限组。
+            anchor = pbNodeMaintainService.get(anchor.getParentKey());
+            // 将锚点加入结果列表。
+            result.add(anchor);
+        }
+
+        // 将结果列表反转。
+        Collections.reverse(result);
+
+        // 返回结果。
+        return PagingUtil.pagedData(result);
+    }
+
+    @Override
+    public PagedData<DispPbNode> itemPathFromRootDisp(StringIdKey accountKey, LongIdKey itemKey) throws ServiceException {
+        PagedData<PbNode> pathFromRoot = itemPathFromRoot(itemKey);
+        return toDispPagedData(pathFromRoot, accountKey);
+    }
+
     private DispPbNode toDisp(PbNode pbNode, StringIdKey inspectAccountKey)
             throws ServiceException {
         DispPbSet set = null;
@@ -177,50 +246,5 @@ public class PbNodeResponseServiceImpl implements PbNodeResponseService {
     @Override
     public void removePbNode(StringIdKey userKey, LongIdKey pbNodeKey) throws ServiceException {
         pbNodeOperateService.removePbNode(userKey, pbNodeKey);
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException {
-        // 获取当前的笔记节点。
-        PbNode pbNode = pbNodeMaintainService.get(key);
-
-        // 如果当前笔记节点没有父节点，则返回空列表。
-        if (Objects.isNull(pbNode.getParentKey())) {
-            return Collections.emptyList();
-        }
-
-        // 定义结果列表。
-        List<LongIdKey> result = new ArrayList<>();
-
-        // 获取当前笔记节点的父节点主键，作为当前节点主键。
-        LongIdKey anchorKey = pbNode.getParentKey();
-
-        // 将当前节点主键添加到结果列表中。
-        result.add(anchorKey);
-
-        // 循环获取父节点的父节点，直到父节点为空。
-        while (Objects.nonNull(anchorKey)) {
-            // 获取当前节点。
-            pbNode = pbNodeMaintainService.get(anchorKey);
-
-            // 获取当前节点的父节点主键。
-            LongIdKey parentKey = pbNode.getParentKey();
-
-            // 如果当前节点没有父节点，则跳出循环。
-            if (Objects.isNull(parentKey)) {
-                break;
-            }
-
-            // 将父节点主键添加到结果列表中。
-            result.add(parentKey);
-
-            // 将父节点主键作为当前节点主键。
-            anchorKey = parentKey;
-        }
-
-        // 将结果列表反转，并返回。
-        Collections.reverse(result);
-        return result;
     }
 }

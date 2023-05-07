@@ -13,6 +13,7 @@ import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispAssetCatalog;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispItem;
 import com.dwarfeng.familyhelper.webapi.stack.service.assets.AssetCatalogResponseService;
 import com.dwarfeng.familyhelper.webapi.stack.service.assets.ItemResponseService;
+import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
@@ -144,6 +145,35 @@ public class ItemResponseServiceImpl implements ItemResponseService {
         return toDispPagedData(lookup, accountKey);
     }
 
+    @Override
+    public PagedData<Item> pathFromRoot(LongIdKey key) throws ServiceException {
+        // 获取当前的项目作为锚点。
+        Item anchor = itemMaintainService.get(key);
+
+        // 定义结果列表。
+        List<Item> result = new ArrayList<>();
+
+        // 如果锚点的父键不为 null，则循环。
+        while (Objects.nonNull(anchor.getParentKey())) {
+            // 获取锚点的父键对应的权限组。
+            anchor = itemMaintainService.get(anchor.getParentKey());
+            // 将锚点加入结果列表。
+            result.add(anchor);
+        }
+
+        // 将结果列表反转。
+        Collections.reverse(result);
+
+        // 返回结果。
+        return PagingUtil.pagedData(result);
+    }
+
+    @Override
+    public PagedData<DispItem> pathFromRootDisp(StringIdKey accountKey, LongIdKey key) throws ServiceException {
+        PagedData<Item> pathFromRoot = pathFromRoot(key);
+        return toDispPagedData(pathFromRoot, accountKey);
+    }
+
     private DispItem toDisp(Item item, StringIdKey inspectAccountKey)
             throws ServiceException {
         DispAssetCatalog assetCatalog = null;
@@ -193,50 +223,5 @@ public class ItemResponseServiceImpl implements ItemResponseService {
     @Override
     public void removeItem(StringIdKey userKey, LongIdKey itemKey) throws ServiceException {
         itemOperateService.removeItem(userKey, itemKey);
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException {
-        // 获取当前的权限组。
-        Item item = itemMaintainService.get(key);
-
-        // 如果权限组没有父节点，则返回空列表。
-        if (Objects.isNull(item.getParentKey())) {
-            return new ArrayList<>();
-        }
-
-        // 定义结果列表。
-        List<LongIdKey> result = new ArrayList<>();
-
-        // 获取权限组的父节点主键，作为当前节点主键。
-        LongIdKey anchorKey = item.getParentKey();
-
-        // 将当前节点主键添加到结果列表中。
-        result.add(anchorKey);
-
-        // 循环获取父节点的父节点，直到父节点为空。
-        while (Objects.nonNull(anchorKey)) {
-            // 获取当前节点。
-            item = itemMaintainService.get(anchorKey);
-
-            // 获取当前节点的父节点主键。
-            LongIdKey parentKey = item.getParentKey();
-
-            // 如果当前节点没有父节点，则跳出循环。
-            if (Objects.isNull(parentKey)) {
-                break;
-            }
-
-            // 将父节点主键添加到结果列表中。
-            result.add(parentKey);
-
-            // 将父节点主键作为当前节点主键。
-            anchorKey = parentKey;
-        }
-
-        // 将结果列表反转，并返回。
-        Collections.reverse(result);
-        return result;
     }
 }

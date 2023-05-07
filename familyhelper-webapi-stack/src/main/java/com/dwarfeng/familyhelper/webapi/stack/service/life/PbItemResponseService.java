@@ -11,8 +11,6 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
-import java.util.List;
-
 /**
  * 个人最佳项目响应服务。
  *
@@ -58,13 +56,4 @@ public interface PbItemResponseService extends Service {
     void updatePbItem(StringIdKey userKey, PbItemUpdateInfo pbItemUpdateInfo) throws ServiceException;
 
     void removePbItem(StringIdKey userKey, LongIdKey pbItemKey) throws ServiceException;
-
-    /**
-     * 获取指定的个人最佳项目从根节点到该个人最佳所属父节点的路径。
-     *
-     * @param key 指定的个人最佳项目的主键。
-     * @return 指定的个人最佳项目从根节点到该个人最佳所属父节点的路径。
-     * @throws ServiceException 服务异常。
-     */
-    List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException;
 }

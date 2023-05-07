@@ -11,8 +11,6 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
-import java.util.List;
-
 /**
  * 笔记节点响应服务。
  *
@@ -57,19 +55,18 @@ public interface NoteNodeResponseService extends Service {
             StringIdKey accountKey, LongIdKey noteBookKey, String pattern, PagingInfo pagingInfo
     ) throws ServiceException;
 
+    PagedData<NoteNode> nodePathFromRoot(LongIdKey key) throws ServiceException;
+
+    PagedData<DispNoteNode> nodePathFromRootDisp(StringIdKey accountKey, LongIdKey key) throws ServiceException;
+
+    PagedData<NoteNode> itemPathFromRoot(LongIdKey itemKey) throws ServiceException;
+
+    PagedData<DispNoteNode> itemPathFromRootDisp(StringIdKey accountKey, LongIdKey itemKey) throws ServiceException;
+
     LongIdKey createNoteNode(StringIdKey userKey, NoteNodeCreateInfo noteNodeCreateInfo)
             throws ServiceException;
 
     void updateNoteNode(StringIdKey userKey, NoteNodeUpdateInfo noteNodeUpdateInfo) throws ServiceException;
 
     void removeNoteNode(StringIdKey userKey, LongIdKey noteNodeKey) throws ServiceException;
-
-    /**
-     * 获取指定的笔记节点从根节点到该节点所属父节点的路径。
-     *
-     * @param key 指定的笔记节点的主键。
-     * @return 指定的笔记节点从根节点到该节点所属父节点的路径。
-     * @throws ServiceException 服务异常。
-     */
-    List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException;
 }

@@ -11,8 +11,6 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
-import java.util.List;
-
 /**
  * 项目响应服务。
  *
@@ -58,12 +56,14 @@ public interface ItemResponseService extends Service {
             StringIdKey accountKey, LongIdKey assetCatalogKey, String pattern, PagingInfo pagingInfo
     ) throws ServiceException;
 
+    PagedData<Item> pathFromRoot(LongIdKey key) throws ServiceException;
+
+    PagedData<DispItem> pathFromRootDisp(StringIdKey accountKey, LongIdKey key) throws ServiceException;
+
     LongIdKey createItem(StringIdKey userKey, ItemCreateInfo itemCreateInfo)
             throws ServiceException;
 
     void updateItem(StringIdKey userKey, ItemUpdateInfo itemUpdateInfo) throws ServiceException;
 
     void removeItem(StringIdKey userKey, LongIdKey itemKey) throws ServiceException;
-
-    List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException;
 }

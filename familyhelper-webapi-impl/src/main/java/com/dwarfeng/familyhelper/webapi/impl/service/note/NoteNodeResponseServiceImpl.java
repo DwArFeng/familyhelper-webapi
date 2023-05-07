@@ -2,6 +2,7 @@ package com.dwarfeng.familyhelper.webapi.impl.service.note;
 
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteNodeCreateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteNodeUpdateInfo;
+import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteItem;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteNode;
 import com.dwarfeng.familyhelper.note.stack.service.NoteItemMaintainService;
 import com.dwarfeng.familyhelper.note.stack.service.NoteNodeMaintainService;
@@ -10,6 +11,7 @@ import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispNoteBook;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispNoteNode;
 import com.dwarfeng.familyhelper.webapi.stack.service.note.NoteBookResponseService;
 import com.dwarfeng.familyhelper.webapi.stack.service.note.NoteNodeResponseService;
+import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
@@ -133,6 +135,73 @@ public class NoteNodeResponseServiceImpl implements NoteNodeResponseService {
         return toDispPagedData(lookup, accountKey);
     }
 
+    @Override
+    public PagedData<NoteNode> nodePathFromRoot(LongIdKey key) throws ServiceException {
+        // 获取当前的笔记节点作为锚点。
+        NoteNode anchor = noteNodeMaintainService.get(key);
+
+        // 定义结果列表。
+        List<NoteNode> result = new ArrayList<>();
+
+        // 如果锚点的父键不为 null，则循环。
+        while (Objects.nonNull(anchor.getParentKey())) {
+            // 获取锚点的父键对应的权限组。
+            anchor = noteNodeMaintainService.get(anchor.getParentKey());
+            // 将锚点加入结果列表。
+            result.add(anchor);
+        }
+
+        // 将结果列表反转。
+        Collections.reverse(result);
+
+        // 返回结果。
+        return PagingUtil.pagedData(result);
+    }
+
+    @Override
+    public PagedData<DispNoteNode> nodePathFromRootDisp(StringIdKey accountKey, LongIdKey key) throws ServiceException {
+        PagedData<NoteNode> pathFromRoot = nodePathFromRoot(key);
+        return toDispPagedData(pathFromRoot, accountKey);
+    }
+
+    @Override
+    public PagedData<NoteNode> itemPathFromRoot(LongIdKey itemKey) throws ServiceException {
+        // 获取当前的笔记项目。
+        NoteItem noteItem = noteItemMaintainService.get(itemKey);
+
+        // 如果项目的节点键为 null，则返回空的分页数据。
+        if (Objects.isNull(noteItem.getNodeKey())) {
+            return PagingUtil.pagedData(Collections.emptyList());
+        }
+
+        // 获取当前的个人最佳节点作为锚点。
+        NoteNode anchor = noteNodeMaintainService.get(noteItem.getNodeKey());
+
+        // 定义结果列表。
+        List<NoteNode> result = new ArrayList<>();
+        result.add(anchor);
+
+        // 如果锚点的父键不为 null，则循环。
+        while (Objects.nonNull(anchor.getParentKey())) {
+            // 获取锚点的父键对应的权限组。
+            anchor = noteNodeMaintainService.get(anchor.getParentKey());
+            // 将锚点加入结果列表。
+            result.add(anchor);
+        }
+
+        // 将结果列表反转。
+        Collections.reverse(result);
+
+        // 返回结果。
+        return PagingUtil.pagedData(result);
+    }
+
+    @Override
+    public PagedData<DispNoteNode> itemPathFromRootDisp(StringIdKey accountKey, LongIdKey itemKey) throws ServiceException {
+        PagedData<NoteNode> pathFromRoot = itemPathFromRoot(itemKey);
+        return toDispPagedData(pathFromRoot, accountKey);
+    }
+
     private DispNoteNode toDisp(NoteNode noteNode, StringIdKey inspectAccountKey)
             throws ServiceException {
         DispNoteBook set = null;
@@ -177,50 +246,5 @@ public class NoteNodeResponseServiceImpl implements NoteNodeResponseService {
     @Override
     public void removeNoteNode(StringIdKey userKey, LongIdKey noteNodeKey) throws ServiceException {
         noteNodeOperateService.removeNoteNode(userKey, noteNodeKey);
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException {
-        // 获取当前的笔记节点。
-        NoteNode noteNode = noteNodeMaintainService.get(key);
-
-        // 如果当前笔记节点没有父节点，则返回空列表。
-        if (Objects.isNull(noteNode.getParentKey())) {
-            return Collections.emptyList();
-        }
-
-        // 定义结果列表。
-        List<LongIdKey> result = new ArrayList<>();
-
-        // 获取当前笔记节点的父节点主键，作为当前节点主键。
-        LongIdKey anchorKey = noteNode.getParentKey();
-
-        // 将当前节点主键添加到结果列表中。
-        result.add(anchorKey);
-
-        // 循环获取父节点的父节点，直到父节点为空。
-        while (Objects.nonNull(anchorKey)) {
-            // 获取当前节点。
-            noteNode = noteNodeMaintainService.get(anchorKey);
-
-            // 获取当前节点的父节点主键。
-            LongIdKey parentKey = noteNode.getParentKey();
-
-            // 如果当前节点没有父节点，则跳出循环。
-            if (Objects.isNull(parentKey)) {
-                break;
-            }
-
-            // 将父节点主键添加到结果列表中。
-            result.add(parentKey);
-
-            // 将父节点主键作为当前节点主键。
-            anchorKey = parentKey;
-        }
-
-        // 将结果列表反转，并返回。
-        Collections.reverse(result);
-        return result;
     }
 }

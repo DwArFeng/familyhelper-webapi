@@ -3,10 +3,8 @@ package com.dwarfeng.familyhelper.webapi.impl.service.life;
 import com.dwarfeng.familyhelper.life.stack.bean.dto.PbItemCreateInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.dto.PbItemUpdateInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.PbItem;
-import com.dwarfeng.familyhelper.life.stack.bean.entity.PbNode;
 import com.dwarfeng.familyhelper.life.stack.service.PbItemMaintainService;
 import com.dwarfeng.familyhelper.life.stack.service.PbItemOperateService;
-import com.dwarfeng.familyhelper.life.stack.service.PbNodeMaintainService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbItem;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbNode;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.PbItemResponseService;
@@ -20,7 +18,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,19 +26,16 @@ public class PbItemResponseServiceImpl implements PbItemResponseService {
 
     private final PbItemMaintainService pbItemMaintainService;
     private final PbItemOperateService pbItemOperateService;
-    private final PbNodeMaintainService pbNodeMaintainService;
 
     private final PbNodeResponseService pbNodeResponseService;
 
     public PbItemResponseServiceImpl(
             @Qualifier("familyhelperLifePbItemMaintainService") PbItemMaintainService pbItemMaintainService,
             @Qualifier("familyhelperLifePbItemOperateService") PbItemOperateService pbItemOperateService,
-            @Qualifier("familyhelperLifePbNodeMaintainService") PbNodeMaintainService pbNodeMaintainService,
             PbNodeResponseService pbNodeResponseService
     ) {
         this.pbItemMaintainService = pbItemMaintainService;
         this.pbItemOperateService = pbItemOperateService;
-        this.pbNodeMaintainService = pbNodeMaintainService;
         this.pbNodeResponseService = pbNodeResponseService;
     }
 
@@ -150,49 +144,5 @@ public class PbItemResponseServiceImpl implements PbItemResponseService {
     @Override
     public void removePbItem(StringIdKey userKey, LongIdKey pbItemKey) throws ServiceException {
         pbItemOperateService.removePbItem(userKey, pbItemKey);
-    }
-
-    @Override
-    public List<LongIdKey> pathFromRoot(LongIdKey key) throws ServiceException {
-        // 获取当前的笔记项目。
-        PbItem pbItem = pbItemMaintainService.get(key);
-
-        // 如果笔记项目没有父节点，则返回空列表。
-        if (Objects.isNull(pbItem.getNodeKey())) {
-            return Collections.emptyList();
-        }
-
-        // 定义结果列表。
-        List<LongIdKey> result = new ArrayList<>();
-
-        // 获取当前笔记本项目的节点主键，作为当前节点主键。
-        LongIdKey anchorKey = pbItem.getNodeKey();
-
-        // 将当前节点主键添加到结果列表中。
-        result.add(anchorKey);
-
-        // 循环获取父节点，直到根节点。
-        while (true) {
-            // 获取当前节点。
-            PbNode pbNode = pbNodeMaintainService.get(anchorKey);
-
-            // 获取当前节点的父节点主键。
-            LongIdKey parentKey = pbNode.getParentKey();
-
-            // 如果当前节点没有父节点，则跳出循环。
-            if (Objects.isNull(parentKey)) {
-                break;
-            }
-
-            // 将父节点主键添加到结果列表中。
-            result.add(parentKey);
-
-            // 将父节点主键作为当前节点主键。
-            anchorKey = parentKey;
-        }
-
-        // 将结果列表反转，并返回。
-        Collections.reverse(result);
-        return result;
     }
 }

@@ -4,6 +4,7 @@ import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispPermissionGro
 import com.dwarfeng.familyhelper.webapi.stack.service.system.PermissionGroupResponseService;
 import com.dwarfeng.rbacds.stack.bean.entity.PermissionGroup;
 import com.dwarfeng.rbacds.stack.service.PermissionGroupMaintainService;
+import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
@@ -99,14 +100,12 @@ public class PermissionGroupResponseServiceImpl implements PermissionGroupRespon
         return toDisp(permissionGroup);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispPermissionGroup> idLikeDisp(String pattern, PagingInfo pagingInfo) throws ServiceException {
         PagedData<PermissionGroup> lookup = idLike(pattern, pagingInfo);
         return toDispPagedData(lookup);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispPermissionGroup> childForParentDisp(StringIdKey parentKey, PagingInfo pagingInfo)
             throws ServiceException {
@@ -114,7 +113,6 @@ public class PermissionGroupResponseServiceImpl implements PermissionGroupRespon
         return toDispPagedData(lookup);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispPermissionGroup> childForRootDisp(PagingInfo pagingInfo) throws ServiceException {
         PagedData<PermissionGroup> lookup = childForRoot(pagingInfo);
@@ -125,6 +123,35 @@ public class PermissionGroupResponseServiceImpl implements PermissionGroupRespon
     public PagedData<DispPermissionGroup> nameLikeDisp(String pattern, PagingInfo pagingInfo) throws ServiceException {
         PagedData<PermissionGroup> lookup = nameLike(pattern, pagingInfo);
         return toDispPagedData(lookup);
+    }
+
+    @Override
+    public PagedData<PermissionGroup> pathFromRoot(StringIdKey key) throws ServiceException {
+        // 获取当前的权限组作为锚点。
+        PermissionGroup anchor = service.get(key);
+
+        // 定义结果列表。
+        List<PermissionGroup> result = new ArrayList<>();
+
+        // 如果锚点的父键不为 null，则循环。
+        while (Objects.nonNull(anchor.getParentKey())) {
+            // 获取锚点的父键对应的权限组。
+            anchor = service.get(anchor.getParentKey());
+            // 将锚点加入结果列表。
+            result.add(anchor);
+        }
+
+        // 将结果列表反转。
+        Collections.reverse(result);
+
+        // 返回结果。
+        return PagingUtil.pagedData(result);
+    }
+
+    @Override
+    public PagedData<DispPermissionGroup> pathFromRootDisp(StringIdKey key) throws ServiceException {
+        PagedData<PermissionGroup> pathFromRoot = pathFromRoot(key);
+        return toDispPagedData(pathFromRoot);
     }
 
     private DispPermissionGroup toDisp(PermissionGroup permissionGroup) throws ServiceException {
@@ -145,49 +172,5 @@ public class PermissionGroupResponseServiceImpl implements PermissionGroupRespon
         return new PagedData<>(
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), DispPermissionGroups
         );
-    }
-
-    @Override
-    public List<StringIdKey> pathFromRoot(StringIdKey key) throws ServiceException {
-        // 获取当前的权限组。
-        PermissionGroup permissionGroup = service.get(key);
-
-        // 如果权限组没有父节点，则返回空列表。
-        if (Objects.isNull(permissionGroup.getParentKey())) {
-            return new ArrayList<>();
-        }
-
-        // 定义结果列表。
-        List<StringIdKey> result = new ArrayList<>();
-
-        // 获取权限组的父节点主键，作为当前节点主键。
-        StringIdKey anchorKey = permissionGroup.getParentKey();
-
-        // 将当前节点主键添加到结果列表中。
-        result.add(anchorKey);
-
-        // 循环获取父节点的父节点，直到父节点为空。
-        while (Objects.nonNull(anchorKey)) {
-            // 获取当前节点。
-            permissionGroup = service.get(anchorKey);
-
-            // 获取当前节点的父节点主键。
-            StringIdKey parentKey = permissionGroup.getParentKey();
-
-            // 如果当前节点没有父节点，则跳出循环。
-            if (Objects.isNull(parentKey)) {
-                break;
-            }
-
-            // 将父节点主键添加到结果列表中。
-            result.add(parentKey);
-
-            // 将父节点主键作为当前节点主键。
-            anchorKey = parentKey;
-        }
-
-        // 将结果列表反转，并返回。
-        Collections.reverse(result);
-        return result;
     }
 }

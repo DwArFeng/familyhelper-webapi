@@ -29,9 +29,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * 笔记节点控制器。
@@ -339,6 +337,80 @@ public class NoteNodeController {
         }
     }
 
+    @GetMapping("/note-node/{id}/path-from-root")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteNode>> nodePathFromRoot(
+            HttpServletRequest request, @PathVariable(value = "id") Long id
+    ) {
+        try {
+            PagedData<NoteNode> pathFromRoot = service.nodePathFromRoot(new LongIdKey(id));
+            PagedData<JSFixedFastJsonNoteNode> transform = PagingUtil.transform(
+                    pathFromRoot, noteNodeBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/note-node/{id}/path-from-root/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteNode>> nodePathFromRootDisp(
+            HttpServletRequest request, @PathVariable(value = "id") Long id
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<DispNoteNode> pathFromRoot = service.nodePathFromRootDisp(accountKey, new LongIdKey(id));
+            PagedData<JSFixedFastJsonDispNoteNode> transform = PagingUtil.transform(
+                    pathFromRoot, dispNoteNodeBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/note-item/{itemId}/path-from-root")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteNode>> itemPathFromRoot(
+            HttpServletRequest request, @PathVariable(value = "itemId") Long itemId
+    ) {
+        try {
+            PagedData<NoteNode> pathFromRoot = service.itemPathFromRoot(new LongIdKey(itemId));
+            PagedData<JSFixedFastJsonNoteNode> transform = PagingUtil.transform(
+                    pathFromRoot, noteNodeBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/note-item/{itemId}/path-from-root/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteNode>> itemPathFromRootDisp(
+            HttpServletRequest request, @PathVariable(value = "itemId") Long itemId
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<DispNoteNode> pathFromRoot = service.itemPathFromRootDisp(accountKey, new LongIdKey(itemId));
+            PagedData<JSFixedFastJsonDispNoteNode> transform = PagingUtil.transform(
+                    pathFromRoot, dispNoteNodeBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/note-node/create")
     @BehaviorAnalyse
     @BindingCheck
@@ -386,23 +458,6 @@ public class NoteNodeController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removeNoteNode(accountKey, WebInputLongIdKey.toStackBean(noteNodeKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @GetMapping("/note-node/{id}/path-from-root")
-    @BehaviorAnalyse
-    @BindingCheck
-    public FastJsonResponseData<List<JSFixedFastJsonLongIdKey>> pathFromRoot(
-            HttpServletRequest request, @PathVariable("id") Long id
-    ) {
-        try {
-            List<LongIdKey> longIdKeys = service.pathFromRoot(new LongIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(
-                    longIdKeys.stream().map(JSFixedFastJsonLongIdKey::of).collect(Collectors.toList())
-            ));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
