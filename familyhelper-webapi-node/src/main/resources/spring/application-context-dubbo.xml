@@ -323,6 +323,46 @@
             group="${dubbo.consumer.familyhelper_life.group}"
     />
     <dubbo:reference
+            id="familyhelperLifeActivityDataItemMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataItemMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifeActivityDataItemOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataItemOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifeActivityDataNodeMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifeActivityDataNodeOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifeActivityDataRecordMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataRecordMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
             id="familyhelperLifeActivityDataSetMaintainService"
             interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataSetMaintainService"
             retries="3"

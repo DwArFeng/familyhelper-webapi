@@ -18,6 +18,9 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataSetController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbSetController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PoadController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataItemController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataRecordController。
 
 - 为 dubbo 的消费者增加了分组设置。
   - snowflake。

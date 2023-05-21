@@ -103,4 +103,43 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<DispPoad, JSFixedFastJsonDispPoad> dispPoadBeanTransformer() {
         return new DozerBeanTransformer<>(DispPoad.class, JSFixedFastJsonDispPoad.class, mapper);
     }
+
+    @Bean("life.activityDataNodeBeanTransformer")
+    public BeanTransformer<ActivityDataNode, JSFixedFastJsonActivityDataNode> activityDataNodeBeanTransformer() {
+        return new DozerBeanTransformer<>(ActivityDataNode.class, JSFixedFastJsonActivityDataNode.class, mapper);
+    }
+
+    @Bean("life.dispActivityDataNodeBeanTransformer")
+    public BeanTransformer<DispActivityDataNode, JSFixedFastJsonDispActivityDataNode>
+    dispActivityDataNodeBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                DispActivityDataNode.class, JSFixedFastJsonDispActivityDataNode.class, mapper
+        );
+    }
+
+    @Bean("life.activityDataItemBeanTransformer")
+    public BeanTransformer<ActivityDataItem, JSFixedFastJsonActivityDataItem> activityDataItemBeanTransformer() {
+        return new DozerBeanTransformer<>(ActivityDataItem.class, JSFixedFastJsonActivityDataItem.class, mapper);
+    }
+
+    @Bean("life.dispActivityDataItemBeanTransformer")
+    public BeanTransformer<DispActivityDataItem, JSFixedFastJsonDispActivityDataItem>
+    dispActivityDataItemBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                DispActivityDataItem.class, JSFixedFastJsonDispActivityDataItem.class, mapper
+        );
+    }
+
+    @Bean("life.activityDataRecordBeanTransformer")
+    public BeanTransformer<ActivityDataRecord, JSFixedFastJsonActivityDataRecord> activityDataRecordBeanTransformer() {
+        return new DozerBeanTransformer<>(ActivityDataRecord.class, JSFixedFastJsonActivityDataRecord.class, mapper);
+    }
+
+    @Bean("life.dispActivityDataRecordBeanTransformer")
+    public BeanTransformer<DispActivityDataRecord, JSFixedFastJsonDispActivityDataRecord>
+    dispActivityDataRecordBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                DispActivityDataRecord.class, JSFixedFastJsonDispActivityDataRecord.class, mapper
+        );
+    }
 }
