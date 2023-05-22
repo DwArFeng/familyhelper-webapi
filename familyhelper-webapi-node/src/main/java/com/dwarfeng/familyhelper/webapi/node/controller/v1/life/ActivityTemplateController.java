@@ -1,15 +1,15 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.life;
 
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataSetCreateInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataSetPermissionRemoveInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataSetPermissionUpsertInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataSetUpdateInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonActivityDataSet;
-import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityDataSet;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispActivityDataSet;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityDataSet;
+import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityTemplateCreateInfo;
+import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityTemplatePermissionRemoveInfo;
+import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityTemplatePermissionUpsertInfo;
+import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityTemplateUpdateInfo;
+import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonActivityTemplate;
+import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityTemplate;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispActivityTemplate;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityTemplate;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
-import com.dwarfeng.familyhelper.webapi.stack.service.life.ActivityDataSetResponseService;
+import com.dwarfeng.familyhelper.webapi.stack.service.life.ActivityTemplateResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
@@ -33,29 +33,29 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 活动数据集控制器。
+ * 活动模板控制器。
  *
  * @author DwArFeng
  * @since 1.0.10
  */
 @RestController
 @RequestMapping("/api/v1/life")
-public class ActivityDataSetController {
+public class ActivityTemplateController {
 
-    private final ActivityDataSetResponseService service;
+    private final ActivityTemplateResponseService service;
 
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<ActivityDataSet, JSFixedFastJsonActivityDataSet> beanTransformer;
-    private final BeanTransformer<DispActivityDataSet, JSFixedFastJsonDispActivityDataSet> dispBeanTransformer;
+    private final BeanTransformer<ActivityTemplate, JSFixedFastJsonActivityTemplate> beanTransformer;
+    private final BeanTransformer<DispActivityTemplate, JSFixedFastJsonDispActivityTemplate> dispBeanTransformer;
 
     private final TokenHandler tokenHandler;
 
-    public ActivityDataSetController(
-            ActivityDataSetResponseService service,
+    public ActivityTemplateController(
+            ActivityTemplateResponseService service,
             ServiceExceptionMapper sem,
-            BeanTransformer<ActivityDataSet, JSFixedFastJsonActivityDataSet> beanTransformer,
-            BeanTransformer<DispActivityDataSet, JSFixedFastJsonDispActivityDataSet> dispBeanTransformer,
+            BeanTransformer<ActivityTemplate, JSFixedFastJsonActivityTemplate> beanTransformer,
+            BeanTransformer<DispActivityTemplate, JSFixedFastJsonDispActivityTemplate> dispBeanTransformer,
             TokenHandler tokenHandler
     ) {
         this.service = service;
@@ -65,7 +65,7 @@ public class ActivityDataSetController {
         this.tokenHandler = tokenHandler;
     }
 
-    @GetMapping("/activity-data-set/{id}/exists")
+    @GetMapping("/activity-template/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") Long id) {
@@ -77,30 +77,30 @@ public class ActivityDataSetController {
         }
     }
 
-    @GetMapping("/activity-data-set/{id}")
+    @GetMapping("/activity-template/{id}")
     @BehaviorAnalyse
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonActivityDataSet> get(
+    public FastJsonResponseData<JSFixedFastJsonActivityTemplate> get(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            ActivityDataSet activityDataSet = service.get(new LongIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonActivityDataSet.of(activityDataSet)));
+            ActivityTemplate activityTemplate = service.get(new LongIdKey(id));
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonActivityTemplate.of(activityTemplate)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/activity-data-set/all")
+    @GetMapping("/activity-template/all")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityDataSet>> all(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplate>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<ActivityDataSet> all = service.all(new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonActivityDataSet> transform = PagingUtil.transform(
+            PagedData<ActivityTemplate> all = service.all(new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonActivityTemplate> transform = PagingUtil.transform(
                     all, beanTransformer
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
@@ -109,36 +109,36 @@ public class ActivityDataSetController {
         }
     }
 
-    @GetMapping("/activity-data-set/{id}/disp")
+    @GetMapping("/activity-template/{id}/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonDispActivityDataSet> getDisp(
+    public FastJsonResponseData<JSFixedFastJsonDispActivityTemplate> getDisp(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
             StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
-            DispActivityDataSet dispActivityDataSet = service.getDisp(new LongIdKey(id), inspectAccountKey);
+            DispActivityTemplate dispActivityTemplate = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(
-                    ResponseDataUtil.good(JSFixedFastJsonDispActivityDataSet.of(dispActivityDataSet))
+                    ResponseDataUtil.good(JSFixedFastJsonDispActivityTemplate.of(dispActivityTemplate))
             );
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @GetMapping("/activity-data-set/all-permitted/disp")
+    @GetMapping("/activity-template/all-permitted/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataSet>> allPermittedDisp(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityTemplate>> allPermittedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispActivityDataSet> allPermittedDisp = service.allPermittedDisp(
+            PagedData<DispActivityTemplate> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonDispActivityDataSet> transform = PagingUtil.transform(
+            PagedData<JSFixedFastJsonDispActivityTemplate> transform = PagingUtil.transform(
                     allPermittedDisp, dispBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
@@ -146,18 +146,18 @@ public class ActivityDataSetController {
         }
     }
 
-    @GetMapping("/activity-data-set/all-owned/disp")
+    @GetMapping("/activity-template/all-owned/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataSet>> allOwnedDisp(
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityTemplate>> allOwnedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispActivityDataSet> allOwnedDisp = service.allOwnedDisp(
+            PagedData<DispActivityTemplate> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
-            PagedData<JSFixedFastJsonDispActivityDataSet> transform = PagingUtil.transform(
+            PagedData<JSFixedFastJsonDispActivityTemplate> transform = PagingUtil.transform(
                     allOwnedDisp, dispBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
@@ -165,38 +165,38 @@ public class ActivityDataSetController {
         }
     }
 
-    @PostMapping("/activity-data-set/create")
+    @PostMapping("/activity-template/create")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonLongIdKey> createActivityDataSet(
+    public FastJsonResponseData<JSFixedFastJsonLongIdKey> createActivityTemplate(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputActivityDataSetCreateInfo activityDataSetCreateInfo,
+            @RequestBody @Validated WebInputActivityTemplateCreateInfo activityTemplateCreateInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            LongIdKey result = service.createActivityDataSet(
-                    accountKey, WebInputActivityDataSetCreateInfo.toStackBean(activityDataSetCreateInfo));
+            LongIdKey result = service.createActivityTemplate(
+                    accountKey, WebInputActivityTemplateCreateInfo.toStackBean(activityTemplateCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @PostMapping("/activity-data-set/update")
+    @PostMapping("/activity-template/update")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
-    public FastJsonResponseData<Object> updateActivityDataSet(
+    public FastJsonResponseData<Object> updateActivityTemplate(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputActivityDataSetUpdateInfo webInputActivityDataSetUpdateInfo,
+            @RequestBody @Validated WebInputActivityTemplateUpdateInfo webInputActivityTemplateUpdateInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.updateActivityDataSet(
-                    accountKey, WebInputActivityDataSetUpdateInfo.toStackBean(webInputActivityDataSetUpdateInfo)
+            service.updateActivityTemplate(
+                    accountKey, WebInputActivityTemplateUpdateInfo.toStackBean(webInputActivityTemplateUpdateInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -204,36 +204,36 @@ public class ActivityDataSetController {
         }
     }
 
-    @PostMapping("/activity-data-set/remove")
+    @PostMapping("/activity-template/remove")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
-    public FastJsonResponseData<Object> removeActivityDataSet(
+    public FastJsonResponseData<Object> removeActivityTemplate(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputLongIdKey activityDataSetKey, BindingResult bindingResult
+            @RequestBody @Validated WebInputLongIdKey activityTemplateKey, BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            service.removeActivityDataSet(accountKey, WebInputLongIdKey.toStackBean(activityDataSetKey));
+            service.removeActivityTemplate(accountKey, WebInputLongIdKey.toStackBean(activityTemplateKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @PostMapping("/activity-data-set/upsert-permission")
+    @PostMapping("/activity-template/upsert-permission")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
     public FastJsonResponseData<Object> upsertPermission(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputActivityDataSetPermissionUpsertInfo webInputPermissionUpsertInfo,
+            @RequestBody @Validated WebInputActivityTemplatePermissionUpsertInfo webInputPermissionUpsertInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.upsertPermission(
-                    accountKey, WebInputActivityDataSetPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
+                    accountKey, WebInputActivityTemplatePermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -241,19 +241,19 @@ public class ActivityDataSetController {
         }
     }
 
-    @PostMapping("/activity-data-set/remove-permission")
+    @PostMapping("/activity-template/remove-permission")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
     public FastJsonResponseData<Object> removePermission(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputActivityDataSetPermissionRemoveInfo webInputPermissionRemoveInfo,
+            @RequestBody @Validated WebInputActivityTemplatePermissionRemoveInfo webInputPermissionRemoveInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removePermission(
-                    accountKey, WebInputActivityDataSetPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
+                    accountKey, WebInputActivityTemplatePermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

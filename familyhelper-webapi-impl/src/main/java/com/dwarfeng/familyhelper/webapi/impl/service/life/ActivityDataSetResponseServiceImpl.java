@@ -67,13 +67,32 @@ public class ActivityDataSetResponseServiceImpl implements ActivityDataSetRespon
 
     @Override
     public DispActivityDataSet getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException {
-        ActivityDataSet activityDataSet = activityDataSetMaintainService.get(key);
-        return dispActivityDataSetFromActivityDataSet(activityDataSet, inspectAccountKey);
+        ActivityDataSet activityDataSet = get(key);
+        return toDispFromActivityDataSet(activityDataSet, inspectAccountKey);
     }
 
-    private DispActivityDataSet dispActivityDataSetFromActivityDataSet(
-            ActivityDataSet activityDataSet, StringIdKey inspectAccountKey
-    ) throws ServiceException {
+    @Override
+    public PagedData<DispActivityDataSet> allPermittedDisp(StringIdKey accountKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        PagedData<Poad> lookup = poadMaintainService.lookup(
+                PoadMaintainService.CHILD_FOR_USER, new Object[]{accountKey}, pagingInfo
+        );
+        return toDispPagedDataFromPoad(lookup, accountKey);
+    }
+
+    @Override
+    public PagedData<DispActivityDataSet> allOwnedDisp(StringIdKey accountKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        PagedData<Poad> lookup = poadMaintainService.lookup(
+                PoadMaintainService.CHILD_FOR_USER_PERMISSION_LEVEL_EQUALS,
+                new Object[]{accountKey, Constants.PERMISSION_LEVEL_OWNER},
+                pagingInfo
+        );
+        return toDispPagedDataFromPoad(lookup, accountKey);
+    }
+
+    private DispActivityDataSet toDispFromActivityDataSet(ActivityDataSet activityDataSet, StringIdKey inspectAccountKey)
+            throws ServiceException {
         List<Poad> relatedPoads = poadMaintainService.lookup(
                 PoadMaintainService.CHILD_FOR_ACTIVITY_DATA_SET, new Object[]{activityDataSet.getKey()}
         ).getData();
@@ -93,45 +112,7 @@ public class ActivityDataSetResponseServiceImpl implements ActivityDataSetRespon
         return DispActivityDataSet.of(activityDataSet, ownerAccount, permissionLevel);
     }
 
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public PagedData<DispActivityDataSet> allPermittedDisp(StringIdKey accountKey, PagingInfo pagingInfo)
-            throws ServiceException {
-        PagedData<Poad> lookup = poadMaintainService.lookup(
-                PoadMaintainService.CHILD_FOR_USER, new Object[]{accountKey}, pagingInfo
-        );
-        List<DispActivityDataSet> dispActivityDataSets = new ArrayList<>();
-        for (Poad poad : lookup.getData()) {
-            dispActivityDataSets.add(dispActivityDataSetFromPoad(poad, accountKey));
-        }
-        return new PagedData<>(
-                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(),
-                dispActivityDataSets
-        );
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public PagedData<DispActivityDataSet> allOwnedDisp(StringIdKey accountKey, PagingInfo pagingInfo)
-            throws ServiceException {
-        PagedData<Poad> lookup = poadMaintainService.lookup(
-                PoadMaintainService.CHILD_FOR_USER_PERMISSION_LEVEL_EQUALS,
-                new Object[]{accountKey, Constants.PERMISSION_LEVEL_OWNER},
-                pagingInfo
-        );
-        List<DispActivityDataSet> dispActivityDataSets = new ArrayList<>();
-        for (Poad poad : lookup.getData()) {
-            dispActivityDataSets.add(dispActivityDataSetFromPoad(poad, accountKey));
-        }
-        return new PagedData<>(
-                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(),
-                dispActivityDataSets
-        );
-    }
-
-    private DispActivityDataSet dispActivityDataSetFromPoad(
-            Poad poad, StringIdKey inspectAccountKey
-    ) throws ServiceException {
+    private DispActivityDataSet toDispFromPoad(Poad poad, StringIdKey inspectAccountKey) throws ServiceException {
         ActivityDataSet activityDataSet = activityDataSetMaintainService.get(
                 new LongIdKey(poad.getKey().getActivityDataSetLongId())
         );
@@ -149,6 +130,19 @@ public class ActivityDataSetResponseServiceImpl implements ActivityDataSetRespon
         }
         Integer permissionLevel = poad.getPermissionLevel();
         return DispActivityDataSet.of(activityDataSet, ownerAccount, permissionLevel);
+    }
+
+    private PagedData<DispActivityDataSet> toDispPagedDataFromPoad(
+            PagedData<Poad> lookup, StringIdKey inspectAccountKey
+    ) throws ServiceException {
+        List<DispActivityDataSet> dispActivityDataSets = new ArrayList<>();
+        for (Poad poad : lookup.getData()) {
+            dispActivityDataSets.add(toDispFromPoad(poad, inspectAccountKey));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(),
+                dispActivityDataSets
+        );
     }
 
     @Override
