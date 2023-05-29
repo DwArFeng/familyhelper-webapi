@@ -1,10 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.life;
 
 import com.dwarfeng.familyhelper.life.sdk.util.Constants;
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplateCreateInfo;
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplatePermissionRemoveInfo;
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplatePermissionUpsertInfo;
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplateUpdateInfo;
+import com.dwarfeng.familyhelper.life.stack.bean.dto.*;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityTemplate;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityTypeIndicator;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.Poat;
@@ -194,5 +191,19 @@ public class ActivityTemplateResponseServiceImpl implements ActivityTemplateResp
     public void removePermission(StringIdKey userKey, ActivityTemplatePermissionRemoveInfo permissionRemoveInfo)
             throws ServiceException {
         activityTemplateOperateService.removePermission(userKey, permissionRemoveInfo);
+    }
+
+    @Override
+    public void upsertActivityPermission(
+            StringIdKey userKey, ActivityTemplateActivityPermissionUpsertInfo permissionUpsertInfo
+    ) throws ServiceException {
+        activityTemplateOperateService.upsertActivityPermission(userKey, permissionUpsertInfo);
+    }
+
+    @Override
+    public void removeActivityPermission(
+            StringIdKey userKey, ActivityTemplateActivityPermissionRemoveInfo permissionRemoveInfo
+    ) throws ServiceException {
+        activityTemplateOperateService.removeActivityPermission(userKey, permissionRemoveInfo);
     }
 }

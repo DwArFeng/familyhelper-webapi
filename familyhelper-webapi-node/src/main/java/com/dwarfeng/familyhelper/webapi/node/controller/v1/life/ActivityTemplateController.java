@@ -1,9 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.life;
 
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityTemplateCreateInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityTemplatePermissionRemoveInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityTemplatePermissionUpsertInfo;
-import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityTemplateUpdateInfo;
+import com.dwarfeng.familyhelper.life.sdk.bean.dto.*;
 import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonActivityTemplate;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityTemplate;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispActivityTemplate;
@@ -254,6 +251,48 @@ public class ActivityTemplateController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removePermission(
                     accountKey, WebInputActivityTemplatePermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @PostMapping("/activity-template/upsert-activity-permission")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public FastJsonResponseData<Object> upsertActivityPermission(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputActivityTemplateActivityPermissionUpsertInfo webInputPermissionUpsertInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            service.upsertActivityPermission(
+                    accountKey,
+                    WebInputActivityTemplateActivityPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @PostMapping("/activity-template/remove-activity-permission")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public FastJsonResponseData<Object> removeActivityPermission(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputActivityTemplateActivityPermissionRemoveInfo webInputPermissionRemoveInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            service.removeActivityPermission(
+                    accountKey,
+                    WebInputActivityTemplateActivityPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

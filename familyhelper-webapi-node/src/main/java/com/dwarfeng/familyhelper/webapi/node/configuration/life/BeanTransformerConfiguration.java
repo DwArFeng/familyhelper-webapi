@@ -163,4 +163,14 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<DispPoat, JSFixedFastJsonDispPoat> dispPoatBeanTransformer() {
         return new DozerBeanTransformer<>(DispPoat.class, JSFixedFastJsonDispPoat.class, mapper);
     }
+
+    @Bean("life.poatacBeanTransformer")
+    public BeanTransformer<Poatac, JSFixedFastJsonPoatac> poatacBeanTransformer() {
+        return new DozerBeanTransformer<>(Poatac.class, JSFixedFastJsonPoatac.class, mapper);
+    }
+
+    @Bean("life.dispPoatacBeanTransformer")
+    public BeanTransformer<DispPoatac, JSFixedFastJsonDispPoatac> dispPoatacBeanTransformer() {
+        return new DozerBeanTransformer<>(DispPoatac.class, JSFixedFastJsonDispPoatac.class, mapper);
+    }
 }

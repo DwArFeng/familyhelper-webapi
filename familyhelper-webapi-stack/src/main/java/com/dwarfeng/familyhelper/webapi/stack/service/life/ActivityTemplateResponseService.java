@@ -1,9 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.life;
 
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplateCreateInfo;
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplatePermissionRemoveInfo;
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplatePermissionUpsertInfo;
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplateUpdateInfo;
+import com.dwarfeng.familyhelper.life.stack.bean.dto.*;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityTemplate;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityTemplate;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -47,4 +44,12 @@ public interface ActivityTemplateResponseService extends Service {
 
     void removePermission(StringIdKey userKey, ActivityTemplatePermissionRemoveInfo permissionRemoveInfo)
             throws ServiceException;
+
+    void upsertActivityPermission(
+            StringIdKey userKey, ActivityTemplateActivityPermissionUpsertInfo permissionUpsertInfo
+    ) throws ServiceException;
+
+    void removeActivityPermission(
+            StringIdKey userKey, ActivityTemplateActivityPermissionRemoveInfo permissionRemoveInfo
+    ) throws ServiceException;
 }

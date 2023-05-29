@@ -426,6 +426,14 @@
             check="false"
             group="${dubbo.consumer.familyhelper_life.group}"
     />
+    <dubbo:reference
+            id="familyhelperLifePoatacMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.PoatacMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
     <!-- familyhelper-note -->
     <dubbo:reference id="familyhelperNoteNoteBookMaintainService"
                      interface="com.dwarfeng.familyhelper.note.stack.service.NoteBookMaintainService"
