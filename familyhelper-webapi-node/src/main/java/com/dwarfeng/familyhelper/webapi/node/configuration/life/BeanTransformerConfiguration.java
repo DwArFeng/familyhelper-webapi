@@ -173,4 +173,12 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<DispPoatac, JSFixedFastJsonDispPoatac> dispPoatacBeanTransformer() {
         return new DozerBeanTransformer<>(DispPoatac.class, JSFixedFastJsonDispPoatac.class, mapper);
     }
+
+    @Bean("life.activityTemplateCoverInfoBeanTransformer")
+    public BeanTransformer<ActivityTemplateCoverInfo, JSFixedFastJsonActivityTemplateCoverInfo>
+    activityTemplateCoverInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                ActivityTemplateCoverInfo.class, JSFixedFastJsonActivityTemplateCoverInfo.class, mapper
+        );
+    }
 }
