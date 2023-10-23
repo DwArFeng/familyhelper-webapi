@@ -151,7 +151,9 @@ public class BeanTransformerConfiguration {
     @Bean("life.dispActivityTemplateBeanTransformer")
     public BeanTransformer<DispActivityTemplate, JSFixedFastJsonDispActivityTemplate>
     dispActivityTemplateBeanTransformer() {
-        return new DozerBeanTransformer<>(DispActivityTemplate.class, JSFixedFastJsonDispActivityTemplate.class, mapper);
+        return new DozerBeanTransformer<>(
+                DispActivityTemplate.class, JSFixedFastJsonDispActivityTemplate.class, mapper
+        );
     }
 
     @Bean("life.poatBeanTransformer")
@@ -179,6 +181,22 @@ public class BeanTransformerConfiguration {
     activityTemplateCoverInfoBeanTransformer() {
         return new DozerBeanTransformer<>(
                 ActivityTemplateCoverInfo.class, JSFixedFastJsonActivityTemplateCoverInfo.class, mapper
+        );
+    }
+
+    @Bean("life.activityTemplateParticipantBeanTransformer")
+    public BeanTransformer<ActivityTemplateParticipant, JSFixedFastJsonActivityTemplateParticipant>
+    activityTemplateParticipantBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                ActivityTemplateParticipant.class, JSFixedFastJsonActivityTemplateParticipant.class, mapper
+        );
+    }
+
+    @Bean("life.dispActivityTemplateParticipantBeanTransformer")
+    public BeanTransformer<DispActivityTemplateParticipant, JSFixedFastJsonDispActivityTemplateParticipant>
+    dispActivityTemplateParticipantBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                DispActivityTemplateParticipant.class, JSFixedFastJsonDispActivityTemplateParticipant.class, mapper
         );
     }
 }

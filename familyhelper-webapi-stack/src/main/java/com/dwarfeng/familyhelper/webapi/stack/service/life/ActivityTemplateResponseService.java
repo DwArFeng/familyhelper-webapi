@@ -11,7 +11,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
 /**
- * 活动模板响应服务。
+ * 活动模板参与者响应服务。
  *
  * @author DwArFeng
  * @since 1.0.10
