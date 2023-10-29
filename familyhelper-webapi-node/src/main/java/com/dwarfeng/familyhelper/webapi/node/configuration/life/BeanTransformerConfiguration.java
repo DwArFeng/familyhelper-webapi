@@ -199,4 +199,12 @@ public class BeanTransformerConfiguration {
                 DispActivityTemplateParticipant.class, JSFixedFastJsonDispActivityTemplateParticipant.class, mapper
         );
     }
+
+    @Bean("life.activityTemplateFileInfoBeanTransformer")
+    public BeanTransformer<ActivityTemplateFileInfo, JSFixedFastJsonActivityTemplateFileInfo>
+    activityTemplateFileInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                ActivityTemplateFileInfo.class, JSFixedFastJsonActivityTemplateFileInfo.class, mapper
+        );
+    }
 }
