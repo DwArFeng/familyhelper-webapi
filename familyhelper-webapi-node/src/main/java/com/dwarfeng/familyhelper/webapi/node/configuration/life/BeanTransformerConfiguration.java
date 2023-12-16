@@ -184,6 +184,22 @@ public class BeanTransformerConfiguration {
         );
     }
 
+    @Bean("life.activityTemplateDataInfoBeanTransformer")
+    public BeanTransformer<ActivityTemplateDataInfo, JSFixedFastJsonActivityTemplateDataInfo>
+    activityTemplateDataInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                ActivityTemplateDataInfo.class, JSFixedFastJsonActivityTemplateDataInfo.class, mapper
+        );
+    }
+
+    @Bean("life.dispActivityTemplateDataInfoBeanTransformer")
+    public BeanTransformer<DispActivityTemplateDataInfo, JSFixedFastJsonDispActivityTemplateDataInfo>
+    dispActivityTemplateDataInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                DispActivityTemplateDataInfo.class, JSFixedFastJsonDispActivityTemplateDataInfo.class, mapper
+        );
+    }
+
     @Bean("life.activityTemplateParticipantBeanTransformer")
     public BeanTransformer<ActivityTemplateParticipant, JSFixedFastJsonActivityTemplateParticipant>
     activityTemplateParticipantBeanTransformer() {
