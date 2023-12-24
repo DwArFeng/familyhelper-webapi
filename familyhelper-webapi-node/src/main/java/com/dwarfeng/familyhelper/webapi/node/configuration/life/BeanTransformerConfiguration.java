@@ -75,6 +75,14 @@ public class BeanTransformerConfiguration {
         return new DozerBeanTransformer<>(ActivityTypeIndicator.class, FastJsonActivityTypeIndicator.class, mapper);
     }
 
+    @Bean("finance.activityTemplateDriverInfoBeanTransformer")
+    public BeanTransformer<ActivityTemplateDriverInfo, JSFixedFastJsonActivityTemplateDriverInfo>
+    activityTemplateDriverInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                ActivityTemplateDriverInfo.class, JSFixedFastJsonActivityTemplateDriverInfo.class, mapper
+        );
+    }
+
     @Bean("finance.activityTemplateDriverSupportBeanTransformer")
     public BeanTransformer<ActivityTemplateDriverSupport, FastJsonActivityTemplateDriverSupport>
     activityTemplateDriverSupportBeanTransformer() {
