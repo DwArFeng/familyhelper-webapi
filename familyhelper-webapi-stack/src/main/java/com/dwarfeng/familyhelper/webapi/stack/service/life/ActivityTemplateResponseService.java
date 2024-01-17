@@ -52,4 +52,10 @@ public interface ActivityTemplateResponseService extends Service {
     void removeActivityPermission(
             StringIdKey userKey, ActivityTemplateActivityPermissionRemoveInfo permissionRemoveInfo
     ) throws ServiceException;
+
+    void createActivity(StringIdKey userKey, ActivityTemplateActivityCreateInfo activityCreateInfo)
+            throws ServiceException;
+
+    void createActivityForTest(StringIdKey userKey, ActivityTemplateActivityCreateInfo activityCreateInfo)
+            throws ServiceException;
 }

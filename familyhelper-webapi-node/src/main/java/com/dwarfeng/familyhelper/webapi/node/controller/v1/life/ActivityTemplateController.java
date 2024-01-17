@@ -299,4 +299,46 @@ public class ActivityTemplateController {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
+
+    @PostMapping("/activity-template/create-activity")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public FastJsonResponseData<Object> createActivity(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputActivityTemplateActivityCreateInfo info,
+            BindingResult bindingResult
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            service.createActivity(
+                    accountKey,
+                    WebInputActivityTemplateActivityCreateInfo.toStackBean(info)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @PostMapping("/activity-template/create-activity-for-test")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public FastJsonResponseData<Object> createActivityForTest(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputActivityTemplateActivityCreateInfo info,
+            BindingResult bindingResult
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            service.createActivityForTest(
+                    accountKey,
+                    WebInputActivityTemplateActivityCreateInfo.toStackBean(info)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
 }

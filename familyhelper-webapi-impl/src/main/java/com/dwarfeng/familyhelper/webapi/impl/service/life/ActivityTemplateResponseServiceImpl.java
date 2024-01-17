@@ -206,4 +206,16 @@ public class ActivityTemplateResponseServiceImpl implements ActivityTemplateResp
     ) throws ServiceException {
         activityTemplateOperateService.removeActivityPermission(userKey, permissionRemoveInfo);
     }
+
+    @Override
+    public void createActivity(StringIdKey userKey, ActivityTemplateActivityCreateInfo activityCreateInfo)
+            throws ServiceException {
+        activityTemplateOperateService.createActivity(userKey, activityCreateInfo);
+    }
+
+    @Override
+    public void createActivityForTest(StringIdKey userKey, ActivityTemplateActivityCreateInfo activityCreateInfo)
+            throws ServiceException {
+        activityTemplateOperateService.createActivityForTest(userKey, activityCreateInfo);
+    }
 }
