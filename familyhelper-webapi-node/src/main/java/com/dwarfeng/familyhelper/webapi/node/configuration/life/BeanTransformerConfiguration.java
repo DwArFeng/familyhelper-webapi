@@ -242,4 +242,14 @@ public class BeanTransformerConfiguration {
     dispActivityBeanTransformer() {
         return new DozerBeanTransformer<>(DispActivity.class, JSFixedFastJsonDispActivity.class, mapper);
     }
+
+    @Bean("life.poacBeanTransformer")
+    public BeanTransformer<Poac, JSFixedFastJsonPoac> poacBeanTransformer() {
+        return new DozerBeanTransformer<>(Poac.class, JSFixedFastJsonPoac.class, mapper);
+    }
+
+    @Bean("life.dispPoacBeanTransformer")
+    public BeanTransformer<DispPoac, JSFixedFastJsonDispPoac> dispPoacBeanTransformer() {
+        return new DozerBeanTransformer<>(DispPoac.class, JSFixedFastJsonDispPoac.class, mapper);
+    }
 }
