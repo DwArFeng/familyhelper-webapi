@@ -258,4 +258,20 @@ public class BeanTransformerConfiguration {
     activityCoverInfoBeanTransformer() {
         return new DozerBeanTransformer<>(ActivityCoverInfo.class, JSFixedFastJsonActivityCoverInfo.class, mapper);
     }
+
+    @Bean("life.activityParticipantBeanTransformer")
+    public BeanTransformer<ActivityParticipant, JSFixedFastJsonActivityParticipant>
+    activityParticipantBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                ActivityParticipant.class, JSFixedFastJsonActivityParticipant.class, mapper
+        );
+    }
+
+    @Bean("life.dispActivityParticipantBeanTransformer")
+    public BeanTransformer<DispActivityParticipant, JSFixedFastJsonDispActivityParticipant>
+    dispActivityParticipantBeanTransformer() {
+        return new DozerBeanTransformer<>(
+                DispActivityParticipant.class, JSFixedFastJsonDispActivityParticipant.class, mapper
+        );
+    }
 }

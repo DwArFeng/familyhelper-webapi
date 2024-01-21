@@ -411,6 +411,22 @@
             group="${dubbo.consumer.familyhelper_life.group}"
     />
     <dubbo:reference
+            id="familyhelperLifeActivityParticipantMaintainService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityParticipantMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
+            id="familyhelperLifeActivityParticipantOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityParticipantOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
             id="familyhelperLifeActivityTemplateMaintainService"
             interface="com.dwarfeng.familyhelper.life.stack.service.ActivityTemplateMaintainService"
             retries="3"
