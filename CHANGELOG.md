@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 调整 Controller 及其相关 Bean 的名称。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.PoacController。
+
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteItemController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteNodeController。

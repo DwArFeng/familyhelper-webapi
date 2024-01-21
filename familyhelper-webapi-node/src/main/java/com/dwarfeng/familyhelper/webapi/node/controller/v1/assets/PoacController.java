@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author DwArFeng
  * @since 1.0.0
  */
-@RestController
+@RestController("assetsPoacController")
 @RequestMapping("/api/v1/assets")
 public class PoacController {
 
