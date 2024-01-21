@@ -34,6 +34,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateDriverInfoController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PoacController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityCoverController。
 
 - 为 dubbo 的消费者增加了分组设置。
   - snowflake。

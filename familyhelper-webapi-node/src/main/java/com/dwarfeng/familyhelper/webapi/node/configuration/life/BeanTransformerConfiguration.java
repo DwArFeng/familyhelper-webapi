@@ -252,4 +252,10 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<DispPoac, JSFixedFastJsonDispPoac> dispPoacBeanTransformer() {
         return new DozerBeanTransformer<>(DispPoac.class, JSFixedFastJsonDispPoac.class, mapper);
     }
+
+    @Bean("life.activityCoverInfoBeanTransformer")
+    public BeanTransformer<ActivityCoverInfo, JSFixedFastJsonActivityCoverInfo>
+    activityCoverInfoBeanTransformer() {
+        return new DozerBeanTransformer<>(ActivityCoverInfo.class, JSFixedFastJsonActivityCoverInfo.class, mapper);
+    }
 }
