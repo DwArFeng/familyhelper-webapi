@@ -395,6 +395,14 @@
             group="${dubbo.consumer.familyhelper_life.group}"
     />
     <dubbo:reference
+            id="familyhelperLifeActivityDataRecordOperateService"
+            interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataRecordOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_life.group}"
+    />
+    <dubbo:reference
             id="familyhelperLifeActivityDataSetMaintainService"
             interface="com.dwarfeng.familyhelper.life.stack.service.ActivityDataSetMaintainService"
             retries="3"

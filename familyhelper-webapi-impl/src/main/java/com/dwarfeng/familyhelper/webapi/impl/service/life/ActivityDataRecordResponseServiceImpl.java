@@ -1,7 +1,10 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.life;
 
+import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityDataRecordCreateInfo;
+import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityDataRecordUpdateInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityDataRecord;
 import com.dwarfeng.familyhelper.life.stack.service.ActivityDataRecordMaintainService;
+import com.dwarfeng.familyhelper.life.stack.service.ActivityDataRecordOperateService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivity;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityDataItem;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityDataRecord;
@@ -24,6 +27,7 @@ import java.util.Objects;
 public class ActivityDataRecordResponseServiceImpl implements ActivityDataRecordResponseService {
 
     private final ActivityDataRecordMaintainService activityDataRecordMaintainService;
+    private final ActivityDataRecordOperateService activityDataRecordOperateService;
 
     private final ActivityDataItemResponseService activityDataItemResponseService;
     private final ActivityResponseService activityResponseService;
@@ -31,10 +35,13 @@ public class ActivityDataRecordResponseServiceImpl implements ActivityDataRecord
     public ActivityDataRecordResponseServiceImpl(
             @Qualifier("familyhelperLifeActivityDataRecordMaintainService")
             ActivityDataRecordMaintainService activityDataRecordMaintainService,
+            @Qualifier("familyhelperLifeActivityDataRecordOperateService")
+            ActivityDataRecordOperateService activityDataRecordOperateService,
             ActivityDataItemResponseService activityDataItemResponseService,
             ActivityResponseService activityResponseService
     ) {
         this.activityDataRecordMaintainService = activityDataRecordMaintainService;
+        this.activityDataRecordOperateService = activityDataRecordOperateService;
         this.activityDataItemResponseService = activityDataItemResponseService;
         this.activityResponseService = activityResponseService;
     }
@@ -77,6 +84,26 @@ public class ActivityDataRecordResponseServiceImpl implements ActivityDataRecord
     }
 
     @Override
+    public PagedData<ActivityDataRecord> childForActivityRecordedDateAsc(LongIdKey activityKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        return activityDataRecordMaintainService.lookup(
+                ActivityDataRecordMaintainService.CHILD_FOR_ACTIVITY_RECORDED_DATE_ASC,
+                new Object[]{activityKey},
+                pagingInfo
+        );
+    }
+
+    @Override
+    public PagedData<ActivityDataRecord> childForActivityRecordedDateDesc(LongIdKey activityKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        return activityDataRecordMaintainService.lookup(
+                ActivityDataRecordMaintainService.CHILD_FOR_ACTIVITY_RECORDED_DATE_DESC,
+                new Object[]{activityKey},
+                pagingInfo
+        );
+    }
+
+    @Override
     public DispActivityDataRecord getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException {
         ActivityDataRecord activityDataRecord = get(key);
         return toDisp(activityDataRecord, inspectAccountKey);
@@ -105,6 +132,22 @@ public class ActivityDataRecordResponseServiceImpl implements ActivityDataRecord
         return toDispPagedData(lookup, accountKey);
     }
 
+    @Override
+    public PagedData<DispActivityDataRecord> childForActivityRecordedDateAscDisp(
+            StringIdKey accountKey, LongIdKey activityKey, PagingInfo pagingInfo
+    ) throws ServiceException {
+        PagedData<ActivityDataRecord> lookup = childForActivityRecordedDateAsc(activityKey, pagingInfo);
+        return toDispPagedData(lookup, accountKey);
+    }
+
+    @Override
+    public PagedData<DispActivityDataRecord> childForActivityRecordedDateDescDisp(
+            StringIdKey accountKey, LongIdKey activityKey, PagingInfo pagingInfo
+    ) throws ServiceException {
+        PagedData<ActivityDataRecord> lookup = childForActivityRecordedDateDesc(activityKey, pagingInfo);
+        return toDispPagedData(lookup, accountKey);
+    }
+
     private DispActivityDataRecord toDisp(ActivityDataRecord activityDataRecord, StringIdKey inspectAccountKey)
             throws ServiceException {
         DispActivityDataItem item = null;
@@ -129,5 +172,20 @@ public class ActivityDataRecordResponseServiceImpl implements ActivityDataRecord
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(),
                 dispActivityDataRecords
         );
+    }
+
+    @Override
+    public LongIdKey create(StringIdKey userKey, ActivityDataRecordCreateInfo createInfo) throws ServiceException {
+        return activityDataRecordOperateService.create(userKey, createInfo);
+    }
+
+    @Override
+    public void update(StringIdKey userKey, ActivityDataRecordUpdateInfo updateInfo) throws ServiceException {
+        activityDataRecordOperateService.update(userKey, updateInfo);
+    }
+
+    @Override
+    public void remove(StringIdKey userKey, LongIdKey key) throws ServiceException {
+        activityDataRecordOperateService.remove(userKey, key);
     }
 }

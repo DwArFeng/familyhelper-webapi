@@ -14,6 +14,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbItemController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.ItemController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataRecordController。
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateDriverSupportController。
