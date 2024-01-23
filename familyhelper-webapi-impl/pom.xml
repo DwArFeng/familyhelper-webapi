@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -32,16 +36,11 @@
         <!-- Spring 框架 -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <!-- Dozer 模块 -->
         <dependency>
@@ -66,6 +65,14 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
         <!-- Snowflake 服务 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
@@ -74,25 +81,9 @@
         <!-- Subgrade 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
-            <artifactId>subgrade-stack</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.dwarfeng</groupId>
-            <artifactId>subgrade-sdk</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-impl</artifactId>
         </dependency>
         <!-- Acckeeper 组件 -->
-        <dependency>
-            <groupId>com.dwarfeng</groupId>
-            <artifactId>account-keeper-stack</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.dwarfeng</groupId>
-            <artifactId>account-keeper-sdk</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>account-keeper-api</artifactId>
@@ -100,7 +91,7 @@
         <!-- Rbac 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
-            <artifactId>rbac-distributed-service-stack</artifactId>
+            <artifactId>rbac-distributed-service-api</artifactId>
         </dependency>
         <!-- Settingrepo 组件 -->
         <dependency>
@@ -113,10 +104,6 @@
             <artifactId>notify-impl</artifactId>
         </dependency>
         <!-- 程序自身组件 -->
-        <dependency>
-            <groupId>com.dwarfeng</groupId>
-            <artifactId>familyhelper-webapi-stack</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-webapi-sdk</artifactId>

@@ -35,7 +35,7 @@ public class LoginResponseServiceImpl implements LoginResponseService {
         try {
             return loginService.isLogin(longIdKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("判断指定登录主键是否登录时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("判断指定登录主键是否登录时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -49,7 +49,7 @@ public class LoginResponseServiceImpl implements LoginResponseService {
                     new Date(loginState.getExpireDate())
             );
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("获取个人登录信息时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("获取个人登录信息时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -63,7 +63,7 @@ public class LoginResponseServiceImpl implements LoginResponseService {
                     new Date(loginState.getExpireDate())
             );
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("登录时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("登录时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -72,7 +72,7 @@ public class LoginResponseServiceImpl implements LoginResponseService {
         try {
             loginService.logout(longIdKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("延长指定主键的过期时间时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("延长指定主键的过期时间时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -86,7 +86,7 @@ public class LoginResponseServiceImpl implements LoginResponseService {
                     new Date(loginState.getExpireDate())
             );
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("延长指定主键的过期时间时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("延长指定主键的过期时间时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }
