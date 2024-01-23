@@ -6,7 +6,7 @@
 
     <groupId>com.dwarfeng</groupId>
     <artifactId>familyhelper-webapi</artifactId>
-    <version>1.0.10.a</version>
+    <version>1.1.0.a-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -472,17 +472,17 @@
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-webapi-stack</artifactId>
-                <version>1.0.10.a</version>
+                <version>1.1.0.a-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-webapi-sdk</artifactId>
-                <version>1.0.10.a</version>
+                <version>1.1.0.a-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-webapi-impl</artifactId>
-                <version>1.0.10.a</version>
+                <version>1.1.0.a-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
