@@ -212,7 +212,6 @@ public class AccountBookController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/account-book/upsert-permission")
     @BehaviorAnalyse
     @BindingCheck
@@ -233,7 +232,6 @@ public class AccountBookController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/account-book/remove-permission")
     @BehaviorAnalyse
     @BindingCheck

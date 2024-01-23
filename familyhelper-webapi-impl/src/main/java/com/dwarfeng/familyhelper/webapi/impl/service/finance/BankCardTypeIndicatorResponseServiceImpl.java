@@ -15,7 +15,6 @@ public class BankCardTypeIndicatorResponseServiceImpl implements BankCardTypeInd
 
     private final BankCardTypeIndicatorMaintainService bankCardTypeIndicatorMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public BankCardTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperFinanceBankCardTypeIndicatorMaintainService")
                     BankCardTypeIndicatorMaintainService bankCardTypeIndicatorMaintainService

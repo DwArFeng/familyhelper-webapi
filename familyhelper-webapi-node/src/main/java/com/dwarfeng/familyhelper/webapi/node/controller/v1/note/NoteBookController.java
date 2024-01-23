@@ -207,7 +207,6 @@ public class NoteBookController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/note-book/upsert-permission")
     @BehaviorAnalyse
     @BindingCheck
@@ -227,7 +226,6 @@ public class NoteBookController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/note-book/remove-permission")
     @BehaviorAnalyse
     @BindingCheck

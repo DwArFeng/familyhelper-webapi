@@ -15,7 +15,6 @@ public class MemoRemindDriverInfoResponseServiceImpl implements MemoRemindDriver
 
     private final MemoRemindDriverInfoMaintainService memoRemindDriverInfoMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public MemoRemindDriverInfoResponseServiceImpl(
             @Qualifier("familyhelperProjectMemoRemindDriverInfoMaintainService")
             MemoRemindDriverInfoMaintainService memoRemindDriverInfoMaintainService

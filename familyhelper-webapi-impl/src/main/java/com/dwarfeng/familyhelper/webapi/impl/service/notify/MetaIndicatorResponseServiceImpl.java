@@ -27,7 +27,6 @@ public class MetaIndicatorResponseServiceImpl implements MetaIndicatorResponseSe
     private final MetaIndicatorMaintainService metaIndicatorMaintainService;
     private final MetaMaintainService metaMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public MetaIndicatorResponseServiceImpl(
             @Qualifier("notifyMetaIndicatorMaintainService")
             MetaIndicatorMaintainService metaIndicatorMaintainService,

@@ -15,7 +15,6 @@ public class SettingCategoryResponseServiceImpl implements SettingCategoryRespon
 
     private final SettingCategoryMaintainService settingCategoryMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public SettingCategoryResponseServiceImpl(
             @Qualifier("settingrepoSettingCategoryMaintainService")
                     SettingCategoryMaintainService settingCategoryMaintainService

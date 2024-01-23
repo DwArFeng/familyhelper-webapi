@@ -20,7 +20,6 @@ public class PbRecordResponseServiceImpl implements PbRecordResponseService {
     private final PbRecordMaintainService pbRecordMaintainService;
     private final PbRecordOperateService pbRecordOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PbRecordResponseServiceImpl(
             @Qualifier("familyhelperLifePbRecordMaintainService") PbRecordMaintainService pbRecordMaintainService,
             @Qualifier("familyhelperLifePbRecordOperateService") PbRecordOperateService pbRecordOperateService

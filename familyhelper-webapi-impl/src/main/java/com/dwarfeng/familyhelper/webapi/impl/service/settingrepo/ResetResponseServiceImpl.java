@@ -11,7 +11,6 @@ public class ResetResponseServiceImpl implements ResetResponseService {
 
     private final DubboResetter.DubboResetService dubboResetService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ResetResponseServiceImpl(
             @Qualifier("settingrepoDubboResetter.dubboResetService")
             DubboResetter.DubboResetService dubboResetService

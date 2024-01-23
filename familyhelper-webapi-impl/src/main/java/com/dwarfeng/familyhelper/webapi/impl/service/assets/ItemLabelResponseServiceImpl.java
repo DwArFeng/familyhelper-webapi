@@ -17,7 +17,6 @@ public class ItemLabelResponseServiceImpl implements ItemLabelResponseService {
 
     private final ItemLabelMaintainService itemLabelMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ItemLabelResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemLabelMaintainService")
                     ItemLabelMaintainService itemLabelMaintainService

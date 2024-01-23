@@ -15,7 +15,6 @@ public class SenderSupportResponseServiceImpl implements SenderSupportResponseSe
 
     private final SenderSupportMaintainService senderSupportMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public SenderSupportResponseServiceImpl(
             @Qualifier("notifySenderSupportMaintainService")
             SenderSupportMaintainService senderSupportMaintainService

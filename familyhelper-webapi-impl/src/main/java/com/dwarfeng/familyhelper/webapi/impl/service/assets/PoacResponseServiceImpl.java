@@ -28,7 +28,6 @@ public class PoacResponseServiceImpl implements PoacResponseService {
     private final AssetCatalogResponseService assetCatalogResponseService;
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PoacResponseServiceImpl(
             @Qualifier("familyhelperAssetsPoacMaintainService") PoacMaintainService poacMaintainService,
             AssetCatalogResponseService assetCatalogResponseService,
@@ -63,6 +62,7 @@ public class PoacResponseServiceImpl implements PoacResponseService {
         );
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispPoac> childForAssetCatalogDisp(
             LongIdKey assetCatalogKey, PagingInfo pagingInfo, StringIdKey inspectAccountKey

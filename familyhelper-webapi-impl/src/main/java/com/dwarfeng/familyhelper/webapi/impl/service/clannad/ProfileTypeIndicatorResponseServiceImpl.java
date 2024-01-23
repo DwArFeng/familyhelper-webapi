@@ -15,7 +15,6 @@ public class ProfileTypeIndicatorResponseServiceImpl implements ProfileTypeIndic
 
     private final ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ProfileTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperClannadProfileTypeIndicatorMaintainService")
                     ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService

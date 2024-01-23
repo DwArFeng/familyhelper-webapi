@@ -28,7 +28,6 @@ public class PopResponseServiceImpl implements PopResponseService {
     private final ProjectResponseService projectResponseService;
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PopResponseServiceImpl(
             @Qualifier("familyhelperProjectPopMaintainService") PopMaintainService popMaintainService,
             ProjectResponseService projectResponseService,

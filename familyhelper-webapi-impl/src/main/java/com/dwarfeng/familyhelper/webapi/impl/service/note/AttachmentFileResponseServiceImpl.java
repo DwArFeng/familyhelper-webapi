@@ -21,7 +21,6 @@ public class AttachmentFileResponseServiceImpl implements AttachmentFileResponse
     private final AttachmentFileInfoMaintainService attachmentFileInfoMaintainService;
     private final AttachmentFileOperateService attachmentFileOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public AttachmentFileResponseServiceImpl(
             @Qualifier("familyhelperNoteAttachmentFileInfoMaintainService")
             AttachmentFileInfoMaintainService attachmentFileInfoMaintainService,

@@ -15,7 +15,6 @@ public class DispatcherSupportResponseServiceImpl implements DispatcherSupportRe
 
     private final DispatcherSupportMaintainService dispatcherSupportMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public DispatcherSupportResponseServiceImpl(
             @Qualifier("notifyDispatcherSupportMaintainService")
             DispatcherSupportMaintainService dispatcherSupportMaintainService

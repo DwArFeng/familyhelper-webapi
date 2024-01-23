@@ -32,7 +32,6 @@ public class ProfileResponseServiceImpl implements ProfileResponseService {
     private final ProfileOperateService profileOperateService;
     private final PoprMaintainService poprMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ProfileResponseServiceImpl(
             @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
             @Qualifier("familyhelperClannadProfileTypeIndicatorMaintainService")

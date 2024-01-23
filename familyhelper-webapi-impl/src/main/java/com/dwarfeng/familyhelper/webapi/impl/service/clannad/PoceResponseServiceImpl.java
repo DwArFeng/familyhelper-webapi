@@ -28,7 +28,6 @@ public class PoceResponseServiceImpl implements PoceResponseService {
     private final CertificateResponseService certificateResponseService;
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PoceResponseServiceImpl(
             @Qualifier("familyhelperClannadPoceMaintainService") PoceMaintainService poceMaintainService,
             CertificateResponseService certificateResponseService,

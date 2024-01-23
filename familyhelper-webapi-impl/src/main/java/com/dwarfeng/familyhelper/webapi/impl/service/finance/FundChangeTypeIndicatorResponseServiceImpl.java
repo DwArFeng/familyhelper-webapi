@@ -15,7 +15,6 @@ public class FundChangeTypeIndicatorResponseServiceImpl implements FundChangeTyp
 
     private final FundChangeTypeIndicatorMaintainService fundChangeTypeIndicatorMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public FundChangeTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperFinanceFundChangeTypeIndicatorMaintainService")
                     FundChangeTypeIndicatorMaintainService fundChangeTypeIndicatorMaintainService

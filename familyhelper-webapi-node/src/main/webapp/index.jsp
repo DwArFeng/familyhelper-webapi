@@ -5,6 +5,7 @@
   Time: 21:28
   To change this template use File | Settings | File Templates.
 --%>
+<%--suppress JSDeprecatedSymbols --%>
 <script type="text/javascript">
     const system = {};
     const p = navigator.platform;

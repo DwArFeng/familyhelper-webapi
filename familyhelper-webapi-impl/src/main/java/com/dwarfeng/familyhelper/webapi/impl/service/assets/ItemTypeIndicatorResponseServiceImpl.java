@@ -15,7 +15,6 @@ public class ItemTypeIndicatorResponseServiceImpl implements ItemTypeIndicatorRe
 
     private final ItemTypeIndicatorMaintainService itemTypeIndicatorMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ItemTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemTypeIndicatorMaintainService")
                     ItemTypeIndicatorMaintainService itemTypeIndicatorMaintainService

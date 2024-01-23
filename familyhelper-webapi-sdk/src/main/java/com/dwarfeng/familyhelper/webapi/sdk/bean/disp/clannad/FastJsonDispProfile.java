@@ -407,6 +407,7 @@ public class FastJsonDispProfile implements Dto {
         this.maritalStatusIndicator = maritalStatusIndicator;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public String toString() {
         return "FastJsonDispProfile{" +

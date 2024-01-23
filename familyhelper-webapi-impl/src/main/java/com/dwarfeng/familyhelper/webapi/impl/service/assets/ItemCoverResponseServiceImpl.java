@@ -21,7 +21,6 @@ public class ItemCoverResponseServiceImpl implements ItemCoverResponseService {
     private final ItemCoverInfoMaintainService itemCoverInfoMaintainService;
     private final ItemCoverOperateService itemCoverOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ItemCoverResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemCoverInfoMaintainService")
                     ItemCoverInfoMaintainService itemCoverInfoMaintainService,

@@ -211,7 +211,6 @@ public class CertificateController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/certificate/upsert-permission")
     @BehaviorAnalyse
     @BindingCheck
@@ -232,7 +231,6 @@ public class CertificateController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/certificate/remove-permission")
     @BehaviorAnalyse
     @BindingCheck

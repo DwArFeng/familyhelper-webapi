@@ -20,7 +20,6 @@ public class BillFileResponseServiceImpl implements BillFileResponseService {
     private final BillFileInfoMaintainService billFileInfoMaintainService;
     private final BillFileOperateService billFileOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public BillFileResponseServiceImpl(
             @Qualifier("familyhelperFinanceBillFileInfoMaintainService")
             BillFileInfoMaintainService billFileInfoMaintainService,

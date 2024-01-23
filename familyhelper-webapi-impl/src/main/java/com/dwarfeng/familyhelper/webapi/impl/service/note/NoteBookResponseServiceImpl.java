@@ -36,7 +36,6 @@ public class NoteBookResponseServiceImpl implements NoteBookResponseService {
 
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public NoteBookResponseServiceImpl(
             @Qualifier("familyhelperNoteNoteBookMaintainService") NoteBookMaintainService noteBookMaintainService,
             @Qualifier("familyhelperNotePonbMaintainService") PonbMaintainService ponbMaintainService,

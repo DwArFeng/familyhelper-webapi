@@ -15,7 +15,6 @@ public class NotifySettingResponseServiceImpl implements NotifySettingResponseSe
 
     private final NotifySettingMaintainService notifySettingMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public NotifySettingResponseServiceImpl(
             @Qualifier("notifyNotifySettingMaintainService")
             NotifySettingMaintainService notifySettingMaintainService

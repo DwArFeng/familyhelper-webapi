@@ -15,7 +15,6 @@ public class BankCardBalanceHistoryResponseServiceImpl implements BankCardBalanc
 
     private final BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public BankCardBalanceHistoryResponseServiceImpl(
             @Qualifier("familyhelperFinanceBankCardBalanceHistoryMaintainService")
                     BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService

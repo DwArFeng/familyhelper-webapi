@@ -16,7 +16,6 @@ public class PexpResponseServiceImpl implements PexpResponseService {
 
     private final PexpMaintainService pexpMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PexpResponseServiceImpl(
             @Qualifier("rbacPexpMaintainService") PexpMaintainService pexpMaintainService
     ) {

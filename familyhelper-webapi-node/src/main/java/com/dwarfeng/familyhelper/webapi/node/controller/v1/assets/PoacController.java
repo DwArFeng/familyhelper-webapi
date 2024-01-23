@@ -85,6 +85,7 @@ public class PoacController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @GetMapping("/poac/{longId}&{stringId}/disp")
     @BehaviorAnalyse
     @LoginRequired

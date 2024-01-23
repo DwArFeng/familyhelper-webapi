@@ -31,7 +31,6 @@ public class ActivityCoverResponseServiceImpl implements ActivityCoverResponseSe
         this.activityCoverOperateService = activityCoverOperateService;
     }
 
-
     @Override
     public boolean exists(LongIdKey key) throws ServiceException {
         return activityCoverInfoMaintainService.exists(key);

@@ -21,7 +21,6 @@ public class MemoFileResponseServiceImpl implements MemoFileResponseService {
     private final MemoFileInfoMaintainService memoFileInfoMaintainService;
     private final MemoFileOperateService memoFileOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public MemoFileResponseServiceImpl(
             @Qualifier("familyhelperProjectMemoFileInfoMaintainService")
                     MemoFileInfoMaintainService memoFileInfoMaintainService,

@@ -15,7 +15,6 @@ public class TaskTypeIndicatorResponseServiceImpl implements TaskTypeIndicatorRe
 
     private final TaskTypeIndicatorMaintainService taskTypeIndicatorMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public TaskTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperProjectTaskTypeIndicatorMaintainService")
                     TaskTypeIndicatorMaintainService taskTypeIndicatorMaintainService

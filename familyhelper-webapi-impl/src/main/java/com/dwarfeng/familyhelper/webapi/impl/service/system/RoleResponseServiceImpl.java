@@ -15,7 +15,6 @@ public class RoleResponseServiceImpl implements RoleResponseService {
 
     private final RoleMaintainService roleMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public RoleResponseServiceImpl(
             @Qualifier("rbacRoleMaintainService") RoleMaintainService roleMaintainService
     ) {

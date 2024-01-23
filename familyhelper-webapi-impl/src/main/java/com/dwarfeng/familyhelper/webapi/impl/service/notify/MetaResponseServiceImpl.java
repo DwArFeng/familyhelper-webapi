@@ -25,7 +25,6 @@ public class MetaResponseServiceImpl implements MetaResponseService {
     private final MetaMaintainService metaMaintainService;
     private final MetaIndicatorMaintainService metaIndicatorMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public MetaResponseServiceImpl(
             @Qualifier("notifyMetaMaintainService")
             MetaMaintainService metaMaintainService,

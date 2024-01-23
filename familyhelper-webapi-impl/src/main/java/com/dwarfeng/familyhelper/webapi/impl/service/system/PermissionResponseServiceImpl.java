@@ -19,7 +19,6 @@ public class PermissionResponseServiceImpl implements PermissionResponseService 
     private final PermissionMaintainService permissionMaintainService;
     private final PermissionLookupService permissionLookupService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PermissionResponseServiceImpl(
             @Qualifier("rbacPermissionMaintainService") PermissionMaintainService permissionMaintainService,
             @Qualifier("rbacPermissionLookupService") PermissionLookupService permissionLookupService

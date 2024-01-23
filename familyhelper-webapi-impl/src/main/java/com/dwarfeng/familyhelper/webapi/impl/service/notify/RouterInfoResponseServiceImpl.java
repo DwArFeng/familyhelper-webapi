@@ -15,7 +15,6 @@ public class RouterInfoResponseServiceImpl implements RouterInfoResponseService 
 
     private final RouterInfoMaintainService routerInfoMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public RouterInfoResponseServiceImpl(
             @Qualifier("notifyRouterInfoMaintainService")
             RouterInfoMaintainService routerInfoMaintainService

@@ -23,7 +23,6 @@ public class NotifyHistoryResponseServiceImpl implements NotifyHistoryResponseSe
     private final NotifyHistoryMaintainService notifyHistoryMaintainService;
     private final NotifySettingMaintainService notifySettingMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public NotifyHistoryResponseServiceImpl(
             @Qualifier("notifyNotifyHistoryMaintainService")
             NotifyHistoryMaintainService notifyHistoryMaintainService,

@@ -20,7 +20,6 @@ public class MemoResponseServiceImpl implements MemoResponseService {
     private final MemoMaintainService memoMaintainService;
     private final MemoOperateService memoOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public MemoResponseServiceImpl(
             @Qualifier("familyhelperProjectMemoMaintainService") MemoMaintainService memoMaintainService,
             @Qualifier("familyhelperProjectMemoOperateService") MemoOperateService memoOperateService

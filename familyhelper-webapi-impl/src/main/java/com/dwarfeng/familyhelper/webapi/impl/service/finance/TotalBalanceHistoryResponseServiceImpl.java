@@ -15,7 +15,6 @@ public class TotalBalanceHistoryResponseServiceImpl implements TotalBalanceHisto
 
     private final TotalBalanceHistoryMaintainService totalBalanceHistoryMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public TotalBalanceHistoryResponseServiceImpl(
             @Qualifier("familyhelperFinanceTotalBalanceHistoryMaintainService")
                     TotalBalanceHistoryMaintainService totalBalanceHistoryMaintainService

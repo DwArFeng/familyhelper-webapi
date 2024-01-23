@@ -22,7 +22,6 @@ public class LoginResponseServiceImpl implements LoginResponseService {
 
     private final ServiceExceptionMapper sem;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public LoginResponseServiceImpl(
             @Qualifier("acckeeperLoginService") LoginService loginService,
             ServiceExceptionMapper sem

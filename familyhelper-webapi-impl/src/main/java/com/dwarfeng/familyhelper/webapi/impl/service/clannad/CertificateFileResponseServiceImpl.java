@@ -20,7 +20,6 @@ public class CertificateFileResponseServiceImpl implements CertificateFileRespon
     private final CertificateFileInfoMaintainService certificateFileInfoMaintainService;
     private final CertificateFileOperateService certificateFileOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public CertificateFileResponseServiceImpl(
             @Qualifier("familyhelperClannadCertificateFileInfoMaintainService")
             CertificateFileInfoMaintainService certificateFileInfoMaintainService,

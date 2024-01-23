@@ -21,7 +21,6 @@ public class ItemFileResponseServiceImpl implements ItemFileResponseService {
     private final ItemFileInfoMaintainService itemFileInfoMaintainService;
     private final ItemFileOperateService itemFileOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ItemFileResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemFileInfoMaintainService")
                     ItemFileInfoMaintainService itemFileInfoMaintainService,

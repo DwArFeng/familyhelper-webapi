@@ -31,7 +31,6 @@ public class NotifySendRecordResponseServiceImpl implements NotifySendRecordResp
     private final NotifyHistoryResponseService notifyHistoryResponseService;
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public NotifySendRecordResponseServiceImpl(
             @Qualifier("notifyNotifySendRecordMaintainService")
             NotifySendRecordMaintainService notifySendRecordMaintainService,

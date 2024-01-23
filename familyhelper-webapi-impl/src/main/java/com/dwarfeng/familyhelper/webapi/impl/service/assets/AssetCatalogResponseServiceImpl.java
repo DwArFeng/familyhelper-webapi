@@ -36,7 +36,6 @@ public class AssetCatalogResponseServiceImpl implements AssetCatalogResponseServ
 
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public AssetCatalogResponseServiceImpl(
             @Qualifier("familyhelperAssetsAssetCatalogMaintainService")
                     AssetCatalogMaintainService assetCatalogMaintainService,

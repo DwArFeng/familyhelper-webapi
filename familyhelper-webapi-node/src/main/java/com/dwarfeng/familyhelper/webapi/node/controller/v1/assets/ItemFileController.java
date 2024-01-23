@@ -118,7 +118,7 @@ public class ItemFileController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
-            e.printStackTrace();
+            // TODO 打印日志
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

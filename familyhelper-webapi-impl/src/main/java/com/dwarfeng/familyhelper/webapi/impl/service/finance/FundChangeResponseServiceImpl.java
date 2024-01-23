@@ -33,7 +33,6 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
 
     private final AccountBookResponseService accountBookResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public FundChangeResponseServiceImpl(
             @Qualifier("familyhelperFinanceFundChangeMaintainService")
                     FundChangeMaintainService fundChangeMaintainService,

@@ -15,7 +15,6 @@ public class SenderInfoResponseServiceImpl implements SenderInfoResponseService 
 
     private final SenderInfoMaintainService senderInfoMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public SenderInfoResponseServiceImpl(
             @Qualifier("notifySenderInfoMaintainService")
             SenderInfoMaintainService senderInfoMaintainService

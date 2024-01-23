@@ -28,7 +28,6 @@ public class PopbResponseServiceImpl implements PopbResponseService {
     private final PbSetResponseService pbSetResponseService;
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PopbResponseServiceImpl(
             @Qualifier("familyhelperLifePopbMaintainService") PopbMaintainService popbMaintainService,
             PbSetResponseService pbSetResponseService,

@@ -35,7 +35,6 @@ public class BankCardResponseServiceImpl implements BankCardResponseService {
 
     private final AccountBookResponseService accountBookResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public BankCardResponseServiceImpl(
             @Qualifier("familyhelperFinanceBankCardMaintainService")
                     BankCardMaintainService bankCardMaintainService,

@@ -15,7 +15,6 @@ public class RemindDriverSupportResponseServiceImpl implements RemindDriverSuppo
 
     private final RemindDriverSupportMaintainService remindDriverSupportMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public RemindDriverSupportResponseServiceImpl(
             @Qualifier("familyhelperFinanceRemindDriverSupportMaintainService")
             RemindDriverSupportMaintainService remindDriverSupportMaintainService

@@ -32,7 +32,6 @@ public class TaskResponseServiceImpl implements TaskResponseService {
 
     private final ProjectResponseService projectResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public TaskResponseServiceImpl(
             @Qualifier("familyhelperProjectTaskMaintainService") TaskMaintainService taskMaintainService,
             @Qualifier("familyhelperProjectTaskOperateService") TaskOperateService taskOperateService,

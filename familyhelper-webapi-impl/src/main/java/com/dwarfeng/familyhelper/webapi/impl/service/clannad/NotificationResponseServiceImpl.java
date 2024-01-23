@@ -19,7 +19,6 @@ public class NotificationResponseServiceImpl implements NotificationResponseServ
     private final NotificationMaintainService notificationMaintainService;
     private final NotificationOperateService notificationOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public NotificationResponseServiceImpl(
             @Qualifier("familyhelperClannadNotificationMaintainService")
                     NotificationMaintainService notificationMaintainService,

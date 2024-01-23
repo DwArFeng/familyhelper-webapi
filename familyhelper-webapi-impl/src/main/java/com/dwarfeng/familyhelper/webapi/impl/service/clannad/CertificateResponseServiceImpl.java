@@ -36,7 +36,6 @@ public class CertificateResponseServiceImpl implements CertificateResponseServic
 
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public CertificateResponseServiceImpl(
             @Qualifier("familyhelperClannadCertificateMaintainService")
             CertificateMaintainService certificateMaintainService,

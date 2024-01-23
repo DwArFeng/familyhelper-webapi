@@ -36,7 +36,6 @@ public class ProjectResponseServiceImpl implements ProjectResponseService {
 
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ProjectResponseServiceImpl(
             @Qualifier("familyhelperProjectProjectMaintainService") ProjectMaintainService projectMaintainService,
             @Qualifier("familyhelperProjectPopMaintainService") PopMaintainService popMaintainService,

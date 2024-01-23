@@ -38,7 +38,6 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
 
     private final AccountResponseService accountResponseService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public AccountBookResponseServiceImpl(
             @Qualifier("familyhelperFinanceAccountBookMaintainService")
                     AccountBookMaintainService accountBookMaintainService,

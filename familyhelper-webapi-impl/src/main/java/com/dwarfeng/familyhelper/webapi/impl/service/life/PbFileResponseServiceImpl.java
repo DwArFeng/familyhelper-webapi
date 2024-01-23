@@ -20,7 +20,6 @@ public class PbFileResponseServiceImpl implements PbFileResponseService {
     private final PbFileInfoMaintainService pbFileInfoMaintainService;
     private final PbFileOperateService pbFileOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public PbFileResponseServiceImpl(
             @Qualifier("familyhelperLifePbFileInfoMaintainService")
             PbFileInfoMaintainService pbFileInfoMaintainService,

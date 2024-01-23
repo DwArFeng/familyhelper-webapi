@@ -15,7 +15,6 @@ public class FormatterSupportResponseServiceImpl implements FormatterSupportResp
 
     private final FormatterSupportMaintainService formatterSupportMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public FormatterSupportResponseServiceImpl(
             @Qualifier("settingrepoFormatterSupportMaintainService")
                     FormatterSupportMaintainService formatterSupportMaintainService

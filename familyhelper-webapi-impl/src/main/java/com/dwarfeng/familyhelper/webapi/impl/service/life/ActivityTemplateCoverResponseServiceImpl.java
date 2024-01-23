@@ -31,7 +31,6 @@ public class ActivityTemplateCoverResponseServiceImpl implements ActivityTemplat
         this.activityTemplateCoverOperateService = activityTemplateCoverOperateService;
     }
 
-
     @Override
     public boolean exists(LongIdKey key) throws ServiceException {
         return activityTemplateCoverInfoMaintainService.exists(key);

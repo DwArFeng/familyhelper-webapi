@@ -20,7 +20,6 @@ public class SettingNodeResponseServiceImpl implements SettingNodeResponseServic
     private final SettingNodeMaintainService settingNodeMaintainService;
     private final SettingNodeOperateService settingNodeOperateService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public SettingNodeResponseServiceImpl(
             @Qualifier("settingrepoSettingNodeMaintainService") SettingNodeMaintainService settingNodeMaintainService,
             @Qualifier("settingrepoSettingNodeOperateService") SettingNodeOperateService settingNodeOperateService

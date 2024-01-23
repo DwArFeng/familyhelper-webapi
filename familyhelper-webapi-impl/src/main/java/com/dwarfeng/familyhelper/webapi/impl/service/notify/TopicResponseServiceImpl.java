@@ -15,7 +15,6 @@ public class TopicResponseServiceImpl implements TopicResponseService {
 
     private final TopicMaintainService topicMaintainService;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public TopicResponseServiceImpl(
             @Qualifier("notifyTopicMaintainService") TopicMaintainService topicMaintainService
     ) {

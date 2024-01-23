@@ -346,6 +346,7 @@ public class DispProfile implements Dto {
         this.maritalStatusIndicator = maritalStatusIndicator;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public String toString() {
         return "DispProfile{" +

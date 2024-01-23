@@ -124,7 +124,6 @@ public class RouterInfoController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @GetMapping("/router-info/all")
     @BehaviorAnalyse
     @SkipRecord
