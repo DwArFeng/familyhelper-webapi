@@ -4,6 +4,17 @@
 
 #### 功能构建
 
+- 增加 dubbo 微服务的分组配置。
+  - acckeeper。
+  - rbac。
+  - familyhelper-finance。
+  - familyhelper-clannad。
+  - familyhelper-assets。
+  - familyhelper-project。
+  - familyhelper-note。
+  - settingrepo。
+  - notify。
+
 - 增加依赖。
   - 增加依赖 `gson` 以规避漏洞，版本为 `2.8.9`。
   - 增加依赖 `snakeyaml` 以规避漏洞，版本为 `1.33`。
@@ -21,6 +32,7 @@
 
 - 优化文件格式。
   - 优化 `pom.xml` 文件格式。
+  - 优化 `spring/application-context-dubbo.xml` 文件格式。
 
 #### Bug修复
 
