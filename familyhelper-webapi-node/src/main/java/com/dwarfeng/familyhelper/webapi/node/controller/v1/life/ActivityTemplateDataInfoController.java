@@ -246,6 +246,7 @@ public class ActivityTemplateDataInfoController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/activity-template-data-info/remove")
     @BehaviorAnalyse
     @BindingCheck

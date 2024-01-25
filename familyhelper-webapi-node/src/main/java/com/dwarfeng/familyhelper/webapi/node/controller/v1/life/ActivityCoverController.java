@@ -197,6 +197,7 @@ public class ActivityCoverController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/activity-cover/remove")
     @BehaviorAnalyse
     @BindingCheck

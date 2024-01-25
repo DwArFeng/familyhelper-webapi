@@ -219,6 +219,7 @@ public class AssetCatalogController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/asset-catalog/upsert-permission")
     @BehaviorAnalyse
     @BindingCheck
@@ -239,6 +240,7 @@ public class AssetCatalogController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/asset-catalog/remove-permission")
     @BehaviorAnalyse
     @BindingCheck

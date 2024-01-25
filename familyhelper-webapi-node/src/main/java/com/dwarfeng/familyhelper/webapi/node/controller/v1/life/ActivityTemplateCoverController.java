@@ -198,6 +198,7 @@ public class ActivityTemplateCoverController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/activity-template-cover/remove")
     @BehaviorAnalyse
     @BindingCheck

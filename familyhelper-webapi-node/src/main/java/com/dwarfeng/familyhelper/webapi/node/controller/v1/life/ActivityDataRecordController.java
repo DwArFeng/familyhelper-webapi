@@ -385,6 +385,7 @@ public class ActivityDataRecordController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/activity-data-record/remove")
     @BehaviorAnalyse
     @BindingCheck

@@ -255,6 +255,7 @@ public class ProjectController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/project/upsert-permission")
     @BehaviorAnalyse
     @BindingCheck
@@ -275,6 +276,7 @@ public class ProjectController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/project/remove-permission")
     @BehaviorAnalyse
     @BindingCheck
