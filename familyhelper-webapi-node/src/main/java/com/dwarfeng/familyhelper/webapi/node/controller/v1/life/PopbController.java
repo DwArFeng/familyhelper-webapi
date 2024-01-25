@@ -20,6 +20,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/life")
 public class PopbController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PopbController.class);
 
     private final PopbResponseService service;
 
@@ -67,6 +71,7 @@ public class PopbController {
             boolean exists = service.exists(new PopbKey(longId, stringId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -81,6 +86,7 @@ public class PopbController {
             Popb popb = service.get(new PopbKey(longId, stringId));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPopb.of(popb)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -96,6 +102,7 @@ public class PopbController {
             DispPopb dispPopb = service.getDisp(new PopbKey(longId, stringId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPopb.of(dispPopb)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -114,6 +121,7 @@ public class PopbController {
             PagedData<JSFixedFastJsonPopb> transform = PagingUtil.transform(childForPbSet, popbBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -135,6 +143,7 @@ public class PopbController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

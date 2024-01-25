@@ -26,6 +26,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +43,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/clannad")
 public class CertificateController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CertificateController.class);
 
     private final CertificateResponseService service;
 
@@ -72,6 +76,7 @@ public class CertificateController {
             boolean exists = service.exists(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -86,6 +91,7 @@ public class CertificateController {
             Certificate certificate = service.get(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonCertificate.of(certificate)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -101,6 +107,7 @@ public class CertificateController {
             PagedData<JSFixedFastJsonCertificate> transform = PagingUtil.transform(all, certificateBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -117,6 +124,7 @@ public class CertificateController {
             DispCertificate dispCertificate = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispCertificate.of(dispCertificate)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -136,6 +144,7 @@ public class CertificateController {
                     allPermittedDisp, dispCertificateBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -155,6 +164,7 @@ public class CertificateController {
                     allOwnedDisp, dispCertificateBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -172,6 +182,7 @@ public class CertificateController {
                     accountKey, WebInputCertificateCreateInfo.toStackBean(certificateCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -191,6 +202,7 @@ public class CertificateController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -207,6 +219,7 @@ public class CertificateController {
             service.removeCertificate(accountKey, WebInputLongIdKey.toStackBean(certificateKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -227,6 +240,7 @@ public class CertificateController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -247,6 +261,7 @@ public class CertificateController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

@@ -20,6 +20,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/clannad")
 public class PoceController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PoceController.class);
 
     private final PoceResponseService service;
 
@@ -68,6 +72,7 @@ public class PoceController {
             boolean exists = service.exists(new PoceKey(certificateId, userId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -83,6 +88,7 @@ public class PoceController {
             Poce poce = service.get(new PoceKey(certificateId, userId));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPoce.of(poce)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -99,6 +105,7 @@ public class PoceController {
             DispPoce dispPoce = service.getDisp(new PoceKey(certificateId, userId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPoce.of(dispPoce)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -117,6 +124,7 @@ public class PoceController {
             PagedData<JSFixedFastJsonPoce> transform = PagingUtil.transform(childForCertificate, poceBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -138,6 +146,7 @@ public class PoceController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

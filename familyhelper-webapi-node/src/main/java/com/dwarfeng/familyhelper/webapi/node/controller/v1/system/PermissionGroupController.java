@@ -21,6 +21,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +39,8 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/api/v1/system")
 public class PermissionGroupController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PermissionGroupController.class);
 
     private final PermissionGroupResponseService service;
     private final ServiceExceptionMapper sem;
@@ -63,6 +67,7 @@ public class PermissionGroupController {
             boolean exists = service.exists(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -77,6 +82,7 @@ public class PermissionGroupController {
             PermissionGroup permissionGroup = service.get(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonPermissionGroup.of(permissionGroup)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -95,6 +101,7 @@ public class PermissionGroupController {
             StringIdKey insert = service.insert(permissionGroup);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -110,6 +117,7 @@ public class PermissionGroupController {
             service.update(WebInputPermissionGroup.toStackBean(webInputPermissionGroup));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -128,6 +136,7 @@ public class PermissionGroupController {
             }
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -143,6 +152,7 @@ public class PermissionGroupController {
             PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -159,6 +169,7 @@ public class PermissionGroupController {
             PagedData<FastJsonPermissionGroup> transform = PagingUtil.transform(idLike, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -187,6 +198,7 @@ public class PermissionGroupController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -206,6 +218,7 @@ public class PermissionGroupController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -221,6 +234,7 @@ public class PermissionGroupController {
                     ResponseDataUtil.good(FastJsonDispPermissionGroup.of(dispPermissionGroup))
             );
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -241,6 +255,7 @@ public class PermissionGroupController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -268,6 +283,7 @@ public class PermissionGroupController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -287,6 +303,7 @@ public class PermissionGroupController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -304,6 +321,7 @@ public class PermissionGroupController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -321,6 +339,7 @@ public class PermissionGroupController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

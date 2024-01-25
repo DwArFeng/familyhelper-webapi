@@ -15,6 +15,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController("projectMemoRemindDriverSupportController")
 @RequestMapping("/api/v1/project")
 public class MemoRemindDriverSupportController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MemoRemindDriverSupportController.class);
 
     private final MemoRemindDriverSupportResponseService service;
     private final ServiceExceptionMapper sem;
@@ -51,6 +55,7 @@ public class MemoRemindDriverSupportController {
             boolean exists = service.exists(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -63,6 +68,7 @@ public class MemoRemindDriverSupportController {
             MemoRemindDriverSupport memoRemindDriverSupport = service.get(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonMemoRemindDriverSupport.of(memoRemindDriverSupport)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -79,6 +85,7 @@ public class MemoRemindDriverSupportController {
             PagedData<FastJsonMemoRemindDriverSupport> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -96,6 +103,7 @@ public class MemoRemindDriverSupportController {
             PagedData<FastJsonMemoRemindDriverSupport> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

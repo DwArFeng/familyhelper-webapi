@@ -22,6 +22,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +47,8 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/api/v1/life")
 public class ActivityTemplateCoverController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActivityTemplateCoverController.class);
 
     private final ActivityTemplateCoverResponseService service;
 
@@ -78,6 +82,7 @@ public class ActivityTemplateCoverController {
             boolean exists = service.exists(new LongIdKey(longId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -94,6 +99,7 @@ public class ActivityTemplateCoverController {
                     JSFixedFastJsonActivityTemplateCoverInfo.of(activityTemplateCoverInfo)
             ));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -117,6 +123,7 @@ public class ActivityTemplateCoverController {
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
 
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -186,6 +193,7 @@ public class ActivityTemplateCoverController {
             // 返回响应结果。
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -202,6 +210,7 @@ public class ActivityTemplateCoverController {
             service.remove(accountKey, WebInputLongIdKey.toStackBean(activityTemplateCoverKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -224,6 +233,7 @@ public class ActivityTemplateCoverController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

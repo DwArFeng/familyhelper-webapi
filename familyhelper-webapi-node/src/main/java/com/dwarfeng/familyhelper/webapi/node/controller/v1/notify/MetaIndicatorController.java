@@ -21,6 +21,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +40,8 @@ import java.util.stream.Collectors;
 @RestController("notifyMetaIndicatorController")
 @RequestMapping("/api/v1/notify")
 public class MetaIndicatorController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MetaIndicatorController.class);
 
     private final MetaIndicatorResponseService service;
     private final ServiceExceptionMapper sem;
@@ -64,6 +68,7 @@ public class MetaIndicatorController {
             boolean exists = service.exists(new MetaIndicatorKey(topicId, metaId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -81,6 +86,7 @@ public class MetaIndicatorController {
                     FastJsonMetaIndicator.of(metaIndicator)
             ));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -101,6 +107,7 @@ public class MetaIndicatorController {
             MetaIndicatorKey insert = service.insert(metaIndicator);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonMetaIndicatorKey.of(insert)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -118,6 +125,7 @@ public class MetaIndicatorController {
             service.update(WebInputMetaIndicator.toStackBean(webInputMetaIndicator));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -133,6 +141,7 @@ public class MetaIndicatorController {
             service.delete(new MetaIndicatorKey(topicId, metaId));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -149,6 +158,7 @@ public class MetaIndicatorController {
             PagedData<FastJsonMetaIndicator> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -169,6 +179,7 @@ public class MetaIndicatorController {
             PagedData<FastJsonMetaIndicator> transform = PagingUtil.transform(typeEquals, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -190,6 +201,7 @@ public class MetaIndicatorController {
                     .map(FastJsonMetaIndicator::of).collect(Collectors.toList());
             return FastJsonResponseData.of(ResponseDataUtil.good(transform));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

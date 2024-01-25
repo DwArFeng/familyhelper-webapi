@@ -15,6 +15,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/notify")
 public class DispatcherSupportController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherSupportController.class);
 
     private final DispatcherSupportResponseService service;
     private final ServiceExceptionMapper sem;
@@ -51,6 +55,7 @@ public class DispatcherSupportController {
             boolean exists = service.exists(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -63,6 +68,7 @@ public class DispatcherSupportController {
             DispatcherSupport dispatcherSupport = service.get(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonDispatcherSupport.of(dispatcherSupport)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -79,6 +85,7 @@ public class DispatcherSupportController {
             PagedData<FastJsonDispatcherSupport> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -96,6 +103,7 @@ public class DispatcherSupportController {
             PagedData<FastJsonDispatcherSupport> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

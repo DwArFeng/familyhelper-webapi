@@ -13,6 +13,8 @@ import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,8 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/api/v1/clannad")
 public class AvatarController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AvatarController.class);
 
     private final AvatarResponseService service;
 
@@ -61,6 +65,7 @@ public class AvatarController {
             boolean exists = service.exists(new StringIdKey(stringId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -75,6 +80,7 @@ public class AvatarController {
             AvatarInfo avatarInfo = service.get(new StringIdKey(stringId));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonAvatarInfo.of(avatarInfo)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -136,6 +142,7 @@ public class AvatarController {
             // 返回响应结果。
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

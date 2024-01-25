@@ -20,6 +20,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/clannad")
 public class NicknameController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(NicknameController.class);
 
     private final NicknameResponseService service;
     private final ServiceExceptionMapper sem;
@@ -61,6 +65,7 @@ public class NicknameController {
             boolean exists = service.exists(new NicknameKey(subjectUserId, objectUserId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -76,6 +81,7 @@ public class NicknameController {
             Nickname nickname = service.get(new NicknameKey(subjectUserId, objectUserId));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonNickname.of(nickname)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -92,6 +98,7 @@ public class NicknameController {
             NicknameKey insert = service.insert(nickname);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonNicknameKey.of(insert)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -108,6 +115,7 @@ public class NicknameController {
             service.update(WebInputNickname.toStackBean(webInputNickname));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -123,6 +131,7 @@ public class NicknameController {
             service.delete(new NicknameKey(subjectUserId, objectUserId));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -142,6 +151,7 @@ public class NicknameController {
             PagedData<FastJsonNickname> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

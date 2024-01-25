@@ -19,6 +19,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/life")
 public class ActivityTemplateDriverInfoController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActivityTemplateDriverInfoController.class);
 
     private final ActivityTemplateDriverInfoResponseService service;
     private final ServiceExceptionMapper sem;
@@ -58,6 +62,7 @@ public class ActivityTemplateDriverInfoController {
             boolean exists = service.exists(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -74,6 +79,7 @@ public class ActivityTemplateDriverInfoController {
                     JSFixedFastJsonActivityTemplateDriverInfo.of(activityTemplateDriverInfo)
             ));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -93,6 +99,7 @@ public class ActivityTemplateDriverInfoController {
             LongIdKey insert = service.insert(activityTemplateDriverInfo);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonLongIdKey.of(insert)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -110,6 +117,7 @@ public class ActivityTemplateDriverInfoController {
             service.update(WebInputActivityTemplateDriverInfo.toStackBean(webInputActivityTemplateDriverInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -122,6 +130,7 @@ public class ActivityTemplateDriverInfoController {
             service.delete(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -142,6 +151,7 @@ public class ActivityTemplateDriverInfoController {
             PagedData<JSFixedFastJsonActivityTemplateDriverInfo> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

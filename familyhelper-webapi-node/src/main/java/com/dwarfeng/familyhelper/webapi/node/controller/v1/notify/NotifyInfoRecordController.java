@@ -18,6 +18,8 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,8 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/api/v1/notify")
 public class NotifyInfoRecordController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(NotifyInfoRecordController.class);
 
     private final NotifyInfoRecordResponseService service;
     private final ServiceExceptionMapper sem;
@@ -62,6 +66,7 @@ public class NotifyInfoRecordController {
             boolean exists = service.exists(new NotifyInfoRecordKey(notifyHistoryId, type, recordId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -80,6 +85,7 @@ public class NotifyInfoRecordController {
                     JSFixedFastJsonNotifyInfoRecord.of(notifyInfoRecord)
             ));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -96,6 +102,7 @@ public class NotifyInfoRecordController {
             service.delete(new NotifyInfoRecordKey(notifyHistoryId, type, recordId));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -124,6 +131,7 @@ public class NotifyInfoRecordController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -144,6 +152,7 @@ public class NotifyInfoRecordController {
                     JSFixedFastJsonDispNotifyInfoRecord.of(notifyInfoRecord)
             ));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -174,6 +183,7 @@ public class NotifyInfoRecordController {
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

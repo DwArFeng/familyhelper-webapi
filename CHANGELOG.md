@@ -4,6 +4,8 @@
 
 #### 功能构建
 
+- 为 Controller 异常添加日志输出。
+
 - 增加 dubbo 微服务的分组配置。
   - acckeeper。
   - rbac。

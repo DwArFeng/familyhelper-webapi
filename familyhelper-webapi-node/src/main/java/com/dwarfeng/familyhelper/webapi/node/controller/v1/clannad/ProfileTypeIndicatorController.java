@@ -18,6 +18,8 @@ import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/clannad")
 public class ProfileTypeIndicatorController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProfileTypeIndicatorController.class);
 
     private final ProfileTypeIndicatorResponseService service;
     private final ServiceExceptionMapper sem;
@@ -58,6 +62,7 @@ public class ProfileTypeIndicatorController {
             boolean exists = service.exists(new ProfileTypeIndicatorKey(category, id));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -72,6 +77,7 @@ public class ProfileTypeIndicatorController {
             ProfileTypeIndicator profileTypeIndicator = service.get(new ProfileTypeIndicatorKey(category, id));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonProfileTypeIndicator.of(profileTypeIndicator)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -90,6 +96,7 @@ public class ProfileTypeIndicatorController {
             ProfileTypeIndicatorKey insert = service.insert(profileTypeIndicator);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonProfileTypeIndicatorKey.of(insert)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -107,6 +114,7 @@ public class ProfileTypeIndicatorController {
             service.update(WebInputProfileTypeIndicator.toStackBean(webInputProfileTypeIndicator));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -121,6 +129,7 @@ public class ProfileTypeIndicatorController {
             service.delete(new ProfileTypeIndicatorKey(category, id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -139,6 +148,7 @@ public class ProfileTypeIndicatorController {
             PagedData<FastJsonProfileTypeIndicator> transform = PagingUtil.transform(childForCategory, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }

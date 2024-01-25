@@ -19,6 +19,8 @@ import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/notify")
 public class SenderInfoController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SenderInfoController.class);
 
     private final SenderInfoResponseService service;
     private final ServiceExceptionMapper sem;
@@ -60,6 +64,7 @@ public class SenderInfoController {
             boolean exists = service.exists(new SenderInfoKey(notifySettingId, topicId));
             return FastJsonResponseData.of(ResponseDataUtil.good(exists));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -77,6 +82,7 @@ public class SenderInfoController {
                     JSFixedFastJsonSenderInfo.of(senderInfo)
             ));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -97,6 +103,7 @@ public class SenderInfoController {
             SenderInfoKey insert = service.insert(senderInfo);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonSenderInfoKey.of(insert)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -114,6 +121,7 @@ public class SenderInfoController {
             service.update(WebInputSenderInfo.toStackBean(webInputSenderInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -129,6 +137,7 @@ public class SenderInfoController {
             service.delete(new SenderInfoKey(notifySettingId, topicId));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -145,6 +154,7 @@ public class SenderInfoController {
             PagedData<JSFixedFastJsonSenderInfo> transform = PagingUtil.transform(all, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
@@ -162,6 +172,7 @@ public class SenderInfoController {
             PagedData<JSFixedFastJsonSenderInfo> transform = PagingUtil.transform(typeEquals, beanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
