@@ -4,6 +4,8 @@
 
 #### 功能构建
 
+- 优化 @LoginRequired AOP 配置。
+
 - 执行 npm update，升级前端依赖。
   - familyhelper-webapi-ui。
 

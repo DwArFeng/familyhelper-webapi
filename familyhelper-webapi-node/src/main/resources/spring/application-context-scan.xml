@@ -17,5 +17,4 @@
     <context:component-scan base-package="com.dwarfeng.acckeeper.api.integration.subgrade"/>
     <!--扫描aop增强所在的包。 -->
     <context:component-scan base-package="com.dwarfeng.subgrade.sdk.interceptor.analyse"/>
-    <context:component-scan base-package="com.dwarfeng.subgrade.sdk.interceptor.login"/>
 </beans>
