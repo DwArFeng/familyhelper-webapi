@@ -1,8 +1,11 @@
 # ChangeLog
 
-### Release_1.1.0_20240123_build_A
+### Release_1.1.0_20240125_build_A
 
 #### 功能构建
+
+- 执行 npm update，升级前端依赖。
+  - familyhelper-webapi-ui。
 
 - 为 Controller 异常添加日志输出。
 
