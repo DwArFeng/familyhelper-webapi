@@ -17,9 +17,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class PbItemResponseServiceImpl implements PbItemResponseService {
@@ -98,31 +96,58 @@ public class PbItemResponseServiceImpl implements PbItemResponseService {
     }
 
     @Override
-    public PagedData<DispPbItem> childForPbSetRootDisp(StringIdKey accountKey, LongIdKey pbSetKey, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<DispPbItem> childForPbSetRootDisp(
+            StringIdKey accountKey, LongIdKey pbSetKey, PagingInfo pagingInfo
+    ) throws ServiceException {
         PagedData<PbItem> lookup = childForPbSetRoot(pbSetKey, pagingInfo);
         return toDispPagedData(lookup, accountKey);
     }
 
     @Override
-    public PagedData<DispPbItem> childForPbSetNameLikeDisp(StringIdKey accountKey, LongIdKey pbSetKey, String pattern, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<DispPbItem> childForPbSetNameLikeDisp(
+            StringIdKey accountKey, LongIdKey pbSetKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException {
         PagedData<PbItem> lookup = childForPbSetNameLike(pbSetKey, pattern, pagingInfo);
         return toDispPagedData(lookup, accountKey);
     }
 
     private DispPbItem toDisp(PbItem pbItem, StringIdKey inspectAccountKey) throws ServiceException {
-        DispPbNode node = null;
+        DispPbNode pbNode = null;
         if (Objects.nonNull(pbItem.getNodeKey())) {
-            node = pbNodeResponseService.getDisp(pbItem.getNodeKey(), inspectAccountKey);
+            pbNode = pbNodeResponseService.getDisp(pbItem.getNodeKey(), inspectAccountKey);
         }
 
-        return DispPbItem.of(pbItem, node);
+        return DispPbItem.of(pbItem, pbNode);
+    }
+
+    private DispPbItem toDispWithCache(
+            PbItem pbItem, StringIdKey inspectAccountKey, Map<LongIdKey, DispPbNode> cachedPbNodeMap
+    ) throws ServiceException {
+        DispPbNode pbNode = toDispPbNodeWithCache(pbItem, inspectAccountKey, cachedPbNodeMap);
+        return DispPbItem.of(pbItem, pbNode);
+    }
+
+    private DispPbNode toDispPbNodeWithCache(
+            PbItem pbItem, StringIdKey inspectAccountKey, Map<LongIdKey, DispPbNode> cachedPbNodeMap
+    ) throws ServiceException {
+        LongIdKey nodeKey = pbItem.getNodeKey();
+        if (Objects.isNull(nodeKey)) {
+            return null;
+        }
+        DispPbNode dispPbNode = cachedPbNodeMap.getOrDefault(nodeKey, null);
+        if (Objects.isNull(dispPbNode)) {
+            dispPbNode = pbNodeResponseService.getDisp(nodeKey, inspectAccountKey);
+            cachedPbNodeMap.put(nodeKey, dispPbNode);
+        }
+        return dispPbNode;
     }
 
     private PagedData<DispPbItem> toDispPagedData(PagedData<PbItem> lookup, StringIdKey inspectAccountKey)
             throws ServiceException {
         List<DispPbItem> dispPbItems = new ArrayList<>();
+        Map<LongIdKey, DispPbNode> cachedPbNodeMap = new HashMap<>();
         for (PbItem pbItem : lookup.getData()) {
-            dispPbItems.add(toDisp(pbItem, inspectAccountKey));
+            dispPbItems.add(toDispWithCache(pbItem, inspectAccountKey, cachedPbNodeMap));
         }
         return new PagedData<>(
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(),

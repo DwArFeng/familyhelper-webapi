@@ -20,10 +20,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class ActivityDataNodeResponseServiceImpl implements ActivityDataNodeResponseService {
@@ -89,7 +86,9 @@ public class ActivityDataNodeResponseServiceImpl implements ActivityDataNodeResp
     }
 
     @Override
-    public PagedData<ActivityDataNode> childForActivityDataSetNameLike(LongIdKey activityDataSetKey, String pattern, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<ActivityDataNode> childForActivityDataSetNameLike(
+            LongIdKey activityDataSetKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException {
         return activityDataNodeMaintainService.lookup(
                 ActivityDataNodeMaintainService.CHILD_FOR_SET_NAME_LIKE,
                 new Object[]{activityDataSetKey, pattern},
@@ -211,6 +210,7 @@ public class ActivityDataNodeResponseServiceImpl implements ActivityDataNodeResp
         return toDispPagedData(pathFromRoot, accountKey);
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private DispActivityDataNode toDisp(
             ActivityDataNode activityDataNode, StringIdKey inspectAccountKey
     ) throws ServiceException {
@@ -233,12 +233,52 @@ public class ActivityDataNodeResponseServiceImpl implements ActivityDataNodeResp
         return DispActivityDataNode.of(activityDataNode, set, hasNoChild);
     }
 
+    @SuppressWarnings("DuplicatedCode")
+    private DispActivityDataNode toDispWithCache(
+            ActivityDataNode activityDataNode, StringIdKey inspectAccountKey,
+            Map<LongIdKey, DispActivityDataSet> cachedActivityDataSetMap
+    ) throws ServiceException {
+        DispActivityDataSet set = toDispActivityDataSetWithCache(
+                activityDataNode, inspectAccountKey, cachedActivityDataSetMap
+        );
+        boolean hasNoChild = activityDataNodeMaintainService.lookup(
+                ActivityDataNodeMaintainService.CHILD_FOR_PARENT, new Object[]{activityDataNode.getKey()},
+                new PagingInfo(0, 1)
+        ).getCount() <= 0;
+        if (hasNoChild) {
+            hasNoChild = activityDataItemMaintainService.lookup(
+                    ActivityDataItemMaintainService.CHILD_FOR_NODE, new Object[]{activityDataNode.getKey()},
+                    new PagingInfo(0, 1)
+            ).getCount() <= 0;
+        }
+        return DispActivityDataNode.of(activityDataNode, set, hasNoChild);
+    }
+
+    private DispActivityDataSet toDispActivityDataSetWithCache(
+            ActivityDataNode activityDataNode, StringIdKey inspectAccountKey,
+            Map<LongIdKey, DispActivityDataSet> cachedActivityDataSetMap
+    ) throws ServiceException {
+        LongIdKey setKey = activityDataNode.getSetKey();
+        if (Objects.isNull(setKey)) {
+            return null;
+        }
+        DispActivityDataSet dispActivityDataSet = cachedActivityDataSetMap.getOrDefault(setKey, null);
+        if (Objects.isNull(dispActivityDataSet)) {
+            dispActivityDataSet = activityDataSetResponseService.getDisp(setKey, inspectAccountKey);
+            cachedActivityDataSetMap.put(setKey, dispActivityDataSet);
+        }
+        return dispActivityDataSet;
+    }
+
     private PagedData<DispActivityDataNode> toDispPagedData(
             PagedData<ActivityDataNode> lookup, StringIdKey inspectAccountKey
     ) throws ServiceException {
         List<DispActivityDataNode> dispActivityDataNodes = new ArrayList<>();
+        Map<LongIdKey, DispActivityDataSet> cachedActivityDataSetMap = new HashMap<>();
         for (ActivityDataNode activityDataNode : lookup.getData()) {
-            dispActivityDataNodes.add(toDisp(activityDataNode, inspectAccountKey));
+            dispActivityDataNodes.add(toDispWithCache(
+                    activityDataNode, inspectAccountKey, cachedActivityDataSetMap
+            ));
         }
         return new PagedData<>(
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(),

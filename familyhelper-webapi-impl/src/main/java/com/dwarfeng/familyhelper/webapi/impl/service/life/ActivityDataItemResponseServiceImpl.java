@@ -17,9 +17,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class ActivityDataItemResponseServiceImpl implements ActivityDataItemResponseService {
@@ -126,16 +124,42 @@ public class ActivityDataItemResponseServiceImpl implements ActivityDataItemResp
         if (Objects.nonNull(activityDataItem.getNodeKey())) {
             node = activityDataNodeResponseService.getDisp(activityDataItem.getNodeKey(), inspectAccountKey);
         }
-
         return DispActivityDataItem.of(activityDataItem, node);
+    }
+
+    private DispActivityDataItem toDispWithCache(
+            ActivityDataItem activityDataItem, StringIdKey inspectAccountKey,
+            Map<LongIdKey, DispActivityDataNode> cachedActivityDataNodeMap
+    ) throws ServiceException {
+        DispActivityDataNode node = toDispActivityDataNodeWithCache(
+                activityDataItem, inspectAccountKey, cachedActivityDataNodeMap
+        );
+        return DispActivityDataItem.of(activityDataItem, node);
+    }
+
+    private DispActivityDataNode toDispActivityDataNodeWithCache(
+            ActivityDataItem activityDataItem, StringIdKey inspectAccountKey, Map<LongIdKey,
+            DispActivityDataNode> cachedActivityDataNodeMap
+    ) throws ServiceException {
+        LongIdKey nodeKey = activityDataItem.getNodeKey();
+        if (Objects.isNull(nodeKey)) {
+            return null;
+        }
+        DispActivityDataNode node = cachedActivityDataNodeMap.getOrDefault(nodeKey, null);
+        if (Objects.isNull(node)) {
+            node = activityDataNodeResponseService.getDisp(nodeKey, inspectAccountKey);
+            cachedActivityDataNodeMap.put(nodeKey, node);
+        }
+        return node;
     }
 
     private PagedData<DispActivityDataItem> toDispPagedData(
             PagedData<ActivityDataItem> lookup, StringIdKey inspectAccountKey
     ) throws ServiceException {
         List<DispActivityDataItem> dispActivityDataItems = new ArrayList<>();
+        Map<LongIdKey, DispActivityDataNode> cachedActivityDataNodeMap = new HashMap<>();
         for (ActivityDataItem activityDataItem : lookup.getData()) {
-            dispActivityDataItems.add(toDisp(activityDataItem, inspectAccountKey));
+            dispActivityDataItems.add(toDispWithCache(activityDataItem, inspectAccountKey, cachedActivityDataNodeMap));
         }
         return new PagedData<>(
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(),

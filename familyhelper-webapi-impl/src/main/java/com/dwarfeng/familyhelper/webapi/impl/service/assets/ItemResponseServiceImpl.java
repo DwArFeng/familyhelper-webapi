@@ -22,10 +22,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class ItemResponseServiceImpl implements ItemResponseService {
@@ -79,7 +76,8 @@ public class ItemResponseServiceImpl implements ItemResponseService {
     }
 
     @Override
-    public PagedData<Item> childForAssetCatalogRoot(LongIdKey assetCatalogKey, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<Item> childForAssetCatalogRoot(LongIdKey assetCatalogKey, PagingInfo pagingInfo)
+            throws ServiceException {
         return itemMaintainService.lookup(
                 ItemMaintainService.CHILD_FOR_ASSET_CATALOG_ROOT, new Object[]{assetCatalogKey}, pagingInfo
         );
@@ -93,7 +91,9 @@ public class ItemResponseServiceImpl implements ItemResponseService {
     }
 
     @Override
-    public PagedData<Item> childForAssetCatalogNameLike(LongIdKey assetCatalogKey, String pattern, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<Item> childForAssetCatalogNameLike(
+            LongIdKey assetCatalogKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException {
         return itemMaintainService.lookup(
                 ItemMaintainService.CHILD_FOR_ASSET_CATALOG_NAME_LIKE,
                 new Object[]{assetCatalogKey, pattern},
@@ -174,8 +174,8 @@ public class ItemResponseServiceImpl implements ItemResponseService {
         return toDispPagedData(pathFromRoot, accountKey);
     }
 
-    private DispItem toDisp(Item item, StringIdKey inspectAccountKey)
-            throws ServiceException {
+    @SuppressWarnings("DuplicatedCode")
+    private DispItem toDisp(Item item, StringIdKey inspectAccountKey) throws ServiceException {
         DispAssetCatalog assetCatalog = null;
         if (Objects.nonNull(item.getAssetCatalogKey())) {
             assetCatalog = assetCatalogResponseService.getDisp(item.getAssetCatalogKey(), inspectAccountKey);
@@ -197,11 +197,59 @@ public class ItemResponseServiceImpl implements ItemResponseService {
         return DispItem.of(item, assetCatalog, typeIndicator, itemLabels, hasNoChild);
     }
 
+    @SuppressWarnings("DuplicatedCode")
+    private DispItem toDispWithCache(
+            Item item, StringIdKey inspectAccountKey, Map<LongIdKey, DispAssetCatalog> cachedAssetCatalogMap,
+            Map<String, ItemTypeIndicator> cachedItemTypeIndicatorMap
+    ) throws ServiceException {
+        DispAssetCatalog assetCatalog = toDispAssetCatalogWithCache(item, inspectAccountKey, cachedAssetCatalogMap);
+        ItemTypeIndicator typeIndicator = toDispItemTypeIndicatorWithCache(item, cachedItemTypeIndicatorMap);
+        List<ItemLabel> itemLabels = itemLabelMaintainService.lookup(
+                ItemLabelMaintainService.CHILD_FOR_ITEM, new Object[]{item.getKey()}
+        ).getData();
+        boolean hasNoChild = itemMaintainService.lookup(
+                ItemMaintainService.CHILD_FOR_PARENT, new Object[]{item.getKey()}, new PagingInfo(0, 1)
+        ).getCount() <= 0;
+        return DispItem.of(item, assetCatalog, typeIndicator, itemLabels, hasNoChild);
+    }
+
+    private DispAssetCatalog toDispAssetCatalogWithCache(
+            Item item, StringIdKey inspectAccountKey, Map<LongIdKey, DispAssetCatalog> cachedAssetCatalogMap
+    ) throws ServiceException {
+        LongIdKey assetCatalogKey = item.getAssetCatalogKey();
+        if (Objects.isNull(assetCatalogKey)) {
+            return null;
+        }
+        DispAssetCatalog dispAssetCatalog = cachedAssetCatalogMap.getOrDefault(assetCatalogKey, null);
+        if (Objects.isNull(dispAssetCatalog)) {
+            dispAssetCatalog = assetCatalogResponseService.getDisp(assetCatalogKey, inspectAccountKey);
+            cachedAssetCatalogMap.put(assetCatalogKey, dispAssetCatalog);
+        }
+        return dispAssetCatalog;
+    }
+
+    private ItemTypeIndicator toDispItemTypeIndicatorWithCache(
+            Item item, Map<String, ItemTypeIndicator> cachedItemTypeIndicatorMap
+    ) throws ServiceException {
+        String itemType = item.getItemType();
+        if (Objects.isNull(itemType)) {
+            return null;
+        }
+        ItemTypeIndicator itemTypeIndicator = cachedItemTypeIndicatorMap.getOrDefault(itemType, null);
+        if (Objects.isNull(itemTypeIndicator)) {
+            itemTypeIndicator = itemTypeIndicatorMaintainService.getIfExists(new StringIdKey(itemType));
+            cachedItemTypeIndicatorMap.put(itemType, itemTypeIndicator);
+        }
+        return itemTypeIndicator;
+    }
+
     private PagedData<DispItem> toDispPagedData(PagedData<Item> itemPagedData, StringIdKey inspectAccountKey)
             throws ServiceException {
         List<DispItem> dispItems = new ArrayList<>();
+        Map<LongIdKey, DispAssetCatalog> cachedAssetCatalogMap = new HashMap<>();
+        Map<String, ItemTypeIndicator> cachedItemTypeIndicatorMap = new HashMap<>();
         for (Item item : itemPagedData.getData()) {
-            dispItems.add(toDisp(item, inspectAccountKey));
+            dispItems.add(toDispWithCache(item, inspectAccountKey, cachedAssetCatalogMap, cachedItemTypeIndicatorMap));
         }
         return new PagedData<>(
                 itemPagedData.getCurrentPage(), itemPagedData.getTotalPages(), itemPagedData.getRows(),

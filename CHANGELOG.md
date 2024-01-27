@@ -4,7 +4,14 @@
 
 #### 功能构建
 
-- (无)
+- 优化部分响应服务查询可展示实体的速度。
+  - com.dwarfeng.familyhelper.webapi.impl.service.assets.ItemResponseServiceImpl。
+  - com.dwarfeng.familyhelper.webapi.impl.service.finance.FundChangeResponseServiceImpl。
+  - com.dwarfeng.familyhelper.webapi.impl.service.life.ActivityDataItemResponseServiceImpl。
+  - com.dwarfeng.familyhelper.webapi.impl.service.life.ActivityDataNodeResponseServiceImpl。
+  - com.dwarfeng.familyhelper.webapi.impl.service.life.PbItemResponseServiceImpl。
+  - com.dwarfeng.familyhelper.webapi.impl.service.note.NoteItemResponseServiceImpl。
+  - com.dwarfeng.familyhelper.webapi.impl.service.note.NoteNodeResponseServiceImpl。
 
 #### Bug修复
 

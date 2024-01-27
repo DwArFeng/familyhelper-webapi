@@ -21,9 +21,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class NoteItemResponseServiceImpl implements NoteItemResponseService {
@@ -122,23 +120,65 @@ public class NoteItemResponseServiceImpl implements NoteItemResponseService {
     }
 
     private DispNoteItem toDisp(NoteItem noteItem, StringIdKey inspectAccountKey) throws ServiceException {
-        DispNoteBook book = null;
+        DispNoteBook noteBook = null;
         if (Objects.nonNull(noteItem.getBookKey())) {
-            book = noteBookResponseService.getDisp(noteItem.getBookKey(), inspectAccountKey);
+            noteBook = noteBookResponseService.getDisp(noteItem.getBookKey(), inspectAccountKey);
         }
-        DispNoteNode node = null;
+        DispNoteNode noteNode = null;
         if (Objects.nonNull(noteItem.getNodeKey())) {
-            node = noteNodeResponseService.getDisp(noteItem.getNodeKey(), inspectAccountKey);
+            noteNode = noteNodeResponseService.getDisp(noteItem.getNodeKey(), inspectAccountKey);
         }
 
-        return DispNoteItem.of(noteItem, book, node);
+        return DispNoteItem.of(noteItem, noteBook, noteNode);
+    }
+
+    private DispNoteItem toDispWithCache(
+            NoteItem noteItem, StringIdKey inspectAccountKey,
+            Map<LongIdKey, DispNoteBook> cachedNoteBookMap, Map<LongIdKey, DispNoteNode> cachedNoteNodeMap
+    ) throws ServiceException {
+        DispNoteBook noteBook = toDispNoteBookWithCache(noteItem, inspectAccountKey, cachedNoteBookMap);
+        DispNoteNode noteNode = toDispNoteNodeWithCache(noteItem, inspectAccountKey, cachedNoteNodeMap);
+        return DispNoteItem.of(noteItem, noteBook, noteNode);
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private DispNoteBook toDispNoteBookWithCache(
+            NoteItem noteItem, StringIdKey inspectAccountKey, Map<LongIdKey, DispNoteBook> cachedNoteBookMap
+    ) throws ServiceException {
+        LongIdKey bookKey = noteItem.getBookKey();
+        if (Objects.isNull(bookKey)) {
+            return null;
+        }
+        DispNoteBook noteBook = cachedNoteBookMap.getOrDefault(bookKey, null);
+        if (Objects.isNull(noteBook)) {
+            noteBook = noteBookResponseService.getDisp(bookKey, inspectAccountKey);
+            cachedNoteBookMap.put(bookKey, noteBook);
+        }
+        return noteBook;
+    }
+
+    private DispNoteNode toDispNoteNodeWithCache(
+            NoteItem noteItem, StringIdKey inspectAccountKey, Map<LongIdKey, DispNoteNode> cachedNoteNodeMap
+    ) throws ServiceException {
+        LongIdKey nodeKey = noteItem.getNodeKey();
+        if (Objects.isNull(nodeKey)) {
+            return null;
+        }
+        DispNoteNode noteNode = cachedNoteNodeMap.getOrDefault(nodeKey, null);
+        if (Objects.isNull(noteNode)) {
+            noteNode = noteNodeResponseService.getDisp(nodeKey, inspectAccountKey);
+            cachedNoteNodeMap.put(nodeKey, noteNode);
+        }
+        return noteNode;
     }
 
     private PagedData<DispNoteItem> toDispPagedData(PagedData<NoteItem> lookup, StringIdKey inspectAccountKey)
             throws ServiceException {
         List<DispNoteItem> dispNoteItems = new ArrayList<>();
+        Map<LongIdKey, DispNoteBook> cachedNoteBookMap = new HashMap<>();
+        Map<LongIdKey, DispNoteNode> cachedNoteNodeMap = new HashMap<>();
         for (NoteItem noteItem : lookup.getData()) {
-            dispNoteItems.add(toDisp(noteItem, inspectAccountKey));
+            dispNoteItems.add(toDispWithCache(noteItem, inspectAccountKey, cachedNoteBookMap, cachedNoteNodeMap));
         }
         return new PagedData<>(
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(),

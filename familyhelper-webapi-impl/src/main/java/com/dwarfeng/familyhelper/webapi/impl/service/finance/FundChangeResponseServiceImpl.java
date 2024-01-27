@@ -20,9 +20,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class FundChangeResponseServiceImpl implements FundChangeResponseService {
@@ -35,13 +33,13 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
 
     public FundChangeResponseServiceImpl(
             @Qualifier("familyhelperFinanceFundChangeMaintainService")
-                    FundChangeMaintainService fundChangeMaintainService,
+            FundChangeMaintainService fundChangeMaintainService,
             @Qualifier("familyhelperFinanceFundChangeOperateService")
-                    FundChangeOperateService fundChangeOperateService,
+            FundChangeOperateService fundChangeOperateService,
             @Qualifier("familyhelperFinanceFundChangeTypeIndicatorMaintainService")
-                    FundChangeTypeIndicatorMaintainService fundChangeTypeIndicatorMaintainService,
+            FundChangeTypeIndicatorMaintainService fundChangeTypeIndicatorMaintainService,
             @Qualifier("familyhelperFinanceBalanceOperateService")
-                    BalanceOperateService balanceOperateService,
+            BalanceOperateService balanceOperateService,
             AccountBookResponseService accountBookResponseService
     ) {
         this.fundChangeMaintainService = fundChangeMaintainService;
@@ -105,102 +103,53 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
 
     @Override
     public DispFundChange getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException {
-        FundChange fundChange = fundChangeMaintainService.get(key);
-        return dispFundChangeFromFundChange(fundChange, inspectAccountKey);
+        FundChange fundChange = get(key);
+        return toDisp(fundChange, inspectAccountKey);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispFundChange> allDisp(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException {
-        PagedData<FundChange> lookup = fundChangeMaintainService.lookup(pagingInfo);
-        List<DispFundChange> dispFundChanges = new ArrayList<>();
-        for (FundChange fundChange : lookup.getData()) {
-            dispFundChanges.add(dispFundChangeFromFundChange(fundChange, accountKey));
-        }
-        return new PagedData<>(
-                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispFundChanges
-        );
+        PagedData<FundChange> lookup = all(pagingInfo);
+        return toDispPagedData(lookup, accountKey);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispFundChange> childForAccountBookDisp(
             StringIdKey accountKey, LongIdKey accountBookKey, PagingInfo pagingInfo
     ) throws ServiceException {
-        PagedData<FundChange> lookup = fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}, pagingInfo
-        );
-        List<DispFundChange> dispFundChanges = new ArrayList<>();
-        for (FundChange fundChange : lookup.getData()) {
-            dispFundChanges.add(dispFundChangeFromFundChange(fundChange, accountKey));
-        }
-        return new PagedData<>(
-                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispFundChanges
-        );
+        PagedData<FundChange> lookup = childForAccountBook(accountBookKey, pagingInfo);
+        return toDispPagedData(lookup, accountKey);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispFundChange> childForAccountBookDescDisp(
             StringIdKey accountKey, LongIdKey accountBookKey, PagingInfo pagingInfo
     ) throws ServiceException {
-        PagedData<FundChange> lookup = fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_DESC, new Object[]{accountBookKey}, pagingInfo
-        );
-        List<DispFundChange> dispFundChanges = new ArrayList<>();
-        for (FundChange fundChange : lookup.getData()) {
-            dispFundChanges.add(dispFundChangeFromFundChange(fundChange, accountKey));
-        }
-        return new PagedData<>(
-                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispFundChanges
-        );
+        PagedData<FundChange> lookup = childForAccountBookDesc(accountBookKey, pagingInfo);
+        return toDispPagedData(lookup, accountKey);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispFundChange> childForAccountBookTypeEqualsDisp(
             StringIdKey accountKey, LongIdKey accountBookKey, String changeType, PagingInfo pagingInfo
     ) throws ServiceException {
-        PagedData<FundChange> lookup = fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS,
-                new Object[]{accountBookKey, changeType},
-                pagingInfo
-        );
-        List<DispFundChange> dispFundChanges = new ArrayList<>();
-        for (FundChange fundChange : lookup.getData()) {
-            dispFundChanges.add(dispFundChangeFromFundChange(fundChange, accountKey));
-        }
-        return new PagedData<>(
-                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispFundChanges
-        );
+        PagedData<FundChange> lookup = childForAccountBookTypeEquals(accountBookKey, changeType, pagingInfo);
+        return toDispPagedData(lookup, accountKey);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public PagedData<DispFundChange> childForAccountBookTypeEqualsDescDisp(
             StringIdKey accountKey, LongIdKey accountBookKey, String changeType, PagingInfo pagingInfo
     ) throws ServiceException {
-        PagedData<FundChange> lookup = fundChangeMaintainService.lookup(
-                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS_DESC,
-                new Object[]{accountBookKey, changeType},
-                pagingInfo
-        );
-        List<DispFundChange> dispFundChanges = new ArrayList<>();
-        for (FundChange fundChange : lookup.getData()) {
-            dispFundChanges.add(dispFundChangeFromFundChange(fundChange, accountKey));
-        }
-        return new PagedData<>(
-                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispFundChanges
-        );
+        PagedData<FundChange> lookup = childForAccountBookTypeEqualsDesc(accountBookKey, changeType, pagingInfo);
+        return toDispPagedData(lookup, accountKey);
     }
 
-    private DispFundChange dispFundChangeFromFundChange(FundChange fundChange, StringIdKey inspectAccountKey)
-            throws ServiceException {
+    private DispFundChange toDisp(FundChange fundChange, StringIdKey inspectAccountKey) throws ServiceException {
         DispAccountBook accountBook = null;
         if (Objects.nonNull(fundChange.getAccountBookKey())) {
             accountBook = accountBookResponseService.getDisp(fundChange.getAccountBookKey(), inspectAccountKey);
         }
-
         FundChangeTypeIndicator typeIndicator = null;
         if (Objects.nonNull(fundChange.getChangeType())) {
             typeIndicator = fundChangeTypeIndicatorMaintainService.getIfExists(
@@ -208,6 +157,63 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
             );
         }
         return DispFundChange.of(fundChange, accountBook, typeIndicator);
+    }
+
+    private DispFundChange toDispWithCache(
+            FundChange fundChange, StringIdKey inspectAccountKey, Map<LongIdKey, DispAccountBook> cachedAccountBookMap,
+            Map<String, FundChangeTypeIndicator> cachedTypeIndicatorMap
+    ) throws ServiceException {
+        DispAccountBook accountBook = toDispAccountBookWithCache(fundChange, inspectAccountKey, cachedAccountBookMap);
+        FundChangeTypeIndicator typeIndicator = toDispFundChangeTypeIndicatorWithCache(
+                fundChange, cachedTypeIndicatorMap
+        );
+        return DispFundChange.of(fundChange, accountBook, typeIndicator);
+    }
+
+    private DispAccountBook toDispAccountBookWithCache(
+            FundChange fundChange, StringIdKey inspectAccountKey,
+            Map<LongIdKey, DispAccountBook> cachedAccountBookMap
+    ) throws ServiceException {
+        LongIdKey accountBookKey = fundChange.getAccountBookKey();
+        if (Objects.isNull(accountBookKey)) {
+            return null;
+        }
+        DispAccountBook accountBook = cachedAccountBookMap.getOrDefault(accountBookKey, null);
+        if (Objects.isNull(accountBook)) {
+            accountBook = accountBookResponseService.getDisp(accountBookKey, inspectAccountKey);
+            cachedAccountBookMap.put(accountBookKey, accountBook);
+        }
+        return accountBook;
+    }
+
+    private FundChangeTypeIndicator toDispFundChangeTypeIndicatorWithCache(
+            FundChange fundChange, Map<String, FundChangeTypeIndicator> cachedTypeIndicatorMap
+    ) throws ServiceException {
+        String changeType = fundChange.getChangeType();
+        if (Objects.isNull(changeType)) {
+            return null;
+        }
+        FundChangeTypeIndicator typeIndicator = cachedTypeIndicatorMap.getOrDefault(changeType, null);
+        if (Objects.isNull(typeIndicator)) {
+            typeIndicator = fundChangeTypeIndicatorMaintainService.getIfExists(new StringIdKey(changeType));
+            cachedTypeIndicatorMap.put(changeType, typeIndicator);
+        }
+        return typeIndicator;
+    }
+
+    private PagedData<DispFundChange> toDispPagedData(PagedData<FundChange> lookup, StringIdKey inspectAccountKey)
+            throws ServiceException {
+        List<DispFundChange> dispFundChanges = new ArrayList<>();
+        Map<LongIdKey, DispAccountBook> cachedAccountBookMap = new HashMap<>();
+        Map<String, FundChangeTypeIndicator> cachedTypeIndicatorMap = new HashMap<>();
+        for (FundChange fundChange : lookup.getData()) {
+            dispFundChanges.add(toDispWithCache(
+                    fundChange, inspectAccountKey, cachedAccountBookMap, cachedTypeIndicatorMap
+            ));
+        }
+        return new PagedData<>(
+                lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispFundChanges
+        );
     }
 
     @Override

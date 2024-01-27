@@ -20,10 +20,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class NoteNodeResponseServiceImpl implements NoteNodeResponseService {
@@ -202,11 +199,12 @@ public class NoteNodeResponseServiceImpl implements NoteNodeResponseService {
         return toDispPagedData(pathFromRoot, accountKey);
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private DispNoteNode toDisp(NoteNode noteNode, StringIdKey inspectAccountKey)
             throws ServiceException {
-        DispNoteBook set = null;
+        DispNoteBook noteBook = null;
         if (Objects.nonNull(noteNode.getBookKey())) {
-            set = noteBookResponseService.getDisp(noteNode.getBookKey(), inspectAccountKey);
+            noteBook = noteBookResponseService.getDisp(noteNode.getBookKey(), inspectAccountKey);
         }
 
         boolean hasNoChild = noteNodeMaintainService.lookup(
@@ -218,14 +216,47 @@ public class NoteNodeResponseServiceImpl implements NoteNodeResponseService {
             ).getCount() <= 0;
         }
 
-        return DispNoteNode.of(noteNode, set, hasNoChild);
+        return DispNoteNode.of(noteNode, noteBook, hasNoChild);
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private DispNoteNode toDispWithCache(
+            NoteNode noteNode, StringIdKey inspectAccountKey, Map<LongIdKey, DispNoteBook> cachedNoteBookMap
+    ) throws ServiceException {
+        DispNoteBook noteBook = toDispNoteBookWithCache(noteNode, inspectAccountKey, cachedNoteBookMap);
+        boolean hasNoChild = noteNodeMaintainService.lookup(
+                NoteNodeMaintainService.CHILD_FOR_PARENT, new Object[]{noteNode.getKey()}, new PagingInfo(0, 1)
+        ).getCount() <= 0;
+        if (hasNoChild) {
+            hasNoChild = noteItemMaintainService.lookup(
+                    NoteItemMaintainService.CHILD_FOR_NODE, new Object[]{noteNode.getKey()}, new PagingInfo(0, 1)
+            ).getCount() <= 0;
+        }
+        return DispNoteNode.of(noteNode, noteBook, hasNoChild);
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private DispNoteBook toDispNoteBookWithCache(
+            NoteNode noteNode, StringIdKey inspectAccountKey, Map<LongIdKey, DispNoteBook> cachedNoteBookMap
+    ) throws ServiceException {
+        LongIdKey bookKey = noteNode.getBookKey();
+        if (Objects.isNull(bookKey)) {
+            return null;
+        }
+        DispNoteBook noteBook = cachedNoteBookMap.getOrDefault(bookKey, null);
+        if (Objects.isNull(noteBook)) {
+            noteBook = noteBookResponseService.getDisp(bookKey, inspectAccountKey);
+            cachedNoteBookMap.put(bookKey, noteBook);
+        }
+        return noteBook;
     }
 
     private PagedData<DispNoteNode> toDispPagedData(PagedData<NoteNode> lookup, StringIdKey inspectAccountKey)
             throws ServiceException {
         List<DispNoteNode> dispNoteNodes = new ArrayList<>();
+        Map<LongIdKey, DispNoteBook> cachedNoteBookMap = new HashMap<>();
         for (NoteNode noteNode : lookup.getData()) {
-            dispNoteNodes.add(toDisp(noteNode, inspectAccountKey));
+            dispNoteNodes.add(toDispWithCache(noteNode, inspectAccountKey, cachedNoteBookMap));
         }
         return new PagedData<>(
                 lookup.getCurrentPage(), lookup.getTotalPages(), lookup.getRows(), lookup.getCount(), dispNoteNodes
