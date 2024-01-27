@@ -4,6 +4,18 @@
 
 #### 功能构建
 
+- familyhelper-webapi-ui 模块前端依赖升级。
+  - 升级 `core-js` 依赖版本为 `^3.35.1` 以规避漏洞。
+  - 升级 `vue` 依赖版本为 `^2.7.16` 以规避漏洞。
+  - 升级 `@vue/cli-plugin-babel` 依赖版本为 `^4.5.19` 以规避漏洞。
+  - 升级 `@vue/cli-plugin-eslint` 依赖版本为 `^4.5.19` 以规避漏洞。
+  - 升级 `@vue/cli-service` 依赖版本为 `^4.5.19` 以规避漏洞。
+  - 升级 `@vue/eslint-config-airbnb` 依赖版本为 `^5.3.0` 以规避漏洞。
+  - 升级 `eslint` 依赖版本为 `^6.8.0` 以规避漏洞。
+  - 升级 `eslint-plugin-import` 依赖版本为 `^2.29.1` 以规避漏洞。
+  - 升级 `eslint-plugin-vue` 依赖版本为 `^8.7.1` 以规避漏洞。
+  - 升级 `vue-template-compiler` 依赖版本为 `^2.7.16` 以规避漏洞。
+
 - 优化部分响应服务查询可展示实体的速度。
   - com.dwarfeng.familyhelper.webapi.impl.service.assets.ItemResponseServiceImpl。
   - com.dwarfeng.familyhelper.webapi.impl.service.finance.FundChangeResponseServiceImpl。
