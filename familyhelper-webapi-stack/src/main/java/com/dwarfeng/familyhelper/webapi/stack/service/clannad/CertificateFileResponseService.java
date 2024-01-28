@@ -2,6 +2,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.clannad;
 
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateFile;
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateFileUploadInfo;
+import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateThumbnail;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.CertificateFileInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -26,6 +27,9 @@ public interface CertificateFileResponseService extends Service {
             throws ServiceException;
 
     CertificateFile downloadCertificateFile(StringIdKey userKey, LongIdKey certificateFileKey) throws ServiceException;
+
+    CertificateThumbnail downloadCertificateThumbnail(StringIdKey userKey, LongIdKey certificateFileKey)
+            throws ServiceException;
 
     void uploadCertificateFile(StringIdKey userKey, CertificateFileUploadInfo certificateFileUploadInfo)
             throws ServiceException;

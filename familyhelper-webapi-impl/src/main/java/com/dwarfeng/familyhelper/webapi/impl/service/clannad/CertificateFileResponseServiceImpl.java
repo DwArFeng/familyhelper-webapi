@@ -2,6 +2,7 @@ package com.dwarfeng.familyhelper.webapi.impl.service.clannad;
 
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateFile;
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateFileUploadInfo;
+import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateThumbnail;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.CertificateFileInfo;
 import com.dwarfeng.familyhelper.clannad.stack.service.CertificateFileInfoMaintainService;
 import com.dwarfeng.familyhelper.clannad.stack.service.CertificateFileOperateService;
@@ -52,6 +53,12 @@ public class CertificateFileResponseServiceImpl implements CertificateFileRespon
     public CertificateFile downloadCertificateFile(StringIdKey userKey, LongIdKey certificateFileKey)
             throws ServiceException {
         return certificateFileOperateService.downloadCertificateFile(userKey, certificateFileKey);
+    }
+
+    @Override
+    public CertificateThumbnail downloadCertificateThumbnail(StringIdKey userKey, LongIdKey certificateFileKey)
+            throws ServiceException {
+        return certificateFileOperateService.downloadCertificateThumbnail(userKey, certificateFileKey);
     }
 
     @Override

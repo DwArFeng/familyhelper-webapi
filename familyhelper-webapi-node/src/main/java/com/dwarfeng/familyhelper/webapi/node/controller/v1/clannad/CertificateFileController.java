@@ -4,6 +4,7 @@ import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.JSFixedFastJsonCertificateFileInfo;
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateFile;
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateFileUploadInfo;
+import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateThumbnail;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.CertificateFileInfo;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.clannad.CertificateFileResponseService;
@@ -130,7 +131,7 @@ public class CertificateFileController {
         }
     }
 
-    @GetMapping("/certificate-file/{certificateFileId}/download")
+    @GetMapping("/certificate-file/{certificateFileId}/download-file")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
@@ -148,6 +149,30 @@ public class CertificateFileController {
             String fileName = adjustFileNameEncoding(certificateFile.getOriginName());
             headers.add("Content-Disposition", "attachment;filename=" + fileName);
             body = certificateFile.getContent();
+        } catch (Exception e) {
+            body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+        return new ResponseEntity<>(body, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/certificate-file/{certificateFileId}/download-thumbnail")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    public ResponseEntity<Object> downloadCertificateThumbnail(
+            HttpServletRequest request, @PathVariable("certificateFileId") Long certificateFileId
+    ) {
+        HttpHeaders headers = new HttpHeaders();
+        Object body;
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            CertificateThumbnail certificateThumbnail = service.downloadCertificateThumbnail(
+                    accountKey, new LongIdKey(certificateFileId)
+            );
+            // 将文件名转换成 HTTP 标准文件名编码下的格式。
+            String fileName = adjustFileNameEncoding(certificateThumbnail.getOriginName());
+            headers.add("Content-Disposition", "attachment;filename=" + fileName);
+            body = certificateThumbnail.getContent();
         } catch (Exception e) {
             body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
