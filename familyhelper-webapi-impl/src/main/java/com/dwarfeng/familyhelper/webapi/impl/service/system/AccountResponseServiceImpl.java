@@ -49,6 +49,9 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             familyhelperNoteUserMaintainService;
     private final com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService;
     private final PoprMaintainService poprMaintainService;
+    private final com.dwarfeng.familyhelper.project.stack.service.UserMaintainService
+            familyhelperProjectUserMaintainService;
+    private final com.dwarfeng.notify.stack.service.UserMaintainService notifyUserMaintainService;
     private final ProfileMaintainService profileMaintainService;
     private final NicknameMaintainService nicknameMaintainService;
 
@@ -68,6 +71,10 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             com.dwarfeng.familyhelper.note.stack.service.UserMaintainService familyhelperNoteUserMaintainService,
             @Qualifier("rbacRoleMaintainService") RoleMaintainService rbacRoleMaintainService,
             @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService,
+            @Qualifier("familyhelperProjectUserMaintainService")
+            com.dwarfeng.familyhelper.project.stack.service.UserMaintainService familyhelperProjectUserMaintainService,
+            @Qualifier("notifyUserMaintainService")
+            com.dwarfeng.notify.stack.service.UserMaintainService notifyUserMaintainService,
             @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
             @Qualifier("familyhelperClannadNicknameMaintainService") NicknameMaintainService nicknameMaintainService
     ) {
@@ -81,6 +88,8 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         this.familyhelperNoteUserMaintainService = familyhelperNoteUserMaintainService;
         this.rbacRoleMaintainService = rbacRoleMaintainService;
         this.poprMaintainService = poprMaintainService;
+        this.familyhelperProjectUserMaintainService = familyhelperProjectUserMaintainService;
+        this.notifyUserMaintainService = notifyUserMaintainService;
         this.profileMaintainService = profileMaintainService;
         this.nicknameMaintainService = nicknameMaintainService;
     }
@@ -247,7 +256,10 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     @SuppressWarnings("DuplicatedCode")
     @Override
     public void register(AccountRegisterInfo accountRegisterInfo) throws ServiceException {
+        // 展开参数。
         StringIdKey accountKey = accountRegisterInfo.getAccountKey();
+        boolean enabled = accountRegisterInfo.isEnabled();
+        // 生成各微服务的用户，并插入/更新。
         accountOperateService.register(accountRegisterInfo);
         com.dwarfeng.rbacds.stack.bean.entity.User rbacUser =
                 new com.dwarfeng.rbacds.stack.bean.entity.User(accountKey, "通过 account 插入/更新自动生成");
@@ -277,6 +289,14 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperNoteUserMaintainService.insertOrUpdate(familyhelperNoteUser);
+        com.dwarfeng.familyhelper.project.stack.bean.entity.User familyhelperProjectUser =
+                new com.dwarfeng.familyhelper.project.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperProjectUserMaintainService.insertOrUpdate(familyhelperProjectUser);
+        com.dwarfeng.notify.stack.bean.entity.User notifyUser =
+                new com.dwarfeng.notify.stack.bean.entity.User(accountKey, "通过 account 插入/更新自动生成", enabled);
+        notifyUserMaintainService.insertOrUpdate(notifyUser);
         Profile profile = new Profile(
                 accountKey, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
                 StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
@@ -290,7 +310,10 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     @SuppressWarnings("DuplicatedCode")
     @Override
     public void update(AccountUpdateInfo accountUpdateInfo) throws ServiceException {
+        // 展开参数。
         StringIdKey accountKey = accountUpdateInfo.getAccountKey();
+        boolean enabled = accountUpdateInfo.isEnabled();
+        // 生成各微服务的用户，并插入/更新。
         accountOperateService.update(accountUpdateInfo);
         com.dwarfeng.rbacds.stack.bean.entity.User rbacUser =
                 new com.dwarfeng.rbacds.stack.bean.entity.User(accountKey, "通过 account 插入/更新自动生成");
@@ -320,6 +343,14 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                         accountKey, "通过 account 插入/更新自动生成"
                 );
         familyhelperNoteUserMaintainService.insertOrUpdate(familyhelperNoteUser);
+        com.dwarfeng.familyhelper.project.stack.bean.entity.User familyhelperProjectUser =
+                new com.dwarfeng.familyhelper.project.stack.bean.entity.User(
+                        accountKey, "通过 account 插入/更新自动生成"
+                );
+        familyhelperProjectUserMaintainService.insertOrUpdate(familyhelperProjectUser);
+        com.dwarfeng.notify.stack.bean.entity.User notifyUser =
+                new com.dwarfeng.notify.stack.bean.entity.User(accountKey, "通过 account 插入/更新自动生成", enabled);
+        notifyUserMaintainService.insertOrUpdate(notifyUser);
     }
 
     @Override
@@ -331,6 +362,8 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         familyhelperAssetsUserMaintainService.deleteIfExists(key);
         familyhelperLifeUserMaintainService.deleteIfExists(key);
         familyhelperNoteUserMaintainService.deleteIfExists(key);
+        familyhelperProjectUserMaintainService.deleteIfExists(key);
+        notifyUserMaintainService.deleteIfExists(key);
         profileMaintainService.deleteIfExists(key);
     }
 

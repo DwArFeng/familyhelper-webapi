@@ -550,6 +550,15 @@
             check="false"
             group="${dubbo.consumer.familyhelper_project.group}"
     />
+    <dubbo:reference
+            id="familyhelperProjectUserMaintainService"
+            interface="com.dwarfeng.familyhelper.project.stack.service.UserMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_project.group}"
+    />
+
     <!-- familyhelper-life -->
     <dubbo:reference
             id="familyhelperLifePbSetMaintainService"
