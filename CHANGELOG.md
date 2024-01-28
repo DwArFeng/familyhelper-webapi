@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 优化文件格式。
+  - 优化 `application-context-*.xml` 文件的格式。
+
 - 依赖升级。
   - 升级 `acckeeper` 依赖版本为 `1.6.5.a` 并解决兼容性问题，以应用其新功能。
   - 升级 `commons-fileupload` 依赖版本为 `1.5` 以规避漏洞。
