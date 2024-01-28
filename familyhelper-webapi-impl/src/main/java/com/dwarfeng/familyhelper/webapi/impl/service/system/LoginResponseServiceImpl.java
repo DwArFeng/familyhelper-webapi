@@ -13,8 +13,6 @@ import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class LoginResponseServiceImpl implements LoginResponseService {
 
@@ -46,7 +44,7 @@ public class LoginResponseServiceImpl implements LoginResponseService {
             return new LoginResponse(
                     loginState.getAccountKey().getStringId(),
                     loginState.getKey().getLongId(),
-                    new Date(loginState.getExpireDate())
+                    loginState.getExpireDate()
             );
         } catch (Exception e) {
             throw ServiceExceptionHelper.logParse("获取个人登录信息时发生异常", LogLevel.WARN, e, sem);
@@ -60,7 +58,7 @@ public class LoginResponseServiceImpl implements LoginResponseService {
             return new LoginResponse(
                     loginState.getAccountKey().getStringId(),
                     loginState.getKey().getLongId(),
-                    new Date(loginState.getExpireDate())
+                    loginState.getExpireDate()
             );
         } catch (Exception e) {
             throw ServiceExceptionHelper.logParse("登录时发生异常", LogLevel.WARN, e, sem);
@@ -83,7 +81,7 @@ public class LoginResponseServiceImpl implements LoginResponseService {
             return new LoginResponse(
                     loginState.getAccountKey().getStringId(),
                     loginState.getKey().getLongId(),
-                    new Date(loginState.getExpireDate())
+                    loginState.getExpireDate()
             );
         } catch (Exception e) {
             throw ServiceExceptionHelper.logParse("延长指定主键的过期时间时发生异常", LogLevel.WARN, e, sem);
