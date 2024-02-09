@@ -1,6 +1,8 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.system;
 
+import com.dwarfeng.acckeeper.stack.bean.dto.DynamicLoginInfo;
 import com.dwarfeng.acckeeper.stack.bean.dto.LoginInfo;
+import com.dwarfeng.acckeeper.stack.bean.dto.StaticLoginInfo;
 import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.LoginResponse;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
@@ -35,11 +37,35 @@ public interface LoginResponseService extends Service {
     /**
      * 登录。
      *
+     * <p>
+     * 该方法已经被废弃，不再推荐使用。<br>]
+     * 请使用 {@link #dynamicLogin(DynamicLoginInfo)} 或 {@link #staticLogin(StaticLoginInfo)}。
+     *
      * @param loginInfo 登录信息。
      * @return 登录状态响应。
      * @throws ServiceException 服务异常。
+     * @deprecated 该方法已经被废弃，不再推荐使用。
      */
+    @Deprecated
     LoginResponse login(LoginInfo loginInfo) throws ServiceException;
+
+    /**
+     * 动态登录。
+     *
+     * @param dynamicLoginInfo 动态登录信息。
+     * @return 登录状态响应。
+     * @throws ServiceException 服务异常。
+     */
+    LoginResponse dynamicLogin(DynamicLoginInfo dynamicLoginInfo) throws ServiceException;
+
+    /**
+     * 静态登录。
+     *
+     * @param staticLoginInfo 静态登录信息。
+     * @return 登录状态响应。
+     * @throws ServiceException 服务异常。
+     */
+    LoginResponse staticLogin(StaticLoginInfo staticLoginInfo) throws ServiceException;
 
     /**
      * 登出。

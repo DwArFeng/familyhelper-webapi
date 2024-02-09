@@ -51,7 +51,7 @@
         <dutil.version>beta-0.3.2.a</dutil.version>
         <snowflake.version>1.5.1.a</snowflake.version>
         <subgrade.version>1.4.8.b</subgrade.version>
-        <acckeeper.version>1.6.6.a</acckeeper.version>
+        <acckeeper.version>1.7.1.a</acckeeper.version>
         <rbac.version>1.5.2.a</rbac.version>
         <familyhelper-finance.version>1.4.5.a</familyhelper-finance.version>
         <familyhelper-clannad.version>1.4.0.a</familyhelper-clannad.version>

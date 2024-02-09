@@ -1,6 +1,8 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.system;
 
+import com.dwarfeng.acckeeper.stack.bean.dto.DynamicLoginInfo;
 import com.dwarfeng.acckeeper.stack.bean.dto.LoginInfo;
+import com.dwarfeng.acckeeper.stack.bean.dto.StaticLoginInfo;
 import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
 import com.dwarfeng.acckeeper.stack.service.LoginService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.LoginResponse;
@@ -51,6 +53,7 @@ public class LoginResponseServiceImpl implements LoginResponseService {
         }
     }
 
+    @Deprecated
     @Override
     public LoginResponse login(LoginInfo loginInfo) throws ServiceException {
         try {
@@ -62,6 +65,34 @@ public class LoginResponseServiceImpl implements LoginResponseService {
             );
         } catch (Exception e) {
             throw ServiceExceptionHelper.logParse("登录时发生异常", LogLevel.WARN, e, sem);
+        }
+    }
+
+    @Override
+    public LoginResponse dynamicLogin(DynamicLoginInfo dynamicLoginInfo) throws ServiceException {
+        try {
+            LoginState loginState = loginService.dynamicLogin(dynamicLoginInfo);
+            return new LoginResponse(
+                    loginState.getAccountKey().getStringId(),
+                    loginState.getKey().getLongId(),
+                    loginState.getExpireDate()
+            );
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logParse("动态登录时发生异常", LogLevel.WARN, e, sem);
+        }
+    }
+
+    @Override
+    public LoginResponse staticLogin(StaticLoginInfo staticLoginInfo) throws ServiceException {
+        try {
+            LoginState loginState = loginService.staticLogin(staticLoginInfo);
+            return new LoginResponse(
+                    loginState.getAccountKey().getStringId(),
+                    loginState.getKey().getLongId(),
+                    loginState.getExpireDate()
+            );
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logParse("静态登录时发生异常", LogLevel.WARN, e, sem);
         }
     }
 

@@ -1,6 +1,8 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.system;
 
+import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputDynamicLoginInfo;
 import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputLoginInfo;
+import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputStaticLoginInfo;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.system.JSFixedFastJsonLoginResponse;
 import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.LoginResponse;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
@@ -85,15 +87,68 @@ public class LoginController {
         }
     }
 
+    /**
+     * 登录。
+     *
+     * <p>
+     * 该方法已经被废弃，不再推荐使用。<br>
+     * 请使用 {@link #dynamicLogin(HttpServletRequest, WebInputDynamicLoginInfo, BindingResult)} 或
+     * {@link #staticLogin(HttpServletRequest, WebInputStaticLoginInfo, BindingResult)}。
+     *
+     * @param request       请求。
+     * @param loginInfo     登录信息。
+     * @param bindingResult 绑定结果。
+     * @return 登录响应。
+     * @deprecated 该方法已经被废弃，不再推荐使用。
+     */
     @PostMapping("/login/login")
     @BehaviorAnalyse
     @BindingCheck
+    @Deprecated
     public FastJsonResponseData<JSFixedFastJsonLoginResponse> login(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLoginInfo loginInfo, BindingResult bindingResult
     ) {
         try {
             LoginResponse loginResponse = loginResponseService.login(WebInputLoginInfo.toStackBean(loginInfo));
+            JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
+            return FastJsonResponseData.of(ResponseDataUtil.good(of));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @PostMapping("/login/dynamic-login")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<JSFixedFastJsonLoginResponse> dynamicLogin(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputDynamicLoginInfo loginInfo, BindingResult bindingResult
+    ) {
+        try {
+            LoginResponse loginResponse = loginResponseService.dynamicLogin(
+                    WebInputDynamicLoginInfo.toStackBean(loginInfo)
+            );
+            JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
+            return FastJsonResponseData.of(ResponseDataUtil.good(of));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @PostMapping("/login/static-login")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<JSFixedFastJsonLoginResponse> staticLogin(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputStaticLoginInfo loginInfo, BindingResult bindingResult
+    ) {
+        try {
+            LoginResponse loginResponse = loginResponseService.staticLogin(
+                    WebInputStaticLoginInfo.toStackBean(loginInfo)
+            );
             JSFixedFastJsonLoginResponse of = JSFixedFastJsonLoginResponse.of(loginResponse);
             return FastJsonResponseData.of(ResponseDataUtil.good(of));
         } catch (Exception e) {

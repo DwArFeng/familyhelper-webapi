@@ -4,7 +4,11 @@
 
 #### 功能构建
 
-- (无)
+- 为 Controller 添加新方法。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginController。
+
+- 依赖升级。
+  - 升级 `acckeeper` 依赖版本为 `1.7.1.a` 并解决兼容性问题，以应用其新功能。
 
 #### Bug修复
 
