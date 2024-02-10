@@ -50,6 +50,21 @@
             check="false"
             group="${dubbo.consumer.acckeeper.group}"
     />
+    <dubbo:reference
+            id="acckeeperLoginStateMaintainService"
+            interface="com.dwarfeng.acckeeper.stack.service.LoginStateMaintainService"
+            retries="0"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
+    <dubbo:reference
+            id="acckeeperDeriveService" interface="com.dwarfeng.acckeeper.stack.service.DeriveService"
+            retries="0"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
     <!-- rbac -->
     <dubbo:reference
             id="rbacPermissionLookupService"

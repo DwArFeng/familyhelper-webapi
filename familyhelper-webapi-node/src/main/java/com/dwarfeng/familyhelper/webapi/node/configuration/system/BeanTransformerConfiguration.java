@@ -1,5 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.system;
 
+import com.dwarfeng.acckeeper.sdk.bean.entity.JSFixedFastJsonLoginState;
+import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispAccount;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispPermissionGroup;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.system.FastJsonAccount;
@@ -62,5 +64,10 @@ public class BeanTransformerConfiguration {
     @Bean("system.dispPermissionGroupBeanTransformer")
     public BeanTransformer<DispPermissionGroup, FastJsonDispPermissionGroup> dispPermissionGroupBeanTransformer() {
         return new DozerBeanTransformer<>(DispPermissionGroup.class, FastJsonDispPermissionGroup.class, mapper);
+    }
+
+    @Bean("system.loginStateBeanTransformer")
+    public BeanTransformer<LoginState, JSFixedFastJsonLoginState> loginStateBeanTransformer() {
+        return new DozerBeanTransformer<>(LoginState.class, JSFixedFastJsonLoginState.class, mapper);
     }
 }
