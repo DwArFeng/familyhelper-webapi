@@ -65,6 +65,30 @@
             check="false"
             group="${dubbo.consumer.acckeeper.group}"
     />
+    <dubbo:reference
+            id="acckeeperLoginHistoryMaintainService"
+            interface="com.dwarfeng.acckeeper.stack.service.LoginHistoryMaintainService"
+            retries="0"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
+    <dubbo:reference
+            id="acckeeperLoginParamRecordMaintainService"
+            interface="com.dwarfeng.acckeeper.stack.service.LoginParamRecordMaintainService"
+            retries="0"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
+    <dubbo:reference
+            id="acckeeperProtectDetailRecordMaintainService"
+            interface="com.dwarfeng.acckeeper.stack.service.ProtectDetailRecordMaintainService"
+            retries="0"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
     <!-- rbac -->
     <dubbo:reference
             id="rbacPermissionLookupService"

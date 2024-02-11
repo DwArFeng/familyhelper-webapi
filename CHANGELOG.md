@@ -7,6 +7,9 @@
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.DeriveController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginStateController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginHistoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginParamRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.ProtectDetailRecordController。
 
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginController。

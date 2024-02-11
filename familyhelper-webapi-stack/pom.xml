@@ -91,5 +91,9 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>notify-stack</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+        </dependency>
     </dependencies>
 </project>

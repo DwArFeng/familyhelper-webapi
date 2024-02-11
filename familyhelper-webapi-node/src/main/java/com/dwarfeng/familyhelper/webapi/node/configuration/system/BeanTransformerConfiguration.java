@@ -1,7 +1,13 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.system;
 
+import com.dwarfeng.acckeeper.sdk.bean.entity.JSFixedFastJsonLoginHistory;
+import com.dwarfeng.acckeeper.sdk.bean.entity.JSFixedFastJsonLoginParamRecord;
 import com.dwarfeng.acckeeper.sdk.bean.entity.JSFixedFastJsonLoginState;
+import com.dwarfeng.acckeeper.sdk.bean.entity.JSFixedFastJsonProtectDetailRecord;
+import com.dwarfeng.acckeeper.stack.bean.entity.LoginHistory;
+import com.dwarfeng.acckeeper.stack.bean.entity.LoginParamRecord;
 import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
+import com.dwarfeng.acckeeper.stack.bean.entity.ProtectDetailRecord;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispAccount;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispPermissionGroup;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.system.FastJsonAccount;
@@ -69,5 +75,21 @@ public class BeanTransformerConfiguration {
     @Bean("system.loginStateBeanTransformer")
     public BeanTransformer<LoginState, JSFixedFastJsonLoginState> loginStateBeanTransformer() {
         return new DozerBeanTransformer<>(LoginState.class, JSFixedFastJsonLoginState.class, mapper);
+    }
+
+    @Bean("system.loginHistoryBeanTransformer")
+    public BeanTransformer<LoginHistory, JSFixedFastJsonLoginHistory> loginHistoryBeanTransformer() {
+        return new DozerBeanTransformer<>(LoginHistory.class, JSFixedFastJsonLoginHistory.class, mapper);
+    }
+
+    @Bean("system.loginParamRecordBeanTransformer")
+    public BeanTransformer<LoginParamRecord, JSFixedFastJsonLoginParamRecord> loginParamRecordBeanTransformer() {
+        return new DozerBeanTransformer<>(LoginParamRecord.class, JSFixedFastJsonLoginParamRecord.class, mapper);
+    }
+
+    @Bean("system.protectDetailRecordBeanTransformer")
+    public BeanTransformer<ProtectDetailRecord, JSFixedFastJsonProtectDetailRecord>
+    protectDetailRecordBeanTransformer() {
+        return new DozerBeanTransformer<>(ProtectDetailRecord.class, JSFixedFastJsonProtectDetailRecord.class, mapper);
     }
 }
