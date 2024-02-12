@@ -10,6 +10,7 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginHistoryController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginParamRecordController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.ProtectDetailRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.DeriveHistoryController。
 
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginController。

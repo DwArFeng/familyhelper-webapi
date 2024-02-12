@@ -89,6 +89,14 @@
             check="false"
             group="${dubbo.consumer.acckeeper.group}"
     />
+    <dubbo:reference
+            id="acckeeperDeriveHistoryMaintainService"
+            interface="com.dwarfeng.acckeeper.stack.service.DeriveHistoryMaintainService"
+            retries="0"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
     <!-- rbac -->
     <dubbo:reference
             id="rbacPermissionLookupService"
