@@ -196,12 +196,10 @@ public class MemoController {
         }
     }
 
-    @GetMapping(
-            value = {
-                    "/user/{userId}/memo/in-progress/default-order",
-                    "/user//memo/in-progress/default-order"
-            }
-    )
+    @GetMapping(value = {
+            "/user/{userId}/memo/in-progress/default-order",
+            "/user//memo/in-progress/default-order"
+    })
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
@@ -242,6 +240,92 @@ public class MemoController {
             }
             PagedData<Memo> childForUser = service.childForUserFinishedDefaultOrder(
                     userKey, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonMemo> transform = PagingUtil.transform(childForUser, memoBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping(value = {
+            "/user/{userId}/memo/profile-like/default-order",
+            "/user//memo/profile-like/default-order"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMemo>> childForUserProfileLikeDefaultOrder(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "userId") String userId, @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey userKey = null;
+            if (Objects.nonNull(userId)) {
+                userKey = new StringIdKey(userId);
+            }
+            PagedData<Memo> childForUser = service.childForUserProfileLikeDefaultOrder(
+                    userKey, pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonMemo> transform = PagingUtil.transform(childForUser, memoBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping(value = {
+            "/user/{userId}/memo/in-progress/profile-like/default-order",
+            "/user//memo/in-progress/profile-like/default-order"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMemo>>
+    childForUserInProgressProfileLikeDefaultOrder(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "userId") String userId, @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey userKey = null;
+            if (Objects.nonNull(userId)) {
+                userKey = new StringIdKey(userId);
+            }
+            PagedData<Memo> childForUser = service.childForUserInProgressProfileLikeDefaultOrder(
+                    userKey, pattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonMemo> transform = PagingUtil.transform(childForUser, memoBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping(value = {
+            "/user/{userId}/memo/finished/profile-like/default-order",
+            "/user//memo/finished/profile-like/default-order"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMemo>>
+    childForUserFinishedProfileLikeDefaultOrder(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "userId") String userId, @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey userKey = null;
+            if (Objects.nonNull(userId)) {
+                userKey = new StringIdKey(userId);
+            }
+            PagedData<Memo> childForUser = service.childForUserFinishedProfileLikeDefaultOrder(
+                    userKey, pattern, new PagingInfo(page, rows)
             );
             PagedData<JSFixedFastJsonMemo> transform = PagingUtil.transform(childForUser, memoBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
