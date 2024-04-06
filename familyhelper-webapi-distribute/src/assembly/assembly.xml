@@ -25,6 +25,15 @@
             </includes>
             <fileMode>0644</fileMode>
         </fileSet>
+        <fileSet>
+            <outputDirectory>conf/familyhelper-webapi/logging</outputDirectory>
+            <directory>../familyhelper-webapi-node/src/main/resources/logging</directory>
+            <includes>
+                <include>README.md</include>
+                <include>*.xml</include>
+            </includes>
+            <fileMode>0644</fileMode>
+        </fileSet>
     </fileSets>
 
     <files>
