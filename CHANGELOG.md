@@ -11,7 +11,11 @@
   - 优化 `assembly.xml`，使项目打包时输出新的日志配置结构。
   - 优化 `confext/README.md`，添加新的日志配置结构的相关说明。
 
+- 增加依赖。
+  - 增加依赖 `familyhelper-plugin` 以应用其功能，版本为 `1.4.0.a`。
+
 - 依赖升级。
+  - 升级 `familyhelper-assets` 依赖版本为 `1.0.8.a` 以应用其新功能。
   - 升级 `subgrade` 依赖版本为 `1.5.2.a` 以规避漏洞。
 
 #### Bug修复
