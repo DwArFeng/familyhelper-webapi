@@ -2,9 +2,7 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.assets;
 
 import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.familyhelper.assets.sdk.bean.entity.JSFixedFastJsonItemFileInfo;
-import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFile;
-import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFileUpdateInfo;
-import com.dwarfeng.familyhelper.assets.stack.bean.dto.ItemFileUploadInfo;
+import com.dwarfeng.familyhelper.assets.stack.bean.dto.*;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.ItemFileInfo;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.assets.ItemFileResponseService;
@@ -12,6 +10,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
+import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
@@ -26,15 +25,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
@@ -219,7 +222,6 @@ public class ItemFileController {
 
     @GetMapping("/item-file/{itemFileId}/download")
     @BehaviorAnalyse
-    @BindingCheck
     @LoginRequired
     public ResponseEntity<Object> downloadItemFile(
             HttpServletRequest request, @PathVariable("itemFileId") Long itemFileId
@@ -239,10 +241,54 @@ public class ItemFileController {
         return new ResponseEntity<>(body, headers, HttpStatus.OK);
     }
 
+    @PostMapping("/item-file/{itemFileId}/request-item-file-stream-voucher")
+    @BehaviorAnalyse
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonLongIdKey> requestItemFileStreamVoucher(
+            HttpServletRequest request, @PathVariable("itemFileId") Long itemFileId
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            LongIdKey voucherKey = service.requestItemFileStreamVoucher(accountKey, new LongIdKey(itemFileId));
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(voucherKey)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/item-file/download-by-voucher")
+    @BehaviorAnalyse
+    public void downloadItemFileStreamByVoucher(
+            HttpServletRequest request, HttpServletResponse response,
+            @RequestParam("voucher-id") Long voucherId
+    ) throws Exception {
+        try {
+            ItemFileStream itemFileStream = service.downloadItemFileStreamByVoucher(new LongIdKey(voucherId));
+
+            // 将文件名转换成 HTTP 标准文件名编码下的格式。
+            String fileName = adjustFileNameEncoding(itemFileStream.getOriginName());
+            long fileLength = itemFileStream.getLength();
+
+            // 设置响应头，包括文件大小、指示浏览器下载文件以及内容类型。
+            response.setHeader(HttpHeaders.CONTENT_LENGTH, Long.toString(fileLength));
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"");
+            response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+
+            // 获取 itemFileStream 的输入流以及 response 的输出流，传输数据。
+            try (InputStream in = itemFileStream.getContent(); OutputStream out = response.getOutputStream()) {
+                IOUtil.trans(in, out, IO_TRANS_BUFFER_SIZE);
+                out.flush();
+            }
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            throw sem.map(e);
+        }
+    }
+
     @SuppressWarnings("DuplicatedCode")
     @PostMapping("/item/{itemId}/item-file/upload")
     @BehaviorAnalyse
-    @BindingCheck
     @LoginRequired
     public FastJsonResponseData<Object> uploadItemFile(
             HttpServletRequest request, @PathVariable("itemId") Long itemId
@@ -286,9 +332,49 @@ public class ItemFileController {
     }
 
     @SuppressWarnings("DuplicatedCode")
+    @PostMapping("/item/{itemId}/item-file/upload-stream")
+    @BehaviorAnalyse
+    @LoginRequired
+    public FastJsonResponseData<Object> uploadItemFileStream(
+            HttpServletRequest request, @PathVariable("itemId") Long itemId
+    ) {
+        try {
+            // 通过请求解析用户。
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+
+            // 确认请求合法。
+            if (!commonsMultipartResolver.isMultipart(request)) {
+                throw new IllegalStateException("请求不是标准的文件上传请求");
+            }
+
+            //获取 multiRequest 中的文件。
+            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartFile file = multipartHttpServletRequest.getFile("file");
+            if (Objects.isNull(file)) {
+                throw new IllegalStateException("请求体中缺少 file 属性");
+            }
+
+            // 解析文件内容，并上传。
+            String originFileName = file.getOriginalFilename();
+            long contentLength = file.getSize();
+            try (InputStream fin = file.getInputStream()) {
+                service.uploadItemFileStream(
+                        accountKey,
+                        new ItemFileStreamUploadInfo(new LongIdKey(itemId), originFileName, contentLength, fin)
+                );
+            }
+
+            // 返回响应结果。
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/item-file/{itemFileId}/update")
     @BehaviorAnalyse
-    @BindingCheck
     @LoginRequired
     public FastJsonResponseData<Object> updateItemFile(
             HttpServletRequest request, @PathVariable("itemFileId") Long itemFileId
@@ -331,12 +417,53 @@ public class ItemFileController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
+    @PostMapping("/item-file/{itemFileId}/update-stream")
+    @BehaviorAnalyse
+    @LoginRequired
+    public FastJsonResponseData<Object> updateItemFileStream(
+            HttpServletRequest request, @PathVariable("itemFileId") Long itemFileId
+    ) {
+        try {
+            // 通过请求解析用户。
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+
+            // 确认请求合法。
+            if (!commonsMultipartResolver.isMultipart(request)) {
+                throw new IllegalStateException("请求不是标准的文件上传请求");
+            }
+
+            //获取 multiRequest 中的文件。
+            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartFile file = multipartHttpServletRequest.getFile("file");
+            if (Objects.isNull(file)) {
+                throw new IllegalStateException("请求体中缺少 file 属性");
+            }
+
+            // 解析文件内容，并更新。
+            String originFileName = file.getOriginalFilename();
+            long contentLength = file.getSize();
+            try (InputStream fin = file.getInputStream()) {
+                service.updateItemFileStream(
+                        accountKey,
+                        new ItemFileStreamUpdateInfo(new LongIdKey(itemFileId), originFileName, contentLength, fin)
+                );
+            }
+
+            // 返回响应结果。
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/item-file/remove")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
     public FastJsonResponseData<Object> removeItemFile(
-            HttpServletRequest request, @RequestBody WebInputLongIdKey itemFileKey
+            HttpServletRequest request, @RequestBody WebInputLongIdKey itemFileKey, BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);

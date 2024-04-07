@@ -1212,6 +1212,15 @@
             cluster="broadcast2"
             group="${dubbo.consumer.notify.group}"
     />
+    <!-- familyhelper-plugin-assets -->
+    <dubbo:reference
+            id="familyhelperPluginDubboRestItemFileOperateService"
+            interface="com.dwarfeng.familyhelper.plugin.assets.service.DubboRestItemFileOperateService"
+            retries="0"
+            timeout="3600000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_plugin_assets.group}"
+    />
     <!-- snowflake -->
     <dubbo:reference
             id="generateService"
