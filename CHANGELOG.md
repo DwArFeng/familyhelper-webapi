@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- Dubbo 优化。
+  - 优化 `dubbo/connection.properties` 中配置的键名。
+
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.ItemFileController。
 
