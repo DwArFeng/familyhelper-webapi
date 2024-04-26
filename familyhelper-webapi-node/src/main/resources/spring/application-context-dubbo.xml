@@ -1214,7 +1214,7 @@
     />
     <!-- familyhelper-plugin-assets -->
     <dubbo:reference
-            id="familyhelperPluginDubboRestItemFileOperateService"
+            id="familyhelperPluginAssetsDubboRestItemFileOperateService"
             interface="com.dwarfeng.familyhelper.plugin.assets.service.DubboRestItemFileOperateService"
             retries="0"
             timeout="3600000"

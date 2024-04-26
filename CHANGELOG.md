@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 配置优化。
+  - 优化 `application-context-dubbo.xml` 中的部分 dubbo 消费者的 bean id。
+
 - 依赖升级。
   - 升级 `familyhelper-clannad` 依赖版本为 `1.4.1.a` 以应用其新功能。
   - 升级 `familyhelper-life` 依赖版本为 `1.1.1.a` 以应用其新功能。

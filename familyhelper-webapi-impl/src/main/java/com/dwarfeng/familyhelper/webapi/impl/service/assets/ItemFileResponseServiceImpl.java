@@ -4,8 +4,12 @@ import com.dwarfeng.familyhelper.assets.stack.bean.dto.*;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.ItemFileInfo;
 import com.dwarfeng.familyhelper.assets.stack.service.ItemFileInfoMaintainService;
 import com.dwarfeng.familyhelper.assets.stack.service.ItemFileOperateService;
-import com.dwarfeng.familyhelper.plugin.assets.bean.dto.*;
+import com.dwarfeng.familyhelper.plugin.assets.bean.dto.DubboRestItemFileStream;
+import com.dwarfeng.familyhelper.plugin.assets.bean.dto.DubboRestItemFileStreamDownloadInfo;
+import com.dwarfeng.familyhelper.plugin.assets.bean.dto.DubboRestItemFileStreamUpdateInfo;
+import com.dwarfeng.familyhelper.plugin.assets.bean.dto.DubboRestItemFileStreamUploadInfo;
 import com.dwarfeng.familyhelper.plugin.assets.service.DubboRestItemFileOperateService;
+import com.dwarfeng.familyhelper.plugin.commons.dto.VoucherIdWrapper;
 import com.dwarfeng.familyhelper.webapi.stack.service.assets.ItemFileResponseService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -27,7 +31,7 @@ public class ItemFileResponseServiceImpl implements ItemFileResponseService {
                     ItemFileInfoMaintainService itemFileInfoMaintainService,
             @Qualifier("familyhelperAssetsItemFileOperateService")
             ItemFileOperateService itemFileOperateService,
-            @Qualifier("familyhelperPluginDubboRestItemFileOperateService")
+            @Qualifier("familyhelperPluginAssetsDubboRestItemFileOperateService")
             DubboRestItemFileOperateService dubboRestItemFileOperateService
     ) {
         this.itemFileInfoMaintainService = itemFileInfoMaintainService;
