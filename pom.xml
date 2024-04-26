@@ -493,6 +493,11 @@
                 <artifactId>familyhelper-plugin-assets</artifactId>
                 <version>${familyhelper-plugin.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>familyhelper-plugin-clannad</artifactId>
+                <version>${familyhelper-plugin.version}</version>
+            </dependency>
             <!-- 程序自身引用 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>

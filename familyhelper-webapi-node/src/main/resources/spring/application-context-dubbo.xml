@@ -1221,6 +1221,15 @@
             check="false"
             group="${dubbo.consumer.familyhelper_plugin_assets.group}"
     />
+    <!-- familyhelper-plugin-clannad -->
+    <dubbo:reference
+            id="familyhelperPluginClannadDubboRestCertificateFileOperateService"
+            interface="com.dwarfeng.familyhelper.plugin.clannad.service.DubboRestCertificateFileOperateService"
+            retries="0"
+            timeout="3600000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_plugin_clannad.group}"
+    />
     <!-- snowflake -->
     <dubbo:reference
             id="generateService"
