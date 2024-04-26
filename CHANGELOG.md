@@ -4,7 +4,10 @@
 
 #### 功能构建
 
-- (无)
+- 依赖升级。
+  - 升级 `familyhelper-clannad` 依赖版本为 `1.4.1.a` 以应用其新功能。
+  - 升级 `familyhelper-life` 依赖版本为 `1.1.1.a` 以应用其新功能。
+  - 升级 `familyhelper-plugin` 依赖版本为 `1.5.0.a` 以应用其新功能。
 
 #### Bug修复
 
