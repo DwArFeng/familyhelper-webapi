@@ -1,8 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.life;
 
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityFile;
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityFileUpdateInfo;
-import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityFileUploadInfo;
+import com.dwarfeng.familyhelper.life.stack.bean.dto.*;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityFileInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -39,9 +37,19 @@ public interface ActivityFileResponseService extends Service {
 
     ActivityFile downloadActivityFile(StringIdKey userKey, LongIdKey ActivityFileKey) throws ServiceException;
 
+    LongIdKey requestActivityFileStreamVoucher(StringIdKey userKey, LongIdKey activityFileKey) throws ServiceException;
+
+    ActivityFileStream downloadActivityFileStreamByVoucher(LongIdKey voucherKey) throws ServiceException;
+
     void uploadActivityFile(StringIdKey userKey, ActivityFileUploadInfo ActivityFileUploadInfo) throws ServiceException;
 
+    void uploadActivityFileStream(StringIdKey userKey, ActivityFileStreamUploadInfo activityFileStreamUploadInfo)
+            throws ServiceException;
+
     void updateActivityFile(StringIdKey userKey, ActivityFileUpdateInfo ActivityFileUpdateInfo) throws ServiceException;
+
+    void updateActivityFileStream(StringIdKey userKey, ActivityFileStreamUpdateInfo activityFileStreamUpdateInfo)
+            throws ServiceException;
 
     void removeActivityFile(StringIdKey userKey, LongIdKey ActivityFileKey) throws ServiceException;
 }

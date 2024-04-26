@@ -6,6 +6,7 @@
 
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityFileController。
 
 - 配置优化。
   - 优化 `application-context-dubbo.xml` 中的部分 dubbo 消费者的 bean id。

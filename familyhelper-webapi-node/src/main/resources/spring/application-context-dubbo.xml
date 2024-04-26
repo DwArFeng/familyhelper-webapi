@@ -1230,6 +1230,15 @@
             check="false"
             group="${dubbo.consumer.familyhelper_plugin_clannad.group}"
     />
+    <!-- familyhelper-plugin-life -->
+    <dubbo:reference
+            id="familyhelperPluginLifeDubboRestActivityFileOperateService"
+            interface="com.dwarfeng.familyhelper.plugin.life.service.DubboRestActivityFileOperateService"
+            retries="0"
+            timeout="3600000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_plugin_life.group}"
+    />
     <!-- snowflake -->
     <dubbo:reference
             id="generateService"

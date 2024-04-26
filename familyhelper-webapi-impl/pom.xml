@@ -112,6 +112,10 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-plugin-clannad</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>familyhelper-plugin-life</artifactId>
+        </dependency>
         <!-- 程序自身组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
