@@ -257,6 +257,7 @@ public class ItemFileController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @GetMapping("/item-file/download-by-voucher")
     @BehaviorAnalyse
     public void downloadItemFileStreamByVoucher(
