@@ -1,8 +1,9 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.settingrepo;
 
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.SettingNodeResponseService;
+import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInitInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectInfo;
-import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodePutInfo;
+import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectResult;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeRemoveInfo;
 import com.dwarfeng.settingrepo.stack.bean.entity.SettingNode;
 import com.dwarfeng.settingrepo.stack.service.SettingNodeMaintainService;
@@ -39,21 +40,6 @@ public class SettingNodeResponseServiceImpl implements SettingNodeResponseServic
     }
 
     @Override
-    public StringIdKey insert(SettingNode settingNode) throws ServiceException {
-        return settingNodeMaintainService.insert(settingNode);
-    }
-
-    @Override
-    public void update(SettingNode settingNode) throws ServiceException {
-        settingNodeMaintainService.update(settingNode);
-    }
-
-    @Override
-    public void delete(StringIdKey key) throws ServiceException {
-        settingNodeMaintainService.delete(key);
-    }
-
-    @Override
     public PagedData<SettingNode> all(PagingInfo pagingInfo) throws ServiceException {
         return settingNodeMaintainService.lookup(pagingInfo);
     }
@@ -66,13 +52,13 @@ public class SettingNodeResponseServiceImpl implements SettingNodeResponseServic
     }
 
     @Override
-    public SettingNode inspect(SettingNodeInspectInfo settingNodeInspectInfo) throws ServiceException {
+    public SettingNodeInspectResult inspect(SettingNodeInspectInfo settingNodeInspectInfo) throws ServiceException {
         return settingNodeOperateService.inspect(settingNodeInspectInfo);
     }
 
     @Override
-    public void put(SettingNodePutInfo settingNodePutInfo) throws ServiceException {
-        settingNodeOperateService.put(settingNodePutInfo);
+    public void init(SettingNodeInitInfo info) throws ServiceException {
+        settingNodeOperateService.init(info);
     }
 
     @Override

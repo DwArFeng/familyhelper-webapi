@@ -1,7 +1,8 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.settingrepo;
 
+import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInitInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectInfo;
-import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodePutInfo;
+import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectResult;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeRemoveInfo;
 import com.dwarfeng.settingrepo.stack.bean.entity.SettingNode;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -22,19 +23,19 @@ public interface SettingNodeResponseService extends Service {
 
     SettingNode get(StringIdKey key) throws ServiceException;
 
-    StringIdKey insert(SettingNode settingNode) throws ServiceException;
-
-    void update(SettingNode settingNode) throws ServiceException;
-
-    void delete(StringIdKey key) throws ServiceException;
-
     PagedData<SettingNode> all(PagingInfo pagingInfo) throws ServiceException;
 
     PagedData<SettingNode> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
 
-    SettingNode inspect(SettingNodeInspectInfo settingNodeInspectInfo) throws ServiceException;
+    /**
+     * @since 1.3.0
+     */
+    SettingNodeInspectResult inspect(SettingNodeInspectInfo settingNodeInspectInfo) throws ServiceException;
 
-    void put(SettingNodePutInfo settingNodePutInfo) throws ServiceException;
+    /**
+     * @since 1.3.0
+     */
+    void init(SettingNodeInitInfo info) throws ServiceException;
 
     void remove(SettingNodeRemoveInfo settingNodeRemoveInfo) throws ServiceException;
 }

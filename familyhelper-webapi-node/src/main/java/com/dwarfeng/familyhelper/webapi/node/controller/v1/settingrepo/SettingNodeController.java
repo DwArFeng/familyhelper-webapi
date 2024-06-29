@@ -1,22 +1,21 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo;
 
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.SettingNodeResponseService;
+import com.dwarfeng.settingrepo.sdk.bean.dto.FastJsonSettingNodeInspectResult;
+import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputSettingNodeInitInfo;
 import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputSettingNodeInspectInfo;
-import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputSettingNodePutInfo;
 import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputSettingNodeRemoveInfo;
 import com.dwarfeng.settingrepo.sdk.bean.entity.FastJsonSettingNode;
-import com.dwarfeng.settingrepo.sdk.bean.entity.WebInputSettingNode;
+import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectResult;
 import com.dwarfeng.settingrepo.stack.bean.entity.SettingNode;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.JSFixedFastJsonPagedData;
 import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
-import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
-import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -82,54 +81,6 @@ public class SettingNodeController {
         }
     }
 
-    @PostMapping("/setting-node")
-    @BehaviorAnalyse
-    @BindingCheck
-    @LoginRequired
-    public FastJsonResponseData<FastJsonStringIdKey> insert(
-            HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputSettingNode webInputSettingNode, BindingResult bindingResult
-    ) {
-        try {
-            SettingNode settingNode = WebInputSettingNode.toStackBean(webInputSettingNode);
-            StringIdKey insert = service.insert(settingNode);
-            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
-        } catch (Exception e) {
-            LOGGER.warn("Controller 异常, 信息如下: ", e);
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @PatchMapping("/setting-node")
-    @BehaviorAnalyse
-    @BindingCheck
-    @LoginRequired
-    public FastJsonResponseData<Object> update(
-            HttpServletRequest request,
-            @RequestBody @Validated WebInputSettingNode webInputSettingNode, BindingResult bindingResult
-    ) {
-        try {
-            service.update(WebInputSettingNode.toStackBean(webInputSettingNode));
-            return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            LOGGER.warn("Controller 异常, 信息如下: ", e);
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @DeleteMapping("/setting-node/{id}")
-    @BehaviorAnalyse
-    @LoginRequired
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
-        try {
-            service.delete(new StringIdKey(id));
-            return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            LOGGER.warn("Controller 异常, 信息如下: ", e);
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
     @GetMapping("/setting-node/all")
     @BehaviorAnalyse
     @SkipRecord
@@ -169,33 +120,33 @@ public class SettingNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
-    public FastJsonResponseData<FastJsonSettingNode> inspect(
+    public FastJsonResponseData<FastJsonSettingNodeInspectResult> inspect(
             HttpServletRequest request,
             @RequestBody @Validated WebInputSettingNodeInspectInfo webInputSettingNodeInspectInfo,
             BindingResult bindingResult
     ) {
         try {
-            SettingNode settingNode = service.inspect(
+            SettingNodeInspectResult inspect = service.inspect(
                     WebInputSettingNodeInspectInfo.toStackBean(webInputSettingNodeInspectInfo)
             );
-            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonSettingNode.of(settingNode)));
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonSettingNodeInspectResult.of(inspect)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
 
-    @PostMapping("/setting-node/put")
+    @PostMapping("/setting-node/init")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
-    public FastJsonResponseData<Object> put(
+    public FastJsonResponseData<Object> init(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputSettingNodePutInfo webInputSettingNodePutInfo,
+            @RequestBody @Validated WebInputSettingNodeInitInfo webInputSettingNodeInitInfo,
             BindingResult bindingResult
     ) {
         try {
-            service.put(WebInputSettingNodePutInfo.toStackBean(webInputSettingNodePutInfo));
+            service.init(WebInputSettingNodeInitInfo.toStackBean(webInputSettingNodeInitInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
