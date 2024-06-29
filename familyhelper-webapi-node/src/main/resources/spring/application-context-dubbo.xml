@@ -1090,6 +1090,22 @@
             cluster="broadcast2"
             group="${dubbo.consumer.settingrepo.group}"
     />
+    <dubbo:reference
+            id="settingrepoTextNodeMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.TextNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoTextNodeOperateService"
+            interface="com.dwarfeng.settingrepo.stack.service.TextNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
     <!-- notify -->
     <dubbo:reference
             id="notifyNotifySettingMaintainService"
