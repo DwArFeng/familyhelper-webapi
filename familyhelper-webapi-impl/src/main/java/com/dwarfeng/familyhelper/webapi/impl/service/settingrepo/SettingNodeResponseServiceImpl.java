@@ -52,6 +52,18 @@ public class SettingNodeResponseServiceImpl implements SettingNodeResponseServic
     }
 
     @Override
+    public PagedData<SettingNode> reachable(PagingInfo pagingInfo) throws ServiceException {
+        return settingNodeMaintainService.lookup(SettingNodeMaintainService.REACHABLE, new Object[]{}, pagingInfo);
+    }
+
+    @Override
+    public PagedData<SettingNode> idLikeReachable(String pattern, PagingInfo pagingInfo) throws ServiceException {
+        return settingNodeMaintainService.lookup(
+                SettingNodeMaintainService.ID_LIKE_REACHABLE, new Object[]{pattern}, pagingInfo
+        );
+    }
+
+    @Override
     public SettingNodeInspectResult inspect(SettingNodeInspectInfo settingNodeInspectInfo) throws ServiceException {
         return settingNodeOperateService.inspect(settingNodeInspectInfo);
     }

@@ -116,6 +116,41 @@ public class SettingNodeController {
         }
     }
 
+    @GetMapping("/setting-node/reachable")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSettingNode>> reachable(
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<SettingNode> all = service.reachable(new PagingInfo(page, rows));
+            PagedData<FastJsonSettingNode> transform = PagingUtil.transform(all, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/setting-node/id-like-reachable")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSettingNode>> idLikeReachable(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<SettingNode> all = service.idLikeReachable(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonSettingNode> transform = PagingUtil.transform(all, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/setting-node/inspect")
     @BehaviorAnalyse
     @BindingCheck

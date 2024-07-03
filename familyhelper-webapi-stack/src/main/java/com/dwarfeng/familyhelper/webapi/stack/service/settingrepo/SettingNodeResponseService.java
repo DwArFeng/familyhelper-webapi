@@ -30,6 +30,16 @@ public interface SettingNodeResponseService extends Service {
     /**
      * @since 1.3.0
      */
+    PagedData<SettingNode> reachable(PagingInfo pagingInfo) throws ServiceException;
+
+    /**
+     * @since 1.3.0
+     */
+    PagedData<SettingNode> idLikeReachable(String pattern, PagingInfo pagingInfo) throws ServiceException;
+
+    /**
+     * @since 1.3.0
+     */
     SettingNodeInspectResult inspect(SettingNodeInspectInfo settingNodeInspectInfo) throws ServiceException;
 
     /**
