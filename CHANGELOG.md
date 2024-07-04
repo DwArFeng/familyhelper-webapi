@@ -16,7 +16,8 @@
 
 #### Bug修复
 
-- (无)
+- 去除部分 Controller 中的错误注解。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateFileController。
 
 #### 功能移除
 

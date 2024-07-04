@@ -135,7 +135,6 @@ public class CertificateFileController {
 
     @GetMapping("/certificate-file/{certificateFileId}/download-file")
     @BehaviorAnalyse
-    @BindingCheck
     @LoginRequired
     public ResponseEntity<Object> downloadCertificateFile(
             HttpServletRequest request, @PathVariable("certificateFileId") Long certificateFileId
@@ -205,7 +204,6 @@ public class CertificateFileController {
 
     @GetMapping("/certificate-file/{certificateFileId}/download-thumbnail")
     @BehaviorAnalyse
-    @BindingCheck
     @LoginRequired
     public ResponseEntity<Object> downloadCertificateThumbnail(
             HttpServletRequest request, @PathVariable("certificateFileId") Long certificateFileId
