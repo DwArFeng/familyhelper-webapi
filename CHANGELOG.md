@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 增加自定义命名值方法参数解析器，以用于解析特定序列化规则的参数。
+  - com.dwarfeng.familyhelper.webapi.node.webmvc.Base64RequestParamMethodArgumentResolver。
+
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingNodeController。
 

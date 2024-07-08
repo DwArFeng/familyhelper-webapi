@@ -46,6 +46,10 @@
                 <property name="fastJsonConfig" ref="fastJsonConfig"/>
             </bean>
         </mvc:message-converters>
+
+        <mvc:argument-resolvers>
+            <ref bean="base64RequestParamMethodArgumentResolver"/>
+        </mvc:argument-resolvers>
     </mvc:annotation-driven>
 
     <!-- 使SpringMVC支持跨域请求 -->
@@ -77,6 +81,12 @@
 
     <!-- SimpleControllerHandlerAdapter是一个处理器适配器，所有处理适配器都要实现 HandlerAdapter接口-->
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+    <!-- 解析 get 请求中使用 Base64 编码的 JSON 的参数 -->
+    <bean
+            id="base64RequestParamMethodArgumentResolver"
+            class="com.dwarfeng.familyhelper.webapi.node.webmvc.Base64RequestParamMethodArgumentResolver"
+    />
 
     <!-- 启用AOP注解 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
