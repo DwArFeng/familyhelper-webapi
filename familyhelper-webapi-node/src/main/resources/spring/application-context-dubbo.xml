@@ -1106,6 +1106,22 @@
             check="false"
             group="${dubbo.consumer.settingrepo.group}"
     />
+    <dubbo:reference
+            id="settingrepoImageNodeMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.ImageNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoImageNodeOperateService"
+            interface="com.dwarfeng.settingrepo.stack.service.ImageNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
     <!-- notify -->
     <dubbo:reference
             id="notifyNotifySettingMaintainService"
@@ -1254,6 +1270,15 @@
             timeout="3600000"
             check="false"
             group="${dubbo.consumer.familyhelper_plugin_life.group}"
+    />
+    <!-- familyhelper-plugin-settingrepo -->
+    <dubbo:reference
+            id="familyhelperPluginSettingRepoDubboRestImageNodeOperateService"
+            interface="com.dwarfeng.familyhelper.plugin.settingrepo.service.DubboRestImageNodeOperateService"
+            retries="0"
+            timeout="3600000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_plugin_settingrepo.group}"
     />
     <!-- snowflake -->
     <dubbo:reference
