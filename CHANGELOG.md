@@ -13,6 +13,7 @@
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.TextNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageListNodeController。
 
 - 依赖升级。
   - 升级 `settingrepo` 依赖版本为 `2.0.0.b` 并解决兼容性问题，以应用其新功能。

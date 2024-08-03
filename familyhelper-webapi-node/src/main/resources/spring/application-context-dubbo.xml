@@ -1122,6 +1122,22 @@
             check="false"
             group="${dubbo.consumer.settingrepo.group}"
     />
+    <dubbo:reference
+            id="settingrepoImageListNodeMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.ImageListNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoImageListNodeOperateService"
+            interface="com.dwarfeng.settingrepo.stack.service.ImageListNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
     <!-- notify -->
     <dubbo:reference
             id="notifyNotifySettingMaintainService"
@@ -1275,6 +1291,14 @@
     <dubbo:reference
             id="familyhelperPluginSettingRepoDubboRestImageNodeOperateService"
             interface="com.dwarfeng.familyhelper.plugin.settingrepo.service.DubboRestImageNodeOperateService"
+            retries="0"
+            timeout="3600000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_plugin_settingrepo.group}"
+    />
+    <dubbo:reference
+            id="familyhelperPluginSettingRepoDubboRestImageListNodeOperateService"
+            interface="com.dwarfeng.familyhelper.plugin.settingrepo.service.DubboRestImageListNodeOperateService"
             retries="0"
             timeout="3600000"
             check="false"

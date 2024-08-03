@@ -41,4 +41,9 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<ImageNode, FastJsonImageNode> imageNodeBeanTransformer() {
         return new DozerBeanTransformer<>(ImageNode.class, FastJsonImageNode.class, mapper);
     }
+
+    @Bean("settingrepo.imageListNodeBeanTransformer")
+    public BeanTransformer<ImageListNode, FastJsonImageListNode> imageListNodeBeanTransformer() {
+        return new DozerBeanTransformer<>(ImageListNode.class, FastJsonImageListNode.class, mapper);
+    }
 }
