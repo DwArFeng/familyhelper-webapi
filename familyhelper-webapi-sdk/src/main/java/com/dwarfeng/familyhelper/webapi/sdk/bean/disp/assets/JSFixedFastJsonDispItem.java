@@ -11,6 +11,7 @@ import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -31,12 +32,16 @@ public class JSFixedFastJsonDispItem implements Dto {
                     JSFixedFastJsonLongIdKey.of(dispItem.getKey()),
                     JSFixedFastJsonLongIdKey.of(dispItem.getParentKey()),
                     JSFixedFastJsonLongIdKey.of(dispItem.getAssetCatalogKey()),
-                    dispItem.getLabelKeys().stream().map(FastJsonStringIdKey::of).collect(Collectors.toList()),
+                    Optional.ofNullable(dispItem.getLabelKeys()).map(
+                            f -> f.stream().map(FastJsonStringIdKey::of).collect(Collectors.toList())
+                    ).orElse(null),
                     dispItem.getName(), dispItem.getItemType(), dispItem.getCreatedDate(), dispItem.getModifiedDate(),
                     dispItem.getScrappedDate(), dispItem.getLifeCycle(), dispItem.getRemark(),
                     JSFixedFastJsonDispAssetCatalog.of(dispItem.getAssetCatalog()),
                     FastJsonItemTypeIndicator.of(dispItem.getTypeIndicator()),
-                    dispItem.getLabels().stream().map(FastJsonItemLabel::of).collect(Collectors.toList()),
+                    Optional.ofNullable(dispItem.getLabels()).map(
+                            f -> f.stream().map(FastJsonItemLabel::of).collect(Collectors.toList())
+                    ).orElse(null),
                     dispItem.isRootFlag(),
                     dispItem.isHasNoChild()
             );

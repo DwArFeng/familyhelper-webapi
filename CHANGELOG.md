@@ -21,6 +21,9 @@
 
 #### Bug修复
 
+- 修复部分功能性实体集合类型的字段在映射时有可能产生空指针异常的问题。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispItem。
+
 - 去除部分 Controller 中的错误注解。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateFileController。
 
