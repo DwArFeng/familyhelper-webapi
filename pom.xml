@@ -28,7 +28,7 @@
         <!-- 集中定义依赖版本号 -->
         <javassist.version>3.23.2-GA</javassist.version>
         <junit.version>4.13.2</junit.version>
-        <spring.version>5.3.31</spring.version>
+        <spring.version>5.3.37</spring.version>
         <fastjson.version>1.2.83</fastjson.version>
         <jstl.version>1.2</jstl.version>
         <servlet-api.version>2.5</servlet-api.version>
@@ -38,8 +38,8 @@
         <snakeyaml.version>2.0</snakeyaml.version>
         <dubbo.version>2.7.22</dubbo.version>
         <hessian.version>4.0.38</hessian.version>
-        <jetty.version>9.4.51.v20230217</jetty.version>
-        <netty.version>4.1.104.Final</netty.version>
+        <jetty.version>9.4.55.v20240627</jetty.version>
+        <netty.version>4.1.108.Final</netty.version>
         <zookeeper.version>3.7.2</zookeeper.version>
         <guava.version>32.0.1-jre</guava.version>
         <curator.version>4.3.0</curator.version>
@@ -49,8 +49,8 @@
         <log4j2.version>2.17.2</log4j2.version>
         <dozer.version>5.5.1</dozer.version>
         <dutil.version>beta-0.3.2.a</dutil.version>
-        <snowflake.version>1.5.1.a</snowflake.version>
-        <subgrade.version>1.5.2.a</subgrade.version>
+        <snowflake.version>1.5.2.a</snowflake.version>
+        <subgrade.version>1.5.5.a</subgrade.version>
         <acckeeper.version>1.7.1.a</acckeeper.version>
         <rbac.version>1.5.2.a</rbac.version>
         <familyhelper-finance.version>1.4.5.a</familyhelper-finance.version>
