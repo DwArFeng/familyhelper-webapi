@@ -18,7 +18,7 @@ import java.util.Objects;
  */
 public class JSFixedFastJsonDispFundChange implements Dto {
 
-    private static final long serialVersionUID = 2518105408848597971L;
+    private static final long serialVersionUID = -2158661360426119847L;
 
     public static JSFixedFastJsonDispFundChange of(DispFundChange dispFundChange) {
         if (Objects.isNull(dispFundChange)) {
@@ -27,8 +27,11 @@ public class JSFixedFastJsonDispFundChange implements Dto {
             return new JSFixedFastJsonDispFundChange(
                     JSFixedFastJsonLongIdKey.of(dispFundChange.getKey()),
                     JSFixedFastJsonLongIdKey.of(dispFundChange.getAccountBookKey()),
-                    dispFundChange.getDelta(), dispFundChange.getChangeType(), dispFundChange.getHappenedDate(),
+                    dispFundChange.getDelta(),
+                    dispFundChange.getChangeType(),
+                    dispFundChange.getHappenedDate(),
                     dispFundChange.getRemark(),
+                    dispFundChange.getRecordedDate(),
                     JSFixedFastJsonDispAccountBook.of(dispFundChange.getAccountBook()),
                     FastJsonFundChangeTypeIndicator.of(dispFundChange.getTypeIndicator())
             );
@@ -53,10 +56,13 @@ public class JSFixedFastJsonDispFundChange implements Dto {
     @JSONField(name = "remark", ordinal = 6)
     private String remark;
 
-    @JSONField(name = "account_book", ordinal = 7)
+    @JSONField(name = "recorded_date", ordinal = 7)
+    private Date recordedDate;
+
+    @JSONField(name = "account_book", ordinal = 8)
     private JSFixedFastJsonDispAccountBook accountBook;
 
-    @JSONField(name = "type_indicator", ordinal = 8)
+    @JSONField(name = "type_indicator", ordinal = 9)
     private FastJsonFundChangeTypeIndicator typeIndicator;
 
     public JSFixedFastJsonDispFundChange() {
@@ -64,7 +70,7 @@ public class JSFixedFastJsonDispFundChange implements Dto {
 
     public JSFixedFastJsonDispFundChange(
             JSFixedFastJsonLongIdKey key, JSFixedFastJsonLongIdKey accountBookKey, BigDecimal delta, String changeType,
-            Date happenedDate, String remark, JSFixedFastJsonDispAccountBook accountBook,
+            Date happenedDate, String remark, Date recordedDate, JSFixedFastJsonDispAccountBook accountBook,
             FastJsonFundChangeTypeIndicator typeIndicator
     ) {
         this.key = key;
@@ -73,6 +79,7 @@ public class JSFixedFastJsonDispFundChange implements Dto {
         this.changeType = changeType;
         this.happenedDate = happenedDate;
         this.remark = remark;
+        this.recordedDate = recordedDate;
         this.accountBook = accountBook;
         this.typeIndicator = typeIndicator;
     }
@@ -125,6 +132,14 @@ public class JSFixedFastJsonDispFundChange implements Dto {
         this.remark = remark;
     }
 
+    public Date getRecordedDate() {
+        return recordedDate;
+    }
+
+    public void setRecordedDate(Date recordedDate) {
+        this.recordedDate = recordedDate;
+    }
+
     public JSFixedFastJsonDispAccountBook getAccountBook() {
         return accountBook;
     }
@@ -150,6 +165,7 @@ public class JSFixedFastJsonDispFundChange implements Dto {
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +
+                ", recordedDate=" + recordedDate +
                 ", accountBook=" + accountBook +
                 ", typeIndicator=" + typeIndicator +
                 '}';

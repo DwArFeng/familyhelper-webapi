@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 更新实体字段。
+  - DispFundChange.recordedDate。
+
 - 使用 `MapStruct` 重构 `BeanTransformer`。
 
 - 增加依赖。

@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class DispFundChange implements Dto {
 
-    private static final long serialVersionUID = 6995202379456850971L;
+    private static final long serialVersionUID = -7364559738649870267L;
 
     public static DispFundChange of(
             FundChange fundChange, DispAccountBook accountBook, FundChangeTypeIndicator typeIndicator) {
@@ -25,8 +25,14 @@ public class DispFundChange implements Dto {
             return null;
         } else {
             return new DispFundChange(
-                    fundChange.getKey(), fundChange.getAccountBookKey(), fundChange.getDelta(),
-                    fundChange.getChangeType(), fundChange.getHappenedDate(), fundChange.getRemark(), accountBook,
+                    fundChange.getKey(),
+                    fundChange.getAccountBookKey(),
+                    fundChange.getDelta(),
+                    fundChange.getChangeType(),
+                    fundChange.getHappenedDate(),
+                    fundChange.getRemark(),
+                    fundChange.getRecordedDate(),
+                    accountBook,
                     typeIndicator
             );
         }
@@ -38,6 +44,12 @@ public class DispFundChange implements Dto {
     private String changeType;
     private Date happenedDate;
     private String remark;
+
+    /**
+     * @since 1.5.0
+     */
+    private Date recordedDate;
+
     private DispAccountBook accountBook;
     private FundChangeTypeIndicator typeIndicator;
 
@@ -46,7 +58,7 @@ public class DispFundChange implements Dto {
 
     public DispFundChange(
             LongIdKey key, LongIdKey accountBookKey, BigDecimal delta, String changeType, Date happenedDate,
-            String remark, DispAccountBook accountBook, FundChangeTypeIndicator typeIndicator
+            String remark, Date recordedDate, DispAccountBook accountBook, FundChangeTypeIndicator typeIndicator
     ) {
         this.key = key;
         this.accountBookKey = accountBookKey;
@@ -54,6 +66,7 @@ public class DispFundChange implements Dto {
         this.changeType = changeType;
         this.happenedDate = happenedDate;
         this.remark = remark;
+        this.recordedDate = recordedDate;
         this.accountBook = accountBook;
         this.typeIndicator = typeIndicator;
     }
@@ -106,6 +119,14 @@ public class DispFundChange implements Dto {
         this.remark = remark;
     }
 
+    public Date getRecordedDate() {
+        return recordedDate;
+    }
+
+    public void setRecordedDate(Date recordedDate) {
+        this.recordedDate = recordedDate;
+    }
+
     public DispAccountBook getAccountBook() {
         return accountBook;
     }
@@ -131,6 +152,7 @@ public class DispFundChange implements Dto {
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +
+                ", recordedDate=" + recordedDate +
                 ", accountBook=" + accountBook +
                 ", typeIndicator=" + typeIndicator +
                 '}';
