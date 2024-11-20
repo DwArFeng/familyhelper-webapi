@@ -8,76 +8,79 @@ import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.project.JSFixedFastJsonDis
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.project.DispPop;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.project.DispProject;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.project.DispTask;
-import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
+import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
-import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration("project.beanTransformerConfiguration")
 public class BeanTransformerConfiguration {
 
-    private final Mapper mapper;
-
-    public BeanTransformerConfiguration(Mapper mapper) {
-        this.mapper = mapper;
-    }
-
     @Bean("project.projectBeanTransformer")
     public BeanTransformer<Project, JSFixedFastJsonProject> projectBeanTransformer() {
-        return new DozerBeanTransformer<>(Project.class, JSFixedFastJsonProject.class, mapper);
+        return new MapStructBeanTransformer<>(Project.class, JSFixedFastJsonProject.class, FastJsonMapper.class);
     }
 
     @Bean("project.dispProjectBeanTransformer")
     public BeanTransformer<DispProject, JSFixedFastJsonDispProject> dispProjectBeanTransformer() {
-        return new DozerBeanTransformer<>(DispProject.class, JSFixedFastJsonDispProject.class, mapper);
+        return new MapStructBeanTransformer<>(
+                DispProject.class, JSFixedFastJsonDispProject.class, FastJsonMapper.class
+        );
     }
 
     @Bean("project.popBeanTransformer")
     public BeanTransformer<Pop, JSFixedFastJsonPop> popBeanTransformer() {
-        return new DozerBeanTransformer<>(Pop.class, JSFixedFastJsonPop.class, mapper);
+        return new MapStructBeanTransformer<>(Pop.class, JSFixedFastJsonPop.class, FastJsonMapper.class);
     }
 
     @Bean("project.dispPopBeanTransformer")
     public BeanTransformer<DispPop, JSFixedFastJsonDispPop> dispPopBeanTransformer() {
-        return new DozerBeanTransformer<>(DispPop.class, JSFixedFastJsonDispPop.class, mapper);
+        return new MapStructBeanTransformer<>(DispPop.class, JSFixedFastJsonDispPop.class, FastJsonMapper.class);
     }
 
     @Bean("project.taskTypeIndicatorBeanTransformer")
     public BeanTransformer<TaskTypeIndicator, FastJsonTaskTypeIndicator>
     taskTypeIndicatorBeanTransformer() {
-        return new DozerBeanTransformer<>(TaskTypeIndicator.class, FastJsonTaskTypeIndicator.class, mapper);
+        return new MapStructBeanTransformer<>(
+                TaskTypeIndicator.class, FastJsonTaskTypeIndicator.class, FastJsonMapper.class
+        );
     }
 
     @Bean("project.taskBeanTransformer")
     public BeanTransformer<Task, JSFixedFastJsonTask> taskBeanTransformer() {
-        return new DozerBeanTransformer<>(Task.class, JSFixedFastJsonTask.class, mapper);
+        return new MapStructBeanTransformer<>(Task.class, JSFixedFastJsonTask.class, FastJsonMapper.class);
     }
 
     @Bean("project.dispTaskBeanTransformer")
     public BeanTransformer<DispTask, JSFixedFastJsonDispTask> dispTaskBeanTransformer() {
-        return new DozerBeanTransformer<>(DispTask.class, JSFixedFastJsonDispTask.class, mapper);
+        return new MapStructBeanTransformer<>(DispTask.class, JSFixedFastJsonDispTask.class, FastJsonMapper.class);
     }
 
     @Bean("project.memoBeanTransformer")
     public BeanTransformer<Memo, JSFixedFastJsonMemo> memoBeanTransformer() {
-        return new DozerBeanTransformer<>(Memo.class, JSFixedFastJsonMemo.class, mapper);
+        return new MapStructBeanTransformer<>(Memo.class, JSFixedFastJsonMemo.class, FastJsonMapper.class);
     }
 
     @Bean("project.memoFileInfoBeanTransformer")
     public BeanTransformer<MemoFileInfo, JSFixedFastJsonMemoFileInfo> memoFileInfoBeanTransformer() {
-        return new DozerBeanTransformer<>(MemoFileInfo.class, JSFixedFastJsonMemoFileInfo.class, mapper);
+        return new MapStructBeanTransformer<>(
+                MemoFileInfo.class, JSFixedFastJsonMemoFileInfo.class, FastJsonMapper.class
+        );
     }
 
     @Bean("project.memoRemindDriverInfoBeanTransformer")
     public BeanTransformer<MemoRemindDriverInfo, JSFixedFastJsonMemoRemindDriverInfo>
     memoRemindDriverInfoBeanTransformer() {
-        return new DozerBeanTransformer<>(MemoRemindDriverInfo.class, JSFixedFastJsonMemoRemindDriverInfo.class, mapper);
+        return new MapStructBeanTransformer<>(
+                MemoRemindDriverInfo.class, JSFixedFastJsonMemoRemindDriverInfo.class, FastJsonMapper.class
+        );
     }
 
     @Bean("project.memoRemindDriverSupportBeanTransformer")
     public BeanTransformer<MemoRemindDriverSupport, FastJsonMemoRemindDriverSupport>
     memoRemindDriverSupportBeanTransformer() {
-        return new DozerBeanTransformer<>(MemoRemindDriverSupport.class, FastJsonMemoRemindDriverSupport.class, mapper);
+        return new MapStructBeanTransformer<>(
+                MemoRemindDriverSupport.class, FastJsonMemoRemindDriverSupport.class, FastJsonMapper.class
+        );
     }
 }

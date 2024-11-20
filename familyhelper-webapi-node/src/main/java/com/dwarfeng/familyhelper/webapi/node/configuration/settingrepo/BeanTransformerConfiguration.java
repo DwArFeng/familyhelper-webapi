@@ -2,48 +2,45 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.settingrepo;
 
 import com.dwarfeng.settingrepo.sdk.bean.entity.*;
 import com.dwarfeng.settingrepo.stack.bean.entity.*;
-import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
+import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
-import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration("settingrepo.beanTransformerConfiguration")
 public class BeanTransformerConfiguration {
 
-    private final Mapper mapper;
-
-    public BeanTransformerConfiguration(Mapper mapper) {
-        this.mapper = mapper;
-    }
-
     @Bean("settingrepo.settingNodeBeanTransformer")
     public BeanTransformer<SettingNode, FastJsonSettingNode> settingNodeBeanTransformer() {
-        return new DozerBeanTransformer<>(SettingNode.class, FastJsonSettingNode.class, mapper);
+        return new MapStructBeanTransformer<>(SettingNode.class, FastJsonSettingNode.class, FastJsonMapper.class);
     }
 
     @Bean("settingrepo.settingCategoryBeanTransformer")
     public BeanTransformer<SettingCategory, FastJsonSettingCategory> settingCategoryBeanTransformer() {
-        return new DozerBeanTransformer<>(SettingCategory.class, FastJsonSettingCategory.class, mapper);
+        return new MapStructBeanTransformer<>(
+                SettingCategory.class, FastJsonSettingCategory.class, FastJsonMapper.class
+        );
     }
 
     @Bean("settingrepo.formatterSupportBeanTransformer")
     public BeanTransformer<FormatterSupport, FastJsonFormatterSupport> formatterSupportBeanTransformer() {
-        return new DozerBeanTransformer<>(FormatterSupport.class, FastJsonFormatterSupport.class, mapper);
+        return new MapStructBeanTransformer<>(
+                FormatterSupport.class, FastJsonFormatterSupport.class, FastJsonMapper.class
+        );
     }
 
     @Bean("settingrepo.textNodeBeanTransformer")
     public BeanTransformer<TextNode, FastJsonTextNode> textNodeBeanTransformer() {
-        return new DozerBeanTransformer<>(TextNode.class, FastJsonTextNode.class, mapper);
+        return new MapStructBeanTransformer<>(TextNode.class, FastJsonTextNode.class, FastJsonMapper.class);
     }
 
     @Bean("settingrepo.imageNodeBeanTransformer")
     public BeanTransformer<ImageNode, FastJsonImageNode> imageNodeBeanTransformer() {
-        return new DozerBeanTransformer<>(ImageNode.class, FastJsonImageNode.class, mapper);
+        return new MapStructBeanTransformer<>(ImageNode.class, FastJsonImageNode.class, FastJsonMapper.class);
     }
 
     @Bean("settingrepo.imageListNodeBeanTransformer")
     public BeanTransformer<ImageListNode, FastJsonImageListNode> imageListNodeBeanTransformer() {
-        return new DozerBeanTransformer<>(ImageListNode.class, FastJsonImageListNode.class, mapper);
+        return new MapStructBeanTransformer<>(ImageListNode.class, FastJsonImageListNode.class, FastJsonMapper.class);
     }
 }

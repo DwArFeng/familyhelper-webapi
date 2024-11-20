@@ -10,109 +10,116 @@ import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispNotifyInfoRec
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispNotifySendRecord;
 import com.dwarfeng.notify.sdk.bean.entity.*;
 import com.dwarfeng.notify.stack.bean.entity.*;
-import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
+import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
-import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration("notify.beanTransformerConfiguration")
 public class BeanTransformerConfiguration {
 
-    private final Mapper mapper;
-
-    public BeanTransformerConfiguration(Mapper mapper) {
-        this.mapper = mapper;
-    }
-
     @Bean("notify.notifySettingBeanTransformer")
     public BeanTransformer<NotifySetting, JSFixedFastJsonNotifySetting> notifySettingBeanTransformer() {
-        return new DozerBeanTransformer<>(NotifySetting.class, JSFixedFastJsonNotifySetting.class, mapper);
+        return new MapStructBeanTransformer<>(
+                NotifySetting.class, JSFixedFastJsonNotifySetting.class, FastJsonMapper.class
+        );
     }
 
     @Bean("notify.topicBeanTransformer")
     public BeanTransformer<Topic, FastJsonTopic> topicBeanTransformer() {
-        return new DozerBeanTransformer<>(Topic.class, FastJsonTopic.class, mapper);
+        return new MapStructBeanTransformer<>(Topic.class, FastJsonTopic.class, FastJsonMapper.class);
     }
 
     @Bean("notify.routerInfoBeanTransformer")
     public BeanTransformer<RouterInfo, JSFixedFastJsonRouterInfo> routerInfoBeanTransformer() {
-        return new DozerBeanTransformer<>(RouterInfo.class, JSFixedFastJsonRouterInfo.class, mapper);
+        return new MapStructBeanTransformer<>(RouterInfo.class, JSFixedFastJsonRouterInfo.class, FastJsonMapper.class);
     }
 
     @Bean("notify.routerSupportBeanTransformer")
     public BeanTransformer<RouterSupport, FastJsonRouterSupport> routerSupportBeanTransformer() {
-        return new DozerBeanTransformer<>(RouterSupport.class, FastJsonRouterSupport.class, mapper);
+        return new MapStructBeanTransformer<>(RouterSupport.class, FastJsonRouterSupport.class, FastJsonMapper.class);
     }
 
     @Bean("notify.dispatcherInfoBeanTransformer")
     public BeanTransformer<DispatcherInfo, FastJsonDispatcherInfo> dispatcherInfoBeanTransformer() {
-        return new DozerBeanTransformer<>(DispatcherInfo.class, FastJsonDispatcherInfo.class, mapper);
+        return new MapStructBeanTransformer<>(
+                DispatcherInfo.class, FastJsonDispatcherInfo.class, FastJsonMapper.class
+        );
     }
 
     @Bean("notify.dispatcherSupportBeanTransformer")
     public BeanTransformer<DispatcherSupport, FastJsonDispatcherSupport> dispatcherSupportBeanTransformer() {
-        return new DozerBeanTransformer<>(DispatcherSupport.class, FastJsonDispatcherSupport.class, mapper);
+        return new MapStructBeanTransformer<>(
+                DispatcherSupport.class, FastJsonDispatcherSupport.class, FastJsonMapper.class
+        );
     }
 
     @Bean("notify.senderInfoBeanTransformer")
     public BeanTransformer<SenderInfo, JSFixedFastJsonSenderInfo> senderInfoBeanTransformer() {
-        return new DozerBeanTransformer<>(SenderInfo.class, JSFixedFastJsonSenderInfo.class, mapper);
+        return new MapStructBeanTransformer<>(SenderInfo.class, JSFixedFastJsonSenderInfo.class, FastJsonMapper.class);
     }
 
     @Bean("notify.senderSupportBeanTransformer")
     public BeanTransformer<SenderSupport, FastJsonSenderSupport> senderSupportBeanTransformer() {
-        return new DozerBeanTransformer<>(SenderSupport.class, FastJsonSenderSupport.class, mapper);
+        return new MapStructBeanTransformer<>(SenderSupport.class, FastJsonSenderSupport.class, FastJsonMapper.class);
     }
 
     @Bean("notify.metaBeanTransformer")
     public BeanTransformer<Meta, JSFixedFastJsonMeta> metaBeanTransformer() {
-        return new DozerBeanTransformer<>(Meta.class, JSFixedFastJsonMeta.class, mapper);
+        return new MapStructBeanTransformer<>(Meta.class, JSFixedFastJsonMeta.class, FastJsonMapper.class);
     }
 
     @Bean("notify.dispMetaBeanTransformer")
     public BeanTransformer<DispMeta, JSFixedFastJsonDispMeta> dispMetaBeanTransformer() {
-        return new DozerBeanTransformer<>(DispMeta.class, JSFixedFastJsonDispMeta.class, mapper);
+        return new MapStructBeanTransformer<>(DispMeta.class, JSFixedFastJsonDispMeta.class, FastJsonMapper.class);
     }
 
     @Bean("notify.metaIndicatorBeanTransformer")
     public BeanTransformer<MetaIndicator, FastJsonMetaIndicator> metaIndicatorBeanTransformer() {
-        return new DozerBeanTransformer<>(MetaIndicator.class, FastJsonMetaIndicator.class, mapper);
+        return new MapStructBeanTransformer<>(MetaIndicator.class, FastJsonMetaIndicator.class, FastJsonMapper.class);
     }
 
     @Bean("notify.notifyHistoryBeanTransformer")
     public BeanTransformer<NotifyHistory, JSFixedFastJsonNotifyHistory> notifyHistoryBeanTransformer() {
-        return new DozerBeanTransformer<>(NotifyHistory.class, JSFixedFastJsonNotifyHistory.class, mapper);
+        return new MapStructBeanTransformer<>(
+                NotifyHistory.class, JSFixedFastJsonNotifyHistory.class, FastJsonMapper.class
+        );
     }
 
     @Bean("notify.dispNotifyHistoryBeanTransformer")
     public BeanTransformer<DispNotifyHistory, JSFixedFastJsonDispNotifyHistory> dispNotifyHistoryBeanTransformer() {
-        return new DozerBeanTransformer<>(DispNotifyHistory.class, JSFixedFastJsonDispNotifyHistory.class, mapper);
+        return new MapStructBeanTransformer<>(
+                DispNotifyHistory.class, JSFixedFastJsonDispNotifyHistory.class, FastJsonMapper.class
+        );
     }
 
     @Bean("notify.notifyInfoRecordBeanTransformer")
     public BeanTransformer<NotifyInfoRecord, JSFixedFastJsonNotifyInfoRecord> notifyInfoRecordBeanTransformer() {
-        return new DozerBeanTransformer<>(NotifyInfoRecord.class, JSFixedFastJsonNotifyInfoRecord.class, mapper);
+        return new MapStructBeanTransformer<>(
+                NotifyInfoRecord.class, JSFixedFastJsonNotifyInfoRecord.class, FastJsonMapper.class
+        );
     }
 
     @Bean("notify.dispNotifyInfoRecordBeanTransformer")
     public BeanTransformer<DispNotifyInfoRecord, JSFixedFastJsonDispNotifyInfoRecord>
     dispNotifyInfoRecordBeanTransformer() {
-        return new DozerBeanTransformer<>(
-                DispNotifyInfoRecord.class, JSFixedFastJsonDispNotifyInfoRecord.class, mapper
+        return new MapStructBeanTransformer<>(
+                DispNotifyInfoRecord.class, JSFixedFastJsonDispNotifyInfoRecord.class, FastJsonMapper.class
         );
     }
 
     @Bean("notify.notifySendRecordBeanTransformer")
     public BeanTransformer<NotifySendRecord, JSFixedFastJsonNotifySendRecord> notifySendRecordBeanTransformer() {
-        return new DozerBeanTransformer<>(NotifySendRecord.class, JSFixedFastJsonNotifySendRecord.class, mapper);
+        return new MapStructBeanTransformer<>(
+                NotifySendRecord.class, JSFixedFastJsonNotifySendRecord.class, FastJsonMapper.class
+        );
     }
 
     @Bean("notify.dispNotifySendRecordBeanTransformer")
     public BeanTransformer<DispNotifySendRecord, JSFixedFastJsonDispNotifySendRecord>
     dispNotifySendRecordBeanTransformer() {
-        return new DozerBeanTransformer<>(
-                DispNotifySendRecord.class, JSFixedFastJsonDispNotifySendRecord.class, mapper
+        return new MapStructBeanTransformer<>(
+                DispNotifySendRecord.class, JSFixedFastJsonDispNotifySendRecord.class, FastJsonMapper.class
         );
     }
 }

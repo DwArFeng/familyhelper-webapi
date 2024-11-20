@@ -8,70 +8,73 @@ import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.JSFixedFastJsonDis
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispCertificate;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispPoce;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispProfile;
-import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
+import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
-import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration("clannad.beanTransformerConfiguration")
 public class BeanTransformerConfiguration {
 
-    private final Mapper mapper;
-
-    public BeanTransformerConfiguration(Mapper mapper) {
-        this.mapper = mapper;
-    }
-
     @Bean("clannad.profileBeanTransformer")
     public BeanTransformer<Profile, FastJsonProfile> profileBeanTransformer() {
-        return new DozerBeanTransformer<>(Profile.class, FastJsonProfile.class, mapper);
+        return new MapStructBeanTransformer<>(Profile.class, FastJsonProfile.class, FastJsonMapper.class);
     }
 
     @Bean("clannad.dispProfileBeanTransformer")
     public BeanTransformer<DispProfile, FastJsonDispProfile> dispProfileBeanTransformer() {
-        return new DozerBeanTransformer<>(DispProfile.class, FastJsonDispProfile.class, mapper);
+        return new MapStructBeanTransformer<>(DispProfile.class, FastJsonDispProfile.class, FastJsonMapper.class);
     }
 
     @Bean("clannad.profileTypeIndicatorBeanTransformer")
     public BeanTransformer<ProfileTypeIndicator, FastJsonProfileTypeIndicator>
     profileTypeIndicatorBeanTransformer() {
-        return new DozerBeanTransformer<>(ProfileTypeIndicator.class, FastJsonProfileTypeIndicator.class, mapper);
+        return new MapStructBeanTransformer<>(
+                ProfileTypeIndicator.class, FastJsonProfileTypeIndicator.class, FastJsonMapper.class
+        );
     }
 
     @Bean("clannad.nicknameBeanTransformer")
     public BeanTransformer<Nickname, FastJsonNickname> nicknameBeanTransformer() {
-        return new DozerBeanTransformer<>(Nickname.class, FastJsonNickname.class, mapper);
+        return new MapStructBeanTransformer<>(Nickname.class, FastJsonNickname.class, FastJsonMapper.class);
     }
 
     @Bean("clannad.notificationBeanTransformer")
     public BeanTransformer<Notification, JSFixedFastJsonNotification> notificationBeanTransformer() {
-        return new DozerBeanTransformer<>(Notification.class, JSFixedFastJsonNotification.class, mapper);
+        return new MapStructBeanTransformer<>(
+                Notification.class, JSFixedFastJsonNotification.class, FastJsonMapper.class
+        );
     }
 
     @Bean("clannad.certificateBeanTransformer")
     public BeanTransformer<Certificate, JSFixedFastJsonCertificate> certificateBeanTransformer() {
-        return new DozerBeanTransformer<>(Certificate.class, JSFixedFastJsonCertificate.class, mapper);
+        return new MapStructBeanTransformer<>(
+                Certificate.class, JSFixedFastJsonCertificate.class, FastJsonMapper.class
+        );
     }
 
     @Bean("clannad.dispCertificateBeanTransformer")
     public BeanTransformer<DispCertificate, JSFixedFastJsonDispCertificate> dispCertificateBeanTransformer() {
-        return new DozerBeanTransformer<>(DispCertificate.class, JSFixedFastJsonDispCertificate.class, mapper);
+        return new MapStructBeanTransformer<>(
+                DispCertificate.class, JSFixedFastJsonDispCertificate.class, FastJsonMapper.class
+        );
     }
 
     @Bean("clannad.certificateFileInfoBeanTransformer")
     public BeanTransformer<CertificateFileInfo, JSFixedFastJsonCertificateFileInfo>
     certificateFileInfoBeanTransformer() {
-        return new DozerBeanTransformer<>(CertificateFileInfo.class, JSFixedFastJsonCertificateFileInfo.class, mapper);
+        return new MapStructBeanTransformer<>(
+                CertificateFileInfo.class, JSFixedFastJsonCertificateFileInfo.class, FastJsonMapper.class
+        );
     }
 
     @Bean("clannad.poceBeanTransformer")
     public BeanTransformer<Poce, JSFixedFastJsonPoce> poceBeanTransformer() {
-        return new DozerBeanTransformer<>(Poce.class, JSFixedFastJsonPoce.class, mapper);
+        return new MapStructBeanTransformer<>(Poce.class, JSFixedFastJsonPoce.class, FastJsonMapper.class);
     }
 
     @Bean("clannad.dispPoceBeanTransformer")
     public BeanTransformer<DispPoce, JSFixedFastJsonDispPoce> dispPoceBeanTransformer() {
-        return new DozerBeanTransformer<>(DispPoce.class, JSFixedFastJsonDispPoce.class, mapper);
+        return new MapStructBeanTransformer<>(DispPoce.class, JSFixedFastJsonDispPoce.class, FastJsonMapper.class);
     }
 }
