@@ -403,6 +403,70 @@
             check="false"
             group="${dubbo.consumer.familyhelper_clannad.group}"
     />
+    <dubbo:reference
+            id="familyhelperClannadMessageMaintainService"
+            interface="com.dwarfeng.familyhelper.clannad.stack.service.MessageMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_clannad.group}"
+    />
+    <dubbo:reference
+            id="familyhelperClannadMessageOperateService"
+            interface="com.dwarfeng.familyhelper.clannad.stack.service.MessageOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_clannad.group}"
+    />
+    <dubbo:reference
+            id="familyhelperClannadMessageAuthorizationMaintainService"
+            interface="com.dwarfeng.familyhelper.clannad.stack.service.MessageAuthorizationMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_clannad.group}"
+    />
+    <dubbo:reference
+            id="familyhelperClannadMessageAuthorizationOperateService"
+            interface="com.dwarfeng.familyhelper.clannad.stack.service.MessageAuthorizationOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_clannad.group}"
+    />
+    <dubbo:reference
+            id="familyhelperClannadMessageBodyInfoMaintainService"
+            interface="com.dwarfeng.familyhelper.clannad.stack.service.MessageBodyInfoMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_clannad.group}"
+    />
+    <dubbo:reference
+            id="familyhelperClannadMessageBodyOperateService"
+            interface="com.dwarfeng.familyhelper.clannad.stack.service.MessageBodyOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_clannad.group}"
+    />
+    <dubbo:reference
+            id="familyhelperClannadMessageAttachmentInfoMaintainService"
+            interface="com.dwarfeng.familyhelper.clannad.stack.service.MessageAttachmentInfoMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_clannad.group}"
+    />
+    <dubbo:reference
+            id="familyhelperClannadMessageAttachmentOperateService"
+            interface="com.dwarfeng.familyhelper.clannad.stack.service.MessageAttachmentOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_clannad.group}"
+    />
     <!-- familyhelper-assets -->
     <dubbo:reference
             id="familyhelperAssetsAssetCatalogMaintainService"
@@ -1273,6 +1337,14 @@
     <dubbo:reference
             id="familyhelperPluginClannadDubboRestCertificateFileOperateService"
             interface="com.dwarfeng.familyhelper.plugin.clannad.service.DubboRestCertificateFileOperateService"
+            retries="0"
+            timeout="3600000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_plugin_clannad.group}"
+    />
+    <dubbo:reference
+            id="familyhelperPluginClannadDubboRestMessageAttachmentOperateService"
+            interface="com.dwarfeng.familyhelper.plugin.clannad.service.DubboRestMessageAttachmentOperateService"
             retries="0"
             timeout="3600000"
             check="false"

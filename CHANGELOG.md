@@ -4,6 +4,12 @@
 
 #### 功能构建
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.MessageAttachmentController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.MessageAuthorizationController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.MessageBodyController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.MessageController。
+
 - 更新实体字段。
   - DispFundChange.recordedDate。
 
@@ -13,6 +19,7 @@
   - 增加依赖 `mapstruct` 以应用其新功能，版本为 `1.5.3.Final`。
 
 - 依赖升级。
+  - 升级 `familyhelper-plugin` 依赖版本为 `1.6.0.a` 以应用其新功能。
   - 升级 `familyhelper-clannad` 依赖版本为 `1.5.0.a` 以应用其新功能。
   - 升级 `familyhelper-finance` 依赖版本为 `1.5.0.a` 以应用其新功能。
   - 升级 `spring` 依赖版本为 `5.3.39` 以规避漏洞。

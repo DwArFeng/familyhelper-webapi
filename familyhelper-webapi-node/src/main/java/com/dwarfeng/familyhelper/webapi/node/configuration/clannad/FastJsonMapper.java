@@ -2,12 +2,8 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.clannad;
 
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.*;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.FastJsonDispProfile;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.JSFixedFastJsonDispCertificate;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.JSFixedFastJsonDispPoce;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispCertificate;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispPoce;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispProfile;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.*;
+import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.*;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
@@ -69,4 +65,42 @@ public interface FastJsonMapper {
 
     @InheritInverseConfiguration
     DispPoce dispPoceFromJsFixedFastJson(JSFixedFastJsonDispPoce jsFixedFastJsonDispPoce);
+
+    JSFixedFastJsonMessage messageToJsFixedFastJson(Message message);
+
+    @InheritInverseConfiguration
+    Message messageFromJsFixedFastJson(JSFixedFastJsonMessage jsFixedFastJsonMessage);
+
+    JSFixedFastJsonDispMessage dispMessageToJsFixedFastJson(DispMessage dispMessage);
+
+    @InheritInverseConfiguration
+    DispMessage dispMessageFromJsFixedFastJson(JSFixedFastJsonDispMessage jsFixedFastJsonDispMessage);
+
+    FastJsonMessageAuthorization messageAuthorizationToFastJson(MessageAuthorization messageAuthorization);
+
+    @InheritInverseConfiguration
+    MessageAuthorization messageAuthorizationFromFastJson(FastJsonMessageAuthorization fastJsonMessageAuthorization);
+
+    FastJsonDispMessageAuthorization dispMessageAuthorizationToFastJson(
+            DispMessageAuthorization dispMessageAuthorization
+    );
+
+    @InheritInverseConfiguration
+    DispMessageAuthorization dispMessageAuthorizationFromFastJson(
+            FastJsonDispMessageAuthorization fastJsonDispMessageAuthorization
+    );
+
+    JSFixedFastJsonMessageBodyInfo messageBodyInfoToJsFixedFastJson(MessageBodyInfo messageBodyInfo);
+
+    @InheritInverseConfiguration
+    MessageBodyInfo messageBodyInfoFromJsFixedFastJson(JSFixedFastJsonMessageBodyInfo jsFixedFastJsonMessageBodyInfo);
+
+    JSFixedFastJsonMessageAttachmentInfo messageAttachmentInfoToJsFixedFastJson(
+            MessageAttachmentInfo messageAttachmentInfo
+    );
+
+    @InheritInverseConfiguration
+    MessageAttachmentInfo messageAttachmentInfoFromJsFixedFastJson(
+            JSFixedFastJsonMessageAttachmentInfo jsFixedFastJsonMessageAttachmentInfo
+    );
 }
