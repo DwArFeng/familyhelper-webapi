@@ -1112,6 +1112,14 @@
             check="false"
             group="${dubbo.consumer.familyhelper_note.group}"
     />
+    <dubbo:reference
+            id="familyhelperNoteFavoriteMaintainService"
+            interface="com.dwarfeng.familyhelper.note.stack.service.FavoriteMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_note.group}"
+    />
     <!-- settingrepo -->
     <dubbo:reference
             id="settingrepoSettingNodeMaintainService"

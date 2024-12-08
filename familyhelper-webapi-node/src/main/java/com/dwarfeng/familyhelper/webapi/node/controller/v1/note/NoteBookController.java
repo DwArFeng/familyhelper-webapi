@@ -1,9 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.note;
 
-import com.dwarfeng.familyhelper.note.sdk.bean.dto.WebInputNoteBookCreateInfo;
-import com.dwarfeng.familyhelper.note.sdk.bean.dto.WebInputNoteBookPermissionRemoveInfo;
-import com.dwarfeng.familyhelper.note.sdk.bean.dto.WebInputNoteBookPermissionUpsertInfo;
-import com.dwarfeng.familyhelper.note.sdk.bean.dto.WebInputNoteBookUpdateInfo;
+import com.dwarfeng.familyhelper.note.sdk.bean.dto.*;
 import com.dwarfeng.familyhelper.note.sdk.bean.entity.JSFixedFastJsonNoteBook;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteBook;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.note.JSFixedFastJsonDispNoteBook;
@@ -100,10 +97,75 @@ public class NoteBookController {
     @SkipRecord
     @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteBook>> all(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             PagedData<NoteBook> all = service.all(new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonNoteBook> transform = PagingUtil.transform(all, noteBookBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/note-book/user-owned")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteBook>> userOwned(
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<NoteBook> userOwned = service.userOwned(accountKey, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonNoteBook> transform = PagingUtil.transform(userOwned, noteBookBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/note-book/user-permitted-with-condition-display")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteBook>> userPermittedWithConditionDisplay(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("only-favored") boolean onlyFavored,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<NoteBook> userPermittedWithConditionDisplay = service.userPermittedWithConditionDisplay(
+                    accountKey, pattern, onlyFavored, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonNoteBook> transform = PagingUtil.transform(
+                    userPermittedWithConditionDisplay, noteBookBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/note-book/user-owned-with-condition-display")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNoteBook>> userOwnedWithConditionDisplay(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("only-favored") boolean onlyFavored,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<NoteBook> userOwnedWithConditionDisplay = service.userOwnedWithConditionDisplay(
+                    accountKey, pattern, onlyFavored, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonNoteBook> transform = PagingUtil.transform(
+                    userOwnedWithConditionDisplay, noteBookBeanTransformer
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -128,18 +190,18 @@ public class NoteBookController {
         }
     }
 
-    @GetMapping("/note-book/all-permitted/disp")
+    @GetMapping("/note-book/all/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteBook>> allPermittedDisp(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteBook>> allDisp(
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispNoteBook> allPermittedDisp = service.allPermittedDisp(
-                    accountKey, new PagingInfo(page, rows));
+            PagedData<DispNoteBook> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispNoteBook> transform = PagingUtil.transform(
-                    allPermittedDisp, dispNoteBookBeanTransformer);
+                    allDisp, dispNoteBookBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -147,18 +209,67 @@ public class NoteBookController {
         }
     }
 
-    @GetMapping("/note-book/all-owned/disp")
+    @GetMapping("/note-book/user-owned/disp")
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteBook>> allOwnedDisp(
-            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteBook>> userOwnedDisp(
+            HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
-            PagedData<DispNoteBook> allOwnedDisp = service.allOwnedDisp(
-                    accountKey, new PagingInfo(page, rows));
+            PagedData<DispNoteBook> userOwnedDisp = service.userOwnedDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispNoteBook> transform = PagingUtil.transform(
-                    allOwnedDisp, dispNoteBookBeanTransformer);
+                    userOwnedDisp, dispNoteBookBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/note-book/user-permitted-with-condition-display/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteBook>>
+    userPermittedWithConditionDisplayDisp(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("only-favored") boolean onlyFavored,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<DispNoteBook> userPermittedWithConditionDisplayDisp =
+                    service.userPermittedWithConditionDisplayDisp(
+                            accountKey, pattern, onlyFavored, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonDispNoteBook> transform = PagingUtil.transform(
+                    userPermittedWithConditionDisplayDisp, dispNoteBookBeanTransformer
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/note-book/user-owned-with-condition-display/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteBook>>
+    userOwnedWithConditionDisplayDisp(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("only-favored") boolean onlyFavored,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            PagedData<DispNoteBook> userOwnedWithConditionDisplayDisp = service.userOwnedWithConditionDisplayDisp(
+                    accountKey, pattern, onlyFavored, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonDispNoteBook> transform = PagingUtil.transform(
+                    userOwnedWithConditionDisplayDisp, dispNoteBookBeanTransformer
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -252,6 +363,26 @@ public class NoteBookController {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removePermission(
                     accountKey, WebInputNoteBookPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @PostMapping("/note-book/change-favored")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<Object> changeFavored(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputNoteBookFavoredChangeInfo webInputNoteBookFavoredChangeInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            service.changeFavored(
+                    accountKey, WebInputNoteBookFavoredChangeInfo.toStackBean(webInputNoteBookFavoredChangeInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

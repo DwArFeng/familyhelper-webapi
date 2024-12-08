@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class JSFixedFastJsonDispNoteBook implements Dto {
 
-    private static final long serialVersionUID = 7677709985921186574L;
+    private static final long serialVersionUID = -6041527795986273127L;
 
     public static JSFixedFastJsonDispNoteBook of(DispNoteBook dispNoteBook) {
         if (Objects.isNull(dispNoteBook)) {
@@ -25,11 +25,15 @@ public class JSFixedFastJsonDispNoteBook implements Dto {
         } else {
             return new JSFixedFastJsonDispNoteBook(
                     JSFixedFastJsonLongIdKey.of(dispNoteBook.getKey()),
-                    dispNoteBook.getName(), dispNoteBook.getRemark(), dispNoteBook.getCreatedDate(),
-                    dispNoteBook.getItemCount(), dispNoteBook.getLastModifiedDate(),
+                    dispNoteBook.getName(),
+                    dispNoteBook.getRemark(),
+                    dispNoteBook.getCreatedDate(),
+                    dispNoteBook.getItemCount(),
+                    dispNoteBook.getLastModifiedDate(),
                     dispNoteBook.getLastInspectedDate(),
                     FastJsonDispAccount.of(dispNoteBook.getOwnerAccount()),
-                    dispNoteBook.getPermissionLevel()
+                    dispNoteBook.getPermissionLevel(),
+                    dispNoteBook.isFavorite()
             );
         }
     }
@@ -61,13 +65,16 @@ public class JSFixedFastJsonDispNoteBook implements Dto {
     @JSONField(name = "permission_level", ordinal = 9)
     private Integer permissionLevel;
 
+    @JSONField(name = "favorite", ordinal = 10)
+    private boolean favorite;
+
     public JSFixedFastJsonDispNoteBook() {
     }
 
     public JSFixedFastJsonDispNoteBook(
             JSFixedFastJsonLongIdKey key, String name, String remark, Date createdDate, int itemCount,
-            Date lastModifiedDate, Date lastInspectedDate, FastJsonDispAccount ownerAccount,
-            Integer permissionLevel
+            Date lastModifiedDate, Date lastInspectedDate, FastJsonDispAccount ownerAccount, Integer permissionLevel,
+            boolean favorite
     ) {
         this.key = key;
         this.name = name;
@@ -78,6 +85,7 @@ public class JSFixedFastJsonDispNoteBook implements Dto {
         this.lastInspectedDate = lastInspectedDate;
         this.ownerAccount = ownerAccount;
         this.permissionLevel = permissionLevel;
+        this.favorite = favorite;
     }
 
     public JSFixedFastJsonLongIdKey getKey() {
@@ -152,6 +160,14 @@ public class JSFixedFastJsonDispNoteBook implements Dto {
         this.permissionLevel = permissionLevel;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public String toString() {
         return "JSFixedFastJsonDispNoteBook{" +
@@ -164,6 +180,7 @@ public class JSFixedFastJsonDispNoteBook implements Dto {
                 ", lastInspectedDate=" + lastInspectedDate +
                 ", ownerAccount=" + ownerAccount +
                 ", permissionLevel=" + permissionLevel +
+                ", favorite=" + favorite +
                 '}';
     }
 }

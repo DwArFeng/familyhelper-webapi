@@ -16,17 +16,17 @@ import java.util.Objects;
  */
 public class DispNoteBook implements Dto {
 
-    private static final long serialVersionUID = 4341058119087595023L;
+    private static final long serialVersionUID = 3577087828844333955L;
 
     public static DispNoteBook of(
-            NoteBook noteBook, DispAccount ownerAccount, Integer permissionLevel) {
+            NoteBook noteBook, DispAccount ownerAccount, Integer permissionLevel, boolean favorite) {
         if (Objects.isNull(noteBook)) {
             return null;
         } else {
             return new DispNoteBook(
                     noteBook.getKey(), noteBook.getName(), noteBook.getRemark(), noteBook.getCreatedDate(),
                     noteBook.getItemCount(), noteBook.getLastModifiedDate(), noteBook.getLastInspectedDate(),
-                    ownerAccount, permissionLevel
+                    ownerAccount, permissionLevel, favorite
             );
         }
     }
@@ -41,12 +41,17 @@ public class DispNoteBook implements Dto {
     private DispAccount ownerAccount;
     private Integer permissionLevel;
 
+    /**
+     * @since 1.4.0
+     */
+    private boolean favorite;
+
     public DispNoteBook() {
     }
 
     public DispNoteBook(
             LongIdKey key, String name, String remark, Date createdDate, int itemCount, Date lastModifiedDate,
-            Date lastInspectedDate, DispAccount ownerAccount, Integer permissionLevel
+            Date lastInspectedDate, DispAccount ownerAccount, Integer permissionLevel, boolean favorite
     ) {
         this.key = key;
         this.name = name;
@@ -57,6 +62,7 @@ public class DispNoteBook implements Dto {
         this.lastInspectedDate = lastInspectedDate;
         this.ownerAccount = ownerAccount;
         this.permissionLevel = permissionLevel;
+        this.favorite = favorite;
     }
 
     public LongIdKey getKey() {
@@ -131,6 +137,14 @@ public class DispNoteBook implements Dto {
         this.permissionLevel = permissionLevel;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public String toString() {
         return "DispNoteBook{" +
@@ -143,6 +157,7 @@ public class DispNoteBook implements Dto {
                 ", lastInspectedDate=" + lastInspectedDate +
                 ", ownerAccount=" + ownerAccount +
                 ", permissionLevel=" + permissionLevel +
+                ", favorite=" + favorite +
                 '}';
     }
 }
