@@ -6,6 +6,7 @@
 
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteBookController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.FundChangeController。
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.MessageAttachmentController。

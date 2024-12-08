@@ -38,6 +38,10 @@ public interface FundChangeResponseService extends Service {
             LongIdKey accountBookKey, String changeType, PagingInfo pagingInfo
     ) throws ServiceException;
 
+    PagedData<FundChange> childForAccountBookWithConditionDisplay(
+            LongIdKey accountBookKey, String changeType, String remarkPattern, PagingInfo pagingInfo
+    ) throws ServiceException;
+
     DispFundChange getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException;
 
     PagedData<DispFundChange> allDisp(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
@@ -56,6 +60,11 @@ public interface FundChangeResponseService extends Service {
 
     PagedData<DispFundChange> childForAccountBookTypeEqualsDescDisp(
             StringIdKey accountKey, LongIdKey accountBookKey, String changeType, PagingInfo pagingInfo
+    ) throws ServiceException;
+
+    PagedData<DispFundChange> childForAccountBookWithConditionDisplayDisp(
+            StringIdKey accountKey, LongIdKey accountBookKey, String changeType, String remarkPattern,
+            PagingInfo pagingInfo
     ) throws ServiceException;
 
     LongIdKey recordFundChange(StringIdKey userKey, FundChangeRecordInfo fundChangeRecordInfo) throws ServiceException;

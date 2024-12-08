@@ -102,6 +102,17 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
     }
 
     @Override
+    public PagedData<FundChange> childForAccountBookWithConditionDisplay(
+            LongIdKey accountBookKey, String changeType, String remarkPattern, PagingInfo pagingInfo
+    ) throws ServiceException {
+        return fundChangeMaintainService.lookup(
+                FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_WITH_CONDITION_DISPLAY,
+                new Object[]{accountBookKey, changeType, remarkPattern},
+                pagingInfo
+        );
+    }
+
+    @Override
     public DispFundChange getDisp(LongIdKey key, StringIdKey inspectAccountKey) throws ServiceException {
         FundChange fundChange = get(key);
         return toDisp(fundChange, inspectAccountKey);
@@ -142,6 +153,17 @@ public class FundChangeResponseServiceImpl implements FundChangeResponseService 
             StringIdKey accountKey, LongIdKey accountBookKey, String changeType, PagingInfo pagingInfo
     ) throws ServiceException {
         PagedData<FundChange> lookup = childForAccountBookTypeEqualsDesc(accountBookKey, changeType, pagingInfo);
+        return toDispPagedData(lookup, accountKey);
+    }
+
+    @Override
+    public PagedData<DispFundChange> childForAccountBookWithConditionDisplayDisp(
+            StringIdKey accountKey, LongIdKey accountBookKey, String changeType, String remarkPattern,
+            PagingInfo pagingInfo
+    ) throws ServiceException {
+        PagedData<FundChange> lookup = childForAccountBookWithConditionDisplay(
+                accountBookKey, changeType, remarkPattern, pagingInfo
+        );
         return toDispPagedData(lookup, accountKey);
     }
 

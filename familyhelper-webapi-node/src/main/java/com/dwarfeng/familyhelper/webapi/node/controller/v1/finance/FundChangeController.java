@@ -55,7 +55,8 @@ public class FundChangeController {
     private final TokenHandler tokenHandler;
 
     public FundChangeController(
-            FundChangeResponseService service, ServiceExceptionMapper sem,
+            FundChangeResponseService service,
+            ServiceExceptionMapper sem,
             BeanTransformer<FundChange, JSFixedFastJsonFundChange> fundChangeBeanTransformer,
             BeanTransformer<DispFundChange, JSFixedFastJsonDispFundChange> dispFundChangeBeanTransformer,
             TokenHandler tokenHandler
@@ -218,6 +219,37 @@ public class FundChangeController {
         }
     }
 
+    @GetMapping(value = {
+            "/account-book/{accountBookId}/fund-change/with-condition-display",
+            "/account-book//fund-change/with-condition-display"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonFundChange>>
+    childForAccountBookWithConditionDisplay(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "accountBookId") Long accountBookId,
+            @RequestParam("change-type") String changeType, @RequestParam("remark-pattern") String remarkPattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            LongIdKey accountBookKey = null;
+            if (Objects.nonNull(accountBookId)) {
+                accountBookKey = new LongIdKey(accountBookId);
+            }
+            PagedData<FundChange> childForAccountBook = service.childForAccountBookWithConditionDisplay(
+                    accountBookKey, changeType, remarkPattern, new PagingInfo(page, rows)
+            );
+            PagedData<JSFixedFastJsonFundChange> transform = PagingUtil.transform(
+                    childForAccountBook, fundChangeBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @GetMapping("/fund-change/{id}/disp")
     @BehaviorAnalyse
     @SkipRecord
@@ -360,6 +392,38 @@ public class FundChangeController {
             }
             PagedData<DispFundChange> childForAccountBookDisp = service.childForAccountBookTypeEqualsDescDisp(
                     accountKey, accountBookKey, pattern, new PagingInfo(page, rows));
+            PagedData<JSFixedFastJsonDispFundChange> transform = PagingUtil.transform(
+                    childForAccountBookDisp, dispFundChangeBeanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping(value = {
+            "/account-book/{accountBookId}/fund-change/with-condition-display/disp",
+            "/account-book//fund-change/with-condition-display/disp"
+    })
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispFundChange>>
+    childForAccountBookWithConditionDisplayDisp(
+            HttpServletRequest request,
+            @PathVariable(required = false, value = "accountBookId") Long accountBookId,
+            @RequestParam("change-type") String changeType, @RequestParam("remark-pattern") String remarkPattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            LongIdKey accountBookKey = null;
+            if (Objects.nonNull(accountBookId)) {
+                accountBookKey = new LongIdKey(accountBookId);
+            }
+            PagedData<DispFundChange> childForAccountBookDisp = service.childForAccountBookWithConditionDisplayDisp(
+                    accountKey, accountBookKey, changeType, remarkPattern, new PagingInfo(page, rows)
+            );
             PagedData<JSFixedFastJsonDispFundChange> transform = PagingUtil.transform(
                     childForAccountBookDisp, dispFundChangeBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
