@@ -35,7 +35,7 @@ public class ProfileResponseServiceImpl implements ProfileResponseService {
     public ProfileResponseServiceImpl(
             @Qualifier("familyhelperClannadProfileMaintainService") ProfileMaintainService profileMaintainService,
             @Qualifier("familyhelperClannadProfileTypeIndicatorMaintainService")
-                    ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService,
+            ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService,
             @Qualifier("familyhelperClannadProfileOperateService") ProfileOperateService profileOperateService,
             @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService
     ) {

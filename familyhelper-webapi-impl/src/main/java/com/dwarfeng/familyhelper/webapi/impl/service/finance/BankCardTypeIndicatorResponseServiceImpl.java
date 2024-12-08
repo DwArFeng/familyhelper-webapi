@@ -17,7 +17,7 @@ public class BankCardTypeIndicatorResponseServiceImpl implements BankCardTypeInd
 
     public BankCardTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperFinanceBankCardTypeIndicatorMaintainService")
-                    BankCardTypeIndicatorMaintainService bankCardTypeIndicatorMaintainService
+            BankCardTypeIndicatorMaintainService bankCardTypeIndicatorMaintainService
     ) {
         this.bankCardTypeIndicatorMaintainService = bankCardTypeIndicatorMaintainService;
     }

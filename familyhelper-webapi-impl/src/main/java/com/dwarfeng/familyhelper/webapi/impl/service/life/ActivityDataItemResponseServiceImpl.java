@@ -138,8 +138,8 @@ public class ActivityDataItemResponseServiceImpl implements ActivityDataItemResp
     }
 
     private DispActivityDataNode toDispActivityDataNodeWithCache(
-            ActivityDataItem activityDataItem, StringIdKey inspectAccountKey, Map<LongIdKey,
-            DispActivityDataNode> cachedActivityDataNodeMap
+            ActivityDataItem activityDataItem, StringIdKey inspectAccountKey,
+            Map<LongIdKey, DispActivityDataNode> cachedActivityDataNodeMap
     ) throws ServiceException {
         LongIdKey nodeKey = activityDataItem.getNodeKey();
         if (Objects.isNull(nodeKey)) {

@@ -669,7 +669,6 @@
             check="false"
             group="${dubbo.consumer.familyhelper_project.group}"
     />
-
     <!-- familyhelper-life -->
     <dubbo:reference
             id="familyhelperLifePbSetMaintainService"

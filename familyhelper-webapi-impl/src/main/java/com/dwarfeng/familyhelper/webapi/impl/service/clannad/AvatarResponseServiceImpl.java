@@ -19,7 +19,7 @@ public class AvatarResponseServiceImpl implements AvatarResponseService {
 
     public AvatarResponseServiceImpl(
             @Qualifier("familyhelperClannadAvatarInfoMaintainService")
-                    AvatarInfoMaintainService avatarInfoMaintainService,
+            AvatarInfoMaintainService avatarInfoMaintainService,
             @Qualifier("familyhelperClannadAvatarOperateService") AvatarOperateService avatarOperateService
     ) {
         this.avatarInfoMaintainService = avatarInfoMaintainService;

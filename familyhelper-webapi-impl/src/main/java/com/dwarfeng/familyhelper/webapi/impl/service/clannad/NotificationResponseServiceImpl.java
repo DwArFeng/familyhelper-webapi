@@ -21,9 +21,9 @@ public class NotificationResponseServiceImpl implements NotificationResponseServ
 
     public NotificationResponseServiceImpl(
             @Qualifier("familyhelperClannadNotificationMaintainService")
-                    NotificationMaintainService notificationMaintainService,
+            NotificationMaintainService notificationMaintainService,
             @Qualifier("familyhelperClannadNotificationOperateService")
-                    NotificationOperateService notificationOperateService
+            NotificationOperateService notificationOperateService
     ) {
         this.notificationMaintainService = notificationMaintainService;
         this.notificationOperateService = notificationOperateService;

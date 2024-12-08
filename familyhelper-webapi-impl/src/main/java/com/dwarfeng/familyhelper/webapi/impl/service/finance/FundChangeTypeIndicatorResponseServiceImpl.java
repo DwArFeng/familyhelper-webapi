@@ -17,7 +17,7 @@ public class FundChangeTypeIndicatorResponseServiceImpl implements FundChangeTyp
 
     public FundChangeTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperFinanceFundChangeTypeIndicatorMaintainService")
-                    FundChangeTypeIndicatorMaintainService fundChangeTypeIndicatorMaintainService
+            FundChangeTypeIndicatorMaintainService fundChangeTypeIndicatorMaintainService
     ) {
         this.fundChangeTypeIndicatorMaintainService = fundChangeTypeIndicatorMaintainService;
     }

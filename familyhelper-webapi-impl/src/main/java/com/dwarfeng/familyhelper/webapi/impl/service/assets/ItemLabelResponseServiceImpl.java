@@ -19,7 +19,7 @@ public class ItemLabelResponseServiceImpl implements ItemLabelResponseService {
 
     public ItemLabelResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemLabelMaintainService")
-                    ItemLabelMaintainService itemLabelMaintainService
+            ItemLabelMaintainService itemLabelMaintainService
     ) {
         this.itemLabelMaintainService = itemLabelMaintainService;
     }

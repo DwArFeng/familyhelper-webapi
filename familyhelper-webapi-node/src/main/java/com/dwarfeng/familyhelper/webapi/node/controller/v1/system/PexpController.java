@@ -46,8 +46,9 @@ public class PexpController {
     private final BeanTransformer<Pexp, JSFixedFastJsonPexp> beanTransformer;
 
     public PexpController(
-            PexpResponseService service, ServiceExceptionMapper sem, BeanTransformer<Pexp,
-            JSFixedFastJsonPexp> beanTransformer
+            PexpResponseService service,
+            ServiceExceptionMapper sem,
+            BeanTransformer<Pexp, JSFixedFastJsonPexp> beanTransformer
     ) {
         this.service = service;
         this.sem = sem;

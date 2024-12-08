@@ -28,7 +28,7 @@ public class ItemFileResponseServiceImpl implements ItemFileResponseService {
 
     public ItemFileResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemFileInfoMaintainService")
-                    ItemFileInfoMaintainService itemFileInfoMaintainService,
+            ItemFileInfoMaintainService itemFileInfoMaintainService,
             @Qualifier("familyhelperAssetsItemFileOperateService")
             ItemFileOperateService itemFileOperateService,
             @Qualifier("familyhelperPluginAssetsDubboRestItemFileOperateService")

@@ -23,9 +23,9 @@ public class ItemCoverResponseServiceImpl implements ItemCoverResponseService {
 
     public ItemCoverResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemCoverInfoMaintainService")
-                    ItemCoverInfoMaintainService itemCoverInfoMaintainService,
+            ItemCoverInfoMaintainService itemCoverInfoMaintainService,
             @Qualifier("familyhelperAssetsItemCoverOperateService")
-                    ItemCoverOperateService itemCoverOperateService
+            ItemCoverOperateService itemCoverOperateService
     ) {
         this.itemCoverInfoMaintainService = itemCoverInfoMaintainService;
         this.itemCoverOperateService = itemCoverOperateService;

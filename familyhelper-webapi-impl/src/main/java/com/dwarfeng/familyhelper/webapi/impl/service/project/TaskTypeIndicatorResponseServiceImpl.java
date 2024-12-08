@@ -17,7 +17,7 @@ public class TaskTypeIndicatorResponseServiceImpl implements TaskTypeIndicatorRe
 
     public TaskTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperProjectTaskTypeIndicatorMaintainService")
-                    TaskTypeIndicatorMaintainService taskTypeIndicatorMaintainService
+            TaskTypeIndicatorMaintainService taskTypeIndicatorMaintainService
     ) {
         this.taskTypeIndicatorMaintainService = taskTypeIndicatorMaintainService;
     }

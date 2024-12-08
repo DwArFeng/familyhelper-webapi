@@ -46,8 +46,9 @@ public class NicknameController {
     private final BeanTransformer<Nickname, FastJsonNickname> beanTransformer;
 
     public NicknameController(
-            NicknameResponseService service, ServiceExceptionMapper sem, BeanTransformer<Nickname,
-            FastJsonNickname> beanTransformer
+            NicknameResponseService service,
+            ServiceExceptionMapper sem,
+            BeanTransformer<Nickname, FastJsonNickname> beanTransformer
     ) {
         this.service = service;
         this.sem = sem;

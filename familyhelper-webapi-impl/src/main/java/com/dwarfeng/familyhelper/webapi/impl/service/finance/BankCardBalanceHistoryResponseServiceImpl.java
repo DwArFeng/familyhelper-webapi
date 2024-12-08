@@ -17,7 +17,7 @@ public class BankCardBalanceHistoryResponseServiceImpl implements BankCardBalanc
 
     public BankCardBalanceHistoryResponseServiceImpl(
             @Qualifier("familyhelperFinanceBankCardBalanceHistoryMaintainService")
-                    BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService
+            BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService
     ) {
         this.bankCardBalanceHistoryMaintainService = bankCardBalanceHistoryMaintainService;
     }

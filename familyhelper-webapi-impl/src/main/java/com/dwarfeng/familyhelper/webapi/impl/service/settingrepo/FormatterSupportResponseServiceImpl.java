@@ -17,7 +17,7 @@ public class FormatterSupportResponseServiceImpl implements FormatterSupportResp
 
     public FormatterSupportResponseServiceImpl(
             @Qualifier("settingrepoFormatterSupportMaintainService")
-                    FormatterSupportMaintainService formatterSupportMaintainService
+            FormatterSupportMaintainService formatterSupportMaintainService
     ) {
         this.formatterSupportMaintainService = formatterSupportMaintainService;
     }

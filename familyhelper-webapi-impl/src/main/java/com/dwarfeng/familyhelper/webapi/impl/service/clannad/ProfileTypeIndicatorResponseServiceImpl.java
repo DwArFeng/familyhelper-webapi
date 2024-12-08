@@ -17,7 +17,7 @@ public class ProfileTypeIndicatorResponseServiceImpl implements ProfileTypeIndic
 
     public ProfileTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperClannadProfileTypeIndicatorMaintainService")
-                    ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService
+            ProfileTypeIndicatorMaintainService profileTypeIndicatorMaintainService
     ) {
         this.profileTypeIndicatorMaintainService = profileTypeIndicatorMaintainService;
     }

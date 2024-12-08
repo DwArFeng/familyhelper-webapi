@@ -23,9 +23,9 @@ public class MemoFileResponseServiceImpl implements MemoFileResponseService {
 
     public MemoFileResponseServiceImpl(
             @Qualifier("familyhelperProjectMemoFileInfoMaintainService")
-                    MemoFileInfoMaintainService memoFileInfoMaintainService,
+            MemoFileInfoMaintainService memoFileInfoMaintainService,
             @Qualifier("familyhelperProjectMemoFileOperateService")
-                    MemoFileOperateService memoFileOperateService
+            MemoFileOperateService memoFileOperateService
     ) {
         this.memoFileInfoMaintainService = memoFileInfoMaintainService;
         this.memoFileOperateService = memoFileOperateService;

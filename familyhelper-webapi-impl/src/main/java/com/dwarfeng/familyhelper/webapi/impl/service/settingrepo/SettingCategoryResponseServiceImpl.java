@@ -17,7 +17,7 @@ public class SettingCategoryResponseServiceImpl implements SettingCategoryRespon
 
     public SettingCategoryResponseServiceImpl(
             @Qualifier("settingrepoSettingCategoryMaintainService")
-                    SettingCategoryMaintainService settingCategoryMaintainService
+            SettingCategoryMaintainService settingCategoryMaintainService
     ) {
         this.settingCategoryMaintainService = settingCategoryMaintainService;
     }

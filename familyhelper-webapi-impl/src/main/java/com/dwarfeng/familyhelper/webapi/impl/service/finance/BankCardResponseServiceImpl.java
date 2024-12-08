@@ -37,13 +37,13 @@ public class BankCardResponseServiceImpl implements BankCardResponseService {
 
     public BankCardResponseServiceImpl(
             @Qualifier("familyhelperFinanceBankCardMaintainService")
-                    BankCardMaintainService bankCardMaintainService,
+            BankCardMaintainService bankCardMaintainService,
             @Qualifier("familyhelperFinanceBankCardOperateService")
-                    BankCardOperateService bankCardOperateService,
+            BankCardOperateService bankCardOperateService,
             @Qualifier("familyhelperFinanceBankCardTypeIndicatorMaintainService")
-                    BankCardTypeIndicatorMaintainService bankCardTypeIndicatorMaintainService,
+            BankCardTypeIndicatorMaintainService bankCardTypeIndicatorMaintainService,
             @Qualifier("familyhelperFinanceBalanceOperateService")
-                    BalanceOperateService balanceOperateService,
+            BalanceOperateService balanceOperateService,
             AccountBookResponseService accountBookResponseService
     ) {
         this.bankCardMaintainService = bankCardMaintainService;

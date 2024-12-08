@@ -36,7 +36,7 @@ public class TaskResponseServiceImpl implements TaskResponseService {
             @Qualifier("familyhelperProjectTaskMaintainService") TaskMaintainService taskMaintainService,
             @Qualifier("familyhelperProjectTaskOperateService") TaskOperateService taskOperateService,
             @Qualifier("familyhelperProjectTaskTypeIndicatorMaintainService")
-                    TaskTypeIndicatorMaintainService taskTypeIndicatorMaintainService,
+            TaskTypeIndicatorMaintainService taskTypeIndicatorMaintainService,
             ProjectResponseService projectResponseService
     ) {
         this.taskMaintainService = taskMaintainService;

@@ -17,7 +17,7 @@ public class TotalBalanceHistoryResponseServiceImpl implements TotalBalanceHisto
 
     public TotalBalanceHistoryResponseServiceImpl(
             @Qualifier("familyhelperFinanceTotalBalanceHistoryMaintainService")
-                    TotalBalanceHistoryMaintainService totalBalanceHistoryMaintainService
+            TotalBalanceHistoryMaintainService totalBalanceHistoryMaintainService
     ) {
         this.totalBalanceHistoryMaintainService = totalBalanceHistoryMaintainService;
     }

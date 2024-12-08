@@ -40,13 +40,13 @@ public class AccountBookResponseServiceImpl implements AccountBookResponseServic
 
     public AccountBookResponseServiceImpl(
             @Qualifier("familyhelperFinanceAccountBookMaintainService")
-                    AccountBookMaintainService accountBookMaintainService,
+            AccountBookMaintainService accountBookMaintainService,
             @Qualifier("familyhelperFinancePoabMaintainService")
-                    PoabMaintainService poabMaintainService,
+            PoabMaintainService poabMaintainService,
             @Qualifier("familyhelperFinanceAccountBookOperateService")
-                    AccountBookOperateService accountBookOperateService,
+            AccountBookOperateService accountBookOperateService,
             @Qualifier("familyhelperFinanceBalanceOperateService")
-                    BalanceOperateService balanceOperateService,
+            BalanceOperateService balanceOperateService,
             AccountResponseService accountResponseService
     ) {
         this.accountBookMaintainService = accountBookMaintainService;

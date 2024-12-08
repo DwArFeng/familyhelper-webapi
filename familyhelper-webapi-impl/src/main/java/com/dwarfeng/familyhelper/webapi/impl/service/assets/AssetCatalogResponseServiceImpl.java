@@ -38,11 +38,11 @@ public class AssetCatalogResponseServiceImpl implements AssetCatalogResponseServ
 
     public AssetCatalogResponseServiceImpl(
             @Qualifier("familyhelperAssetsAssetCatalogMaintainService")
-                    AssetCatalogMaintainService assetCatalogMaintainService,
+            AssetCatalogMaintainService assetCatalogMaintainService,
             @Qualifier("familyhelperAssetsPoacMaintainService")
-                    PoacMaintainService poacMaintainService,
+            PoacMaintainService poacMaintainService,
             @Qualifier("familyhelperAssetsAssetCatalogOperateService")
-                    AssetCatalogOperateService assetCatalogOperateService,
+            AssetCatalogOperateService assetCatalogOperateService,
             AccountResponseService accountResponseService
     ) {
         this.assetCatalogMaintainService = assetCatalogMaintainService;

@@ -17,7 +17,7 @@ public class ItemTypeIndicatorResponseServiceImpl implements ItemTypeIndicatorRe
 
     public ItemTypeIndicatorResponseServiceImpl(
             @Qualifier("familyhelperAssetsItemTypeIndicatorMaintainService")
-                    ItemTypeIndicatorMaintainService itemTypeIndicatorMaintainService
+            ItemTypeIndicatorMaintainService itemTypeIndicatorMaintainService
     ) {
         this.itemTypeIndicatorMaintainService = itemTypeIndicatorMaintainService;
     }
