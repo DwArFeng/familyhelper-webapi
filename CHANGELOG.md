@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 优化部分响应服务查询可展示实体的速度。
+  - com.dwarfeng.familyhelper.webapi.impl.service.note.NoteBookResponseServiceImpl。
+
 - 依赖升级。
   - 升级 `familyhelper-note` 依赖版本为 `1.1.1.a` 以应用其新功能。
 

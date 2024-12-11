@@ -158,6 +158,10 @@ public class NoteBookResponseServiceImpl implements NoteBookResponseService {
 
     private PagedData<DispNoteBook> toDispPagedData(PagedData<NoteBook> lookup, StringIdKey inspectAccountKey)
             throws ServiceException {
+        List<LongIdKey> noteBookKeys = lookup.getData().stream().map(NoteBook::getKey).collect(Collectors.toList());
+        List<Ponb> cachedPonbs = ponbMaintainService.lookupAsList(
+                PonbMaintainService.CHILD_FOR_NOTE_BOOK_SET, new Object[]{noteBookKeys}
+        );
         List<DispNoteBook> dispNoteBooks = new ArrayList<>();
         Map<StringIdKey, DispAccount> cachedDispAccountMap = new HashMap<>();
         Set<LongIdKey> cachedFavoriteNoteBookKeySet = favoriteMaintainService.lookupAsList(
@@ -167,7 +171,7 @@ public class NoteBookResponseServiceImpl implements NoteBookResponseService {
         ).collect(Collectors.toSet());
         for (NoteBook noteBook : lookup.getData()) {
             dispNoteBooks.add(toDispWithCache(
-                    noteBook, inspectAccountKey, cachedDispAccountMap, cachedFavoriteNoteBookKeySet
+                    noteBook, inspectAccountKey, cachedPonbs, cachedDispAccountMap, cachedFavoriteNoteBookKeySet
             ));
         }
         return new PagedData<>(
@@ -178,16 +182,13 @@ public class NoteBookResponseServiceImpl implements NoteBookResponseService {
 
     @SuppressWarnings("DuplicatedCode")
     private DispNoteBook toDispWithCache(
-            NoteBook noteBook, StringIdKey inspectAccountKey, Map<StringIdKey, DispAccount> cachedDispAccountMap,
-            Set<LongIdKey> cachedFavoriteNoteBookKeySet
+            NoteBook noteBook, StringIdKey inspectAccountKey, List<Ponb> cachedPonbs,
+            Map<StringIdKey, DispAccount> cachedDispAccountMap, Set<LongIdKey> cachedFavoriteNoteBookKeySet
     ) throws ServiceException {
-        List<Ponb> relatedPonbs = ponbMaintainService.lookupAsList(
-                PonbMaintainService.CHILD_FOR_NOTE_BOOK, new Object[]{noteBook.getKey()}
-        );
-        Ponb ownerPonb = relatedPonbs.stream().filter(
+        Ponb ownerPonb = cachedPonbs.stream().filter(
                 p -> Objects.equals(p.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)
         ).findFirst().orElse(null);
-        Ponb myPonb = relatedPonbs.stream().filter(
+        Ponb myPonb = cachedPonbs.stream().filter(
                 p -> Objects.equals(p.getKey().getUserStringId(), inspectAccountKey.getStringId())
         ).findFirst().orElse(null);
         StringIdKey ownerAccountKey = Optional.ofNullable(ownerPonb)
