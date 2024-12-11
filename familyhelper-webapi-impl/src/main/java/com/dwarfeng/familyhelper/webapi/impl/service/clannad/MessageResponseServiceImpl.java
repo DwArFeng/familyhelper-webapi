@@ -133,7 +133,6 @@ public class MessageResponseServiceImpl implements MessageResponseService {
         return toDispPagedData(lookup, inspectAccountKey);
     }
 
-
     @Override
     public PagedData<DispMessage> childForSendUserDisplayDisp(
             StringIdKey sendUserKey, PagingInfo pagingInfo, StringIdKey inspectAccountKey

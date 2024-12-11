@@ -415,7 +415,6 @@ public class MessageController {
         }
     }
 
-
     @PostMapping("/message/remove")
     @BehaviorAnalyse
     @BindingCheck

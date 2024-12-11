@@ -191,7 +191,6 @@ public class MessageAuthorizationController {
         }
     }
 
-
     @GetMapping("/message-authorization/{receiveUserId}&{authorizedSendUserId}/disp")
     @BehaviorAnalyse
     @LoginRequired
@@ -334,7 +333,6 @@ public class MessageAuthorizationController {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
-
 
     @PostMapping("/message-authorization/remove")
     @BehaviorAnalyse

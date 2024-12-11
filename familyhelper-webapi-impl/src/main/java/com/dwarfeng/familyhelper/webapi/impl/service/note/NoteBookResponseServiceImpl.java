@@ -132,7 +132,6 @@ public class NoteBookResponseServiceImpl implements NoteBookResponseService {
         return toDispPagedData(lookup, inspectAccountKey);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private DispNoteBook toDisp(NoteBook noteBook, StringIdKey inspectAccountKey) throws ServiceException {
         List<Ponb> relatedPonbs = ponbMaintainService.lookupAsList(
                 PonbMaintainService.CHILD_FOR_NOTE_BOOK, new Object[]{noteBook.getKey()}
@@ -180,7 +179,6 @@ public class NoteBookResponseServiceImpl implements NoteBookResponseService {
         );
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private DispNoteBook toDispWithCache(
             NoteBook noteBook, StringIdKey inspectAccountKey, List<Ponb> cachedPonbs,
             Map<StringIdKey, DispAccount> cachedDispAccountMap, Set<LongIdKey> cachedFavoriteNoteBookKeySet
@@ -205,7 +203,6 @@ public class NoteBookResponseServiceImpl implements NoteBookResponseService {
         boolean favorite = cachedFavoriteNoteBookKeySet.contains(noteBook.getKey());
         return DispNoteBook.of(noteBook, ownerAccount, permissionLevel, favorite);
     }
-
 
     @Override
     public LongIdKey createNoteBook(StringIdKey userKey, NoteBookCreateInfo noteBookCreateInfo)
