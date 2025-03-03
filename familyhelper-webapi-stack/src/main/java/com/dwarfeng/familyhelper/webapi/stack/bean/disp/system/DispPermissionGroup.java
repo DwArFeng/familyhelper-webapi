@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class DispPermissionGroup implements Dto {
 
-    private static final long serialVersionUID = 4460929009520516451L;
+    private static final long serialVersionUID = -4284147080532670048L;
 
     public static DispPermissionGroup of(
             PermissionGroup permissionGroup, PermissionGroup parentPermissionGroup, boolean hasNoChild) {
@@ -23,29 +23,46 @@ public class DispPermissionGroup implements Dto {
         } else {
             return new DispPermissionGroup(
                     permissionGroup.getKey(),
-                    parentPermissionGroup,
+                    permissionGroup.getParentKey(),
                     permissionGroup.getName(),
                     permissionGroup.getRemark(),
+                    parentPermissionGroup,
+                    Objects.isNull(parentPermissionGroup),
                     hasNoChild
             );
         }
     }
 
     private StringIdKey key;
-    private PermissionGroup parentPermissionGroup;
+
+    /**
+     * @since 1.4.2
+     */
+    private StringIdKey parentKey;
     private String name;
     private String remark;
+    private PermissionGroup parentPermissionGroup;
+
+    /**
+     * @since 1.4.2
+     */
+    private boolean rootFlag;
+
     private boolean hasNoChild;
 
     public DispPermissionGroup() {
     }
 
     public DispPermissionGroup(
-            StringIdKey key, PermissionGroup parentPermissionGroup, String name, String remark, boolean hasNoChild) {
+            StringIdKey key, StringIdKey parentKey, String name, String remark, PermissionGroup parentPermissionGroup,
+            boolean rootFlag, boolean hasNoChild
+    ) {
         this.key = key;
-        this.parentPermissionGroup = parentPermissionGroup;
+        this.parentKey = parentKey;
         this.name = name;
         this.remark = remark;
+        this.parentPermissionGroup = parentPermissionGroup;
+        this.rootFlag = rootFlag;
         this.hasNoChild = hasNoChild;
     }
 
@@ -57,12 +74,12 @@ public class DispPermissionGroup implements Dto {
         this.key = key;
     }
 
-    public PermissionGroup getParentPermissionGroup() {
-        return parentPermissionGroup;
+    public StringIdKey getParentKey() {
+        return parentKey;
     }
 
-    public void setParentPermissionGroup(PermissionGroup parentPermissionGroup) {
-        this.parentPermissionGroup = parentPermissionGroup;
+    public void setParentKey(StringIdKey parentKey) {
+        this.parentKey = parentKey;
     }
 
     public String getName() {
@@ -81,6 +98,22 @@ public class DispPermissionGroup implements Dto {
         this.remark = remark;
     }
 
+    public PermissionGroup getParentPermissionGroup() {
+        return parentPermissionGroup;
+    }
+
+    public void setParentPermissionGroup(PermissionGroup parentPermissionGroup) {
+        this.parentPermissionGroup = parentPermissionGroup;
+    }
+
+    public boolean isRootFlag() {
+        return rootFlag;
+    }
+
+    public void setRootFlag(boolean rootFlag) {
+        this.rootFlag = rootFlag;
+    }
+
     public boolean isHasNoChild() {
         return hasNoChild;
     }
@@ -93,9 +126,11 @@ public class DispPermissionGroup implements Dto {
     public String toString() {
         return "DispPermissionGroup{" +
                 "key=" + key +
-                ", parentPermissionGroup=" + parentPermissionGroup +
+                ", parentKey=" + parentKey +
                 ", name='" + name + '\'' +
                 ", remark='" + remark + '\'' +
+                ", parentPermissionGroup=" + parentPermissionGroup +
+                ", rootFlag=" + rootFlag +
                 ", hasNoChild=" + hasNoChild +
                 '}';
     }

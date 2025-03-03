@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class FastJsonDispPermissionGroup implements Dto {
 
-    private static final long serialVersionUID = -5050185170096578222L;
+    private static final long serialVersionUID = 2245502541602823300L;
 
     public static FastJsonDispPermissionGroup of(DispPermissionGroup DispPermissionGroup) {
         if (Objects.isNull(DispPermissionGroup)) {
@@ -24,9 +24,11 @@ public class FastJsonDispPermissionGroup implements Dto {
         } else {
             return new FastJsonDispPermissionGroup(
                     FastJsonStringIdKey.of(DispPermissionGroup.getKey()),
-                    FastJsonPermissionGroup.of(DispPermissionGroup.getParentPermissionGroup()),
+                    FastJsonStringIdKey.of(DispPermissionGroup.getParentKey()),
                     DispPermissionGroup.getName(),
                     DispPermissionGroup.getRemark(),
+                    FastJsonPermissionGroup.of(DispPermissionGroup.getParentPermissionGroup()),
+                    DispPermissionGroup.isRootFlag(),
                     DispPermissionGroup.isHasNoChild()
             );
         }
@@ -35,8 +37,8 @@ public class FastJsonDispPermissionGroup implements Dto {
     @JSONField(name = "key", ordinal = 1)
     private FastJsonStringIdKey key;
 
-    @JSONField(name = "parent_permission_group", ordinal = 2)
-    private FastJsonPermissionGroup parentPermissionGroup;
+    @JSONField(name = "parent_key", ordinal = 2)
+    private FastJsonStringIdKey parentKey;
 
     @JSONField(name = "name", ordinal = 3)
     private String name;
@@ -44,20 +46,28 @@ public class FastJsonDispPermissionGroup implements Dto {
     @JSONField(name = "remark", ordinal = 4)
     private String remark;
 
-    @JSONField(name = "has_no_child", ordinal = 5)
+    @JSONField(name = "parent_permission_group", ordinal = 5)
+    private FastJsonPermissionGroup parentPermissionGroup;
+
+    @JSONField(name = "root_flag", ordinal = 6)
+    private boolean rootFlag;
+
+    @JSONField(name = "has_no_child", ordinal = 7)
     private boolean hasNoChild;
 
     public FastJsonDispPermissionGroup() {
     }
 
     public FastJsonDispPermissionGroup(
-            FastJsonStringIdKey key, FastJsonPermissionGroup parentPermissionGroup, String name, String remark,
-            boolean hasNoChild
+            FastJsonStringIdKey key, FastJsonStringIdKey parentKey, String name, String remark,
+            FastJsonPermissionGroup parentPermissionGroup, boolean rootFlag, boolean hasNoChild
     ) {
         this.key = key;
-        this.parentPermissionGroup = parentPermissionGroup;
+        this.parentKey = parentKey;
         this.name = name;
         this.remark = remark;
+        this.parentPermissionGroup = parentPermissionGroup;
+        this.rootFlag = rootFlag;
         this.hasNoChild = hasNoChild;
     }
 
@@ -69,12 +79,12 @@ public class FastJsonDispPermissionGroup implements Dto {
         this.key = key;
     }
 
-    public FastJsonPermissionGroup getParentPermissionGroup() {
-        return parentPermissionGroup;
+    public FastJsonStringIdKey getParentKey() {
+        return parentKey;
     }
 
-    public void setParentPermissionGroup(FastJsonPermissionGroup parentPermissionGroup) {
-        this.parentPermissionGroup = parentPermissionGroup;
+    public void setParentKey(FastJsonStringIdKey parentKey) {
+        this.parentKey = parentKey;
     }
 
     public String getName() {
@@ -93,6 +103,22 @@ public class FastJsonDispPermissionGroup implements Dto {
         this.remark = remark;
     }
 
+    public FastJsonPermissionGroup getParentPermissionGroup() {
+        return parentPermissionGroup;
+    }
+
+    public void setParentPermissionGroup(FastJsonPermissionGroup parentPermissionGroup) {
+        this.parentPermissionGroup = parentPermissionGroup;
+    }
+
+    public boolean isRootFlag() {
+        return rootFlag;
+    }
+
+    public void setRootFlag(boolean rootFlag) {
+        this.rootFlag = rootFlag;
+    }
+
     public boolean isHasNoChild() {
         return hasNoChild;
     }
@@ -105,9 +131,11 @@ public class FastJsonDispPermissionGroup implements Dto {
     public String toString() {
         return "FastJsonDispPermissionGroup{" +
                 "key=" + key +
-                ", parentPermissionGroup=" + parentPermissionGroup +
+                ", parentKey=" + parentKey +
                 ", name='" + name + '\'' +
                 ", remark='" + remark + '\'' +
+                ", parentPermissionGroup=" + parentPermissionGroup +
+                ", rootFlag=" + rootFlag +
                 ", hasNoChild=" + hasNoChild +
                 '}';
     }

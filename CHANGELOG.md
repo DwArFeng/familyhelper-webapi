@@ -4,7 +4,8 @@
 
 #### 功能构建
 
-- (无)
+- 补全 system 模块部分 disp 实体缺失的字段。
+  - com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispPermissionGroup。
 
 #### Bug修复
 
