@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 依赖升级。
+  - 升级 `hibernate-validator` 依赖版本为 `6.2.5.Final` 以规避漏洞。
+
 - 补全 system 模块部分 disp 实体缺失的字段。
   - com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispPermissionGroup。
 

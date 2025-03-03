@@ -44,7 +44,7 @@
         <guava.version>32.0.1-jre</guava.version>
         <curator.version>4.3.0</curator.version>
         <aspectj.version>1.8.2</aspectj.version>
-        <hibernate-validator.version>6.0.21.Final</hibernate-validator.version>
+        <hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
         <slf4j.version>1.7.36</slf4j.version>
         <log4j2.version>2.17.2</log4j2.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
@@ -326,6 +326,14 @@
                         <artifactId>spring-tx</artifactId>
                         <groupId>org.springframework</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>spring-kafka</artifactId>
+                        <groupId>org.springframework.kafka</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>kafka-clients</artifactId>
+                        <groupId>org.apache.kafka</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -460,6 +468,16 @@
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>settingrepo-impl</artifactId>
                 <version>${settingrepo.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>spring-kafka</artifactId>
+                        <groupId>org.springframework.kafka</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>kafka-clients</artifactId>
+                        <groupId>org.apache.kafka</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- Notify 组件 -->
             <dependency>
@@ -476,6 +494,16 @@
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>notify-impl</artifactId>
                 <version>${notify.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>spring-kafka</artifactId>
+                        <groupId>org.springframework.kafka</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>kafka-clients</artifactId>
+                        <groupId>org.apache.kafka</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- Familyhelper-plugin 组件 -->
             <dependency>
