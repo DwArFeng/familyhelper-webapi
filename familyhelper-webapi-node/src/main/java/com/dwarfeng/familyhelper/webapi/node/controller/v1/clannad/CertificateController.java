@@ -1,12 +1,12 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad;
 
 import com.dwarfeng.familyhelper.clannad.sdk.bean.dto.WebInputCertificateCreateInfo;
-import com.dwarfeng.familyhelper.clannad.sdk.bean.dto.WebInputCertificatePermissionRemoveInfo;
-import com.dwarfeng.familyhelper.clannad.sdk.bean.dto.WebInputCertificatePermissionUpsertInfo;
-import com.dwarfeng.familyhelper.clannad.sdk.bean.dto.WebInputCertificateUpdateInfo;
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.JSFixedFastJsonCertificate;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Certificate;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.JSFixedFastJsonDispCertificate;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.clannad.WebInputCompatibleCertificatePermissionRemoveInfo;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.clannad.WebInputCompatibleCertificatePermissionUpsertInfo;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.clannad.WebInputCompatibleCertificateUpdateInfo;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispCertificate;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.clannad.CertificateResponseService;
@@ -192,13 +192,14 @@ public class CertificateController {
     @BindingCheck
     public FastJsonResponseData<Object> updateCertificate(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputCertificateUpdateInfo webInputCertificateUpdateInfo,
+            @RequestBody @Validated WebInputCompatibleCertificateUpdateInfo webInputCompatibleCertificateUpdateInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.updateCertificate(
-                    accountKey, WebInputCertificateUpdateInfo.toStackBean(webInputCertificateUpdateInfo)
+                    accountKey,
+                    WebInputCompatibleCertificateUpdateInfo.toStackBean(webInputCompatibleCertificateUpdateInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -229,14 +230,17 @@ public class CertificateController {
     @BindingCheck
     public FastJsonResponseData<Object> upsertPermission(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputCertificatePermissionUpsertInfo webInputCertificatePermissionUpsertInfo,
+            @RequestBody @Validated
+            WebInputCompatibleCertificatePermissionUpsertInfo webInputCompatibleCertificatePermissionUpsertInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.upsertPermission(
                     accountKey,
-                    WebInputCertificatePermissionUpsertInfo.toStackBean(webInputCertificatePermissionUpsertInfo)
+                    WebInputCompatibleCertificatePermissionUpsertInfo.toStackBean(
+                            webInputCompatibleCertificatePermissionUpsertInfo
+                    )
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -250,14 +254,17 @@ public class CertificateController {
     @BindingCheck
     public FastJsonResponseData<Object> removePermission(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputCertificatePermissionRemoveInfo webInputCertificatePermissionRemoveInfo,
+            @RequestBody @Validated
+            WebInputCompatibleCertificatePermissionRemoveInfo webInputCompatibleCertificatePermissionRemoveInfo,
             BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.removePermission(
                     accountKey,
-                    WebInputCertificatePermissionRemoveInfo.toStackBean(webInputCertificatePermissionRemoveInfo)
+                    WebInputCompatibleCertificatePermissionRemoveInfo.toStackBean(
+                            webInputCompatibleCertificatePermissionRemoveInfo
+                    )
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
