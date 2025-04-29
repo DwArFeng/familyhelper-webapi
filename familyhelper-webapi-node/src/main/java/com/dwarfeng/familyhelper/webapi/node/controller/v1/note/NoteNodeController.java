@@ -1,10 +1,10 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.note;
 
 import com.dwarfeng.familyhelper.note.sdk.bean.dto.WebInputNoteNodeCreateInfo;
-import com.dwarfeng.familyhelper.note.sdk.bean.dto.WebInputNoteNodeUpdateInfo;
 import com.dwarfeng.familyhelper.note.sdk.bean.entity.JSFixedFastJsonNoteNode;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteNode;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.note.JSFixedFastJsonDispNoteNode;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.note.WebInputCompatibleNoteNodeUpdateInfo;
 import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispNoteNode;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.note.NoteNodeResponseService;
@@ -456,12 +456,13 @@ public class NoteNodeController {
     @BindingCheck
     public FastJsonResponseData<Object> updateNoteNode(
             HttpServletRequest request,
-            @RequestBody @Validated WebInputNoteNodeUpdateInfo webInputNoteNodeUpdateInfo, BindingResult bindingResult
+            @RequestBody @Validated WebInputCompatibleNoteNodeUpdateInfo webInputCompatibleNoteNodeUpdateInfo,
+            BindingResult bindingResult
     ) {
         try {
             StringIdKey accountKey = tokenHandler.getAccountKey(request);
             service.updateNoteNode(
-                    accountKey, WebInputNoteNodeUpdateInfo.toStackBean(webInputNoteNodeUpdateInfo)
+                    accountKey, WebInputCompatibleNoteNodeUpdateInfo.toStackBean(webInputCompatibleNoteNodeUpdateInfo)
             );
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
