@@ -4,6 +4,11 @@
 
 #### 功能构建
 
+- 依赖升级。
+  - 升级 `jetty` 依赖版本为 `9.4.57.v20241219` 以规避漏洞。
+  - 升级 `snowflake` 依赖版本为 `1.6.0.a` 以规避漏洞。
+  - 升级 `subgrade` 依赖版本为 `1.5.8.a` 以规避漏洞。
+
 - 优化 Controller 方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageListNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageNodeController。
