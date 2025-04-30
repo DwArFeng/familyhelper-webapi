@@ -5,6 +5,7 @@
 #### 功能构建
 
 - 优化 Controller 方法。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageListNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageNodeController。
 
 - 依赖升级。
