@@ -9,7 +9,8 @@
 
 #### Bug修复
 
-- (无)
+- 修正部分 disp bean 中不正确的 JSON 字段名称。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.JSFixedFastJsonDispPoce。
 
 #### 功能移除
 

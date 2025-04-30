@@ -41,7 +41,7 @@ public class JSFixedFastJsonDispPoce implements Dto {
     @JSONField(name = "remark", ordinal = 3)
     private String remark;
 
-    @JSONField(name = "account_book", ordinal = 4)
+    @JSONField(name = "certificate", ordinal = 4)
     private JSFixedFastJsonDispCertificate certificate;
 
     @JSONField(name = "account", ordinal = 5)
