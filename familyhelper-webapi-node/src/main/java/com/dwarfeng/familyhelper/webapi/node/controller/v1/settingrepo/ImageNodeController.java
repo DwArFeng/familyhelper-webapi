@@ -145,14 +145,45 @@ public class ImageNodeController {
         }
     }
 
+    /**
+     * @see #downloadFile(HttpServletRequest, WebInputImageNodeFileDownloadInfo)
+     * @deprecated 由于文件下载一般使用 GET 请求，且该方法应该与下载文件缩略图方法保持一致，故废弃。
+     */
+    @SuppressWarnings("DuplicatedCode")
+    @Deprecated
     @PostMapping("/image-node/download-file")
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
-    public ResponseEntity<Object> downloadFile(
+    public ResponseEntity<Object> legacyDownloadFile(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageNodeFileDownloadInfo webInputImageNodeFileDownloadInfo,
             BindingResult bindingResult
+    ) {
+        HttpHeaders headers = new HttpHeaders();
+        Object body;
+        try {
+            ImageNodeFile imageNodeFile = service.downloadFile(
+                    WebInputImageNodeFileDownloadInfo.toStackBean(webInputImageNodeFileDownloadInfo)
+            );
+            // 将文件名转换成 HTTP 标准文件名编码下的格式。
+            String fileName = adjustFileNameEncoding(imageNodeFile.getOriginName());
+            headers.add("Content-Disposition", "attachment;filename=" + fileName);
+            body = imageNodeFile.getContent();
+        } catch (Exception e) {
+            body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+        return new ResponseEntity<>(body, headers, HttpStatus.OK);
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @GetMapping("/image-node/download-file")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    public ResponseEntity<Object> downloadFile(
+            HttpServletRequest request,
+            @Base64RequestParam("download-info") WebInputImageNodeFileDownloadInfo webInputImageNodeFileDownloadInfo
     ) {
         HttpHeaders headers = new HttpHeaders();
         Object body;

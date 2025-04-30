@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 优化 Controller 方法。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageNodeController。
+
 - 依赖升级。
   - 升级 `familyhelper-note` 依赖版本为 `1.2.0.a` 并解决兼容性问题，以应用其新功能。
 
