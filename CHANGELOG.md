@@ -4,6 +4,10 @@
 
 #### 功能构建
 
+- 引入后端权限校验机制。
+  - 增加 `application-context-scan.xml` 配置项，引入基于 `rbac` 的权限处理器实现。
+  - 增加 `PermissionAopConfiguration` 配置文件。
+
 - 登录校验机制升级。
   - 使用 `TokenHandlerLoginRequiredAopManager` 作为新的登录增强管理器。
 
