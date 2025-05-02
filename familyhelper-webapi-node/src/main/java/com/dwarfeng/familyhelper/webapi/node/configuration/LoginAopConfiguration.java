@@ -1,17 +1,20 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration;
 
-import com.dwarfeng.subgrade.sdk.interceptor.login.HttpLoginRequiredAopManager;
+import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequiredAdvisor;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequiredAopManager;
-import org.springframework.beans.factory.annotation.Value;
+import com.dwarfeng.subgrade.sdk.interceptor.login.TokenHandlerLoginRequiredAopManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class LoginAopConfiguration {
 
-    @Value("${familyhelper.token_key}")
-    private String tokenKey;
+    private final TokenHandler tokenHandler;
+
+    public LoginAopConfiguration(TokenHandler tokenHandler) {
+        this.tokenHandler = tokenHandler;
+    }
 
     @Bean
     public LoginRequiredAdvisor loginRequiredAdvisor() {
@@ -20,8 +23,8 @@ public class LoginAopConfiguration {
 
     @Bean
     public LoginRequiredAopManager loginRequiredAopManager() {
-        HttpLoginRequiredAopManager httpLoginRequiredAopManager = new HttpLoginRequiredAopManager();
-        httpLoginRequiredAopManager.setTokenKey(tokenKey);
-        return httpLoginRequiredAopManager;
+        TokenHandlerLoginRequiredAopManager manager = new TokenHandlerLoginRequiredAopManager();
+        manager.setTokenHandler(tokenHandler);
+        return manager;
     }
 }

@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 登录校验机制升级。
+  - 使用 `TokenHandlerLoginRequiredAopManager` 作为新的登录增强管理器。
+
 - TokenHandler 机制升级。
   - 使用 `subgrade` 的 `TokenHandler` 代替项目中的 `TokenHandler`，并解决兼容性问题。
 
