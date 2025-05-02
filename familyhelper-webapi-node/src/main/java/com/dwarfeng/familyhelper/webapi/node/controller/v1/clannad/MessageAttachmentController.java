@@ -189,7 +189,7 @@ public class MessageAttachmentController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             MessageAttachment messageAttachment = service.downloadMessageAttachment(
                     accountKey, new LongIdKey(messageAttachmentId)
             );
@@ -210,7 +210,7 @@ public class MessageAttachmentController {
             HttpServletRequest request, @PathVariable("messageAttachmentId") Long messageAttachmentId
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey voucherKey = service.requestMessageAttachmentStreamVoucher(
                     accountKey, new LongIdKey(messageAttachmentId)
             );
@@ -262,7 +262,7 @@ public class MessageAttachmentController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -308,7 +308,7 @@ public class MessageAttachmentController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -352,7 +352,7 @@ public class MessageAttachmentController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -400,7 +400,7 @@ public class MessageAttachmentController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -443,7 +443,7 @@ public class MessageAttachmentController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey messageAttachmentKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeMessageAttachment(accountKey, WebInputLongIdKey.toStackBean(messageAttachmentKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

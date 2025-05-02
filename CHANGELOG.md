@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- TokenHandler 机制升级。
+  - 使用 `subgrade` 的 `TokenHandler` 代替项目中的 `TokenHandler`，并解决兼容性问题。
+
 - 优化实体映射器机制。
   - com.dwarfeng.familyhelper.webapi.sdk.bean.notify.BeanMapper。
   - com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.BeanMapper。

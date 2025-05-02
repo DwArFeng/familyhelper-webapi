@@ -120,7 +120,7 @@ public class CertificateController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispCertificate dispCertificate = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispCertificate.of(dispCertificate)));
         } catch (Exception e) {
@@ -137,7 +137,7 @@ public class CertificateController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispCertificate> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispCertificate> transform = PagingUtil.transform(
@@ -157,7 +157,7 @@ public class CertificateController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispCertificate> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispCertificate> transform = PagingUtil.transform(
@@ -177,7 +177,7 @@ public class CertificateController {
             @RequestBody @Validated WebInputCertificateCreateInfo certificateCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createCertificate(
                     accountKey, WebInputCertificateCreateInfo.toStackBean(certificateCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
@@ -196,7 +196,7 @@ public class CertificateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateCertificate(
                     accountKey,
                     WebInputCompatibleCertificateUpdateInfo.toStackBean(webInputCompatibleCertificateUpdateInfo)
@@ -216,7 +216,7 @@ public class CertificateController {
             @RequestBody @Validated WebInputLongIdKey certificateKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeCertificate(accountKey, WebInputLongIdKey.toStackBean(certificateKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -235,7 +235,7 @@ public class CertificateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.upsertPermission(
                     accountKey,
                     WebInputCompatibleCertificatePermissionUpsertInfo.toStackBean(
@@ -259,7 +259,7 @@ public class CertificateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removePermission(
                     accountKey,
                     WebInputCompatibleCertificatePermissionRemoveInfo.toStackBean(

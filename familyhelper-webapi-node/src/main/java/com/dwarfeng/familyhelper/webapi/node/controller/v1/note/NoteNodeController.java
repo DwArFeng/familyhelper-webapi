@@ -219,7 +219,7 @@ public class NoteNodeController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispNoteNode dispNoteNode = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispNoteNode.of(dispNoteNode)));
         } catch (Exception e) {
@@ -236,7 +236,7 @@ public class NoteNodeController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteNode> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispNoteNode> transform = PagingUtil.transform(
                     allDisp, dispNoteNodeBeanTransformer);
@@ -259,7 +259,7 @@ public class NoteNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey noteBookKey = null;
             if (Objects.nonNull(noteBookId)) {
                 noteBookKey = new LongIdKey(noteBookId);
@@ -285,7 +285,7 @@ public class NoteNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteNode> childForNoteBookRoot = service.childForNoteBookRootDisp(
                     accountKey, new LongIdKey(noteBookId), new PagingInfo(page, rows)
             );
@@ -309,7 +309,7 @@ public class NoteNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteNode> childForParent = service.childForParentDisp(
                     accountKey, new LongIdKey(parentId), new PagingInfo(page, rows)
             );
@@ -336,7 +336,7 @@ public class NoteNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey noteBookKey = null;
             if (Objects.nonNull(noteBookId)) {
                 noteBookKey = new LongIdKey(noteBookId);
@@ -381,7 +381,7 @@ public class NoteNodeController {
             HttpServletRequest request, @PathVariable(value = "id") Long id
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteNode> pathFromRoot = service.nodePathFromRootDisp(accountKey, new LongIdKey(id));
             PagedData<JSFixedFastJsonDispNoteNode> transform = PagingUtil.transform(
                     pathFromRoot, dispNoteNodeBeanTransformer
@@ -420,7 +420,7 @@ public class NoteNodeController {
             HttpServletRequest request, @PathVariable(value = "itemId") Long itemId
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteNode> pathFromRoot = service.itemPathFromRootDisp(accountKey, new LongIdKey(itemId));
             PagedData<JSFixedFastJsonDispNoteNode> transform = PagingUtil.transform(
                     pathFromRoot, dispNoteNodeBeanTransformer
@@ -440,7 +440,7 @@ public class NoteNodeController {
             @RequestBody @Validated WebInputNoteNodeCreateInfo noteNodeCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createNoteNode(
                     accountKey, WebInputNoteNodeCreateInfo.toStackBean(noteNodeCreateInfo)
             );
@@ -460,7 +460,7 @@ public class NoteNodeController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateNoteNode(
                     accountKey, WebInputCompatibleNoteNodeUpdateInfo.toStackBean(webInputCompatibleNoteNodeUpdateInfo)
             );
@@ -479,7 +479,7 @@ public class NoteNodeController {
             @RequestBody @Validated WebInputLongIdKey noteNodeKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeNoteNode(accountKey, WebInputLongIdKey.toStackBean(noteNodeKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

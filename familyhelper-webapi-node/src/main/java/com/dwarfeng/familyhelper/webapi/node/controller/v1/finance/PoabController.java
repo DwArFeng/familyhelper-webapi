@@ -98,7 +98,7 @@ public class PoabController {
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispPoab dispPoab = service.getDisp(new PoabKey(longId, stringId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPoab.of(dispPoab)));
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class PoabController {
             HttpServletRequest request, @PathVariable("accountBookId") Long accountBookId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispPoab> childForAccountBookDisp = service.childForAccountBookDisp(
                     new LongIdKey(accountBookId), new PagingInfo(page, rows), inspectAccountKey
             );

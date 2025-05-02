@@ -226,7 +226,7 @@ public class MessageController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispMessage dispMessage = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispMessage.of(dispMessage)));
         } catch (Exception e) {
@@ -243,7 +243,7 @@ public class MessageController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessage> allDisp = service.allDisp(new PagingInfo(page, rows), inspectAccountKey);
             PagedData<JSFixedFastJsonDispMessage> transform = PagingUtil.transform(allDisp, dispMessageBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
@@ -263,7 +263,7 @@ public class MessageController {
     ) {
         try {
             StringIdKey sendUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessage> childForSendUserDisp = service.childForSendUserDisp(
                     sendUserKey, new PagingInfo(page, rows), inspectAccountKey
             );
@@ -287,7 +287,7 @@ public class MessageController {
     ) {
         try {
             StringIdKey receiveUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessage> childForReceiveUserDisp = service.childForReceiveUserDisp(
                     receiveUserKey, new PagingInfo(page, rows), inspectAccountKey
             );
@@ -311,7 +311,7 @@ public class MessageController {
     ) {
         try {
             StringIdKey sendUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessage> childForSendUserDisplayDisp = service.childForSendUserDisplayDisp(
                     sendUserKey, new PagingInfo(page, rows), inspectAccountKey
             );
@@ -336,7 +336,7 @@ public class MessageController {
     ) {
         try {
             StringIdKey sendUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessage> childForSendUserDisplayStatusEqDisp = service.childForSendUserDisplayStatusEqDisp(
                     sendUserKey, status, new PagingInfo(page, rows), inspectAccountKey
             );
@@ -361,7 +361,7 @@ public class MessageController {
     ) {
         try {
             StringIdKey receiveUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessage> childForReceiveUserDisplayDisp = service.childForReceiveUserDisplayDisp(
                     receiveUserKey, new PagingInfo(page, rows), inspectAccountKey
             );
@@ -383,7 +383,7 @@ public class MessageController {
             @RequestBody WebInputMessageCreateInfo info
     ) {
         try {
-            StringIdKey operateUserKey = tokenHandler.getAccountKey(request);
+            StringIdKey operateUserKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.create(
                     WebInputMessageCreateInfo.toStackBean(info),
                     operateUserKey
@@ -403,7 +403,7 @@ public class MessageController {
             @RequestBody WebInputMessageUpdateInfo info
     ) {
         try {
-            StringIdKey operateUserKey = tokenHandler.getAccountKey(request);
+            StringIdKey operateUserKey = tokenHandler.getUserKey(request);
             service.update(
                     WebInputMessageUpdateInfo.toStackBean(info),
                     operateUserKey
@@ -423,7 +423,7 @@ public class MessageController {
             @RequestBody WebInputMessageRemoveInfo info
     ) {
         try {
-            StringIdKey operateUserKey = tokenHandler.getAccountKey(request);
+            StringIdKey operateUserKey = tokenHandler.getUserKey(request);
             service.remove(
                     WebInputMessageRemoveInfo.toStackBean(info),
                     operateUserKey
@@ -443,7 +443,7 @@ public class MessageController {
             @RequestBody WebInputMessageMarkSentInfo info
     ) {
         try {
-            StringIdKey operateUserKey = tokenHandler.getAccountKey(request);
+            StringIdKey operateUserKey = tokenHandler.getUserKey(request);
             service.markSent(
                     WebInputMessageMarkSentInfo.toStackBean(info),
                     operateUserKey
@@ -463,7 +463,7 @@ public class MessageController {
             @RequestBody WebInputMessageMarkReceivedInfo info
     ) {
         try {
-            StringIdKey operateUserKey = tokenHandler.getAccountKey(request);
+            StringIdKey operateUserKey = tokenHandler.getUserKey(request);
             service.markReceived(
                     WebInputMessageMarkReceivedInfo.toStackBean(info),
                     operateUserKey
@@ -483,7 +483,7 @@ public class MessageController {
             @RequestBody WebInputMessageMarkReceiveUserHideInfo info
     ) {
         try {
-            StringIdKey operateUserKey = tokenHandler.getAccountKey(request);
+            StringIdKey operateUserKey = tokenHandler.getUserKey(request);
             service.markReceiveUserHide(
                     WebInputMessageMarkReceiveUserHideInfo.toStackBean(info),
                     operateUserKey

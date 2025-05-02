@@ -117,7 +117,7 @@ public class ProjectController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonProject>> allPermitted(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<Project> allPermitted = service.allPermitted(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonProject> transform = PagingUtil.transform(allPermitted, beanTransformer);
@@ -135,7 +135,7 @@ public class ProjectController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonProject>> allOwned(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<Project> allOwned = service.allOwned(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonProject> transform = PagingUtil.transform(allOwned, beanTransformer);
@@ -154,7 +154,7 @@ public class ProjectController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispProject dispProject = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispProject.of(dispProject)));
         } catch (Exception e) {
@@ -170,7 +170,7 @@ public class ProjectController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispProject>> allPermittedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispProject> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispProject> transform = PagingUtil.transform(
@@ -189,7 +189,7 @@ public class ProjectController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispProject>> allOwnedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispProject> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispProject> transform = PagingUtil.transform(
@@ -208,7 +208,7 @@ public class ProjectController {
             HttpServletRequest request,
             @RequestBody @Validated WebInputProjectCreateInfo projectCreateInfo, BindingResult bindingResult) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createProject(
                     accountKey, WebInputProjectCreateInfo.toStackBean(projectCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
@@ -227,7 +227,7 @@ public class ProjectController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateProject(
                     accountKey, WebInputProjectUpdateInfo.toStackBean(webInputProjectUpdateInfo)
             );
@@ -246,7 +246,7 @@ public class ProjectController {
             @RequestBody @Validated WebInputLongIdKey projectKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeProject(accountKey, WebInputLongIdKey.toStackBean(projectKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -265,7 +265,7 @@ public class ProjectController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.upsertPermission(
                     accountKey, WebInputPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
             );
@@ -286,7 +286,7 @@ public class ProjectController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removePermission(
                     accountKey, WebInputPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );

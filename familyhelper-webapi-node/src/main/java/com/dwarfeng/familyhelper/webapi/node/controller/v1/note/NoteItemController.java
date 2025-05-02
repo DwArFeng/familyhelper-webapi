@@ -211,7 +211,7 @@ public class NoteItemController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispNoteItem dispNoteItem = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispNoteItem.of(dispNoteItem)));
         } catch (Exception e) {
@@ -227,7 +227,7 @@ public class NoteItemController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNoteItem>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteItem> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispNoteItem> transform = PagingUtil.transform(
                     allDisp, dispNoteItemBeanTransformer);
@@ -250,7 +250,7 @@ public class NoteItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey noteNodeKey = null;
             if (Objects.nonNull(noteNodeId)) {
                 noteNodeKey = new LongIdKey(noteNodeId);
@@ -276,7 +276,7 @@ public class NoteItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteItem> childForNoteBookRoot = service.childForNoteBookRootDisp(
                     accountKey, new LongIdKey(noteBookId), new PagingInfo(page, rows)
             );
@@ -300,7 +300,7 @@ public class NoteItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteItem> childForNoteBookRoot = service.childForNoteBookNameLikeDisp(
                     accountKey, new LongIdKey(noteBookId), pattern, new PagingInfo(page, rows)
             );
@@ -322,7 +322,7 @@ public class NoteItemController {
             @RequestBody @Validated WebInputNoteItemCreateInfo noteItemCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createNoteItem(
                     accountKey, WebInputNoteItemCreateInfo.toStackBean(noteItemCreateInfo)
             );
@@ -341,7 +341,7 @@ public class NoteItemController {
             @RequestBody @Validated WebInputNoteItemUpdateInfo webInputNoteItemUpdateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateNoteItem(
                     accountKey, WebInputNoteItemUpdateInfo.toStackBean(webInputNoteItemUpdateInfo)
             );
@@ -360,7 +360,7 @@ public class NoteItemController {
             @RequestBody @Validated WebInputLongIdKey noteItemKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeNoteItem(accountKey, WebInputLongIdKey.toStackBean(noteItemKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -379,7 +379,7 @@ public class NoteItemController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             NoteFile noteFile = service.downloadNoteFile(accountKey, new LongIdKey(noteItemId));
             // 将文件名转换成 HTTP 标准文件名编码下的格式。
             String fileName = adjustFileNameEncoding(Long.toString(noteItemId));
@@ -401,7 +401,7 @@ public class NoteItemController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {

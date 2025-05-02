@@ -217,7 +217,7 @@ public class PbNodeController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispPbNode dispPbNode = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPbNode.of(dispPbNode)));
         } catch (Exception e) {
@@ -234,7 +234,7 @@ public class PbNodeController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispPbNode> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispPbNode> transform = PagingUtil.transform(
                     allDisp, dispPbNodeBeanTransformer);
@@ -257,7 +257,7 @@ public class PbNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey pbSetKey = null;
             if (Objects.nonNull(pbSetId)) {
                 pbSetKey = new LongIdKey(pbSetId);
@@ -283,7 +283,7 @@ public class PbNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispPbNode> childForPbSetRoot = service.childForPbSetRootDisp(
                     accountKey, new LongIdKey(pbSetId), new PagingInfo(page, rows)
             );
@@ -307,7 +307,7 @@ public class PbNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispPbNode> childForParent = service.childForParentDisp(
                     accountKey, new LongIdKey(parentId), new PagingInfo(page, rows)
             );
@@ -334,7 +334,7 @@ public class PbNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey pbSetKey = null;
             if (Objects.nonNull(pbSetId)) {
                 pbSetKey = new LongIdKey(pbSetId);
@@ -379,7 +379,7 @@ public class PbNodeController {
             HttpServletRequest request, @PathVariable(value = "id") Long id
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispPbNode> pathFromRoot = service.nodePathFromRootDisp(accountKey, new LongIdKey(id));
             PagedData<JSFixedFastJsonDispPbNode> transform = PagingUtil.transform(
                     pathFromRoot, dispPbNodeBeanTransformer
@@ -418,7 +418,7 @@ public class PbNodeController {
             HttpServletRequest request, @PathVariable(value = "itemId") Long itemId
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispPbNode> pathFromRoot = service.itemPathFromRootDisp(accountKey, new LongIdKey(itemId));
             PagedData<JSFixedFastJsonDispPbNode> transform = PagingUtil.transform(
                     pathFromRoot, dispPbNodeBeanTransformer
@@ -438,7 +438,7 @@ public class PbNodeController {
             @RequestBody @Validated WebInputPbNodeCreateInfo pbNodeCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createPbNode(
                     accountKey, WebInputPbNodeCreateInfo.toStackBean(pbNodeCreateInfo)
             );
@@ -457,7 +457,7 @@ public class PbNodeController {
             @RequestBody @Validated WebInputPbNodeUpdateInfo webInputPbNodeUpdateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updatePbNode(
                     accountKey, WebInputPbNodeUpdateInfo.toStackBean(webInputPbNodeUpdateInfo)
             );
@@ -476,7 +476,7 @@ public class PbNodeController {
             @RequestBody @Validated WebInputLongIdKey pbNodeKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removePbNode(accountKey, WebInputLongIdKey.toStackBean(pbNodeKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

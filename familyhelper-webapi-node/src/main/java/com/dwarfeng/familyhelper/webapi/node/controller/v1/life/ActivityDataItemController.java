@@ -199,7 +199,7 @@ public class ActivityDataItemController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispActivityDataItem dispActivityDataItem = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(
                     ResponseDataUtil.good(JSFixedFastJsonDispActivityDataItem.of(dispActivityDataItem))
@@ -217,7 +217,7 @@ public class ActivityDataItemController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataItem>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataItem> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispActivityDataItem> transform = PagingUtil.transform(
                     allDisp, dispActivityDataItemBeanTransformer);
@@ -242,7 +242,7 @@ public class ActivityDataItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey activityDataNodeKey = null;
             if (Objects.nonNull(activityDataNodeId)) {
                 activityDataNodeKey = new LongIdKey(activityDataNodeId);
@@ -269,7 +269,7 @@ public class ActivityDataItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataItem> childForActivityDataSetRoot = service.childForActivityDataSetRootDisp(
                     accountKey, new LongIdKey(activityDataSetId), new PagingInfo(page, rows)
             );
@@ -294,7 +294,7 @@ public class ActivityDataItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataItem> childForActivityDataSetRoot = service.childForActivityDataSetNameLikeDisp(
                     accountKey, new LongIdKey(activityDataSetId), pattern, new PagingInfo(page, rows)
             );
@@ -317,7 +317,7 @@ public class ActivityDataItemController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createActivityDataItem(
                     accountKey, WebInputActivityDataItemCreateInfo.toStackBean(activityDataItemCreateInfo)
             );
@@ -337,7 +337,7 @@ public class ActivityDataItemController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateActivityDataItem(
                     accountKey, WebInputActivityDataItemUpdateInfo.toStackBean(webInputActivityDataItemUpdateInfo)
             );
@@ -356,7 +356,7 @@ public class ActivityDataItemController {
             @RequestBody @Validated WebInputLongIdKey activityDataItemKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeActivityDataItem(accountKey, WebInputLongIdKey.toStackBean(activityDataItemKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

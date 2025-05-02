@@ -147,7 +147,7 @@ public class ActivityTemplateDataInfoController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispActivityTemplateDataInfo dispActivityTemplateDataInfo = service.getDisp(
                     new LongIdKey(id), inspectAccountKey
             );
@@ -168,7 +168,7 @@ public class ActivityTemplateDataInfoController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityTemplateDataInfo> allDisp = service.allDisp(
                     inspectAccountKey, new PagingInfo(page, rows)
             );
@@ -192,7 +192,7 @@ public class ActivityTemplateDataInfoController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityTemplateDataInfo> childForActivityTemplateDisp = service.childForActivityTemplateDisp(
                     inspectAccountKey, new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
             );
@@ -216,7 +216,7 @@ public class ActivityTemplateDataInfoController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.create(
                     accountKey, WebInputActivityTemplateDataInfoCreateInfo.toStackBean(createInfo)
             );
@@ -237,7 +237,7 @@ public class ActivityTemplateDataInfoController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.update(accountKey, WebInputActivityTemplateDataInfoUpdateInfo.toStackBean(updateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -257,7 +257,7 @@ public class ActivityTemplateDataInfoController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.remove(accountKey, WebInputLongIdKey.toStackBean(key));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

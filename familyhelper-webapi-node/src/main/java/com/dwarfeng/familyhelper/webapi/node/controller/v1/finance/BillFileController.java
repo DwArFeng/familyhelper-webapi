@@ -182,7 +182,7 @@ public class BillFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             BillFile billFile = service.downloadBillFile(accountKey, new LongIdKey(billFileId));
             // 将文件名转换成 HTTP 标准文件名编码下的格式。
             String fileName = adjustFileNameEncoding(billFile.getOriginName());
@@ -204,7 +204,7 @@ public class BillFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -248,7 +248,7 @@ public class BillFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey billFileKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeBillFile(accountKey, WebInputLongIdKey.toStackBean(billFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

@@ -117,7 +117,7 @@ public class NoteBookController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<NoteBook> userOwned = service.userOwned(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonNoteBook> transform = PagingUtil.transform(userOwned, noteBookBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
@@ -137,7 +137,7 @@ public class NoteBookController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<NoteBook> userPermittedWithConditionDisplay = service.userPermittedWithConditionDisplay(
                     accountKey, pattern, onlyFavored, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonNoteBook> transform = PagingUtil.transform(
@@ -160,7 +160,7 @@ public class NoteBookController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<NoteBook> userOwnedWithConditionDisplay = service.userOwnedWithConditionDisplay(
                     accountKey, pattern, onlyFavored, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonNoteBook> transform = PagingUtil.transform(
@@ -181,7 +181,7 @@ public class NoteBookController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispNoteBook dispNoteBook = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispNoteBook.of(dispNoteBook)));
         } catch (Exception e) {
@@ -198,7 +198,7 @@ public class NoteBookController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteBook> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispNoteBook> transform = PagingUtil.transform(
                     allDisp, dispNoteBookBeanTransformer);
@@ -217,7 +217,7 @@ public class NoteBookController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteBook> userOwnedDisp = service.userOwnedDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispNoteBook> transform = PagingUtil.transform(
                     userOwnedDisp, dispNoteBookBeanTransformer);
@@ -239,7 +239,7 @@ public class NoteBookController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteBook> userPermittedWithConditionDisplayDisp =
                     service.userPermittedWithConditionDisplayDisp(
                             accountKey, pattern, onlyFavored, new PagingInfo(page, rows));
@@ -264,7 +264,7 @@ public class NoteBookController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispNoteBook> userOwnedWithConditionDisplayDisp = service.userOwnedWithConditionDisplayDisp(
                     accountKey, pattern, onlyFavored, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispNoteBook> transform = PagingUtil.transform(
@@ -284,7 +284,7 @@ public class NoteBookController {
             HttpServletRequest request,
             @RequestBody @Validated WebInputNoteBookCreateInfo noteBookCreateInfo, BindingResult bindingResult) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createNoteBook(
                     accountKey, WebInputNoteBookCreateInfo.toStackBean(noteBookCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
@@ -303,7 +303,7 @@ public class NoteBookController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateNoteBook(
                     accountKey, WebInputNoteBookUpdateInfo.toStackBean(webInputNoteBookUpdateInfo)
             );
@@ -322,7 +322,7 @@ public class NoteBookController {
             @RequestBody @Validated WebInputLongIdKey noteBookKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeNoteBook(accountKey, WebInputLongIdKey.toStackBean(noteBookKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -340,7 +340,7 @@ public class NoteBookController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.upsertPermission(
                     accountKey, WebInputNoteBookPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
             );
@@ -360,7 +360,7 @@ public class NoteBookController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removePermission(
                     accountKey, WebInputNoteBookPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );
@@ -380,7 +380,7 @@ public class NoteBookController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.changeFavored(
                     accountKey, WebInputNoteBookFavoredChangeInfo.toStackBean(webInputNoteBookFavoredChangeInfo)
             );

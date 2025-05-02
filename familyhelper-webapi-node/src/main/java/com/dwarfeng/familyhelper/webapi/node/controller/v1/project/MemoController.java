@@ -343,7 +343,7 @@ public class MemoController {
             @RequestBody @Validated WebInputMemoCreateInfo memoCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createMemo(accountKey, WebInputMemoCreateInfo.toStackBean(memoCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
         } catch (Exception e) {
@@ -360,7 +360,7 @@ public class MemoController {
             @RequestBody @Validated WebInputMemoUpdateInfo webInputMemoUpdateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateMemo(accountKey, WebInputMemoUpdateInfo.toStackBean(webInputMemoUpdateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -377,7 +377,7 @@ public class MemoController {
             @RequestBody @Validated WebInputLongIdKey memoKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeMemo(accountKey, WebInputLongIdKey.toStackBean(memoKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -394,7 +394,7 @@ public class MemoController {
             @RequestBody @Validated WebInputLongIdKey memoKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.finishMemo(accountKey, WebInputLongIdKey.toStackBean(memoKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -407,7 +407,7 @@ public class MemoController {
     @BehaviorAnalyse
     public FastJsonResponseData<Object> removeFinishedMemos(HttpServletRequest request) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeFinishedMemos(accountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

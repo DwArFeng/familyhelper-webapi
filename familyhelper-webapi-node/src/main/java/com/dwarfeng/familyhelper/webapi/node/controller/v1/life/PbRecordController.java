@@ -167,7 +167,7 @@ public class PbRecordController {
             @RequestBody @Validated WebInputPbRecordCreateInfo pbRecordCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createPbRecord(
                     accountKey, WebInputPbRecordCreateInfo.toStackBean(pbRecordCreateInfo)
             );
@@ -186,7 +186,7 @@ public class PbRecordController {
             @RequestBody @Validated WebInputPbRecordUpdateInfo webInputPbRecordUpdateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updatePbRecord(
                     accountKey, WebInputPbRecordUpdateInfo.toStackBean(webInputPbRecordUpdateInfo)
             );
@@ -205,7 +205,7 @@ public class PbRecordController {
             @RequestBody @Validated WebInputLongIdKey pbRecordKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removePbRecord(accountKey, WebInputLongIdKey.toStackBean(pbRecordKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

@@ -231,7 +231,7 @@ public class AttachmentFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             AttachmentFile attachmentFile = service.downloadAttachmentFile(
                     accountKey, new LongIdKey(attachmentFileId)
             );
@@ -255,7 +255,7 @@ public class AttachmentFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -302,7 +302,7 @@ public class AttachmentFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -347,7 +347,7 @@ public class AttachmentFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey attachmentFileKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeAttachmentFile(accountKey, WebInputLongIdKey.toStackBean(attachmentFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

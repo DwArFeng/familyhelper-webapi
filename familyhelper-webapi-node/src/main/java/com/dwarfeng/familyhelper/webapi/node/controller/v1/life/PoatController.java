@@ -98,7 +98,7 @@ public class PoatController {
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispPoat dispPoat = service.getDisp(new PoatKey(longId, stringId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPoat.of(dispPoat)));
         } catch (Exception e) {
@@ -136,7 +136,7 @@ public class PoatController {
             HttpServletRequest request, @PathVariable("activityTemplateId") Long activityTemplateId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispPoat> childForActivityTemplateDisp = service.childForActivityTemplateDisp(
                     new LongIdKey(activityTemplateId), new PagingInfo(page, rows), inspectAccountKey
             );

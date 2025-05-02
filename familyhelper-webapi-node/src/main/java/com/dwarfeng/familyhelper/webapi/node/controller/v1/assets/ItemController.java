@@ -212,7 +212,7 @@ public class ItemController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispItem dispItem = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispItem.of(dispItem)));
         } catch (Exception e) {
@@ -228,7 +228,7 @@ public class ItemController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispItem>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispItem> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispItem> transform = PagingUtil.transform(
                     allDisp, dispItemBeanTransformer);
@@ -251,7 +251,7 @@ public class ItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey assetCatalogKey = null;
             if (Objects.nonNull(assetCatalogId)) {
                 assetCatalogKey = new LongIdKey(assetCatalogId);
@@ -277,7 +277,7 @@ public class ItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispItem> childForAssetCatalogRoot = service.childForAssetCatalogRootDisp(
                     accountKey, new LongIdKey(assetCatalogId), new PagingInfo(page, rows)
             );
@@ -301,7 +301,7 @@ public class ItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispItem> childForParent = service.childForParentDisp(
                     accountKey, new LongIdKey(parentId), new PagingInfo(page, rows)
             );
@@ -325,7 +325,7 @@ public class ItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispItem> childForNoteBookRoot = service.childForAssetCatalogNameLikeDisp(
                     accountKey, new LongIdKey(assetCatalogId), pattern, new PagingInfo(page, rows)
             );
@@ -366,7 +366,7 @@ public class ItemController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispItem> pathFromRoot = service.pathFromRootDisp(accountKey, new LongIdKey(id));
             PagedData<JSFixedFastJsonDispItem> transform = PagingUtil.transform(
                     pathFromRoot, dispItemBeanTransformer
@@ -386,7 +386,7 @@ public class ItemController {
             @RequestBody @Validated WebInputItemCreateInfo itemCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createItem(
                     accountKey, WebInputItemCreateInfo.toStackBean(itemCreateInfo)
             );
@@ -405,7 +405,7 @@ public class ItemController {
             @RequestBody @Validated WebInputItemUpdateInfo webInputItemUpdateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateItem(
                     accountKey, WebInputItemUpdateInfo.toStackBean(webInputItemUpdateInfo)
             );
@@ -424,7 +424,7 @@ public class ItemController {
             @RequestBody @Validated WebInputLongIdKey itemKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeItem(accountKey, WebInputLongIdKey.toStackBean(itemKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

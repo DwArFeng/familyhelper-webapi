@@ -118,7 +118,7 @@ public class AssetCatalogController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispAssetCatalog dispAssetCatalog = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispAssetCatalog.of(dispAssetCatalog)));
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class AssetCatalogController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispAssetCatalog>> allPermittedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispAssetCatalog> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispAssetCatalog> transform = PagingUtil.transform(
@@ -153,7 +153,7 @@ public class AssetCatalogController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispAssetCatalog>> allOwnedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispAssetCatalog> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispAssetCatalog> transform = PagingUtil.transform(
@@ -172,7 +172,7 @@ public class AssetCatalogController {
             HttpServletRequest request,
             @RequestBody @Validated WebInputAssetCatalogCreateInfo assetCatalogCreateInfo, BindingResult bindingResult) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createAssetCatalog(
                     accountKey, WebInputAssetCatalogCreateInfo.toStackBean(assetCatalogCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
@@ -191,7 +191,7 @@ public class AssetCatalogController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateAssetCatalog(
                     accountKey, WebInputAssetCatalogUpdateInfo.toStackBean(webInputAssetCatalogUpdateInfo)
             );
@@ -210,7 +210,7 @@ public class AssetCatalogController {
             @RequestBody @Validated WebInputLongIdKey assetCatalogKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeAssetCatalog(accountKey, WebInputLongIdKey.toStackBean(assetCatalogKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -229,7 +229,7 @@ public class AssetCatalogController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.upsertPermission(
                     accountKey, WebInputPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
             );
@@ -250,7 +250,7 @@ public class AssetCatalogController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removePermission(
                     accountKey, WebInputPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );

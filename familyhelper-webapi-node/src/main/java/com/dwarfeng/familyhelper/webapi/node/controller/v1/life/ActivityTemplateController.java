@@ -121,7 +121,7 @@ public class ActivityTemplateController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispActivityTemplate dispActivityTemplate = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(
                     ResponseDataUtil.good(JSFixedFastJsonDispActivityTemplate.of(dispActivityTemplate))
@@ -140,7 +140,7 @@ public class ActivityTemplateController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityTemplate> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispActivityTemplate> transform = PagingUtil.transform(
@@ -160,7 +160,7 @@ public class ActivityTemplateController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityTemplate> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispActivityTemplate> transform = PagingUtil.transform(
@@ -182,7 +182,7 @@ public class ActivityTemplateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createActivityTemplate(
                     accountKey, WebInputActivityTemplateCreateInfo.toStackBean(activityTemplateCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
@@ -202,7 +202,7 @@ public class ActivityTemplateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateActivityTemplate(
                     accountKey, WebInputActivityTemplateUpdateInfo.toStackBean(webInputActivityTemplateUpdateInfo)
             );
@@ -222,7 +222,7 @@ public class ActivityTemplateController {
             @RequestBody @Validated WebInputLongIdKey activityTemplateKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeActivityTemplate(accountKey, WebInputLongIdKey.toStackBean(activityTemplateKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -241,7 +241,7 @@ public class ActivityTemplateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.upsertPermission(
                     accountKey, WebInputActivityTemplatePermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
             );
@@ -262,7 +262,7 @@ public class ActivityTemplateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removePermission(
                     accountKey, WebInputActivityTemplatePermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );
@@ -283,7 +283,7 @@ public class ActivityTemplateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.upsertActivityPermission(
                     accountKey,
                     WebInputActivityTemplateActivityPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
@@ -305,7 +305,7 @@ public class ActivityTemplateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeActivityPermission(
                     accountKey,
                     WebInputActivityTemplateActivityPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
@@ -327,7 +327,7 @@ public class ActivityTemplateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.createActivity(
                     accountKey,
                     WebInputActivityTemplateActivityCreateInfo.toStackBean(info)
@@ -349,7 +349,7 @@ public class ActivityTemplateController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.createActivityForTest(
                     accountKey,
                     WebInputActivityTemplateActivityCreateInfo.toStackBean(info)

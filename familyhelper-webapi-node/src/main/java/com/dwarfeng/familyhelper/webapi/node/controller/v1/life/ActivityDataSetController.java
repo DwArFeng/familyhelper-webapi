@@ -124,7 +124,7 @@ public class ActivityDataSetController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispActivityDataSet dispActivityDataSet = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(
                     ResponseDataUtil.good(JSFixedFastJsonDispActivityDataSet.of(dispActivityDataSet))
@@ -143,7 +143,7 @@ public class ActivityDataSetController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataSet> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispActivityDataSet> transform = PagingUtil.transform(
@@ -163,7 +163,7 @@ public class ActivityDataSetController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataSet> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispActivityDataSet> transform = PagingUtil.transform(
@@ -185,7 +185,7 @@ public class ActivityDataSetController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createActivityDataSet(
                     accountKey, WebInputActivityDataSetCreateInfo.toStackBean(activityDataSetCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
@@ -205,7 +205,7 @@ public class ActivityDataSetController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateActivityDataSet(
                     accountKey, WebInputActivityDataSetUpdateInfo.toStackBean(webInputActivityDataSetUpdateInfo)
             );
@@ -225,7 +225,7 @@ public class ActivityDataSetController {
             @RequestBody @Validated WebInputLongIdKey activityDataSetKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeActivityDataSet(accountKey, WebInputLongIdKey.toStackBean(activityDataSetKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -244,7 +244,7 @@ public class ActivityDataSetController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.upsertPermission(
                     accountKey, WebInputActivityDataSetPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
             );
@@ -265,7 +265,7 @@ public class ActivityDataSetController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removePermission(
                     accountKey, WebInputActivityDataSetPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );

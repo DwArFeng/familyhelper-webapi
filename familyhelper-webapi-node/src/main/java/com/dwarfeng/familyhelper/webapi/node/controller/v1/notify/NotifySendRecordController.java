@@ -151,7 +151,7 @@ public class NotifySendRecordController {
             @PathVariable("userId") String userId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispNotifySendRecord notifySendRecord = service.getDisp(
                     new NotifySendRecordKey(notifyHistoryId, topicId, userId), inspectAccountKey
             );
@@ -178,7 +178,7 @@ public class NotifySendRecordController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             LongIdKey notifySettingKey = null;
             if (Objects.nonNull(notifySettingId)) {
                 notifySettingKey = new LongIdKey(notifySettingId);

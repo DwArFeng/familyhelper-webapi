@@ -98,7 +98,7 @@ public class PopController {
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispPop dispPop = service.getDisp(new PopKey(longId, stringId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPop.of(dispPop)));
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class PopController {
             HttpServletRequest request, @PathVariable("projectId") Long projectId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispPop> childForProjectDisp = service.childForProjectDisp(
                     new LongIdKey(projectId), new PagingInfo(page, rows), inspectAccountKey
             );

@@ -142,7 +142,7 @@ public class CertificateFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             CertificateFile certificateFile = service.downloadCertificateFile(
                     accountKey, new LongIdKey(certificateFileId)
             );
@@ -163,7 +163,7 @@ public class CertificateFileController {
             HttpServletRequest request, @PathVariable("certificateFileId") Long certificateFileId
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey voucherKey = service.requestCertificateFileStreamVoucher(accountKey, new LongIdKey(certificateFileId));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(voucherKey)));
         } catch (Exception e) {
@@ -211,7 +211,7 @@ public class CertificateFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             CertificateThumbnail certificateThumbnail = service.downloadCertificateThumbnail(
                     accountKey, new LongIdKey(certificateFileId)
             );
@@ -235,7 +235,7 @@ public class CertificateFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -280,7 +280,7 @@ public class CertificateFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -320,7 +320,7 @@ public class CertificateFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey certificateFileKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeCertificateFile(accountKey, WebInputLongIdKey.toStackBean(certificateFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

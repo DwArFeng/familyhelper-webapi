@@ -157,7 +157,7 @@ public class ProfileController {
             @RequestBody @Validated WebInputProfileUpdateInfo webInputProfileUpdateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateProfile(accountKey, WebInputProfileUpdateInfo.toStackBean(webInputProfileUpdateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -175,7 +175,7 @@ public class ProfileController {
             @RequestBody @Validated ValidateList<WebInputStringIdKey> guestKeys, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.resetGuestPermission(
                     accountKey,
                     guestKeys.stream().map(WebInputStringIdKey::toStackBean).collect(Collectors.toList())

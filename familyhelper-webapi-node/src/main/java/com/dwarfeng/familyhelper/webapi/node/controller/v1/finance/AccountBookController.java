@@ -121,7 +121,7 @@ public class AccountBookController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispAccountBook dispAccountBook = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispAccountBook.of(dispAccountBook)));
         } catch (Exception e) {
@@ -138,7 +138,7 @@ public class AccountBookController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispAccountBook> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispAccountBook> transform = PagingUtil.transform(
@@ -158,7 +158,7 @@ public class AccountBookController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispAccountBook> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispAccountBook> transform = PagingUtil.transform(
@@ -178,7 +178,7 @@ public class AccountBookController {
             @RequestBody @Validated WebInputAccountBookCreateInfo accountBookCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createAccountBook(
                     accountKey, WebInputAccountBookCreateInfo.toStackBean(accountBookCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
@@ -197,7 +197,7 @@ public class AccountBookController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateAccountBook(
                     accountKey, WebInputAccountBookUpdateInfo.toStackBean(webInputAccountBookUpdateInfo)
             );
@@ -216,7 +216,7 @@ public class AccountBookController {
             @RequestBody @Validated WebInputLongIdKey accountBookKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeAccountBook(accountKey, WebInputLongIdKey.toStackBean(accountBookKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -234,7 +234,7 @@ public class AccountBookController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.upsertPermission(
                     accountKey,
                     WebInputAccountBookPermissionUpsertInfo.toStackBean(webInputAccountBookPermissionUpsertInfo)
@@ -255,7 +255,7 @@ public class AccountBookController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removePermission(
                     accountKey,
                     WebInputAccountBookPermissionRemoveInfo.toStackBean(webInputAccountBookPermissionRemoveInfo)
@@ -275,7 +275,7 @@ public class AccountBookController {
             @RequestBody @Validated WebInputLongIdKey accountBookKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.recordCommit(accountKey, WebInputLongIdKey.toStackBean(accountBookKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -292,7 +292,7 @@ public class AccountBookController {
             @RequestBody @Validated WebInputLongIdKey accountBookKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.rollbackAll(accountKey, WebInputLongIdKey.toStackBean(accountBookKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

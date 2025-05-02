@@ -101,7 +101,7 @@ public class PoceController {
             @PathVariable("certificateId") Long certificateId, @PathVariable("userId") String userId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispPoce dispPoce = service.getDisp(new PoceKey(certificateId, userId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPoce.of(dispPoce)));
         } catch (Exception e) {
@@ -137,7 +137,7 @@ public class PoceController {
             HttpServletRequest request, @PathVariable("certificateId") Long certificateId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispPoce> childForCertificateDisp = service.childForCertificateDisp(
                     new LongIdKey(certificateId), new PagingInfo(page, rows), inspectAccountKey
             );

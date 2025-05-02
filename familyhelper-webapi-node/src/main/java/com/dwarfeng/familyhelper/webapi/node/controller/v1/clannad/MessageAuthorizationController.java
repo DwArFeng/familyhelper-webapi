@@ -200,7 +200,7 @@ public class MessageAuthorizationController {
             @PathVariable("authorizedSendUserId") String authorizedSendUserId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispMessageAuthorization disp = service.getDisp(
                     new MessageAuthorizationKey(receiveUserId, authorizedSendUserId), inspectAccountKey
             );
@@ -219,7 +219,7 @@ public class MessageAuthorizationController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessageAuthorization> allDisp = service.allDisp(new PagingInfo(page, rows), inspectAccountKey);
             PagedData<FastJsonDispMessageAuthorization> transform = PagingUtil.transform(
                     allDisp, dispMessageAuthorizationBeanTransformer
@@ -241,7 +241,7 @@ public class MessageAuthorizationController {
     ) {
         try {
             StringIdKey receiveUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessageAuthorization> childForReceiveUserDisp = service.childForReceiveUserDisp(
                     receiveUserKey, new PagingInfo(page, rows), inspectAccountKey
             );
@@ -265,7 +265,7 @@ public class MessageAuthorizationController {
     ) {
         try {
             StringIdKey authorizedSendUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessageAuthorization> childForAuthorizedSendUserDisp = service.childForAuthorizedSendUserDisp(
                     authorizedSendUserKey, new PagingInfo(page, rows), inspectAccountKey
             );
@@ -290,7 +290,7 @@ public class MessageAuthorizationController {
     ) {
         try {
             StringIdKey authorizedSendUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispMessageAuthorization> childForAuthorizedSendUserIdLikeDisp = service.childForAuthorizedSendUserIdLikeDisp(
                     authorizedSendUserKey, pattern, new PagingInfo(page, rows), inspectAccountKey
             );

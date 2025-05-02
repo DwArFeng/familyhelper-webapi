@@ -258,7 +258,7 @@ public class FundChangeController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispFundChange dispFundChange = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispFundChange.of(dispFundChange)));
         } catch (Exception e) {
@@ -274,7 +274,7 @@ public class FundChangeController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispFundChange>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispFundChange> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispFundChange> transform = PagingUtil.transform(
                     allDisp, dispFundChangeBeanTransformer);
@@ -297,7 +297,7 @@ public class FundChangeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey accountBookKey = null;
             if (Objects.nonNull(accountBookId)) {
                 accountBookKey = new LongIdKey(accountBookId);
@@ -325,7 +325,7 @@ public class FundChangeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey accountBookKey = null;
             if (Objects.nonNull(accountBookId)) {
                 accountBookKey = new LongIdKey(accountBookId);
@@ -355,7 +355,7 @@ public class FundChangeController {
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey accountBookKey = null;
             if (Objects.nonNull(accountBookId)) {
                 accountBookKey = new LongIdKey(accountBookId);
@@ -385,7 +385,7 @@ public class FundChangeController {
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey accountBookKey = null;
             if (Objects.nonNull(accountBookId)) {
                 accountBookKey = new LongIdKey(accountBookId);
@@ -416,7 +416,7 @@ public class FundChangeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey accountBookKey = null;
             if (Objects.nonNull(accountBookId)) {
                 accountBookKey = new LongIdKey(accountBookId);
@@ -441,7 +441,7 @@ public class FundChangeController {
             @RequestBody @Validated WebInputFundChangeRecordInfo fundChangeRecordInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.recordFundChange(
                     accountKey, WebInputFundChangeRecordInfo.toStackBean(fundChangeRecordInfo)
             );
@@ -461,7 +461,7 @@ public class FundChangeController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateFundChange(
                     accountKey, WebInputFundChangeUpdateInfo.toStackBean(webInputFundChangeUpdateInfo)
             );
@@ -479,7 +479,7 @@ public class FundChangeController {
             @RequestBody @Validated WebInputLongIdKey fundChangeKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeFundChange(accountKey, WebInputLongIdKey.toStackBean(fundChangeKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

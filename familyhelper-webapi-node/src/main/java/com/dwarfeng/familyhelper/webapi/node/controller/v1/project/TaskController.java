@@ -189,7 +189,7 @@ public class TaskController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispTask dispTask = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispTask.of(dispTask)));
         } catch (Exception e) {
@@ -205,7 +205,7 @@ public class TaskController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispTask>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispTask> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispTask> transform = PagingUtil.transform(
                     allDisp, dispBeanTransformer);
@@ -226,7 +226,7 @@ public class TaskController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey projectKey = null;
             if (Objects.nonNull(projectId)) {
                 projectKey = new LongIdKey(projectId);
@@ -252,7 +252,7 @@ public class TaskController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey taskKey = null;
             if (Objects.nonNull(taskId)) {
                 taskKey = new LongIdKey(taskId);
@@ -278,7 +278,7 @@ public class TaskController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey taskKey = null;
             if (Objects.nonNull(taskId)) {
                 taskKey = new LongIdKey(taskId);
@@ -302,7 +302,7 @@ public class TaskController {
             @RequestBody @Validated WebInputTaskCreateInfo taskCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createTask(
                     accountKey, WebInputTaskCreateInfo.toStackBean(taskCreateInfo)
             );
@@ -321,7 +321,7 @@ public class TaskController {
             @RequestBody @Validated WebInputTaskUpdateInfo webInputTaskUpdateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateTask(
                     accountKey, WebInputTaskUpdateInfo.toStackBean(webInputTaskUpdateInfo)
             );
@@ -340,7 +340,7 @@ public class TaskController {
             @RequestBody @Validated WebInputLongIdKey taskKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeTask(accountKey, WebInputLongIdKey.toStackBean(taskKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

@@ -226,7 +226,7 @@ public class ActivityDataNodeController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispActivityDataNode dispActivityDataNode = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(
                     ResponseDataUtil.good(JSFixedFastJsonDispActivityDataNode.of(dispActivityDataNode))
@@ -245,7 +245,7 @@ public class ActivityDataNodeController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataNode> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispActivityDataNode> transform = PagingUtil.transform(
                     allDisp, dispActivityDataNodeBeanTransformer);
@@ -270,7 +270,7 @@ public class ActivityDataNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey activityDataSetKey = null;
             if (Objects.nonNull(activityDataSetId)) {
                 activityDataSetKey = new LongIdKey(activityDataSetId);
@@ -297,7 +297,7 @@ public class ActivityDataNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataNode> childForActivityDataSetRoot = service.childForActivityDataSetRootDisp(
                     accountKey, new LongIdKey(activityDataSetId), new PagingInfo(page, rows)
             );
@@ -321,7 +321,7 @@ public class ActivityDataNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataNode> childForParent = service.childForParentDisp(
                     accountKey, new LongIdKey(parentId), new PagingInfo(page, rows)
             );
@@ -350,7 +350,7 @@ public class ActivityDataNodeController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey activityDataSetKey = null;
             if (Objects.nonNull(activityDataSetId)) {
                 activityDataSetKey = new LongIdKey(activityDataSetId);
@@ -395,7 +395,7 @@ public class ActivityDataNodeController {
             HttpServletRequest request, @PathVariable(value = "id") Long id
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataNode> pathFromRoot = service.nodePathFromRootDisp(accountKey, new LongIdKey(id));
             PagedData<JSFixedFastJsonDispActivityDataNode> transform = PagingUtil.transform(
                     pathFromRoot, dispActivityDataNodeBeanTransformer
@@ -434,7 +434,7 @@ public class ActivityDataNodeController {
             HttpServletRequest request, @PathVariable(value = "itemId") Long itemId
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             PagedData<DispActivityDataNode> pathFromRoot = service.itemPathFromRootDisp(
                     accountKey, new LongIdKey(itemId)
             );
@@ -457,7 +457,7 @@ public class ActivityDataNodeController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             LongIdKey result = service.createActivityDataNode(
                     accountKey, WebInputActivityDataNodeCreateInfo.toStackBean(activityDataNodeCreateInfo)
             );
@@ -477,7 +477,7 @@ public class ActivityDataNodeController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateActivityDataNode(
                     accountKey, WebInputActivityDataNodeUpdateInfo.toStackBean(webInputActivityDataNodeUpdateInfo)
             );
@@ -496,7 +496,7 @@ public class ActivityDataNodeController {
             @RequestBody @Validated WebInputLongIdKey activityDataNodeKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeActivityDataNode(accountKey, WebInputLongIdKey.toStackBean(activityDataNodeKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

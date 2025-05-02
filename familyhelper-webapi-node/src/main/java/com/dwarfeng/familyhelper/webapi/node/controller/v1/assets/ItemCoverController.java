@@ -134,7 +134,7 @@ public class ItemCoverController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             ItemCover itemCover = service.downloadItemCover(accountKey, new LongIdKey(itemCoverId));
             // 将文件名转换成 HTTP 标准文件名编码下的格式。
             String fileName = adjustFileNameEncoding(itemCover.getOriginName());
@@ -156,7 +156,7 @@ public class ItemCoverController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -200,7 +200,7 @@ public class ItemCoverController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey itemCoverKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeItemCover(accountKey, WebInputLongIdKey.toStackBean(itemCoverKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -221,7 +221,7 @@ public class ItemCoverController {
             HttpServletRequest request, @RequestBody WebInputItemCoverOrderUpdateInfo itemCoverOrderUpdateInfo
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateItemCoverOrder(
                     accountKey, WebInputItemCoverOrderUpdateInfo.toStackBean(itemCoverOrderUpdateInfo)
             );

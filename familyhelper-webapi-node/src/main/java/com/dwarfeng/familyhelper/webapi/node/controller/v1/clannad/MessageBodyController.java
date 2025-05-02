@@ -136,7 +136,7 @@ public class MessageBodyController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             MessageBody messageBody = service.download(accountKey, new LongIdKey(messageBodyInfoId));
             // 将文件名转换成 HTTP 标准文件名编码下的格式。
             String fileName = adjustFileNameEncoding(Long.toString(messageBody.getMessageKey().getLongId()));
@@ -158,7 +158,7 @@ public class MessageBodyController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {

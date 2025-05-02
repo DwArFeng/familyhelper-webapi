@@ -138,7 +138,7 @@ public class ActivityTemplateCoverController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             ActivityTemplateCover activityTemplateCover = service.download(
                     accountKey, new LongIdKey(activityTemplateCoverId)
             );
@@ -162,7 +162,7 @@ public class ActivityTemplateCoverController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -207,7 +207,7 @@ public class ActivityTemplateCoverController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey activityTemplateCoverKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.remove(accountKey, WebInputLongIdKey.toStackBean(activityTemplateCoverKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -228,7 +228,7 @@ public class ActivityTemplateCoverController {
             HttpServletRequest request, @RequestBody WebInputActivityTemplateCoverOrderUpdateInfo updateInfo
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.updateOrder(
                     accountKey, WebInputActivityTemplateCoverOrderUpdateInfo.toStackBean(updateInfo)
             );

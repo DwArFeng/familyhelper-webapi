@@ -229,7 +229,7 @@ public class AccountController {
             HttpServletRequest request, @PathVariable("id") String id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             DispAccount dispAccount = accountResponseService.getDisp(new StringIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonDispAccount.of(dispAccount)));
         } catch (Exception e) {
@@ -246,7 +246,7 @@ public class AccountController {
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getAccountKey(request);
+            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
             PagedData<DispAccount> idLike = accountResponseService.idLikeDisp(
                     pattern, new PagingInfo(page, rows), inspectAccountKey
             );

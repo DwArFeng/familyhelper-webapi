@@ -234,7 +234,7 @@ public class ActivityTemplateFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             ActivityTemplateFile activityTemplateFile = service.downloadActivityTemplateFile(
                     accountKey, new LongIdKey(activityTemplateFileId)
             );
@@ -258,7 +258,7 @@ public class ActivityTemplateFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -305,7 +305,7 @@ public class ActivityTemplateFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -350,7 +350,7 @@ public class ActivityTemplateFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey activityTemplateFileKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getAccountKey(request);
+            StringIdKey accountKey = tokenHandler.getUserKey(request);
             service.removeActivityTemplateFile(accountKey, WebInputLongIdKey.toStackBean(activityTemplateFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
