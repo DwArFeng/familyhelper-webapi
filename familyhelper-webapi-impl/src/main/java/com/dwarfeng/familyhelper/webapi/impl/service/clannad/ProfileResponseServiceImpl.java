@@ -10,7 +10,7 @@ import com.dwarfeng.familyhelper.clannad.stack.service.PoprMaintainService;
 import com.dwarfeng.familyhelper.clannad.stack.service.ProfileMaintainService;
 import com.dwarfeng.familyhelper.clannad.stack.service.ProfileOperateService;
 import com.dwarfeng.familyhelper.clannad.stack.service.ProfileTypeIndicatorMaintainService;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispProfile;
+import com.dwarfeng.familyhelper.webapi.stack.bean.clannad.disp.DispProfile;
 import com.dwarfeng.familyhelper.webapi.stack.service.clannad.ProfileResponseService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;

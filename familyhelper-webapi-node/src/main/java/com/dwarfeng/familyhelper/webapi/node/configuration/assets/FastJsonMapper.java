@@ -2,12 +2,12 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.assets;
 
 import com.dwarfeng.familyhelper.assets.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.*;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispAssetCatalog;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispItem;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispPoac;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispAssetCatalog;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispItem;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispPoac;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.assets.disp.JSFixedFastJsonDispAssetCatalog;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.assets.disp.JSFixedFastJsonDispItem;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.assets.disp.JSFixedFastJsonDispPoac;
+import com.dwarfeng.familyhelper.webapi.stack.bean.assets.disp.DispAssetCatalog;
+import com.dwarfeng.familyhelper.webapi.stack.bean.assets.disp.DispItem;
+import com.dwarfeng.familyhelper.webapi.stack.bean.assets.disp.DispPoac;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 

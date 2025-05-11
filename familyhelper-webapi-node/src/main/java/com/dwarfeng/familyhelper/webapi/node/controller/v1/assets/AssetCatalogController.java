@@ -6,8 +6,8 @@ import com.dwarfeng.familyhelper.assets.sdk.bean.dto.WebInputPermissionRemoveInf
 import com.dwarfeng.familyhelper.assets.sdk.bean.dto.WebInputPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.assets.sdk.bean.entity.JSFixedFastJsonAssetCatalog;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.AssetCatalog;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispAssetCatalog;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispAssetCatalog;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.assets.disp.JSFixedFastJsonDispAssetCatalog;
+import com.dwarfeng.familyhelper.webapi.stack.bean.assets.disp.DispAssetCatalog;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.assets.AssetCatalogResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

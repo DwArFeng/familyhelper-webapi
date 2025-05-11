@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.project;
 
 import com.dwarfeng.familyhelper.project.stack.bean.entity.Pop;
 import com.dwarfeng.familyhelper.project.stack.bean.key.PopKey;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.project.DispPop;
+import com.dwarfeng.familyhelper.webapi.stack.bean.project.disp.DispPop;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

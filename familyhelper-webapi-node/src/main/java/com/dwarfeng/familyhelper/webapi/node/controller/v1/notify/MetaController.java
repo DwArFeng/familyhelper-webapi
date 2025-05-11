@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.notify;
 
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.notify.JSFixedFastJsonDispMeta;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispMeta;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.notify.disp.JSFixedFastJsonDispMeta;
+import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispMeta;
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.MetaResponseService;
 import com.dwarfeng.notify.sdk.bean.entity.JSFixedFastJsonMeta;
 import com.dwarfeng.notify.sdk.bean.entity.WebInputMeta;

@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteFileUploadInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteItemCreateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteItemUpdateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteItem;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispNoteItem;
+import com.dwarfeng.familyhelper.webapi.stack.bean.note.disp.DispNoteItem;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

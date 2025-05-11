@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.notify;
 
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.notify.JSFixedFastJsonDispNotifySendRecord;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispNotifySendRecord;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.notify.disp.JSFixedFastJsonDispNotifySendRecord;
+import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispNotifySendRecord;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.NotifySendRecordResponseService;
 import com.dwarfeng.notify.sdk.bean.entity.JSFixedFastJsonNotifySendRecord;

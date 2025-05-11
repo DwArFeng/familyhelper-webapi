@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.life;
 
 import com.dwarfeng.familyhelper.life.stack.bean.entity.Poat;
 import com.dwarfeng.familyhelper.life.stack.bean.key.PoatKey;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPoat;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispPoat;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

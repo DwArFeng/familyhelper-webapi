@@ -4,8 +4,8 @@ import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputFundChangeRecordIn
 import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputFundChangeUpdateInfo;
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonFundChange;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispFundChange;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispFundChange;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispFundChange;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispFundChange;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.finance.FundChangeResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

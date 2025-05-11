@@ -9,8 +9,8 @@ import com.dwarfeng.familyhelper.life.stack.service.ActivityTemplateMaintainServ
 import com.dwarfeng.familyhelper.life.stack.service.ActivityTemplateOperateService;
 import com.dwarfeng.familyhelper.life.stack.service.ActivityTypeIndicatorMaintainService;
 import com.dwarfeng.familyhelper.life.stack.service.PoatMaintainService;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityTemplate;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispActivityTemplate;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.ActivityTemplateResponseService;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;

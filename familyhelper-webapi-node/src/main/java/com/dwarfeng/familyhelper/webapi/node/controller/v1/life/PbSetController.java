@@ -6,8 +6,8 @@ import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputPbSetPermissionUpsert
 import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputPbSetUpdateInfo;
 import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonPbSet;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.PbSet;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispPbSet;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbSet;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.life.disp.JSFixedFastJsonDispPbSet;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispPbSet;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.PbSetResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

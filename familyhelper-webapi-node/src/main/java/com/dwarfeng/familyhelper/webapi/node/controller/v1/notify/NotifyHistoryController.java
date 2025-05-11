@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.notify;
 
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.notify.JSFixedFastJsonDispNotifyHistory;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispNotifyHistory;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.notify.disp.JSFixedFastJsonDispNotifyHistory;
+import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispNotifyHistory;
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.NotifyHistoryResponseService;
 import com.dwarfeng.notify.sdk.bean.entity.JSFixedFastJsonNotifyHistory;
 import com.dwarfeng.notify.stack.bean.entity.NotifyHistory;

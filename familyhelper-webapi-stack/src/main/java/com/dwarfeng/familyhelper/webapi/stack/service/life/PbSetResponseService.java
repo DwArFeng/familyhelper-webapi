@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.life.stack.bean.dto.PbSetPermissionRemoveInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.dto.PbSetPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.dto.PbSetUpdateInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.PbSet;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispPbSet;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispPbSet;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

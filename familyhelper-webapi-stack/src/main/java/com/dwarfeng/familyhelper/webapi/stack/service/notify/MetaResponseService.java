@@ -1,6 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.notify;
 
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispMeta;
+import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispMeta;
 import com.dwarfeng.notify.stack.bean.entity.Meta;
 import com.dwarfeng.notify.stack.bean.key.MetaKey;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;

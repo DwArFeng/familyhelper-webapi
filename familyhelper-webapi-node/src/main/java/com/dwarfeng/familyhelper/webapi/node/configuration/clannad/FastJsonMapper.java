@@ -2,8 +2,8 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.clannad;
 
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.*;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.*;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.*;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.clannad.disp.*;
+import com.dwarfeng.familyhelper.webapi.stack.bean.clannad.disp.*;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 

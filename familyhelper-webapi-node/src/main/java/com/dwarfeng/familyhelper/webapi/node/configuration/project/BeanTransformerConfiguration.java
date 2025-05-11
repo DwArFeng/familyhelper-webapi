@@ -2,12 +2,12 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.project;
 
 import com.dwarfeng.familyhelper.project.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.project.stack.bean.entity.*;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.project.JSFixedFastJsonDispPop;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.project.JSFixedFastJsonDispProject;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.project.JSFixedFastJsonDispTask;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.project.DispPop;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.project.DispProject;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.project.DispTask;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.project.disp.JSFixedFastJsonDispPop;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.project.disp.JSFixedFastJsonDispProject;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.project.disp.JSFixedFastJsonDispTask;
+import com.dwarfeng.familyhelper.webapi.stack.bean.project.disp.DispPop;
+import com.dwarfeng.familyhelper.webapi.stack.bean.project.disp.DispProject;
+import com.dwarfeng.familyhelper.webapi.stack.bean.project.disp.DispTask;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import org.springframework.context.annotation.Bean;

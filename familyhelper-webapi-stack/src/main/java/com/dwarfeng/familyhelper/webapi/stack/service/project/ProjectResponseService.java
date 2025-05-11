@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.project.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.project.stack.bean.dto.ProjectCreateInfo;
 import com.dwarfeng.familyhelper.project.stack.bean.dto.ProjectUpdateInfo;
 import com.dwarfeng.familyhelper.project.stack.bean.entity.Project;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.project.DispProject;
+import com.dwarfeng.familyhelper.webapi.stack.bean.project.disp.DispProject;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

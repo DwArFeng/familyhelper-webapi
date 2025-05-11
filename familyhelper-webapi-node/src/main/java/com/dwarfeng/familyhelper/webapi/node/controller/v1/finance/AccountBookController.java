@@ -6,8 +6,8 @@ import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputAccountBookPermiss
 import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputAccountBookUpdateInfo;
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonAccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispAccountBook;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispAccountBook;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispAccountBook;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.finance.AccountBookResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

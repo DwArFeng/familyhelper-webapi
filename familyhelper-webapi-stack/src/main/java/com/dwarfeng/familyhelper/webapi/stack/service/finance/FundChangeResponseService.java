@@ -3,7 +3,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.finance;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.FundChangeRecordInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.FundChangeUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispFundChange;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispFundChange;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

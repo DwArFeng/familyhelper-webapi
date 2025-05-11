@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplateParticipant
 import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityTemplateParticipantUpdateInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityTemplateParticipant;
 import com.dwarfeng.familyhelper.life.stack.bean.key.ActivityTemplateParticipantKey;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityTemplateParticipant;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispActivityTemplateParticipant;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

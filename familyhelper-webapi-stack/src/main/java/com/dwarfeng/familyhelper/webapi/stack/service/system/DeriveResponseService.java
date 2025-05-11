@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.system;
 
 import com.dwarfeng.acckeeper.stack.bean.dto.DynamicDeriveInfo;
 import com.dwarfeng.acckeeper.stack.bean.dto.StaticDeriveInfo;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.DeriveResponse;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.DeriveResponse;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 

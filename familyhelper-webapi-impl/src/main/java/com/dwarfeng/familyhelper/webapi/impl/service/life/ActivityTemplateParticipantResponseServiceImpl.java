@@ -7,9 +7,9 @@ import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityTemplateParticip
 import com.dwarfeng.familyhelper.life.stack.bean.key.ActivityTemplateParticipantKey;
 import com.dwarfeng.familyhelper.life.stack.service.ActivityTemplateParticipantMaintainService;
 import com.dwarfeng.familyhelper.life.stack.service.ActivityTemplateParticipantOperateService;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityTemplate;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityTemplateParticipant;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispActivityTemplate;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispActivityTemplateParticipant;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.ActivityTemplateParticipantResponseService;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.ActivityTemplateResponseService;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;

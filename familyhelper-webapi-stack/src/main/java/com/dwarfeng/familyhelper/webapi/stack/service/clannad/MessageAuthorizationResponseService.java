@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.clannad.stack.bean.dto.MessageAuthorizationRemo
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.MessageAuthorizationUpdateInfo;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.MessageAuthorization;
 import com.dwarfeng.familyhelper.clannad.stack.bean.key.MessageAuthorizationKey;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispMessageAuthorization;
+import com.dwarfeng.familyhelper.webapi.stack.bean.clannad.disp.DispMessageAuthorization;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;

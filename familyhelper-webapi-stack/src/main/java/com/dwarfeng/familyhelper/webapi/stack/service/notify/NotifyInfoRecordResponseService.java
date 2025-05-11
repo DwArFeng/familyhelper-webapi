@@ -1,6 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.notify;
 
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispNotifyInfoRecord;
+import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispNotifyInfoRecord;
 import com.dwarfeng.notify.stack.bean.entity.NotifyInfoRecord;
 import com.dwarfeng.notify.stack.bean.key.NotifyInfoRecordKey;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;

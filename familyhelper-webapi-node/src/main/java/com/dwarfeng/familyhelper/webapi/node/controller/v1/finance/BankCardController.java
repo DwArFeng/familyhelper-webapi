@@ -5,8 +5,8 @@ import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputBankCardCreateInfo
 import com.dwarfeng.familyhelper.finance.sdk.bean.dto.WebInputBankCardUpdateInfo;
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonBankCard;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispBankCard;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispBankCard;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispBankCard;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispBankCard;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.finance.BankCardResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

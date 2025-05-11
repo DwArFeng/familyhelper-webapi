@@ -6,8 +6,8 @@ import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityPermissionUps
 import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityUpdateInfo;
 import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonActivity;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.Activity;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispActivity;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivity;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.life.disp.JSFixedFastJsonDispActivity;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispActivity;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.ActivityResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

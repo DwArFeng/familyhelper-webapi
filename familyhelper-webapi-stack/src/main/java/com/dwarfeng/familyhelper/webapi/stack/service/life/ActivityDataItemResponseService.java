@@ -3,7 +3,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.life;
 import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityDataItemCreateInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityDataItemUpdateInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityDataItem;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityDataItem;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispActivityDataItem;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

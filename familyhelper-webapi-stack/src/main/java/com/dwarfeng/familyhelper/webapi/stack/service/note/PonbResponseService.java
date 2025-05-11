@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.note;
 
 import com.dwarfeng.familyhelper.note.stack.bean.entity.Ponb;
 import com.dwarfeng.familyhelper.note.stack.bean.key.PonbKey;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispPonb;
+import com.dwarfeng.familyhelper.webapi.stack.bean.note.disp.DispPonb;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

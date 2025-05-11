@@ -4,8 +4,8 @@ import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataRecordCre
 import com.dwarfeng.familyhelper.life.sdk.bean.dto.WebInputActivityDataRecordUpdateInfo;
 import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonActivityDataRecord;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityDataRecord;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispActivityDataRecord;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityDataRecord;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.life.disp.JSFixedFastJsonDispActivityDataRecord;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispActivityDataRecord;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.ActivityDataRecordResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

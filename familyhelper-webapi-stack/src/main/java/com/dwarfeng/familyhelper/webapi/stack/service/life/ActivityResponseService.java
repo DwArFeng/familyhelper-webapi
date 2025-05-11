@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityPermissionRemoveInf
 import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.dto.ActivityUpdateInfo;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.Activity;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivity;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispActivity;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

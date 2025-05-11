@@ -2,8 +2,8 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.system;
 
 import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputDynamicDeriveInfo;
 import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputStaticDeriveInfo;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.dto.system.JSFixedFastJsonDeriveResponse;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.DeriveResponse;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.system.dto.JSFixedFastJsonDeriveResponse;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.DeriveResponse;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.DeriveResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

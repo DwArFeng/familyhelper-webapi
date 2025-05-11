@@ -5,7 +5,7 @@ import com.dwarfeng.acckeeper.stack.bean.dto.LoginInfo;
 import com.dwarfeng.acckeeper.stack.bean.dto.StaticLoginInfo;
 import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
 import com.dwarfeng.acckeeper.stack.service.LoginService;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.LoginResponse;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.LoginResponse;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.LoginResponseService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

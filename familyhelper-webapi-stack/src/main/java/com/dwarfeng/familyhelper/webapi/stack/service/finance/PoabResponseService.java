@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.finance;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispPoab;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispPoab;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

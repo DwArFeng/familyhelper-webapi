@@ -4,6 +4,10 @@
 
 #### 功能构建
 
+- 优化项目结构。
+  - 将 `stack` 模块中的 `bean` 包优化为 `bean.submodule.category` 模式。
+  - 将 `sdk` 模块中的 `bean` 包优化为 `bean.submodule.category` 模式。
+
 - `pom.xml` 结构优化。
 
 - 依赖新增
@@ -63,7 +67,7 @@
 #### Bug修复
 
 - 修正部分 disp bean 中不正确的 JSON 字段名称。
-  - com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.JSFixedFastJsonDispPoce。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.clannad.disp.JSFixedFastJsonDispPoce。
 
 #### 功能移除
 
@@ -96,7 +100,7 @@
   - 升级 `hibernate-validator` 依赖版本为 `6.2.5.Final` 以规避漏洞。
 
 - 补全 system 模块部分 disp 实体缺失的字段。
-  - com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispPermissionGroup。
+  - com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispPermissionGroup。
 
 #### Bug修复
 
@@ -199,7 +203,7 @@
 #### Bug修复
 
 - 修复部分功能性实体集合类型的字段在映射时有可能产生空指针异常的问题。
-  - com.dwarfeng.familyhelper.webapi.sdk.bean.disp.assets.JSFixedFastJsonDispItem。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.assets.disp.JSFixedFastJsonDispItem。
 
 - 去除部分 Controller 中的错误注解。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateFileController。

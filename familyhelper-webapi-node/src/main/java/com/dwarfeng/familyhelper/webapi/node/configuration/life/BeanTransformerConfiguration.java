@@ -2,8 +2,8 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.life;
 
 import com.dwarfeng.familyhelper.life.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.*;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.*;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.*;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.life.disp.*;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.*;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import org.springframework.context.annotation.Bean;

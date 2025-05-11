@@ -1,6 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.system;
 
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispPermissionGroup;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispPermissionGroup;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.PermissionGroupResponseService;
 import com.dwarfeng.rbacds.stack.bean.entity.PermissionGroup;
 import com.dwarfeng.rbacds.stack.service.PermissionGroupMaintainService;

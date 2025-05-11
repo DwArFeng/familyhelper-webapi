@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.clannad;
 
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Poce;
 import com.dwarfeng.familyhelper.clannad.stack.bean.key.PoceKey;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispPoce;
+import com.dwarfeng.familyhelper.webapi.stack.bean.clannad.disp.DispPoce;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

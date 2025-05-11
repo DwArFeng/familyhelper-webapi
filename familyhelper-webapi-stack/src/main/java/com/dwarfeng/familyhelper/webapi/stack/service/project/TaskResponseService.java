@@ -3,7 +3,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.project;
 import com.dwarfeng.familyhelper.project.stack.bean.dto.TaskCreateInfo;
 import com.dwarfeng.familyhelper.project.stack.bean.dto.TaskUpdateInfo;
 import com.dwarfeng.familyhelper.project.stack.bean.entity.Task;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.project.DispTask;
+import com.dwarfeng.familyhelper.webapi.stack.bean.project.disp.DispTask;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

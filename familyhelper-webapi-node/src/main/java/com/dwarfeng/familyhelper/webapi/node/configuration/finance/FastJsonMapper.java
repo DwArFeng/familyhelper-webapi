@@ -2,14 +2,14 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.finance;
 
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispAccountBook;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispBankCard;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispFundChange;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.finance.JSFixedFastJsonDispPoab;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispBankCard;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispFundChange;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispPoab;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispAccountBook;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispBankCard;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispFundChange;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispPoab;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispAccountBook;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispBankCard;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispFundChange;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispPoab;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 

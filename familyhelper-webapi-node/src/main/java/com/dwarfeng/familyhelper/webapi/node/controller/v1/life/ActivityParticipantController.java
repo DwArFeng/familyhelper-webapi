@@ -7,8 +7,8 @@ import com.dwarfeng.familyhelper.life.sdk.bean.entity.JSFixedFastJsonActivityPar
 import com.dwarfeng.familyhelper.life.sdk.bean.key.JSFixedFastJsonActivityParticipantKey;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.ActivityParticipant;
 import com.dwarfeng.familyhelper.life.stack.bean.key.ActivityParticipantKey;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.JSFixedFastJsonDispActivityParticipant;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.DispActivityParticipant;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.life.disp.JSFixedFastJsonDispActivityParticipant;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.DispActivityParticipant;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.life.ActivityParticipantResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;

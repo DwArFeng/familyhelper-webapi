@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.assets.stack.bean.dto.AssetCatalogUpdateInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.PermissionRemoveInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.assets.stack.bean.entity.AssetCatalog;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.assets.DispAssetCatalog;
+import com.dwarfeng.familyhelper.webapi.stack.bean.assets.disp.DispAssetCatalog;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

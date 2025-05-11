@@ -4,7 +4,7 @@ import com.dwarfeng.acckeeper.stack.bean.dto.DynamicDeriveInfo;
 import com.dwarfeng.acckeeper.stack.bean.dto.StaticDeriveInfo;
 import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
 import com.dwarfeng.acckeeper.stack.service.DeriveService;
-import com.dwarfeng.familyhelper.webapi.stack.bean.dto.system.DeriveResponse;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.DeriveResponse;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.DeriveResponseService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;

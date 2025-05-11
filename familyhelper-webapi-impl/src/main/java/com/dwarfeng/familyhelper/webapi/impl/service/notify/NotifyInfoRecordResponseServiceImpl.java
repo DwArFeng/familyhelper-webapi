@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.notify;
 
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispNotifyHistory;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.notify.DispNotifyInfoRecord;
+import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispNotifyHistory;
+import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispNotifyInfoRecord;
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.NotifyHistoryResponseService;
 import com.dwarfeng.familyhelper.webapi.stack.service.notify.NotifyInfoRecordResponseService;
 import com.dwarfeng.notify.stack.bean.entity.NotifyInfoRecord;

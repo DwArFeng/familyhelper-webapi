@@ -7,8 +7,8 @@ import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.FastJsonMessageAuthoriz
 import com.dwarfeng.familyhelper.clannad.sdk.bean.key.FastJsonMessageAuthorizationKey;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.MessageAuthorization;
 import com.dwarfeng.familyhelper.clannad.stack.bean.key.MessageAuthorizationKey;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.clannad.FastJsonDispMessageAuthorization;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispMessageAuthorization;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.clannad.disp.FastJsonDispMessageAuthorization;
+import com.dwarfeng.familyhelper.webapi.stack.bean.clannad.disp.DispMessageAuthorization;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.clannad.MessageAuthorizationResponseService;
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonPagedData;

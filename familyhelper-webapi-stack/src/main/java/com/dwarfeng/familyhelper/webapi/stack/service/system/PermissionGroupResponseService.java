@@ -1,6 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.system;
 
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispPermissionGroup;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispPermissionGroup;
 import com.dwarfeng.rbacds.stack.bean.entity.PermissionGroup;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;

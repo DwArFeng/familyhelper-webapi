@@ -2,12 +2,12 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.system;
 
 import com.dwarfeng.acckeeper.sdk.bean.entity.*;
 import com.dwarfeng.acckeeper.stack.bean.entity.*;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispAccount;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispPermissionGroup;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.vo.system.FastJsonAccount;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispAccount;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispPermissionGroup;
-import com.dwarfeng.familyhelper.webapi.stack.bean.vo.system.Account;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispAccount;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispPermissionGroup;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.system.vo.FastJsonAccount;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispAccount;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispPermissionGroup;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.vo.Account;
 import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonPermission;
 import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonPermissionGroup;
 import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonRole;

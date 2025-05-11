@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.system;
 
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.system.FastJsonDispPermissionGroup;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.system.DispPermissionGroup;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispPermissionGroup;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispPermissionGroup;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.PermissionGroupResponseService;
 import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonPermissionGroup;
 import com.dwarfeng.rbacds.sdk.bean.entity.WebInputPermissionGroup;

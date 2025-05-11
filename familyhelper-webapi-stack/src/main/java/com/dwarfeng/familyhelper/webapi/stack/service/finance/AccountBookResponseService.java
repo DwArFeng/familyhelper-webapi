@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionRem
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.finance.DispAccountBook;
+import com.dwarfeng.familyhelper.webapi.stack.bean.finance.disp.DispAccountBook;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

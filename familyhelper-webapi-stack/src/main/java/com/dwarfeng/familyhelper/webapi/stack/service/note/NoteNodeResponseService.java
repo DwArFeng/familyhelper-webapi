@@ -3,7 +3,7 @@ package com.dwarfeng.familyhelper.webapi.stack.service.note;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteNodeCreateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.dto.NoteNodeUpdateInfo;
 import com.dwarfeng.familyhelper.note.stack.bean.entity.NoteNode;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.note.DispNoteNode;
+import com.dwarfeng.familyhelper.webapi.stack.bean.note.disp.DispNoteNode;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

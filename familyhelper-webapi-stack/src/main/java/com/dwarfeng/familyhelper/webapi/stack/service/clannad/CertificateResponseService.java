@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificatePermissionRem
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificatePermissionUpsertInfo;
 import com.dwarfeng.familyhelper.clannad.stack.bean.dto.CertificateUpdateInfo;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.Certificate;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.clannad.DispCertificate;
+import com.dwarfeng.familyhelper.webapi.stack.bean.clannad.disp.DispCertificate;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;

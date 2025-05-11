@@ -2,8 +2,8 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.life;
 
 import com.dwarfeng.familyhelper.life.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.life.stack.bean.entity.*;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.disp.life.*;
-import com.dwarfeng.familyhelper.webapi.stack.bean.disp.life.*;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.life.disp.*;
+import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.*;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
