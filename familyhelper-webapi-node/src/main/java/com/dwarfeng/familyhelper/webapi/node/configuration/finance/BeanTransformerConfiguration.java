@@ -2,6 +2,7 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.finance;
 
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.BeanMapper;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispAccountBook;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispBankCard;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.finance.disp.JSFixedFastJsonDispFundChange;
@@ -21,14 +22,14 @@ public class BeanTransformerConfiguration {
     @Bean("finance.accountBookBeanTransformer")
     public BeanTransformer<AccountBook, JSFixedFastJsonAccountBook> accountBookBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                AccountBook.class, JSFixedFastJsonAccountBook.class, FastJsonMapper.class
+                AccountBook.class, JSFixedFastJsonAccountBook.class, BeanMapper.class
         );
     }
 
     @Bean("finance.dispAccountBookBeanTransformer")
     public BeanTransformer<DispAccountBook, JSFixedFastJsonDispAccountBook> dispAccountBookBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                DispAccountBook.class, JSFixedFastJsonDispAccountBook.class, FastJsonMapper.class
+                DispAccountBook.class, JSFixedFastJsonDispAccountBook.class, BeanMapper.class
         );
     }
 
@@ -36,19 +37,19 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<BankCardTypeIndicator, FastJsonBankCardTypeIndicator>
     bankCardTypeIndicatorBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                BankCardTypeIndicator.class, FastJsonBankCardTypeIndicator.class, FastJsonMapper.class
+                BankCardTypeIndicator.class, FastJsonBankCardTypeIndicator.class, BeanMapper.class
         );
     }
 
     @Bean("finance.bankCardBeanTransformer")
     public BeanTransformer<BankCard, JSFixedFastJsonBankCard> bankCardBeanTransformer() {
-        return new MapStructBeanTransformer<>(BankCard.class, JSFixedFastJsonBankCard.class, FastJsonMapper.class);
+        return new MapStructBeanTransformer<>(BankCard.class, JSFixedFastJsonBankCard.class, BeanMapper.class);
     }
 
     @Bean("finance.dispBankCardBeanTransformer")
     public BeanTransformer<DispBankCard, JSFixedFastJsonDispBankCard> dispBankCardBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                DispBankCard.class, JSFixedFastJsonDispBankCard.class, FastJsonMapper.class
+                DispBankCard.class, JSFixedFastJsonDispBankCard.class, BeanMapper.class
         );
     }
 
@@ -56,19 +57,19 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<FundChangeTypeIndicator, FastJsonFundChangeTypeIndicator>
     fundChangeTypeIndicatorBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, FastJsonMapper.class
+                FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, BeanMapper.class
         );
     }
 
     @Bean("finance.fundChangeBeanTransformer")
     public BeanTransformer<FundChange, JSFixedFastJsonFundChange> fundChangeBeanTransformer() {
-        return new MapStructBeanTransformer<>(FundChange.class, JSFixedFastJsonFundChange.class, FastJsonMapper.class);
+        return new MapStructBeanTransformer<>(FundChange.class, JSFixedFastJsonFundChange.class, BeanMapper.class);
     }
 
     @Bean("finance.dispFundChangeBeanTransformer")
     public BeanTransformer<DispFundChange, JSFixedFastJsonDispFundChange> dispFundChangeBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                DispFundChange.class, JSFixedFastJsonDispFundChange.class, FastJsonMapper.class
+                DispFundChange.class, JSFixedFastJsonDispFundChange.class, BeanMapper.class
         );
     }
 
@@ -76,7 +77,7 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<TotalBalanceHistory, JSFixedFastJsonTotalBalanceHistory>
     totalBalanceHistoryBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                TotalBalanceHistory.class, JSFixedFastJsonTotalBalanceHistory.class, FastJsonMapper.class
+                TotalBalanceHistory.class, JSFixedFastJsonTotalBalanceHistory.class, BeanMapper.class
         );
     }
 
@@ -84,38 +85,38 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<BankCardBalanceHistory, JSFixedFastJsonBankCardBalanceHistory>
     bankCardBalanceHistoryBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                BankCardBalanceHistory.class, JSFixedFastJsonBankCardBalanceHistory.class, FastJsonMapper.class
+                BankCardBalanceHistory.class, JSFixedFastJsonBankCardBalanceHistory.class, BeanMapper.class
         );
     }
 
     @Bean("finance.poabBeanTransformer")
     public BeanTransformer<Poab, JSFixedFastJsonPoab> poabBeanTransformer() {
-        return new MapStructBeanTransformer<>(Poab.class, JSFixedFastJsonPoab.class, FastJsonMapper.class);
+        return new MapStructBeanTransformer<>(Poab.class, JSFixedFastJsonPoab.class, BeanMapper.class);
     }
 
     @Bean("finance.dispPoabBeanTransformer")
     public BeanTransformer<DispPoab, JSFixedFastJsonDispPoab> dispPoabBeanTransformer() {
-        return new MapStructBeanTransformer<>(DispPoab.class, JSFixedFastJsonDispPoab.class, FastJsonMapper.class);
+        return new MapStructBeanTransformer<>(DispPoab.class, JSFixedFastJsonDispPoab.class, BeanMapper.class);
     }
 
     @Bean("finance.billFileInfoBeanTransformer")
     public BeanTransformer<BillFileInfo, JSFixedFastJsonBillFileInfo> billFileInfoBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                BillFileInfo.class, JSFixedFastJsonBillFileInfo.class, FastJsonMapper.class
+                BillFileInfo.class, JSFixedFastJsonBillFileInfo.class, BeanMapper.class
         );
     }
 
     @Bean("finance.remindDriverInfoBeanTransformer")
     public BeanTransformer<RemindDriverInfo, JSFixedFastJsonRemindDriverInfo> remindDriverInfoBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                RemindDriverInfo.class, JSFixedFastJsonRemindDriverInfo.class, FastJsonMapper.class
+                RemindDriverInfo.class, JSFixedFastJsonRemindDriverInfo.class, BeanMapper.class
         );
     }
 
     @Bean("finance.remindDriverSupportBeanTransformer")
     public BeanTransformer<RemindDriverSupport, FastJsonRemindDriverSupport> remindDriverSupportBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                RemindDriverSupport.class, FastJsonRemindDriverSupport.class, FastJsonMapper.class
+                RemindDriverSupport.class, FastJsonRemindDriverSupport.class, BeanMapper.class
         );
     }
 }

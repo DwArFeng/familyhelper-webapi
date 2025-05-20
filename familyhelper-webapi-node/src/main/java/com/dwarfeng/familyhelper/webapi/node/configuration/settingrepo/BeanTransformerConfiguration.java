@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.BeanMapper;
 import com.dwarfeng.settingrepo.sdk.bean.entity.*;
 import com.dwarfeng.settingrepo.stack.bean.entity.*;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
@@ -12,35 +13,35 @@ public class BeanTransformerConfiguration {
 
     @Bean("settingrepo.settingNodeBeanTransformer")
     public BeanTransformer<SettingNode, FastJsonSettingNode> settingNodeBeanTransformer() {
-        return new MapStructBeanTransformer<>(SettingNode.class, FastJsonSettingNode.class, FastJsonMapper.class);
+        return new MapStructBeanTransformer<>(SettingNode.class, FastJsonSettingNode.class, BeanMapper.class);
     }
 
     @Bean("settingrepo.settingCategoryBeanTransformer")
     public BeanTransformer<SettingCategory, FastJsonSettingCategory> settingCategoryBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                SettingCategory.class, FastJsonSettingCategory.class, FastJsonMapper.class
+                SettingCategory.class, FastJsonSettingCategory.class, BeanMapper.class
         );
     }
 
     @Bean("settingrepo.formatterSupportBeanTransformer")
     public BeanTransformer<FormatterSupport, FastJsonFormatterSupport> formatterSupportBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                FormatterSupport.class, FastJsonFormatterSupport.class, FastJsonMapper.class
+                FormatterSupport.class, FastJsonFormatterSupport.class, BeanMapper.class
         );
     }
 
     @Bean("settingrepo.textNodeBeanTransformer")
     public BeanTransformer<TextNode, FastJsonTextNode> textNodeBeanTransformer() {
-        return new MapStructBeanTransformer<>(TextNode.class, FastJsonTextNode.class, FastJsonMapper.class);
+        return new MapStructBeanTransformer<>(TextNode.class, FastJsonTextNode.class, BeanMapper.class);
     }
 
     @Bean("settingrepo.imageNodeBeanTransformer")
     public BeanTransformer<ImageNode, FastJsonImageNode> imageNodeBeanTransformer() {
-        return new MapStructBeanTransformer<>(ImageNode.class, FastJsonImageNode.class, FastJsonMapper.class);
+        return new MapStructBeanTransformer<>(ImageNode.class, FastJsonImageNode.class, BeanMapper.class);
     }
 
     @Bean("settingrepo.imageListNodeBeanTransformer")
     public BeanTransformer<ImageListNode, FastJsonImageListNode> imageListNodeBeanTransformer() {
-        return new MapStructBeanTransformer<>(ImageListNode.class, FastJsonImageListNode.class, FastJsonMapper.class);
+        return new MapStructBeanTransformer<>(ImageListNode.class, FastJsonImageListNode.class, BeanMapper.class);
     }
 }

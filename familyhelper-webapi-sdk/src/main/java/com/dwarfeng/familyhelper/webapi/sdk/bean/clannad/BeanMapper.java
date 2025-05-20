@@ -1,4 +1,4 @@
-package com.dwarfeng.familyhelper.webapi.node.configuration.clannad;
+package com.dwarfeng.familyhelper.webapi.sdk.bean.clannad;
 
 import com.dwarfeng.familyhelper.clannad.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.clannad.stack.bean.entity.*;
@@ -8,13 +8,16 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
 /**
- * FastJson Bean 映射器。
+ * Bean 映射器。
+ *
+ * <p>
+ * 该映射器中包含了 <code>sdk</code> 模块中所有实体与 <code>stack</code> 模块中对应实体的映射方法。
  *
  * @author DwArFeng
- * @since 1.4.0
+ * @since 1.6.0
  */
 @Mapper
-public interface FastJsonMapper {
+public interface BeanMapper {
 
     FastJsonProfile profileToFastJson(Profile profile);
 

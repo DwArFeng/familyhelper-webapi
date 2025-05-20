@@ -5,6 +5,7 @@
 #### 功能构建
 
 - 优化项目结构。
+  - 将 `node` 模块中的 `configuration` 包中的 `Mapper` 接口提升至 `sdk` 模块的 `bean` 包中，并优化接口名称。
   - 将 `stack` 模块中的 `bean` 包优化为 `bean.submodule.category` 模式。
   - 将 `sdk` 模块中的 `bean` 包优化为 `bean.submodule.category` 模式。
 
