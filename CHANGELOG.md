@@ -5,6 +5,13 @@
 #### 功能构建
 
 - 部分 Controller 增加 `@PermissionRequired` 注解。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.FormatterSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageListNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ResetController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingCategoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.TextNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.DeriveController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.DeriveHistoryController。

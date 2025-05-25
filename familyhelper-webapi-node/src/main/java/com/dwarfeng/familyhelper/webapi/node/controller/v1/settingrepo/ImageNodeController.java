@@ -20,6 +20,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -85,6 +86,7 @@ public class ImageNodeController {
     @GetMapping("/image-node/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -98,6 +100,7 @@ public class ImageNodeController {
     @GetMapping("/image-node/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.get")
     public FastJsonResponseData<FastJsonImageNode> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             ImageNode imageNode = service.get(new StringIdKey(id));
@@ -112,6 +115,7 @@ public class ImageNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonImageNode>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -129,6 +133,7 @@ public class ImageNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.inspect")
     public FastJsonResponseData<FastJsonImageNodeInspectResult> inspect(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageNodeInspectInfo webInputImageNodeInspectInfo,
@@ -155,6 +160,7 @@ public class ImageNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.download_file")
     public ResponseEntity<Object> legacyDownloadFile(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageNodeFileDownloadInfo webInputImageNodeFileDownloadInfo,
@@ -181,6 +187,7 @@ public class ImageNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.download_file")
     public ResponseEntity<Object> downloadFile(
             HttpServletRequest request,
             @Base64RequestParam("download-info") WebInputImageNodeFileDownloadInfo webInputImageNodeFileDownloadInfo
@@ -205,6 +212,7 @@ public class ImageNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.request_file_stream_voucher")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> requestFileStreamVoucher(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageNodeFileDownloadInfo downloadInfo,
@@ -255,6 +263,7 @@ public class ImageNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.download_thumbnail")
     public ResponseEntity<Object> downloadThumbnail(
             HttpServletRequest request,
             @Base64RequestParam("download-info") WebInputImageNodeThumbnailDownloadInfo downloadInfo
@@ -279,6 +288,7 @@ public class ImageNodeController {
     @PostMapping("/image-node/upload")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.upload_file")
     public FastJsonResponseData<Object> uploadFile(HttpServletRequest request) {
         try {
             // 确认请求合法。
@@ -324,6 +334,7 @@ public class ImageNodeController {
     @PostMapping("/image-node/upload-stream")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_node.upload_file_stream")
     public FastJsonResponseData<Object> uploadFileStream(HttpServletRequest request) {
         try {
             // 确认请求合法。

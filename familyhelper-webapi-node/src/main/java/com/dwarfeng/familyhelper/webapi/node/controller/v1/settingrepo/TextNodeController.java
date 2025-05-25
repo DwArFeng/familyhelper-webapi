@@ -15,6 +15,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -57,6 +58,7 @@ public class TextNodeController {
     @GetMapping("/text-node/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.text_node.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -70,6 +72,7 @@ public class TextNodeController {
     @GetMapping("/text-node/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.text_node.get")
     public FastJsonResponseData<FastJsonTextNode> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             TextNode textNode = service.get(new StringIdKey(id));
@@ -84,6 +87,7 @@ public class TextNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.text_node.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonTextNode>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -101,6 +105,7 @@ public class TextNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.text_node.inspect")
     public FastJsonResponseData<FastJsonTextNodeInspectResult> inspect(
             HttpServletRequest request,
             @RequestBody @Validated WebInputTextNodeInspectInfo webInputTextNodeInspectInfo,
@@ -121,6 +126,7 @@ public class TextNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.text_node.put")
     public FastJsonResponseData<Object> put(
             HttpServletRequest request,
             @RequestBody @Validated WebInputTextNodePutInfo webInputTextNodePutInfo,

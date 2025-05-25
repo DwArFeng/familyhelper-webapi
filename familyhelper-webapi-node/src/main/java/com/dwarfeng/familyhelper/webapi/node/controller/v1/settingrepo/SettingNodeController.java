@@ -16,6 +16,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -58,6 +59,7 @@ public class SettingNodeController {
     @GetMapping("/setting-node/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_node.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -71,6 +73,7 @@ public class SettingNodeController {
     @GetMapping("/setting-node/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_node.get")
     public FastJsonResponseData<FastJsonSettingNode> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             SettingNode settingNode = service.get(new StringIdKey(id));
@@ -85,6 +88,7 @@ public class SettingNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_node.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSettingNode>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -102,6 +106,7 @@ public class SettingNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_node.id_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSettingNode>> idLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -120,6 +125,7 @@ public class SettingNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_node.reachable")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSettingNode>> reachable(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -137,6 +143,7 @@ public class SettingNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_node.id_like_reachable")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSettingNode>> idLikeReachable(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -155,6 +162,7 @@ public class SettingNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_node.inspect")
     public FastJsonResponseData<FastJsonSettingNodeInspectResult> inspect(
             HttpServletRequest request,
             @RequestBody @Validated WebInputSettingNodeInspectInfo webInputSettingNodeInspectInfo,
@@ -175,6 +183,7 @@ public class SettingNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_node.init")
     public FastJsonResponseData<Object> init(
             HttpServletRequest request,
             @RequestBody @Validated WebInputSettingNodeInitInfo webInputSettingNodeInitInfo,
@@ -193,6 +202,7 @@ public class SettingNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_node.remove")
     public FastJsonResponseData<Object> remove(
             HttpServletRequest request,
             @RequestBody @Validated WebInputSettingNodeRemoveInfo webInputSettingNodeRemoveInfo,

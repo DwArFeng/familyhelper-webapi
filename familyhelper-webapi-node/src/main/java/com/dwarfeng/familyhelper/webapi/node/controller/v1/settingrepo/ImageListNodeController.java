@@ -17,6 +17,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -83,6 +84,7 @@ public class ImageListNodeController {
     @GetMapping("/image-list-node/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -96,6 +98,7 @@ public class ImageListNodeController {
     @GetMapping("/image-list-node/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.get")
     public FastJsonResponseData<FastJsonImageListNode> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             ImageListNode imageListNode = service.get(new StringIdKey(id));
@@ -110,6 +113,7 @@ public class ImageListNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonImageListNode>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -127,6 +131,7 @@ public class ImageListNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.size")
     public FastJsonResponseData<FastJsonImageListNodeSizeResult> size(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageListNodeSizeInfo webInputImageListNodeSizeInfo,
@@ -147,6 +152,7 @@ public class ImageListNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.inspect")
     public FastJsonResponseData<FastJsonImageListNodeInspectResult> inspect(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageListNodeInspectInfo webInputImageListNodeInspectInfo,
@@ -173,6 +179,7 @@ public class ImageListNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.download_file")
     public ResponseEntity<Object> legacyDownloadFile(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageListNodeFileDownloadInfo webInputImageListNodeFileDownloadInfo,
@@ -199,6 +206,7 @@ public class ImageListNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.download_file")
     public ResponseEntity<Object> downloadFile(
             HttpServletRequest request,
             @Base64RequestParam("download-info")
@@ -224,6 +232,7 @@ public class ImageListNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.request_file_stream_voucher")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> requestFileStreamVoucher(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageListNodeFileDownloadInfo downloadInfo,
@@ -274,6 +283,7 @@ public class ImageListNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.download_thumbnail")
     public ResponseEntity<Object> downloadThumbnail(
             HttpServletRequest request,
             @Base64RequestParam("download-info") WebInputImageListNodeThumbnailDownloadInfo downloadInfo
@@ -298,6 +308,7 @@ public class ImageListNodeController {
     @PostMapping("/image-list-node/upload")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.upload_file")
     public FastJsonResponseData<Object> uploadFile(HttpServletRequest request) {
         try {
             // 确认请求合法。
@@ -350,6 +361,7 @@ public class ImageListNodeController {
     @PostMapping("/image-list-node/upload-stream")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.upload_file_stream")
     public FastJsonResponseData<Object> uploadFileStream(HttpServletRequest request) {
         try {
             // 确认请求合法。
@@ -398,6 +410,7 @@ public class ImageListNodeController {
     @PostMapping("/image-list-node/update")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.update_file")
     public FastJsonResponseData<Object> updateFile(HttpServletRequest request) {
         try {
             // 确认请求合法。
@@ -450,6 +463,7 @@ public class ImageListNodeController {
     @PostMapping("/image-list-node/update-stream")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.update_file_stream")
     public FastJsonResponseData<Object> updateFileStream(HttpServletRequest request) {
         try {
             // 确认请求合法。
@@ -497,6 +511,7 @@ public class ImageListNodeController {
     @PostMapping("/image-list-node/change-order")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.change_order")
     public FastJsonResponseData<Object> changeOrder(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageListNodeChangeOrderInfo webInputImageListNodeChangeOrderInfo,
@@ -514,6 +529,7 @@ public class ImageListNodeController {
     @PostMapping("/image-list-node/remove")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.image_list_node.remove")
     public FastJsonResponseData<Object> remove(
             HttpServletRequest request,
             @RequestBody @Validated WebInputImageListNodeRemoveInfo webInputImageListNodeRemoveInfo,

@@ -10,6 +10,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -50,6 +51,7 @@ public class FormatterSupportController {
     @GetMapping("/formatter-support/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.formatter_support.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -63,6 +65,7 @@ public class FormatterSupportController {
     @GetMapping("/formatter-support/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.formatter_support.get")
     public FastJsonResponseData<FastJsonFormatterSupport> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             FormatterSupport formatterSupport = service.get(new StringIdKey(id));
@@ -77,6 +80,7 @@ public class FormatterSupportController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.formatter_support.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonFormatterSupport>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -94,6 +98,7 @@ public class FormatterSupportController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.formatter_support.id_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonFormatterSupport>> idLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows

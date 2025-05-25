@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -56,6 +57,7 @@ public class SettingCategoryController {
     @GetMapping("/setting-category/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -69,6 +71,7 @@ public class SettingCategoryController {
     @GetMapping("/setting-category/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.get")
     public FastJsonResponseData<FastJsonSettingCategory> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             SettingCategory settingCategory = service.get(new StringIdKey(id));
@@ -83,6 +86,7 @@ public class SettingCategoryController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.insert")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputSettingCategory webInputSettingCategory, BindingResult bindingResult
@@ -101,6 +105,7 @@ public class SettingCategoryController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputSettingCategory webInputSettingCategory, BindingResult bindingResult
@@ -117,6 +122,7 @@ public class SettingCategoryController {
     @DeleteMapping("/setting-category/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             service.delete(new StringIdKey(id));
@@ -131,6 +137,7 @@ public class SettingCategoryController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSettingCategory>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -148,6 +155,7 @@ public class SettingCategoryController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.id_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSettingCategory>> idLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
