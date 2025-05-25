@@ -5,6 +5,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ public class ResetController {
     @PostMapping("/reset-route")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.reset.reset_route")
     public FastJsonResponseData<Object> resetRoute(HttpServletRequest request) {
         try {
             service.resetRoute();
@@ -51,6 +53,7 @@ public class ResetController {
     @PostMapping("/reset-dispatch")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.reset.reset_dispatch")
     public FastJsonResponseData<Object> resetDispatch(HttpServletRequest request) {
         try {
             service.resetDispatch();
@@ -64,6 +67,7 @@ public class ResetController {
     @PostMapping("/reset-send")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.reset.reset_send")
     public FastJsonResponseData<Object> resetSend(HttpServletRequest request) {
         try {
             service.resetSend();

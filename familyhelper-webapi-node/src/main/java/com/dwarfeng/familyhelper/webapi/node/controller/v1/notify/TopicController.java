@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -55,6 +56,7 @@ public class TopicController {
     @GetMapping("/topic/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.topic.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -68,6 +70,7 @@ public class TopicController {
     @GetMapping("/topic/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.topic.get")
     public FastJsonResponseData<FastJsonTopic> get(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
@@ -86,6 +89,7 @@ public class TopicController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.topic.insert")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated WebInputTopic webInputTopic,
@@ -107,6 +111,7 @@ public class TopicController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.topic.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputTopic webInputTopic,
@@ -124,6 +129,7 @@ public class TopicController {
     @DeleteMapping("/topic/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.topic.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             service.delete(new StringIdKey(id));
@@ -138,6 +144,7 @@ public class TopicController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.topic.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonTopic>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
@@ -154,6 +161,7 @@ public class TopicController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.topic.label_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonTopic>> labelLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows

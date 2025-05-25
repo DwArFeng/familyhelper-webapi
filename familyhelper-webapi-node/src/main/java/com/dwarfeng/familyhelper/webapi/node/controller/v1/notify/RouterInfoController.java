@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -56,6 +57,7 @@ public class RouterInfoController {
     @GetMapping("/router-info/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_info.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") long id) {
         try {
             boolean exists = service.exists(new LongIdKey(id));
@@ -69,6 +71,7 @@ public class RouterInfoController {
     @GetMapping("/router-info/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_info.get")
     public FastJsonResponseData<JSFixedFastJsonRouterInfo> get(
             HttpServletRequest request, @PathVariable("id") long id
     ) {
@@ -87,6 +90,7 @@ public class RouterInfoController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_info.insert")
     public FastJsonResponseData<FastJsonLongIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputRouterInfo webInputRouterInfo,
@@ -106,6 +110,7 @@ public class RouterInfoController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_info.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputRouterInfo webInputRouterInfo,
@@ -123,6 +128,7 @@ public class RouterInfoController {
     @DeleteMapping("/router-info/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_info.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") long id) {
         try {
             service.delete(new LongIdKey(id));
@@ -137,6 +143,7 @@ public class RouterInfoController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_info.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonRouterInfo>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -154,6 +161,7 @@ public class RouterInfoController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_info.type_equals")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonRouterInfo>> typeEquals(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows

@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -55,6 +56,7 @@ public class NotifySettingController {
     @GetMapping("/notify-setting/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_setting.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             boolean exists = service.exists(new LongIdKey(id));
@@ -68,6 +70,7 @@ public class NotifySettingController {
     @GetMapping("/notify-setting/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_setting.get")
     public FastJsonResponseData<JSFixedFastJsonNotifySetting> get(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -86,6 +89,7 @@ public class NotifySettingController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_setting.insert")
     public FastJsonResponseData<FastJsonLongIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated WebInputNotifySetting webInputNotifySetting,
@@ -107,6 +111,7 @@ public class NotifySettingController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_setting.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputNotifySetting webInputNotifySetting,
@@ -124,6 +129,7 @@ public class NotifySettingController {
     @DeleteMapping("/notify-setting/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_setting.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             service.delete(new LongIdKey(id));
@@ -138,6 +144,7 @@ public class NotifySettingController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_setting.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNotifySetting>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
@@ -154,6 +161,7 @@ public class NotifySettingController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_setting.label_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNotifySetting>> labelLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows

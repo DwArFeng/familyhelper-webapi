@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -56,6 +57,7 @@ public class DispatcherInfoController {
     @GetMapping("/dispatcher-info/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -69,6 +71,7 @@ public class DispatcherInfoController {
     @GetMapping("/dispatcher-info/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.get")
     public FastJsonResponseData<FastJsonDispatcherInfo> get(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
@@ -87,6 +90,7 @@ public class DispatcherInfoController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.insert")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputDispatcherInfo webInputDispatcherInfo,
@@ -106,6 +110,7 @@ public class DispatcherInfoController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputDispatcherInfo webInputDispatcherInfo,
@@ -123,6 +128,7 @@ public class DispatcherInfoController {
     @DeleteMapping("/dispatcher-info/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             service.delete(new StringIdKey(id));
@@ -137,6 +143,7 @@ public class DispatcherInfoController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispatcherInfo>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -154,6 +161,7 @@ public class DispatcherInfoController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.type_equals")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispatcherInfo>> typeEquals(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows

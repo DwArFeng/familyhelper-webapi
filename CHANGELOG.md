@@ -5,6 +5,20 @@
 #### 功能构建
 
 - 部分 Controller 增加 `@PermissionRequired` 注解。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.DispatcherInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.DispatcherSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.MetaController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.MetaIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifyHistoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifyInfoRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifySendRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifySettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.ResetController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.RouterInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.RouterSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.TopicController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.FormatterSupportController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageListNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageNodeController。

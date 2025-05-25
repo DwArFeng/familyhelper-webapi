@@ -14,6 +14,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -56,6 +57,7 @@ public class SenderInfoController {
     @GetMapping("/sender-info/{notifySettingId}&{topicId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_info.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request,
             @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId
@@ -72,6 +74,7 @@ public class SenderInfoController {
     @GetMapping("/sender-info/{notifySettingId}&{topicId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_info.get")
     public FastJsonResponseData<JSFixedFastJsonSenderInfo> get(
             HttpServletRequest request,
             @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId
@@ -91,6 +94,7 @@ public class SenderInfoController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_info.insert")
     public FastJsonResponseData<FastJsonSenderInfoKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputSenderInfo webInputSenderInfo,
@@ -112,6 +116,7 @@ public class SenderInfoController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_info.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputSenderInfo webInputSenderInfo,
@@ -129,6 +134,7 @@ public class SenderInfoController {
     @DeleteMapping("/sender-info/{notifySettingId}&{topicId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_info.delete")
     public FastJsonResponseData<Object> delete(
             HttpServletRequest request,
             @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId
@@ -146,6 +152,7 @@ public class SenderInfoController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_info.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonSenderInfo>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -163,6 +170,7 @@ public class SenderInfoController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_info.type_equals")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonSenderInfo>> typeEquals(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows

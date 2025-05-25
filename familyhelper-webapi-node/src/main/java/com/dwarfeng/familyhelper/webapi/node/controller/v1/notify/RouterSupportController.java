@@ -10,6 +10,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -50,6 +51,7 @@ public class RouterSupportController {
     @GetMapping("/router-support/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_support.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -63,6 +65,7 @@ public class RouterSupportController {
     @GetMapping("/router-support/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_support.get")
     public FastJsonResponseData<FastJsonRouterSupport> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             RouterSupport routerSupport = service.get(new StringIdKey(id));
@@ -77,6 +80,7 @@ public class RouterSupportController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_support.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonRouterSupport>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -94,6 +98,7 @@ public class RouterSupportController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.router_support.id_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonRouterSupport>> idLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows

@@ -10,6 +10,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -50,6 +51,7 @@ public class SenderSupportController {
     @GetMapping("/sender-support/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_support.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -63,6 +65,7 @@ public class SenderSupportController {
     @GetMapping("/sender-support/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_support.get")
     public FastJsonResponseData<FastJsonSenderSupport> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             SenderSupport senderSupport = service.get(new StringIdKey(id));
@@ -77,6 +80,7 @@ public class SenderSupportController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_support.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSenderSupport>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -94,6 +98,7 @@ public class SenderSupportController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.sender_support.id_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonSenderSupport>> idLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows

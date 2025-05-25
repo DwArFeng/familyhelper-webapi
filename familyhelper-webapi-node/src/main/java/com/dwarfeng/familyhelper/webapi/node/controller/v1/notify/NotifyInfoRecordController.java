@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -57,6 +58,7 @@ public class NotifyInfoRecordController {
     @GetMapping("/notify-info-record/{notifyHistoryId}&{type}&{recordId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_info_record.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request,
             @PathVariable("notifyHistoryId") long notifyHistoryId, @PathVariable("type") int type,
@@ -74,6 +76,7 @@ public class NotifyInfoRecordController {
     @GetMapping("/notify-info-record/{notifyHistoryId}&{type}&{recordId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_info_record.get")
     public FastJsonResponseData<JSFixedFastJsonNotifyInfoRecord> get(
             HttpServletRequest request,
             @PathVariable("notifyHistoryId") long notifyHistoryId, @PathVariable("type") int type,
@@ -93,6 +96,7 @@ public class NotifyInfoRecordController {
     @DeleteMapping("/notify-info-record/{notifyHistoryId}&{type}&{recordId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_info_record.delete")
     public FastJsonResponseData<Object> delete(
             HttpServletRequest request,
             @PathVariable("notifyHistoryId") long notifyHistoryId, @PathVariable("type") int type,
@@ -113,6 +117,7 @@ public class NotifyInfoRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_info_record.child_for_notify_history")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonNotifyInfoRecord>> childForNotifyHistory(
             HttpServletRequest request,
             @PathVariable(required = false, value = "notifyHistoryId") Long notifySettingId,
@@ -139,6 +144,7 @@ public class NotifyInfoRecordController {
     @GetMapping("/notify-info-record/{notifyHistoryId}&{type}&{recordId}/disp")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_info_record.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispNotifyInfoRecord> getDisp(
             HttpServletRequest request,
             @PathVariable("notifyHistoryId") long notifyHistoryId, @PathVariable("type") int type,
@@ -164,6 +170,7 @@ public class NotifyInfoRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.notify_info_record.child_for_notify_history_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispNotifyInfoRecord>>
     childForNotifyHistoryDisp(
             HttpServletRequest request,

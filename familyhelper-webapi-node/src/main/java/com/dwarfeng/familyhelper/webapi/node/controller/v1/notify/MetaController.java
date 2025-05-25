@@ -16,6 +16,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -63,6 +64,7 @@ public class MetaController {
     @GetMapping("/meta/{notifySettingId}&{topicId}&{userId}&{metaId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request,
             @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId,
@@ -80,6 +82,7 @@ public class MetaController {
     @GetMapping("/meta/{notifySettingId}&{topicId}&{userId}&{metaId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.get")
     public FastJsonResponseData<JSFixedFastJsonMeta> get(
             HttpServletRequest request,
             @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId,
@@ -100,6 +103,7 @@ public class MetaController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.insert")
     public FastJsonResponseData<JSFixedFastJsonMetaKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputMeta webInputMeta,
@@ -121,6 +125,7 @@ public class MetaController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputMeta webInputMeta,
@@ -138,6 +143,7 @@ public class MetaController {
     @DeleteMapping("/meta/{notifySettingId}&{topicId}&{userId}&{metaId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.delete")
     public FastJsonResponseData<Object> delete(
             HttpServletRequest request,
             @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId,
@@ -156,6 +162,7 @@ public class MetaController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMeta>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -173,6 +180,7 @@ public class MetaController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.child_for_notify_setting_topic_user")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonMeta>>
     childForNotifySettingTopicUser(
             HttpServletRequest request,
@@ -196,6 +204,7 @@ public class MetaController {
     @GetMapping("/meta/{notifySettingId}&{topicId}&{userId}&{metaId}/disp")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispMeta> getDisp(
             HttpServletRequest request,
             @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId,
@@ -218,6 +227,7 @@ public class MetaController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.all_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispMeta>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -235,6 +245,7 @@ public class MetaController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta.child_for_notify_setting_topic_user_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispMeta>>
     childForNotifySettingTopicUserDisp(
             HttpServletRequest request,

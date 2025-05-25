@@ -14,6 +14,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -60,6 +61,7 @@ public class MetaIndicatorController {
     @GetMapping("/meta-indicator/{topicId}&{metaId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta_indicator.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request,
             @PathVariable("topicId") String topicId, @PathVariable("metaId") String metaId
@@ -76,6 +78,7 @@ public class MetaIndicatorController {
     @GetMapping("/meta-indicator/{topicId}&{metaId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta_indicator.get")
     public FastJsonResponseData<FastJsonMetaIndicator> get(
             HttpServletRequest request,
             @PathVariable("topicId") String topicId, @PathVariable("metaId") String metaId
@@ -95,6 +98,7 @@ public class MetaIndicatorController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta_indicator.insert")
     public FastJsonResponseData<FastJsonMetaIndicatorKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputMetaIndicator webInputMetaIndicator,
@@ -116,6 +120,7 @@ public class MetaIndicatorController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta_indicator.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputMetaIndicator webInputMetaIndicator,
@@ -133,6 +138,7 @@ public class MetaIndicatorController {
     @DeleteMapping("/meta-indicator/{topicId}&{metaId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta_indicator.delete")
     public FastJsonResponseData<Object> delete(
             HttpServletRequest request,
             @PathVariable("topicId") String topicId, @PathVariable("metaId") String metaId
@@ -150,6 +156,7 @@ public class MetaIndicatorController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta_indicator.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonMetaIndicator>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -167,6 +174,7 @@ public class MetaIndicatorController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta_indicator.child_for_topic")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonMetaIndicator>> childForTopic(
             HttpServletRequest request,
             @PathVariable("topicId") String topicId,
@@ -188,6 +196,7 @@ public class MetaIndicatorController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.notify.meta_indicator.meta_missing")
     public FastJsonResponseData<List<FastJsonMetaIndicator>> metaMissing(
             HttpServletRequest request,
             @RequestParam("notify-setting-id") long notifySettingId, @RequestParam("topic-id") String topicId,
