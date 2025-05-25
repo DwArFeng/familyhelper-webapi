@@ -261,6 +261,7 @@ public class AccountController {
     @PostMapping("/account/register")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> register(
             HttpServletRequest request,
             @RequestBody @Validated WebInputAccountRegisterInfo accountRegisterInfo, BindingResult bindingResult) {

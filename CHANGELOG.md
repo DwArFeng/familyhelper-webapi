@@ -29,6 +29,11 @@
 
 #### Bug修复
 
+- 补全部分 Controller 中缺失的 `@LoginRequired` 注解。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.DeriveController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionGroupController。
+
 - 修正 `node` 模块中错误的 dubbo 应用名称。
 
 #### 功能移除

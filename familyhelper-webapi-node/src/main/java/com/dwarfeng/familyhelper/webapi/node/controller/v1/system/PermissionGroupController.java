@@ -311,6 +311,7 @@ public class PermissionGroupController {
     @GetMapping("/permission-group/{id}/path-from-root")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermissionGroup>> pathFromRoot(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
@@ -329,6 +330,7 @@ public class PermissionGroupController {
     @GetMapping("/permission-group/{id}/path-from-root/disp")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispPermissionGroup>> pathFromRootDisp(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
