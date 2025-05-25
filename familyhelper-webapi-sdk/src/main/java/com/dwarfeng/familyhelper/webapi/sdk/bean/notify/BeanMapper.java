@@ -8,8 +8,6 @@ import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispMeta;
 import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispNotifyHistory;
 import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispNotifyInfoRecord;
 import com.dwarfeng.familyhelper.webapi.stack.bean.notify.disp.DispNotifySendRecord;
-import com.dwarfeng.notify.sdk.bean.entity.*;
-import com.dwarfeng.notify.stack.bean.entity.*;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
@@ -25,102 +23,24 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BeanMapper {
 
-    JSFixedFastJsonNotifySetting notifySettingToJsFixedFastJson(NotifySetting notifySetting);
+    // -----------------------------------------------------------Familyhelper-webapi Disp-----------------------------------------------------------
+    JSFixedFastJsonDispMeta dispMetaToJSFixedFastJson(DispMeta dispMeta);
 
     @InheritInverseConfiguration
-    NotifySetting notifySettingFromJsFixedFastJson(JSFixedFastJsonNotifySetting jsFixedFastJsonNotifySetting);
+    DispMeta dispMetaFromJSFixedFastJson(JSFixedFastJsonDispMeta jSFixedFastJsonDispMeta);
 
-    FastJsonTopic topicToFastJson(Topic topic);
-
-    @InheritInverseConfiguration
-    Topic topicFromFastJson(FastJsonTopic fastJsonTopic);
-
-    JSFixedFastJsonRouterInfo routerInfoToJsFixedFastJson(RouterInfo routerInfo);
+    JSFixedFastJsonDispNotifyHistory dispNotifyHistoryToJSFixedFastJson(DispNotifyHistory dispNotifyHistory);
 
     @InheritInverseConfiguration
-    RouterInfo routerInfoFromJsFixedFastJson(JSFixedFastJsonRouterInfo jsFixedFastJsonRouterInfo);
+    DispNotifyHistory dispNotifyHistoryFromJSFixedFastJson(JSFixedFastJsonDispNotifyHistory jSFixedFastJsonDispNotifyHistory);
 
-    FastJsonRouterSupport routerSupportToFastJson(RouterSupport routerSupport);
-
-    @InheritInverseConfiguration
-    RouterSupport routerSupportFromFastJson(FastJsonRouterSupport fastJsonRouterSupport);
-
-    FastJsonDispatcherInfo dispatcherInfoToFastJson(DispatcherInfo dispatcherInfo);
+    JSFixedFastJsonDispNotifyInfoRecord dispNotifyInfoRecordToJSFixedFastJson(DispNotifyInfoRecord dispNotifyInfoRecord);
 
     @InheritInverseConfiguration
-    DispatcherInfo dispatcherInfoFromFastJson(FastJsonDispatcherInfo fastJsonDispatcherInfo);
+    DispNotifyInfoRecord dispNotifyInfoRecordFromJSFixedFastJson(JSFixedFastJsonDispNotifyInfoRecord jSFixedFastJsonDispNotifyInfoRecord);
 
-    FastJsonDispatcherSupport dispatcherSupportToFastJson(DispatcherSupport dispatcherSupport);
-
-    @InheritInverseConfiguration
-    DispatcherSupport dispatcherSupportFromFastJson(FastJsonDispatcherSupport fastJsonDispatcherSupport);
-
-    JSFixedFastJsonSenderInfo senderInfoToJsFixedFastJson(SenderInfo senderInfo);
+    JSFixedFastJsonDispNotifySendRecord dispNotifySendRecordToJSFixedFastJson(DispNotifySendRecord dispNotifySendRecord);
 
     @InheritInverseConfiguration
-    SenderInfo senderInfoFromJsFixedFastJson(JSFixedFastJsonSenderInfo jsFixedFastJsonSenderInfo);
-
-    FastJsonSenderSupport senderSupportToFastJson(SenderSupport senderSupport);
-
-    @InheritInverseConfiguration
-    SenderSupport senderSupportFromFastJson(FastJsonSenderSupport fastJsonSenderSupport);
-
-    JSFixedFastJsonMeta metaToJsFixedFastJson(Meta meta);
-
-    @InheritInverseConfiguration
-    Meta metaFromJsFixedFastJson(JSFixedFastJsonMeta jsFixedFastJsonMeta);
-
-    JSFixedFastJsonDispMeta dispMetaToJsFixedFastJson(DispMeta dispMeta);
-
-    @InheritInverseConfiguration
-    DispMeta dispMetaFromJsFixedFastJson(JSFixedFastJsonDispMeta jsFixedFastJsonDispMeta);
-
-    FastJsonMetaIndicator metaIndicatorToFastJson(MetaIndicator metaIndicator);
-
-    @InheritInverseConfiguration
-    MetaIndicator metaIndicatorFromFastJson(FastJsonMetaIndicator fastJsonMetaIndicator);
-
-    JSFixedFastJsonNotifyHistory notifyHistoryToJsFixedFastJson(NotifyHistory notifyHistory);
-
-    @InheritInverseConfiguration
-    NotifyHistory notifyHistoryFromJsFixedFastJson(JSFixedFastJsonNotifyHistory jsFixedFastJsonNotifyHistory);
-
-    JSFixedFastJsonDispNotifyHistory dispNotifyHistoryToJsFixedFastJson(DispNotifyHistory dispNotifyHistory);
-
-    @InheritInverseConfiguration
-    DispNotifyHistory dispNotifyHistoryFromJsFixedFastJson(
-            JSFixedFastJsonDispNotifyHistory jsFixedFastJsonDispNotifyHistory
-    );
-
-    JSFixedFastJsonNotifyInfoRecord notifyInfoRecordToJsFixedFastJson(NotifyInfoRecord notifyInfoRecord);
-
-    @InheritInverseConfiguration
-    NotifyInfoRecord notifyInfoRecordFromJsFixedFastJson(
-            JSFixedFastJsonNotifyInfoRecord jsFixedFastJsonNotifyInfoRecord
-    );
-
-    JSFixedFastJsonDispNotifyInfoRecord dispNotifyInfoRecordToJsFixedFastJson(
-            DispNotifyInfoRecord dispNotifyInfoRecord
-    );
-
-    @InheritInverseConfiguration
-    DispNotifyInfoRecord dispNotifyInfoRecordFromJsFixedFastJson(
-            JSFixedFastJsonDispNotifyInfoRecord jsFixedFastJsonDispNotifyInfoRecord
-    );
-
-    JSFixedFastJsonNotifySendRecord notifySendRecordToJsFixedFastJson(NotifySendRecord notifySendRecord);
-
-    @InheritInverseConfiguration
-    NotifySendRecord notifySendRecordFromJsFixedFastJson(
-            JSFixedFastJsonNotifySendRecord jsFixedFastJsonNotifySendRecord
-    );
-
-    JSFixedFastJsonDispNotifySendRecord dispNotifySendRecordToJsFixedFastJson(
-            DispNotifySendRecord dispNotifySendRecord
-    );
-
-    @InheritInverseConfiguration
-    DispNotifySendRecord dispNotifySendRecordFromJsFixedFastJson(
-            JSFixedFastJsonDispNotifySendRecord jsFixedFastJsonDispNotifySendRecord
-    );
+    DispNotifySendRecord dispNotifySendRecordFromJSFixedFastJson(JSFixedFastJsonDispNotifySendRecord jSFixedFastJsonDispNotifySendRecord);
 }

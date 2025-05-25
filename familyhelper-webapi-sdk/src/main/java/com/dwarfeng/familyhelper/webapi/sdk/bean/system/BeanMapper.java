@@ -1,21 +1,16 @@
 package com.dwarfeng.familyhelper.webapi.sdk.bean.system;
 
-import com.dwarfeng.acckeeper.sdk.bean.entity.*;
-import com.dwarfeng.acckeeper.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispAccount;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispPermissionGroup;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.system.dto.JSFixedFastJsonDeriveResponse;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.system.dto.JSFixedFastJsonLoginResponse;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.vo.FastJsonAccount;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.system.vo.WebInputAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispPermissionGroup;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.DeriveResponse;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.LoginResponse;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.vo.Account;
-import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonPermission;
-import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonPermissionGroup;
-import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonRole;
-import com.dwarfeng.rbacds.sdk.bean.entity.JSFixedFastJsonPexp;
-import com.dwarfeng.rbacds.stack.bean.entity.Permission;
-import com.dwarfeng.rbacds.stack.bean.entity.PermissionGroup;
-import com.dwarfeng.rbacds.stack.bean.entity.Pexp;
-import com.dwarfeng.rbacds.stack.bean.entity.Role;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
@@ -31,67 +26,36 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BeanMapper {
 
-    FastJsonAccount accountToFastJson(Account account);
-
-    @InheritInverseConfiguration
-    Account accountFromFastJson(FastJsonAccount fastJsonAccount);
-
+    // -----------------------------------------------------------Familyhelper-webapi Disp-----------------------------------------------------------
     FastJsonDispAccount dispAccountToFastJson(DispAccount dispAccount);
 
     @InheritInverseConfiguration
     DispAccount dispAccountFromFastJson(FastJsonDispAccount fastJsonDispAccount);
-
-    FastJsonPermission permissionToFastJson(Permission permission);
-
-    @InheritInverseConfiguration
-    Permission permissionFromFastJson(FastJsonPermission fastJsonPermission);
-
-    FastJsonRole roleToFastJson(Role role);
-
-    @InheritInverseConfiguration
-    Role roleFromFastJson(FastJsonRole fastJsonRole);
-
-    JSFixedFastJsonPexp pexpToJsFixedFastJson(Pexp pexp);
-
-    @InheritInverseConfiguration
-    Pexp pexpFromJsFixedFastJson(JSFixedFastJsonPexp jsFixedFastJsonPexp);
-
-    FastJsonPermissionGroup permissionGroupToFastJson(PermissionGroup permissionGroup);
-
-    @InheritInverseConfiguration
-    PermissionGroup permissionGroupFromFastJson(FastJsonPermissionGroup fastJsonPermissionGroup);
 
     FastJsonDispPermissionGroup dispPermissionGroupToFastJson(DispPermissionGroup dispPermissionGroup);
 
     @InheritInverseConfiguration
     DispPermissionGroup dispPermissionGroupFromFastJson(FastJsonDispPermissionGroup fastJsonDispPermissionGroup);
 
-    JSFixedFastJsonLoginState loginStateToJsFixedFastJson(LoginState loginState);
+    // -----------------------------------------------------------Familyhelper-webapi DTO-----------------------------------------------------------
+    JSFixedFastJsonDeriveResponse deriveResponseToJSFixedFastJson(DeriveResponse deriveResponse);
 
     @InheritInverseConfiguration
-    LoginState loginStateFromJsFixedFastJson(JSFixedFastJsonLoginState jsFixedFastJsonLoginState);
+    DeriveResponse deriveResponseFromJSFixedFastJson(JSFixedFastJsonDeriveResponse jSFixedFastJsonDeriveResponse);
 
-    JSFixedFastJsonLoginHistory loginHistoryToJsFixedFastJson(LoginHistory loginHistory);
-
-    @InheritInverseConfiguration
-    LoginHistory loginHistoryFromJsFixedFastJson(JSFixedFastJsonLoginHistory jsFixedFastJsonLoginHistory);
-
-    JSFixedFastJsonLoginParamRecord loginParamRecordToJsFixedFastJson(LoginParamRecord loginParamRecord);
+    JSFixedFastJsonLoginResponse loginResponseToJSFixedFastJson(LoginResponse loginResponse);
 
     @InheritInverseConfiguration
-    LoginParamRecord loginParamRecordFromJsFixedFastJson(
-            JSFixedFastJsonLoginParamRecord jsFixedFastJsonLoginParamRecord
-    );
+    LoginResponse loginResponseFromJSFixedFastJson(JSFixedFastJsonLoginResponse jSFixedFastJsonLoginResponse);
 
-    JSFixedFastJsonProtectDetailRecord protectDetailRecordToJsFixedFastJson(ProtectDetailRecord protectDetailRecord);
-
-    @InheritInverseConfiguration
-    ProtectDetailRecord protectDetailRecordFromJsFixedFastJson(
-            JSFixedFastJsonProtectDetailRecord jsFixedFastJsonProtectDetailRecord
-    );
-
-    JSFixedFastJsonDeriveHistory deriveHistoryToJsFixedFastJson(DeriveHistory deriveHistory);
+    // -----------------------------------------------------------Familyhelper-webapi VO-----------------------------------------------------------
+    FastJsonAccount accountToFastJson(Account account);
 
     @InheritInverseConfiguration
-    DeriveHistory deriveHistoryFromJsFixedFastJson(JSFixedFastJsonDeriveHistory jsFixedFastJsonDeriveHistory);
+    Account accountFromFastJson(FastJsonAccount fastJsonAccount);
+
+    WebInputAccount accountToWebInput(Account account);
+
+    @InheritInverseConfiguration
+    Account accountFromWebInput(WebInputAccount webInputAccount);
 }
