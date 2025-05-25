@@ -9,6 +9,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -53,6 +54,7 @@ public class LoginStateController {
     @GetMapping("/login-state/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_state.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -68,6 +70,7 @@ public class LoginStateController {
     @GetMapping("/login-state/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_state.get")
     public FastJsonResponseData<JSFixedFastJsonLoginState> get(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -83,6 +86,7 @@ public class LoginStateController {
     @GetMapping("/login-state/all")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_state.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonLoginState>> all(
             HttpServletRequest request,
             @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -104,6 +108,7 @@ public class LoginStateController {
     })
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_state.child_for_account")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonLoginState>> childForAccount(
             HttpServletRequest request,
             @PathVariable(required = false, value = "accountId") String accountId,
@@ -132,6 +137,7 @@ public class LoginStateController {
     })
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_state.child_for_account_type_equals_dynamic")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonLoginState>> childForAccountTypeEqualsDynamic(
             HttpServletRequest request,
             @PathVariable(required = false, value = "accountId") String accountId,
@@ -160,6 +166,7 @@ public class LoginStateController {
     })
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_state.child_for_account_type_equals_static")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonLoginState>> childForAccountTypeEqualsStatic(
             HttpServletRequest request,
             @PathVariable(required = false, value = "accountId") String accountId,

@@ -14,6 +14,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -57,6 +58,7 @@ public class RoleController {
     @GetMapping("/role/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.role.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -70,6 +72,7 @@ public class RoleController {
     @GetMapping("/role/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.role.get")
     public FastJsonResponseData<FastJsonRole> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             Role role = service.get(new StringIdKey(id));
@@ -84,6 +87,7 @@ public class RoleController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.role.insert")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputRole webInputRole, BindingResult bindingResult
@@ -102,6 +106,7 @@ public class RoleController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.role.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputRole webInputRole, BindingResult bindingResult
@@ -118,6 +123,7 @@ public class RoleController {
     @DeleteMapping("/role/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.role.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             service.delete(new StringIdKey(id));
@@ -131,6 +137,7 @@ public class RoleController {
     @PostMapping("/role/{roleId}/account")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.role.add_account_relation")
     public FastJsonResponseData<Object> addAccountRelation(
             HttpServletRequest request, @PathVariable("roleId") String roleId,
             @RequestBody @Validated(Insert.class) WebInputStringIdKey accountKey, BindingResult bindingResult
@@ -147,6 +154,7 @@ public class RoleController {
     @DeleteMapping("/role/{roleId}/account/{accountId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.role.delete_account_relation")
     public FastJsonResponseData<Object> deleteAccountRelation(
             HttpServletRequest request,
             @PathVariable("roleId") String roleId, @PathVariable("accountId") String accountId
@@ -164,6 +172,7 @@ public class RoleController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.role.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonRole>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -181,6 +190,7 @@ public class RoleController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.role.child_for_account")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonRole>> childForAccount(
             HttpServletRequest request,
             @PathVariable("accountId") String accountId, @RequestParam("page") int page, @RequestParam("rows") int rows

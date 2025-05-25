@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -58,6 +59,7 @@ public class PexpController {
     @GetMapping("/pexp/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.pexp.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") long id) {
         try {
             boolean exists = service.exists(new LongIdKey(id));
@@ -71,6 +73,7 @@ public class PexpController {
     @GetMapping("/pexp/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.pexp.get")
     public FastJsonResponseData<JSFixedFastJsonPexp> get(HttpServletRequest request, @PathVariable("id") long id) {
         try {
             Pexp pexp = service.get(new LongIdKey(id));
@@ -85,6 +88,7 @@ public class PexpController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.pexp.insert")
     public FastJsonResponseData<FastJsonLongIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputPexp webInputPexp, BindingResult bindingResult) {
@@ -102,6 +106,7 @@ public class PexpController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.pexp.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPexp webInputPexp, BindingResult bindingResult
@@ -118,6 +123,7 @@ public class PexpController {
     @DeleteMapping("/pexp/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.pexp.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") long id) {
         try {
             service.delete(new LongIdKey(id));
@@ -132,6 +138,7 @@ public class PexpController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.pexp.child_for_role")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPexp>> childForRole(
             HttpServletRequest request,
             @PathVariable("roleId") String roleId, @RequestParam("page") int page, @RequestParam("rows") int rows

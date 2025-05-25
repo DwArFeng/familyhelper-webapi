@@ -9,6 +9,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -51,6 +52,7 @@ public class LoginHistoryController {
     @GetMapping("/login-history/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_history.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -66,6 +68,7 @@ public class LoginHistoryController {
     @GetMapping("/login-history/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_history.get")
     public FastJsonResponseData<JSFixedFastJsonLoginHistory> get(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -81,6 +84,7 @@ public class LoginHistoryController {
     @GetMapping("/login-history/all")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_history.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonLoginHistory>> all(
             HttpServletRequest request,
             @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -100,6 +104,7 @@ public class LoginHistoryController {
     @GetMapping("/login-history/account-id-equals")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login_history.account_id_equals")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonLoginHistory>> accountIdEquals(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern,

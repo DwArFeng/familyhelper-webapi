@@ -20,6 +20,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -72,6 +73,7 @@ public class AccountController {
     @GetMapping("/account/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = accountResponseService.exists(new StringIdKey(id));
@@ -85,6 +87,7 @@ public class AccountController {
     @GetMapping("/account/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.get")
     public FastJsonResponseData<FastJsonAccount> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             Account account = accountResponseService.get(new StringIdKey(id));
@@ -98,6 +101,7 @@ public class AccountController {
     @PostMapping("/account/{accountId}/role/{roleId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.add_role_relation")
     public FastJsonResponseData<Object> addRoleRelation(
             HttpServletRequest request,
             @PathVariable("accountId") String accountId, @PathVariable("roleId") String roleId
@@ -114,6 +118,7 @@ public class AccountController {
     @DeleteMapping("/account/{accountId}/role/{roleId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.delete_role_relation")
     public FastJsonResponseData<Object> deleteRoleRelation(
             HttpServletRequest request,
             @PathVariable("accountId") String accountId, @PathVariable("roleId") String roleId
@@ -131,6 +136,7 @@ public class AccountController {
     @BehaviorAnalyse
     @LoginRequired
     @BindingCheck
+    @PermissionRequired("webapi.controller_permitted.system.account.reset_role_relation")
     public FastJsonResponseData<Object> resetRoleRelation(
             HttpServletRequest request,
             @PathVariable("accountId") String accountId,
@@ -152,6 +158,7 @@ public class AccountController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAccount>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -169,6 +176,7 @@ public class AccountController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.child_for_role")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAccount>> childForRole(
             HttpServletRequest request,
             @PathVariable("roleId") String roleId, @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -189,6 +197,7 @@ public class AccountController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.child_for_profile_guest")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAccount>> childForProfileGuest(
             HttpServletRequest request,
             @PathVariable("profileId") String profileId, @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -209,6 +218,7 @@ public class AccountController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.id_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAccount>> idLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
@@ -225,6 +235,7 @@ public class AccountController {
     @GetMapping("/account/{id}/disp")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.get_disp")
     public FastJsonResponseData<FastJsonDispAccount> getDisp(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
@@ -242,6 +253,7 @@ public class AccountController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.id_like_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispAccount>> idLikeDisp(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
@@ -262,6 +274,7 @@ public class AccountController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.register")
     public FastJsonResponseData<Object> register(
             HttpServletRequest request,
             @RequestBody @Validated WebInputAccountRegisterInfo accountRegisterInfo, BindingResult bindingResult) {
@@ -278,6 +291,7 @@ public class AccountController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputAccountUpdateInfo accountUpdateInfo, BindingResult bindingResult) {
@@ -293,6 +307,7 @@ public class AccountController {
     @PostMapping("/account/remove")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.remove")
     public FastJsonResponseData<Object> remove(
             HttpServletRequest request,
             @RequestBody @Validated WebInputStringIdKey accountKey, BindingResult bindingResult) {
@@ -309,6 +324,7 @@ public class AccountController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.update_password")
     public FastJsonResponseData<Object> updatePassword(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPasswordUpdateInfo passwordUpdateInfo, BindingResult bindingResult) {
@@ -325,6 +341,7 @@ public class AccountController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.reset_password")
     public FastJsonResponseData<Object> resetPassword(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPasswordResetInfo passwordResetInfo, BindingResult bindingResult
@@ -341,6 +358,7 @@ public class AccountController {
     @PostMapping("/account/invalid")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.account.invalid")
     public FastJsonResponseData<Object> invalid(
             HttpServletRequest request,
             @RequestBody @Validated WebInputStringIdKey accountKey, BindingResult bindingResult) {

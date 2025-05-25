@@ -9,6 +9,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -51,6 +52,7 @@ public class DeriveHistoryController {
     @GetMapping("/derive-history/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.derive_history.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -66,6 +68,7 @@ public class DeriveHistoryController {
     @GetMapping("/derive-history/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.derive_history.get")
     public FastJsonResponseData<JSFixedFastJsonDeriveHistory> get(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -81,6 +84,7 @@ public class DeriveHistoryController {
     @GetMapping("/derive-history/all")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.derive_history.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDeriveHistory>> all(
             HttpServletRequest request,
             @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -100,6 +104,7 @@ public class DeriveHistoryController {
     @GetMapping("/derive-history/account-id-equals")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.derive_history.account_id_equals")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDeriveHistory>> accountIdEquals(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern,

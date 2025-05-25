@@ -14,6 +14,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -60,6 +61,7 @@ public class PermissionController {
     @GetMapping("/permission/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -73,6 +75,7 @@ public class PermissionController {
     @GetMapping("/permission/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission.get")
     public FastJsonResponseData<FastJsonPermission> get(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             Permission permission = service.get(new StringIdKey(id));
@@ -87,6 +90,7 @@ public class PermissionController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission.insert")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputPermission webInputPermission, BindingResult bindingResult) {
@@ -104,6 +108,7 @@ public class PermissionController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPermission webInputPermission, BindingResult bindingResult) {
@@ -119,6 +124,7 @@ public class PermissionController {
     @DeleteMapping("/permission/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             service.delete(new StringIdKey(id));
@@ -133,6 +139,7 @@ public class PermissionController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermission>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
@@ -149,6 +156,7 @@ public class PermissionController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission.id_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermission>> idLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -169,6 +177,7 @@ public class PermissionController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission.child_for_group")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermission>> childForGroup(
             HttpServletRequest request,
             @PathVariable(required = false, value = "permissionGroupId") String permissionGroupId,
@@ -194,6 +203,7 @@ public class PermissionController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission.lookup_for_user")
     public FastJsonResponseData<List<FastJsonPermission>> lookupForUser(
             HttpServletRequest request,
             @RequestBody @Validated WebInputStringIdKey userKey, BindingResult bindingResult

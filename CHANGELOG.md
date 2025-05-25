@@ -4,6 +4,20 @@
 
 #### 功能构建
 
+- 部分 Controller 增加 `@PermissionRequired` 注解。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.DeriveController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.DeriveHistoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginHistoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginParamRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginStateController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionGroupController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PexpController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.ProtectDetailRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.RoleController。
+
 - 引入后端权限校验机制。
   - 增加 `application-context-scan.xml` 配置项，引入基于 `rbac` 的权限处理器实现。
   - 增加 `PermissionAopConfiguration` 配置文件。

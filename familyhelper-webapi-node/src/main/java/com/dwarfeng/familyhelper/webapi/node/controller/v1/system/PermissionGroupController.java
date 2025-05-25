@@ -15,6 +15,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -62,6 +63,7 @@ public class PermissionGroupController {
     @GetMapping("/permission-group/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -75,6 +77,7 @@ public class PermissionGroupController {
     @GetMapping("/permission-group/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.get")
     public FastJsonResponseData<FastJsonPermissionGroup> get(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
@@ -91,6 +94,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.insert")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputPermissionGroup webInputPermissionGroup,
@@ -110,6 +114,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPermissionGroup webInputPermissionGroup, BindingResult bindingResult) {
@@ -125,6 +130,7 @@ public class PermissionGroupController {
     @DeleteMapping("/permission-group/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.delete")
     public FastJsonResponseData<Object> delete(
             HttpServletRequest request, @PathVariable("id") String id, @RequestParam("nested") boolean nested
     ) {
@@ -145,6 +151,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermissionGroup>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
@@ -161,6 +168,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.id_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermissionGroup>> idLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
@@ -180,6 +188,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.child_for_parent")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermissionGroup>> childForParent(
             HttpServletRequest request,
             @PathVariable(required = false, value = "parentId") String parentId,
@@ -207,6 +216,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.name_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermissionGroup>> nameLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -226,6 +236,7 @@ public class PermissionGroupController {
     @GetMapping("/permission-group/{id}/disp")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.get_disp")
     public FastJsonResponseData<FastJsonDispPermissionGroup> getDisp(
             HttpServletRequest request, @PathVariable("id") String id) {
         try {
@@ -243,6 +254,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.id_like_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispPermissionGroup>> idLikeDisp(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
@@ -266,6 +278,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.child_for_parent_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispPermissionGroup>> childForParentDisp(
             HttpServletRequest request,
             @PathVariable(required = false, value = "parentId") String parentId,
@@ -292,6 +305,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.name_like_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispPermissionGroup>> nameLikeDisp(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -312,6 +326,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.path_from_root")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermissionGroup>> pathFromRoot(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
@@ -331,6 +346,7 @@ public class PermissionGroupController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.permission_group.path_from_root_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispPermissionGroup>> pathFromRootDisp(
             HttpServletRequest request, @PathVariable("id") String id
     ) {

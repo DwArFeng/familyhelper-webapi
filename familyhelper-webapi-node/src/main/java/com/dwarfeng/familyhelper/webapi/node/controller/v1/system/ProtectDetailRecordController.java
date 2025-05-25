@@ -10,6 +10,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -52,6 +53,7 @@ public class ProtectDetailRecordController {
     @GetMapping("/protect-detail-record/{loginHistoryId}&{recordId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.protect_detail_record.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request,
             @PathVariable("loginHistoryId") Long loginHistoryId, @PathVariable("recordId") String recordId
@@ -68,6 +70,7 @@ public class ProtectDetailRecordController {
     @GetMapping("/protect-detail-record/{loginHistoryId}&{recordId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.protect_detail_record.get")
     public FastJsonResponseData<JSFixedFastJsonProtectDetailRecord> get(
             HttpServletRequest request,
             @PathVariable("loginHistoryId") Long loginHistoryId, @PathVariable("recordId") String recordId
@@ -88,6 +91,7 @@ public class ProtectDetailRecordController {
     @GetMapping("/protect-detail-record/all")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.protect_detail_record.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonProtectDetailRecord>> all(
             HttpServletRequest request,
             @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -109,6 +113,7 @@ public class ProtectDetailRecordController {
     })
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.protect_detail_record.child_for_login_history")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonProtectDetailRecord>> childForLoginHistory(
             HttpServletRequest request,
             @PathVariable(required = false, value = "loginHistoryId") Long loginHistoryId,

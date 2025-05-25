@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,8 +53,9 @@ public class LoginController {
 
     @PostMapping("/login/is-login")
     @BehaviorAnalyse
-    @LoginRequired
     @BindingCheck
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login.is_login")
     public FastJsonResponseData<Boolean> isLogin(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey loginStateKey, BindingResult bindingResult
@@ -69,8 +71,9 @@ public class LoginController {
 
     @PostMapping("/login/inspect-login-state")
     @BehaviorAnalyse
-    @LoginRequired
     @BindingCheck
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login.inspect_login_state")
     public FastJsonResponseData<JSFixedFastJsonLoginResponse> inspectLoginState(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey loginStateKey, BindingResult bindingResult
@@ -159,8 +162,9 @@ public class LoginController {
 
     @PostMapping("/login/postpone")
     @BehaviorAnalyse
-    @LoginRequired
     @BindingCheck
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.login.postpone")
     public FastJsonResponseData<JSFixedFastJsonLoginResponse> postpone(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey loginStateKey, BindingResult bindingResult

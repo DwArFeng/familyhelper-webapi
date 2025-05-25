@@ -11,6 +11,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,7 @@ public class DeriveController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.derive.dynamic_derive")
     public FastJsonResponseData<JSFixedFastJsonDeriveResponse> dynamicDerive(
             HttpServletRequest request,
             @RequestBody @Validated WebInputDynamicDeriveInfo deriveInfo, BindingResult bindingResult
@@ -72,6 +74,7 @@ public class DeriveController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.system.derive.static_derive")
     public FastJsonResponseData<JSFixedFastJsonDeriveResponse> staticDerive(
             HttpServletRequest request,
             @RequestBody @Validated WebInputStaticDeriveInfo deriveInfo, BindingResult bindingResult
