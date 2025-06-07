@@ -13,22 +13,22 @@
         <dubbo:parameter key="qos.enable" value="false"/>
     </dubbo:application>
 
-    <!-- zookeeper注册中心 -->
+    <!-- zookeeper 注册中心。 -->
     <dubbo:registry address="${dubbo.registry.zookeeper.address}" timeout="${dubbo.registry.zookeeper.timeout}"/>
 
-    <!-- dubbo协议 -->
+    <!-- dubbo 协议。 -->
     <dubbo:protocol
             name="dubbo" port="${dubbo.protocol.dubbo.port}" host="${dubbo.protocol.dubbo.host}"
             dispatcher="message" threadpool="fixed" threads="100"
     />
-    <!-- hessian协议 -->
+    <!-- hessian 协议。 -->
     <dubbo:protocol name="hessian" port="${dubbo.protocol.hessian.port}" server="jetty"/>
 
-    <!-- 默认使用dubbo协议 -->
+    <!-- 默认使用 dubbo 协议。 -->
     <dubbo:provider protocol="dubbo"/>
 
-    <!-- 向注册中心注册暴露服务地址,注册消费者服务 -->
-    <!-- acckeeper -->
+    <!-- 向注册中心注册暴露服务地址,注册消费者服务。 -->
+    <!-- acckeeper。 -->
     <dubbo:reference
             id="acckeeperLoginService" interface="com.dwarfeng.acckeeper.stack.service.LoginService"
             retries="0"
@@ -99,7 +99,7 @@
             check="false"
             group="${dubbo.consumer.acckeeper.group}"
     />
-    <!-- rbac -->
+    <!-- rbac。 -->
     <dubbo:reference
             id="rbacPermissionLookupService"
             interface="com.dwarfeng.rbacds.stack.service.PermissionLookupService"
@@ -147,7 +147,7 @@
             check="false"
             group="${dubbo.consumer.rbac.group}"
     />
-    <!-- familyhelper-finance -->
+    <!-- familyhelper-finance。 -->
     <dubbo:reference
             id="familyhelperFinanceAccountBookMaintainService"
             interface="com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService"
@@ -284,7 +284,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_finance.group}"
     />
-    <!-- familyhelper-clannad -->
+    <!-- familyhelper-clannad。 -->
     <dubbo:reference
             id="familyhelperClannadProfileMaintainService"
             interface="com.dwarfeng.familyhelper.clannad.stack.service.ProfileMaintainService"
@@ -469,7 +469,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_clannad.group}"
     />
-    <!-- familyhelper-assets -->
+    <!-- familyhelper-assets。 -->
     <dubbo:reference
             id="familyhelperAssetsAssetCatalogMaintainService"
             interface="com.dwarfeng.familyhelper.assets.stack.service.AssetCatalogMaintainService"
@@ -566,7 +566,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_assets.group}"
     />
-    <!-- familyhelper-project -->
+    <!-- familyhelper-project。 -->
     <dubbo:reference
             id="familyhelperProjectProjectMaintainService"
             interface="com.dwarfeng.familyhelper.project.stack.service.ProjectMaintainService"
@@ -671,7 +671,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_project.group}"
     />
-    <!-- familyhelper-life -->
+    <!-- familyhelper-life。 -->
     <dubbo:reference
             id="familyhelperLifePbSetMaintainService"
             interface="com.dwarfeng.familyhelper.life.stack.service.PbSetMaintainService"
@@ -1032,7 +1032,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_life.group}"
     />
-    <!-- familyhelper-note -->
+    <!-- familyhelper-note。 -->
     <dubbo:reference
             id="familyhelperNoteNoteBookMaintainService"
             interface="com.dwarfeng.familyhelper.note.stack.service.NoteBookMaintainService"
@@ -1121,7 +1121,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_note.group}"
     />
-    <!-- settingrepo -->
+    <!-- settingrepo。 -->
     <dubbo:reference
             id="settingrepoSettingNodeMaintainService"
             interface="com.dwarfeng.settingrepo.stack.service.SettingNodeMaintainService"
@@ -1211,7 +1211,7 @@
             check="false"
             group="${dubbo.consumer.settingrepo.group}"
     />
-    <!-- notify -->
+    <!-- notify。 -->
     <dubbo:reference
             id="notifyNotifySettingMaintainService"
             interface="com.dwarfeng.notify.stack.service.NotifySettingMaintainService"
@@ -1333,7 +1333,7 @@
             cluster="broadcast2"
             group="${dubbo.consumer.notify.group}"
     />
-    <!-- familyhelper-plugin-assets -->
+    <!-- familyhelper-plugin-assets。 -->
     <dubbo:reference
             id="familyhelperPluginAssetsDubboRestItemFileOperateService"
             interface="com.dwarfeng.familyhelper.plugin.assets.service.DubboRestItemFileOperateService"
@@ -1342,7 +1342,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_plugin_assets.group}"
     />
-    <!-- familyhelper-plugin-clannad -->
+    <!-- familyhelper-plugin-clannad。 -->
     <dubbo:reference
             id="familyhelperPluginClannadDubboRestCertificateFileOperateService"
             interface="com.dwarfeng.familyhelper.plugin.clannad.service.DubboRestCertificateFileOperateService"
@@ -1359,7 +1359,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_plugin_clannad.group}"
     />
-    <!-- familyhelper-plugin-life -->
+    <!-- familyhelper-plugin-life。 -->
     <dubbo:reference
             id="familyhelperPluginLifeDubboRestActivityFileOperateService"
             interface="com.dwarfeng.familyhelper.plugin.life.service.DubboRestActivityFileOperateService"
@@ -1368,7 +1368,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_plugin_life.group}"
     />
-    <!-- familyhelper-plugin-settingrepo -->
+    <!-- familyhelper-plugin-settingrepo。 -->
     <dubbo:reference
             id="familyhelperPluginSettingRepoDubboRestImageNodeOperateService"
             interface="com.dwarfeng.familyhelper.plugin.settingrepo.service.DubboRestImageNodeOperateService"
@@ -1385,7 +1385,7 @@
             check="false"
             group="${dubbo.consumer.familyhelper_plugin_settingrepo.group}"
     />
-    <!-- snowflake -->
+    <!-- snowflake。 -->
     <dubbo:reference
             id="generateService"
             interface="com.dwarfeng.sfds.stack.service.GenerateService"
