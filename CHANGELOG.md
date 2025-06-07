@@ -84,6 +84,9 @@
 
 #### Bug修复
 
+- 修复部分响应服务在处理业务逻辑时有可能产生空指针异常的问题。
+  - com.dwarfeng.familyhelper.webapi.impl.service.note.NoteBookResponseServiceImpl。
+
 - 补全部分 Controller 中缺失的 `@LoginRequired` 注解。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.DeriveController。

@@ -157,7 +157,9 @@ public class NoteBookResponseServiceImpl implements NoteBookResponseService {
 
     private PagedData<DispNoteBook> toDispPagedData(PagedData<NoteBook> lookup, StringIdKey inspectAccountKey)
             throws ServiceException {
-        List<LongIdKey> noteBookKeys = lookup.getData().stream().map(NoteBook::getKey).collect(Collectors.toList());
+        List<LongIdKey> noteBookKeys = Optional.ofNullable(lookup.getData()).map(
+                f -> f.stream().map(NoteBook::getKey).collect(Collectors.toList())
+        ).orElse(null);
         List<Ponb> cachedPonbs = ponbMaintainService.lookupAsList(
                 PonbMaintainService.CHILD_FOR_NOTE_BOOK_SET, new Object[]{noteBookKeys}
         );
