@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 优化文件格式。
+  - 优化 `assembly.xml` 文件的格式。
+
 - 部分 Controller 增加 `@PermissionRequired` 注解。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.DispatcherInfoController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.DispatcherSupportController。
