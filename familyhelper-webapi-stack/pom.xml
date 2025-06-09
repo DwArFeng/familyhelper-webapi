@@ -32,11 +32,6 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-stack</artifactId>
         </dependency>
-        <!-- JSP 相关 -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
         <!-- Acckeeper 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
@@ -90,10 +85,6 @@
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>notify-stack</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.caucho</groupId>
-            <artifactId>hessian</artifactId>
         </dependency>
     </dependencies>
 </project>
