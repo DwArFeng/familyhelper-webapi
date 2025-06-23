@@ -1,24 +1,24 @@
 # ChangeLog
 
-### Release_1.7.0_20250624_build_A
+## Release_1.7.0_20250624_build_A
 
-#### 功能构建
-
-- (无)
-
-#### Bug修复
+### 功能构建
 
 - (无)
 
-#### 功能移除
+### Bug 修复
+
+- (无)
+
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.6.0_20250610_build_A
+## Release_1.6.0_20250610_build_A
 
-#### 功能构建
+### 功能构建
 
 - 优化文件格式。
   - 优化 `application-context-*.xml` 文件的格式。
@@ -102,7 +102,7 @@
 - 优化文件格式。
   - 优化 `application-context-*.xml` 文件的格式。
 
-#### Bug修复
+### Bug 修复
 
 - 修复部分响应服务在处理业务逻辑时有可能产生空指针异常的问题。
   - com.dwarfeng.familyhelper.webapi.impl.service.note.NoteBookResponseServiceImpl。
@@ -114,7 +114,7 @@
 
 - 修正 `node` 模块中错误的 dubbo 应用名称。
 
-#### 功能移除
+### 功能移除
 
 - 删除不需要的依赖。
   - 删除 `servlet-api` 依赖。
@@ -122,9 +122,9 @@
 
 ---
 
-### Release_1.5.0_20250430_build_A
+## Release_1.5.0_20250430_build_A
 
-#### 功能构建
+### 功能构建
 
 - 依赖升级。
   - 升级 `jetty` 依赖版本为 `9.4.57.v20241219` 以规避漏洞。
@@ -138,37 +138,37 @@
 - 依赖升级。
   - 升级 `familyhelper-note` 依赖版本为 `1.2.0.a` 并解决兼容性问题，以应用其新功能。
 
-#### Bug修复
+### Bug 修复
 
 - 修正部分 disp bean 中不正确的 JSON 字段名称。
   - com.dwarfeng.familyhelper.webapi.sdk.bean.clannad.disp.JSFixedFastJsonDispPoce。
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.4.3_20250308_build_A
+## Release_1.4.3_20250308_build_A
 
-#### 功能构建
+### 功能构建
 
 - 依赖升级。
   - 升级 `familyhelper-clannad` 依赖版本为 `1.6.0.a` 并解决兼容性问题，以应用其新功能。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.4.2_20250303_build_A
+## Release_1.4.2_20250303_build_A
 
-#### 功能构建
+### 功能构建
 
 - 依赖升级。
   - 升级 `hibernate-validator` 依赖版本为 `6.2.5.Final` 以规避漏洞。
@@ -176,19 +176,19 @@
 - 补全 system 模块部分 disp 实体缺失的字段。
   - com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispPermissionGroup。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.4.1_20241211_build_A
+## Release_1.4.1_20241211_build_A
 
-#### 功能构建
+### 功能构建
 
 - 优化部分响应服务查询可展示实体的速度。
   - com.dwarfeng.familyhelper.webapi.impl.service.note.NoteBookResponseServiceImpl。
@@ -196,19 +196,19 @@
 - 依赖升级。
   - 升级 `familyhelper-note` 依赖版本为 `1.1.1.a` 以应用其新功能。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.4.0_20241208_build_A
+## Release_1.4.0_20241208_build_A
 
-#### 功能构建
+### 功能构建
 
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.note.NoteBookController。
@@ -239,20 +239,20 @@
   - 升级 `snowflake` 依赖版本为 `1.5.3.a` 以规避漏洞。
   - 升级 `subgrade` 依赖版本为 `1.5.7.a` 以规避漏洞。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - 删除不需要的依赖。
   - 删除 `dozer` 依赖。
 
 ---
 
-### Release_1.3.0_20240804_build_A
+## Release_1.3.0_20240804_build_A
 
-#### 功能构建
+### 功能构建
 
 - 增加自定义命名值方法参数解析器，以用于解析特定序列化规则的参数。
   - com.dwarfeng.familyhelper.webapi.node.webmvc.Base64RequestParamMethodArgumentResolver。
@@ -274,7 +274,7 @@
   - 升级 `snowflake` 依赖版本为 `1.5.2.a` 以规避漏洞。
   - 升级 `subgrade` 依赖版本为 `1.5.5.a` 以规避漏洞。
 
-#### Bug修复
+### Bug 修复
 
 - 修复部分功能性实体集合类型的字段在映射时有可能产生空指针异常的问题。
   - com.dwarfeng.familyhelper.webapi.sdk.bean.assets.disp.JSFixedFastJsonDispItem。
@@ -282,15 +282,15 @@
 - 去除部分 Controller 中的错误注解。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateFileController。
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.4_20240429_build_A
+## Release_1.2.4_20240429_build_A
 
-#### 功能构建
+### 功能构建
 
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateFileController。
@@ -305,19 +305,19 @@
   - 升级 `familyhelper-plugin` 依赖版本为 `1.5.0.a` 以应用其新功能。
   - 升级 `slf4j` 依赖版本为 `1.7.36` 以规避漏洞。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.3_20240414_build_A
+## Release_1.2.3_20240414_build_A
 
-#### 功能构建
+### 功能构建
 
 - Dubbo 优化。
   - 优化 `dubbo/connection.properties` 中配置的键名。
@@ -338,19 +338,19 @@
   - 升级 `familyhelper-assets` 依赖版本为 `1.0.8.a` 以应用其新功能。
   - 升级 `subgrade` 依赖版本为 `1.5.2.a` 以规避漏洞。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.2_20240215_build_A
+## Release_1.2.2_20240215_build_A
 
-#### 功能构建
+### 功能构建
 
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.MemoController。
@@ -358,19 +358,19 @@
 - 依赖升级。
   - 升级 `familyhelper-project` 依赖版本为 `1.2.2.a` 以应用其新功能。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.1_20240212_build_A
+## Release_1.2.1_20240212_build_A
 
-#### 功能构建
+### 功能构建
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.DeriveController。
@@ -386,19 +386,19 @@
 - 依赖升级。
   - 升级 `acckeeper` 依赖版本为 `1.7.1.a` 并解决兼容性问题，以应用其新功能。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.0_20240129_build_A
+## Release_1.2.0_20240129_build_A
 
-#### 功能构建
+### 功能构建
 
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.CertificateFileController。
@@ -406,36 +406,36 @@
 - 依赖升级。
   - 升级 `familyhelper-clannad` 依赖版本为 `1.4.0.a` 以应用其新功能。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.1.2_20240128_build_A
+## Release_1.1.2_20240128_build_A
 
-#### 功能构建
+### 功能构建
 
 - 依赖升级。
   - 升级 `acckeeper` 依赖版本为 `1.6.6.a` 以规避漏洞。
 
-#### Bug修复
+### Bug 修复
 
 - 修复注册、更新、删除账号时，账号信息未同步到部分微服务的 bug。
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.1.1_20240128_build_A
+## Release_1.1.1_20240128_build_A
 
-#### 功能构建
+### 功能构建
 
 - 优化文件格式。
   - 优化 `application-context-*.xml` 文件的格式。
@@ -467,19 +467,19 @@
   - com.dwarfeng.familyhelper.webapi.impl.service.note.NoteItemResponseServiceImpl。
   - com.dwarfeng.familyhelper.webapi.impl.service.note.NoteNodeResponseServiceImpl。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.1.0_20240125_build_A
+## Release_1.1.0_20240125_build_A
 
-#### 功能构建
+### 功能构建
 
 - 优化 @LoginRequired AOP 配置。
 
@@ -518,11 +518,11 @@
   - 优化 `pom.xml` 文件格式。
   - 优化 `spring/application-context-dubbo.xml` 文件格式。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - 删除不需要的依赖。
   - 删除 `juel` 依赖。
@@ -531,9 +531,9 @@
 
 ---
 
-### Release_1.0.10_20240123_build_A
+## Release_1.0.10_20240123_build_A
 
-#### 功能构建
+### 功能构建
 
 - 调整 Controller 及其相关 Bean 的名称。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.assets.PoacController。
@@ -579,20 +579,20 @@
   - 升级 `familyhelper-life` 依赖版本为 `1.1.0.a` 并解决依赖问题，以应用其新功能。
   - 升级 `familyhelper-clannad` 依赖版本为 `1.3.1.a` 并解决依赖问题，以应用其新功能。
 
-#### Bug修复
+### Bug 修复
 
 - 修正部分 Bean 映射器配置 Bean 注册名称的规范性问题。
   - com.dwarfeng.familyhelper.webapi.node.configuration.finance.BeanTransformerConfiguration。
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.9_20230227_build_A
+## Release_1.0.9_20230227_build_A
 
-#### 功能构建
+### 功能构建
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.MemoRemindDriverInfoController。
@@ -615,37 +615,37 @@
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.project.MemoController。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - 移除 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SendHistoryController。
 
 ---
 
-### Release_1.0.8_20230110_build_A
+## Release_1.0.8_20230110_build_A
 
-#### 功能构建
+### 功能构建
 
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ResetController。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.7_20230101_build_A
+## Release_1.0.7_20230101_build_A
 
-#### 功能构建
+### 功能构建
 
 - 插件升级。
   - 升级 `maven-deploy-plugin` 插件版本为 `2.8.2`。
@@ -693,19 +693,19 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.RemindDriverInfoController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.RemindDriverSupportController。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.6_20220702_build_A
+## Release_1.0.6_20220702_build_A
 
-#### 功能构建
+### 功能构建
 
 - 取消 ui 模块 eslint 对换行符的检查。
 
@@ -743,11 +743,11 @@
 
 - 解决版本升级后调用过时 API 的问题。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - 删除不需要的依赖。
   - 删除 `joda-time` 依赖。
@@ -759,27 +759,27 @@
 
 ---
 
-### Release_1.0.5_20220325_build_A
+## Release_1.0.5_20220325_build_A
 
-#### 功能构建
+### 功能构建
 
 - 优化 ResponseService 实现的代码结构，减少 @SuppressWarnings 注解的覆盖范围。
 
 - 增加并优化 MemoController 中的方法。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.4_20220323_build_A
+## Release_1.0.4_20220323_build_A
 
-#### 功能构建
+### 功能构建
 
 - 升级 `account-keeper` 版本为 `1.4.2.a`。
 
@@ -789,19 +789,19 @@
 - 优化 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.PermissionController。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.3_20220309_build_A
+## Release_1.0.3_20220309_build_A
 
-#### 功能构建
+### 功能构建
 
 - 升级部分依赖版本。
 
@@ -819,19 +819,19 @@
 
 - 升级 `log4j2` 依赖版本为 `2.17.1`。
 
-#### Bug修复
+### Bug 修复
 
 - 修正 pom.xml 中不正确的配置。
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.2_20220130_build_A
+## Release_1.0.2_20220130_build_A
 
-#### 功能构建
+### 功能构建
 
 - 升级 `log4j2` 依赖版本为 `2.15.0` 以规避 `CVE-2021-44228` 漏洞。
 
@@ -859,19 +859,19 @@
 
 - 为 `dubbo` 增加超时时间的配置选项。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.1_20211204_build_A
+## Release_1.0.1_20211204_build_A
 
-#### 功能构建
+### 功能构建
 
 - 完成我与家庭 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.clannad.ProfileTypeIndicatorController。
@@ -886,19 +886,19 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.TimeController。
   - 解决了潜在的客户端与服务端时间不一致导致的无法登陆的问题。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.0_20211026_build_A
+## Release_1.0.0_20211026_build_A
 
-#### 功能构建
+### 功能构建
 
 - 完成部分系统设置 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
@@ -917,10 +917,10 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.FundChangeTypeIndicatorController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.finance.TotalBalanceHistoryController。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
