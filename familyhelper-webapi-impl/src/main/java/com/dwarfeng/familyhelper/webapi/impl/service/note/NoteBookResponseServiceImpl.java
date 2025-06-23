@@ -186,10 +186,12 @@ public class NoteBookResponseServiceImpl implements NoteBookResponseService {
             Map<StringIdKey, DispAccount> cachedDispAccountMap, Set<LongIdKey> cachedFavoriteNoteBookKeySet
     ) throws ServiceException {
         Ponb ownerPonb = cachedPonbs.stream().filter(
-                p -> Objects.equals(p.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)
+                p -> Objects.equals(p.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER) &&
+                        Objects.equals(p.getKey().getNoteBookLongId(), noteBook.getKey().getLongId())
         ).findFirst().orElse(null);
         Ponb myPonb = cachedPonbs.stream().filter(
-                p -> Objects.equals(p.getKey().getUserStringId(), inspectAccountKey.getStringId())
+                p -> Objects.equals(p.getKey().getUserStringId(), inspectAccountKey.getStringId()) &&
+                        Objects.equals(p.getKey().getNoteBookLongId(), noteBook.getKey().getLongId())
         ).findFirst().orElse(null);
         StringIdKey ownerAccountKey = Optional.ofNullable(ownerPonb)
                 .map((p) -> new StringIdKey(p.getKey().getUserStringId())).orElse(null);

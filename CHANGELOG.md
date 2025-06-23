@@ -12,7 +12,8 @@
 
 ### Bug 修复
 
-- (无)
+- 修复响应服务实现中部分业务逻辑的 bug。
+  - com.dwarfeng.familyhelper.webapi.impl.service.note.NoteBookResponseServiceImpl。
 
 ### 功能移除
 
