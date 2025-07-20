@@ -1,5 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.sdk.util.Constants;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicTextNodeInspectInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.TextNodeResponseService;
 import com.dwarfeng.settingrepo.stack.bean.dto.TextNodeInspectInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.TextNodeInspectResult;
@@ -51,5 +53,13 @@ public class TextNodeResponseServiceImpl implements TextNodeResponseService {
     @Override
     public void put(TextNodePutInfo info) throws ServiceException {
         textNodeOperateService.put(info);
+    }
+
+    @Override
+    public TextNodeInspectResult inspectForPublic(PublicTextNodeInspectInfo info) throws ServiceException {
+        TextNodeInspectInfo originalInfo = new TextNodeInspectInfo(
+                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
+        );
+        return textNodeOperateService.inspect(originalInfo);
     }
 }

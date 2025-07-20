@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicSettingNodeInspectInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.SettingNodeResponseService;
 import com.dwarfeng.settingrepo.sdk.bean.dto.FastJsonSettingNodeInspectResult;
 import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputSettingNodeInitInfo;
@@ -211,6 +212,28 @@ public class SettingNodeController {
         try {
             service.remove(WebInputSettingNodeRemoveInfo.toStackBean(webInputSettingNodeRemoveInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @PostMapping("/setting-node/inspect-for-public")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<FastJsonSettingNodeInspectResult> inspectForPublic(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputPublicSettingNodeInspectInfo inspectInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            SettingNodeInspectResult inspect = service.inspectForPublic(
+                    WebInputPublicSettingNodeInspectInfo.toStackBean(inspectInfo)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonSettingNodeInspectResult.of(inspect)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));

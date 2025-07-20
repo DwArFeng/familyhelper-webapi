@@ -1,5 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.sdk.util.Constants;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicSettingNodeInspectInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.SettingNodeResponseService;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInitInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectInfo;
@@ -76,5 +78,13 @@ public class SettingNodeResponseServiceImpl implements SettingNodeResponseServic
     @Override
     public void remove(SettingNodeRemoveInfo settingNodeRemoveInfo) throws ServiceException {
         settingNodeOperateService.remove(settingNodeRemoveInfo);
+    }
+
+    @Override
+    public SettingNodeInspectResult inspectForPublic(PublicSettingNodeInspectInfo info) throws ServiceException {
+        SettingNodeInspectInfo originalInfo = new SettingNodeInspectInfo(
+                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
+        );
+        return settingNodeOperateService.inspect(originalInfo);
     }
 }

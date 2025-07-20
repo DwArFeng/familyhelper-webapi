@@ -1,5 +1,8 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeFileDownloadInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeInspectInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeThumbnailDownloadInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.*;
 import com.dwarfeng.settingrepo.stack.bean.entity.ImageNode;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -36,4 +39,44 @@ public interface ImageNodeResponseService extends Service {
     void uploadFile(ImageNodeFileUploadInfo info) throws ServiceException;
 
     void uploadFileStream(ImageNodeFileStreamUploadInfo info) throws ServiceException;
+
+    /**
+     * 查看公共图片节点。
+     *
+     * @param info 公共图片节点查看信息。
+     * @return 图片节点查看结果。
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    ImageNodeInspectResult inspectForPublic(PublicImageNodeInspectInfo info) throws ServiceException;
+
+    /**
+     * 下载公共图片节点文件。
+     *
+     * @param info 公共图片节点文件下载信息。
+     * @return 图片节点文件。
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    ImageNodeFile downloadFileForPublic(PublicImageNodeFileDownloadInfo info) throws ServiceException;
+
+    /**
+     * 请求下载公共图片节点文件流凭证。
+     *
+     * @param info 公共图片节点文件下载信息。
+     * @return 下载图片节点文件流凭证主键。
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    LongIdKey requestFileStreamVoucherForPublic(PublicImageNodeFileDownloadInfo info) throws ServiceException;
+
+    /**
+     * 下载公共图片节点缩略图。
+     *
+     * @param info 公共图片节点缩略图下载信息。
+     * @return 图片节点缩略图。
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    ImageNodeThumbnail downloadThumbnailForPublic(PublicImageNodeThumbnailDownloadInfo info) throws ServiceException;
 }

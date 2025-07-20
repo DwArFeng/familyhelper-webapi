@@ -3,6 +3,9 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo;
 import com.alibaba.fastjson.JSONArray;
 import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.familyhelper.webapi.node.webmvc.Base64RequestParam;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicImageNodeThumbnailDownloadInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeFileDownloadInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeInspectInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.ImageNodeResponseService;
 import com.dwarfeng.settingrepo.sdk.bean.dto.FastJsonImageNodeInspectResult;
 import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputImageNodeFileDownloadInfo;
@@ -370,6 +373,96 @@ public class ImageNodeController {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @PostMapping("/image-node/inspect-for-public")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<FastJsonImageNodeInspectResult> inspectForPublic(
+            HttpServletRequest request,
+            @RequestBody @Validated PublicImageNodeInspectInfo publicImageNodeInspectInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            ImageNodeInspectResult inspect = service.inspectForPublic(publicImageNodeInspectInfo);
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonImageNodeInspectResult.of(inspect)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @GetMapping("/image-node/download-file-for-public")
+    @BehaviorAnalyse
+    @SkipRecord
+    public ResponseEntity<Object> downloadFileForPublic(
+            HttpServletRequest request,
+            @Base64RequestParam("download-info") PublicImageNodeFileDownloadInfo downloadInfo
+    ) {
+        HttpHeaders headers = new HttpHeaders();
+        Object body;
+        try {
+            ImageNodeFile imageNodeFile = service.downloadFileForPublic(downloadInfo);
+            // 将文件名转换成 HTTP 标准文件名编码下的格式。
+            String fileName = adjustFileNameEncoding(imageNodeFile.getOriginName());
+            headers.add("Content-Disposition", "attachment;filename=" + fileName);
+            body = imageNodeFile.getContent();
+        } catch (Exception e) {
+            body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+        return new ResponseEntity<>(body, headers, HttpStatus.OK);
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @PostMapping("/image-node/request-file-stream-voucher-for-public")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<JSFixedFastJsonLongIdKey> requestFileStreamVoucherForPublic(
+            HttpServletRequest request,
+            @RequestBody @Validated PublicImageNodeFileDownloadInfo downloadInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            LongIdKey voucherKey = service.requestFileStreamVoucherForPublic(downloadInfo);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(voucherKey)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @GetMapping("/image-node/download-thumbnail-for-public")
+    @BehaviorAnalyse
+    @SkipRecord
+    public ResponseEntity<Object> downloadThumbnailForPublic(
+            HttpServletRequest request,
+            @Base64RequestParam("download-info") WebInputPublicImageNodeThumbnailDownloadInfo downloadInfo
+    ) {
+        HttpHeaders headers = new HttpHeaders();
+        Object body;
+        try {
+            ImageNodeThumbnail imageNodeThumbnail = service.downloadThumbnailForPublic(
+                    WebInputPublicImageNodeThumbnailDownloadInfo.toStackBean(downloadInfo)
+            );
+            // 将文件名转换成 HTTP 标准文件名编码下的格式。
+            String fileName = adjustFileNameEncoding(imageNodeThumbnail.getOriginName());
+            headers.add("Content-Disposition", "attachment;filename=" + fileName);
+            body = imageNodeThumbnail.getContent();
+        } catch (Exception e) {
+            body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+        return new ResponseEntity<>(body, headers, HttpStatus.OK);
     }
 
     private String adjustFileNameEncoding(String fileName) {

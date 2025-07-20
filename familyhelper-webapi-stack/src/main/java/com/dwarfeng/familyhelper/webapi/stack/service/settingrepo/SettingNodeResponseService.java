@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicSettingNodeInspectInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInitInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectResult;
@@ -48,4 +49,14 @@ public interface SettingNodeResponseService extends Service {
     void init(SettingNodeInitInfo info) throws ServiceException;
 
     void remove(SettingNodeRemoveInfo settingNodeRemoveInfo) throws ServiceException;
+
+    /**
+     * 查看指定的公共设置节点。
+     *
+     * @param info 公共查看信息。
+     * @return 指定的设置节点查看结果
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    SettingNodeInspectResult inspectForPublic(PublicSettingNodeInspectInfo info) throws ServiceException;
 }

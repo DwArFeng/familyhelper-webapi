@@ -5,6 +5,10 @@ import com.dwarfeng.familyhelper.plugin.settingrepo.bean.dto.DubboRestImageNodeF
 import com.dwarfeng.familyhelper.plugin.settingrepo.bean.dto.DubboRestImageNodeFileStreamDownloadInfo;
 import com.dwarfeng.familyhelper.plugin.settingrepo.bean.dto.DubboRestImageNodeFileStreamUploadInfo;
 import com.dwarfeng.familyhelper.plugin.settingrepo.service.DubboRestImageNodeOperateService;
+import com.dwarfeng.familyhelper.webapi.sdk.util.Constants;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeFileDownloadInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeInspectInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeThumbnailDownloadInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.ImageNodeResponseService;
 import com.dwarfeng.settingrepo.stack.bean.dto.*;
 import com.dwarfeng.settingrepo.stack.bean.entity.ImageNode;
@@ -104,5 +108,40 @@ public class ImageNodeResponseServiceImpl implements ImageNodeResponseService {
                         info.getCategory(), info.getArgs(), info.getOriginName(), info.getLength(), info.getContent()
                 )
         );
+    }
+
+    @Override
+    public ImageNodeInspectResult inspectForPublic(PublicImageNodeInspectInfo info) throws ServiceException {
+        ImageNodeInspectInfo originalInfo = new ImageNodeInspectInfo(
+                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
+        );
+        return imageNodeOperateService.inspect(originalInfo);
+    }
+
+    @Override
+    public ImageNodeFile downloadFileForPublic(PublicImageNodeFileDownloadInfo info) throws ServiceException {
+        ImageNodeFileDownloadInfo originalInfo = new ImageNodeFileDownloadInfo(
+                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
+        );
+        return imageNodeOperateService.downloadFile(originalInfo);
+    }
+
+    @Override
+    public LongIdKey requestFileStreamVoucherForPublic(PublicImageNodeFileDownloadInfo info) throws ServiceException {
+        VoucherIdWrapper voucherIdWrapper = dubboRestImageNodeOperateService.requestFileStreamVoucher(
+                new DubboRestImageNodeFileStreamDownloadInfo(
+                        Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
+                )
+        );
+        return new LongIdKey(voucherIdWrapper.getVoucherId());
+    }
+
+    @Override
+    public ImageNodeThumbnail downloadThumbnailForPublic(PublicImageNodeThumbnailDownloadInfo info)
+            throws ServiceException {
+        ImageNodeThumbnailDownloadInfo originalInfo = new ImageNodeThumbnailDownloadInfo(
+                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
+        );
+        return imageNodeOperateService.downloadThumbnail(originalInfo);
     }
 }

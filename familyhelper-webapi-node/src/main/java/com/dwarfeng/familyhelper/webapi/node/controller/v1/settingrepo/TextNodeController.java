@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicTextNodeInspectInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.TextNodeResponseService;
 import com.dwarfeng.settingrepo.sdk.bean.dto.FastJsonTextNodeInspectResult;
 import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputTextNodeInspectInfo;
@@ -135,6 +136,28 @@ public class TextNodeController {
         try {
             service.put(WebInputTextNodePutInfo.toStackBean(webInputTextNodePutInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @PostMapping("/text-node/inspect-for-public")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<FastJsonTextNodeInspectResult> inspectForPublic(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputPublicTextNodeInspectInfo inspectInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            TextNodeInspectResult inspect = service.inspectForPublic(
+                    WebInputPublicTextNodeInspectInfo.toStackBean(inspectInfo)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonTextNodeInspectResult.of(inspect)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));

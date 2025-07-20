@@ -1,5 +1,9 @@
 package com.dwarfeng.familyhelper.webapi.stack.service.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageListNodeFileDownloadInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageListNodeInspectInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageListNodeSizeInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageListNodeThumbnailDownloadInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.*;
 import com.dwarfeng.settingrepo.stack.bean.entity.ImageListNode;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -46,4 +50,55 @@ public interface ImageListNodeResponseService extends Service {
     void changeOrder(ImageListNodeChangeOrderInfo info) throws ServiceException;
 
     void remove(ImageListNodeRemoveInfo info) throws ServiceException;
+
+    /**
+     * 公共图片列表节点的大小。
+     *
+     * @param info 公共图片列表节点大小信息。
+     * @return 图片列表节点大小结果。
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    ImageListNodeSizeResult sizeForPublic(PublicImageListNodeSizeInfo info) throws ServiceException;
+
+    /**
+     * 查看公共图片列表节点。
+     *
+     * @param info 公共图片列表节点查看信息。
+     * @return 公共图片列表节点查看结果。
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    ImageListNodeInspectResult inspectForPublic(PublicImageListNodeInspectInfo info) throws ServiceException;
+
+    /**
+     * 下载公共图片列表节点文件。
+     *
+     * @param info 公共图片列表节点文件下载信息。
+     * @return 公共图片列表节点文件。
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    ImageListNodeFile downloadFileForPublic(PublicImageListNodeFileDownloadInfo info) throws ServiceException;
+
+    /**
+     * 请求下载公共图片列表节点文件流凭证。
+     *
+     * @param info 公共图片列表节点文件下载信息。
+     * @return 下载图片列表节点文件流凭证主键。
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    LongIdKey requestFileStreamVoucherForPublic(PublicImageListNodeFileDownloadInfo info) throws ServiceException;
+
+    /**
+     * 下载公共图片列表节点缩略图。
+     *
+     * @param info 公共图片列表节点缩略图下载信息。
+     * @return 图片列表节点缩略图。
+     * @throws ServiceException 服务异常。
+     * @since 1.7.0
+     */
+    ImageListNodeThumbnail downloadThumbnailForPublic(PublicImageListNodeThumbnailDownloadInfo info)
+            throws ServiceException;
 }

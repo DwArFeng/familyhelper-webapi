@@ -1,5 +1,8 @@
 package com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.*;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.*;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
 /**
@@ -13,4 +16,86 @@ import org.mapstruct.Mapper;
  */
 @Mapper
 public interface BeanMapper {
+
+    // -----------------------------------------------------------Settingrepo Dto-----------------------------------------------------------
+    WebInputPublicImageListNodeFileDownloadInfo publicImageListNodeFileDownloadInfoToWebInput(
+            PublicImageListNodeFileDownloadInfo publicImageListNodeFileDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicImageListNodeFileDownloadInfo publicImageListNodeFileDownloadInfoFromWebInput(
+            WebInputPublicImageListNodeFileDownloadInfo webInputPublicImageListNodeFileDownloadInfo
+    );
+
+    WebInputPublicImageListNodeInspectInfo publicImageListNodeInspectInfoToWebInput(
+            PublicImageListNodeInspectInfo publicImageListNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicImageListNodeInspectInfo publicImageListNodeInspectInfoFromWebInput(
+            WebInputPublicImageListNodeInspectInfo webInputPublicImageListNodeInspectInfo
+    );
+
+    WebInputPublicImageListNodeSizeInfo publicImageListNodeSizeInfoToWebInput(
+            PublicImageListNodeSizeInfo publicImageListNodeSizeInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicImageListNodeSizeInfo publicImageListNodeSizeInfoFromWebInput(
+            WebInputPublicImageListNodeSizeInfo webInputPublicImageListNodeSizeInfo
+    );
+
+    WebInputPublicImageListNodeThumbnailDownloadInfo publicImageListNodeThumbnailDownloadInfoToWebInput(
+            PublicImageListNodeThumbnailDownloadInfo publicImageListNodeThumbnailDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicImageListNodeThumbnailDownloadInfo publicImageListNodeThumbnailDownloadInfoFromWebInput(
+            WebInputPublicImageListNodeThumbnailDownloadInfo webInputPublicImageListNodeThumbnailDownloadInfo
+    );
+
+    WebInputPublicImageNodeFileDownloadInfo publicImageNodeFileDownloadInfoToWebInput(
+            PublicImageNodeFileDownloadInfo publicImageNodeFileDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicImageNodeFileDownloadInfo publicImageNodeFileDownloadInfoFromWebInput(
+            WebInputPublicImageNodeFileDownloadInfo webInputPublicImageNodeFileDownloadInfo
+    );
+
+    WebInputPublicImageNodeInspectInfo publicImageNodeInspectInfoToWebInput(
+            PublicImageNodeInspectInfo publicImageNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicImageNodeInspectInfo publicImageNodeInspectInfoFromWebInput(
+            WebInputPublicImageNodeInspectInfo webInputPublicImageNodeInspectInfo
+    );
+
+    WebInputPublicImageNodeThumbnailDownloadInfo publicImageNodeThumbnailDownloadInfoToWebInput(
+            PublicImageNodeThumbnailDownloadInfo publicImageNodeThumbnailDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicImageNodeThumbnailDownloadInfo publicImageNodeThumbnailDownloadInfoFromWebInput(
+            WebInputPublicImageNodeThumbnailDownloadInfo webInputPublicImageNodeThumbnailDownloadInfo
+    );
+
+    WebInputPublicSettingNodeInspectInfo publicSettingNodeInspectInfoToWebInput(
+            PublicSettingNodeInspectInfo publicSettingNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicSettingNodeInspectInfo publicSettingNodeInspectInfoFromWebInput(
+            WebInputPublicSettingNodeInspectInfo webInputPublicSettingNodeInspectInfo
+    );
+
+    WebInputPublicTextNodeInspectInfo publicTextNodeInspectInfoToWebInput(
+            PublicTextNodeInspectInfo publicTextNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicTextNodeInspectInfo publicTextNodeInspectInfoFromWebInput(
+            WebInputPublicTextNodeInspectInfo webInputPublicTextNodeInspectInfo
+    );
 }

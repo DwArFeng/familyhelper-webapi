@@ -4,6 +4,12 @@
 
 ### 功能构建
 
+- 为 Controller 添加新方法。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageListNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageNodeController。
+  - com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.SettingNodeResponseService。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.TextNodeController。
+
 - 依赖升级。
   - 升级 `settingrepo` 依赖版本为 `2.4.0.a` 以应用其新功能。
   - 升级 `commons-lang3` 依赖版本为 `3.18.0` 以规避漏洞。
@@ -88,14 +94,14 @@
 
 - 依赖新增
   - 增加依赖 `javax.servlet-api` 以规避漏洞，版本为 `4.0.1`。
-  - 增加依赖 `commons-beanutils` 以规避漏洞，版本为 `1.11.0`。
-  - 增加依赖 `commons-lang3` 以规避漏洞，版本为 `3.12.0`。
-  - 增加依赖 `commons-collections4` 以规避漏洞，版本为 `4.4`。
-  - 增加依赖 `commons-codec` 以规避漏洞，版本为 `1.18.0`。
-  - 增加依赖 `commons-io` 以规避漏洞，版本为 `2.19.0`。
+  - 增加依赖 `publics-beanutils` 以规避漏洞，版本为 `1.11.0`。
+  - 增加依赖 `publics-lang3` 以规避漏洞，版本为 `3.12.0`。
+  - 增加依赖 `publics-collections4` 以规避漏洞，版本为 `4.4`。
+  - 增加依赖 `publics-codec` 以规避漏洞，版本为 `1.18.0`。
+  - 增加依赖 `publics-io` 以规避漏洞，版本为 `2.19.0`。
 
 - 依赖升级。
-  - 升级 `commons-fileupload` 依赖版本为 `1.6.0` 以规避漏洞。
+  - 升级 `publics-fileupload` 依赖版本为 `1.6.0` 以规避漏洞。
   - 升级 `netty` 依赖版本为 `4.1.119.Final` 以规避漏洞。
   - 升级 `snowflake` 依赖版本为 `1.6.4.a` 以规避漏洞。
   - 升级 `subgrade` 依赖版本为 `1.5.10.a` 以规避漏洞。
@@ -447,7 +453,7 @@
 
 - 依赖升级。
   - 升级 `acckeeper` 依赖版本为 `1.6.5.a` 并解决兼容性问题，以应用其新功能。
-  - 升级 `commons-fileupload` 依赖版本为 `1.5` 以规避漏洞。
+  - 升级 `publics-fileupload` 依赖版本为 `1.5` 以规避漏洞。
   - 升级 `subgrade` 依赖版本为 `1.4.8.b` 以规避漏洞。
   - 升级 `settingrepo` 依赖版本为 `1.1.5.a` 以规避漏洞。
 
@@ -756,9 +762,9 @@
 
 - 删除不需要的依赖。
   - 删除 `joda-time` 依赖。
-  - 删除 `commons-lang3` 依赖。
-  - 删除 `commons-io` 依赖。
-  - 删除 `commons-net` 依赖。
+  - 删除 `publics-lang3` 依赖。
+  - 删除 `publics-io` 依赖。
+  - 删除 `publics-net` 依赖。
   - 删除 `pagehelper` 依赖。
   - 删除 `jsqlparser` 依赖。
 

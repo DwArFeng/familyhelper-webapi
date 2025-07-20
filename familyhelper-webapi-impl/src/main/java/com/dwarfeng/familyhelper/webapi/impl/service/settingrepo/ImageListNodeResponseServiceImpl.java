@@ -6,6 +6,11 @@ import com.dwarfeng.familyhelper.plugin.settingrepo.bean.dto.DubboRestImageListN
 import com.dwarfeng.familyhelper.plugin.settingrepo.bean.dto.DubboRestImageListNodeFileStreamUpdateInfo;
 import com.dwarfeng.familyhelper.plugin.settingrepo.bean.dto.DubboRestImageListNodeFileStreamUploadInfo;
 import com.dwarfeng.familyhelper.plugin.settingrepo.service.DubboRestImageListNodeOperateService;
+import com.dwarfeng.familyhelper.webapi.sdk.util.Constants;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageListNodeFileDownloadInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageListNodeInspectInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageListNodeSizeInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageListNodeThumbnailDownloadInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.ImageListNodeResponseService;
 import com.dwarfeng.settingrepo.stack.bean.dto.*;
 import com.dwarfeng.settingrepo.stack.bean.entity.ImageListNode;
@@ -136,5 +141,49 @@ public class ImageListNodeResponseServiceImpl implements ImageListNodeResponseSe
     @Override
     public void remove(ImageListNodeRemoveInfo info) throws ServiceException {
         imageListNodeOperateService.remove(info);
+    }
+
+    @Override
+    public ImageListNodeSizeResult sizeForPublic(PublicImageListNodeSizeInfo info) throws ServiceException {
+        ImageListNodeSizeInfo originalInfo = new ImageListNodeSizeInfo(
+                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
+        );
+        return imageListNodeOperateService.size(originalInfo);
+    }
+
+    @Override
+    public ImageListNodeInspectResult inspectForPublic(PublicImageListNodeInspectInfo info) throws ServiceException {
+        ImageListNodeInspectInfo originalInfo = new ImageListNodeInspectInfo(
+                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
+        );
+        return imageListNodeOperateService.inspect(originalInfo);
+    }
+
+    @Override
+    public ImageListNodeFile downloadFileForPublic(PublicImageListNodeFileDownloadInfo info) throws ServiceException {
+        ImageListNodeFileDownloadInfo originalInfo = new ImageListNodeFileDownloadInfo(
+                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs(), info.getIndex()
+        );
+        return imageListNodeOperateService.downloadFile(originalInfo);
+    }
+
+    @Override
+    public LongIdKey requestFileStreamVoucherForPublic(PublicImageListNodeFileDownloadInfo info)
+            throws ServiceException {
+        VoucherIdWrapper voucherIdWrapper = dubboRestImageListNodeOperateService.requestFileStreamVoucher(
+                new DubboRestImageListNodeFileStreamDownloadInfo(
+                        Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs(), info.getIndex()
+                )
+        );
+        return new LongIdKey(voucherIdWrapper.getVoucherId());
+    }
+
+    @Override
+    public ImageListNodeThumbnail downloadThumbnailForPublic(PublicImageListNodeThumbnailDownloadInfo info)
+            throws ServiceException {
+        ImageListNodeThumbnailDownloadInfo originalInfo = new ImageListNodeThumbnailDownloadInfo(
+                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs(), info.getIndex()
+        );
+        return imageListNodeOperateService.downloadThumbnail(originalInfo);
     }
 }

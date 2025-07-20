@@ -3,6 +3,10 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo;
 import com.alibaba.fastjson.JSONArray;
 import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.familyhelper.webapi.node.webmvc.Base64RequestParam;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicImageListNodeFileDownloadInfo;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicImageListNodeInspectInfo;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicImageListNodeSizeInfo;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicImageListNodeThumbnailDownloadInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.ImageListNodeResponseService;
 import com.dwarfeng.settingrepo.sdk.bean.dto.*;
 import com.dwarfeng.settingrepo.sdk.bean.entity.FastJsonImageListNode;
@@ -542,6 +546,124 @@ public class ImageListNodeController {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @PostMapping("/image-list-node/size-for-public")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<FastJsonImageListNodeSizeResult> sizeForPublic(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputPublicImageListNodeSizeInfo webInputPublicImageListNodeSizeInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            ImageListNodeSizeResult size = service.sizeForPublic(
+                    WebInputPublicImageListNodeSizeInfo.toStackBean(webInputPublicImageListNodeSizeInfo)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonImageListNodeSizeResult.of(size)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @PostMapping("/image-list-node/inspect-for-public")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<FastJsonImageListNodeInspectResult> inspectForPublic(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputPublicImageListNodeInspectInfo webInputPublicImageListNodeInspectInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            ImageListNodeInspectResult inspect = service.inspectForPublic(
+                    WebInputPublicImageListNodeInspectInfo.toStackBean(webInputPublicImageListNodeInspectInfo)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonImageListNodeInspectResult.of(inspect)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @GetMapping("/image-list-node/download-file-for-public")
+    @BehaviorAnalyse
+    @SkipRecord
+    public ResponseEntity<Object> downloadFileForPublic(
+            HttpServletRequest request,
+            @Base64RequestParam("download-info") WebInputPublicImageListNodeFileDownloadInfo downloadInfo
+    ) {
+        HttpHeaders headers = new HttpHeaders();
+        Object body;
+        try {
+            ImageListNodeFile imageListNodeFile = service.downloadFileForPublic(
+                    WebInputPublicImageListNodeFileDownloadInfo.toStackBean(downloadInfo)
+            );
+            // 将文件名转换成 HTTP 标准文件名编码下的格式。
+            String fileName = adjustFileNameEncoding(imageListNodeFile.getOriginName());
+            headers.add("Content-Disposition", "attachment;filename=" + fileName);
+            body = imageListNodeFile.getContent();
+        } catch (Exception e) {
+            body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+        return new ResponseEntity<>(body, headers, HttpStatus.OK);
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @PostMapping("/image-list-node/request-file-stream-voucher-for-public")
+    @BehaviorAnalyse
+    @BindingCheck
+    public FastJsonResponseData<JSFixedFastJsonLongIdKey> requestFileStreamVoucherForPublic(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputPublicImageListNodeFileDownloadInfo downloadInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            LongIdKey voucherKey = service.requestFileStreamVoucherForPublic(
+                    WebInputPublicImageListNodeFileDownloadInfo.toStackBean(downloadInfo)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(voucherKey)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    /**
+     * @since 1.7.0
+     */
+    @GetMapping("/image-list-node/download-thumbnail-for-public")
+    @BehaviorAnalyse
+    @SkipRecord
+    public ResponseEntity<Object> downloadThumbnailForPublic(
+            HttpServletRequest request,
+            @Base64RequestParam("download-info") WebInputPublicImageListNodeThumbnailDownloadInfo downloadInfo
+    ) {
+        HttpHeaders headers = new HttpHeaders();
+        Object body;
+        try {
+            ImageListNodeThumbnail imageListNodeThumbnail = service.downloadThumbnailForPublic(
+                    WebInputPublicImageListNodeThumbnailDownloadInfo.toStackBean(downloadInfo)
+            );
+            // 将文件名转换成 HTTP 标准文件名编码下的格式。
+            String fileName = adjustFileNameEncoding(imageListNodeThumbnail.getOriginName());
+            headers.add("Content-Disposition", "attachment;filename=" + fileName);
+            body = imageListNodeThumbnail.getContent();
+        } catch (Exception e) {
+            body = FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+        return new ResponseEntity<>(body, headers, HttpStatus.OK);
     }
 
     private String adjustFileNameEncoding(String fileName) {
