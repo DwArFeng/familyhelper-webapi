@@ -57,4 +57,12 @@ public class BeanTransformerConfiguration {
                 com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
         );
     }
+
+    @Bean("settingrepo.iahnNodeBeanTransformer")
+    public BeanTransformer<IahnNode, FastJsonIahnNode> iahnNodeBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                IahnNode.class, FastJsonIahnNode.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
 }

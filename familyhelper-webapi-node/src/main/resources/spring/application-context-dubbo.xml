@@ -1211,6 +1211,22 @@
             check="false"
             group="${dubbo.consumer.settingrepo.group}"
     />
+    <dubbo:reference
+            id="settingrepoIahnNodeMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.IahnNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoIahnNodeOperateService"
+            interface="com.dwarfeng.settingrepo.stack.service.IahnNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
     <!-- notify。 -->
     <dubbo:reference
             id="notifyNotifySettingMaintainService"

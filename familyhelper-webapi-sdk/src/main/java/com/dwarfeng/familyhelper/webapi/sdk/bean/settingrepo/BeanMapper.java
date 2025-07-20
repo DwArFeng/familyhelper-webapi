@@ -98,4 +98,49 @@ public interface BeanMapper {
     PublicTextNodeInspectInfo publicTextNodeInspectInfoFromWebInput(
             WebInputPublicTextNodeInspectInfo webInputPublicTextNodeInspectInfo
     );
+
+    WebInputPublicIahnNodeLocaleListInspectInfo publicIahnNodeLocaleListInspectInfoToWebInput(
+            PublicIahnNodeLocaleListInspectInfo publicIahnNodeLocaleListInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeLocaleListInspectInfo publicIahnNodeLocaleListInspectInfoFromWebInput(
+            WebInputPublicIahnNodeLocaleListInspectInfo webInputPublicIahnNodeLocaleListInspectInfo
+    );
+
+    WebInputPublicIahnNodeMekListInspectInfo publicIahnNodeMekListInspectInfoToWebInput(
+            PublicIahnNodeMekListInspectInfo publicIahnNodeMekListInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeMekListInspectInfo publicIahnNodeMekListInspectInfoFromWebInput(
+            WebInputPublicIahnNodeMekListInspectInfo webInputPublicIahnNodeMekListInspectInfo
+    );
+
+    WebInputPublicIahnNodeMessageInspectByLocaleInfo publicIahnNodeMessageInspectByLocaleInfoToWebInput(
+            PublicIahnNodeMessageInspectByLocaleInfo publicIahnNodeMessageInspectByLocaleInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeMessageInspectByLocaleInfo publicIahnNodeMessageInspectByLocaleInfoFromWebInput(
+            WebInputPublicIahnNodeMessageInspectByLocaleInfo webInputPublicIahnNodeMessageInspectByLocaleInfo
+    );
+
+    WebInputPublicIahnNodeMessageInspectInfo publicIahnNodeMessageInspectInfoToWebInput(
+            PublicIahnNodeMessageInspectInfo publicIahnNodeMessageInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeMessageInspectInfo publicIahnNodeMessageInspectInfoFromWebInput(
+            WebInputPublicIahnNodeMessageInspectInfo webInputPublicIahnNodeMessageInspectInfo
+    );
+
+    WebInputPublicIahnNodeMessageTableInspectInfo publicIahnNodeMessageTableInspectInfoToWebInput(
+            PublicIahnNodeMessageTableInspectInfo publicIahnNodeMessageTableInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeMessageTableInspectInfo publicIahnNodeMessageTableInspectInfoFromWebInput(
+            WebInputPublicIahnNodeMessageTableInspectInfo webInputPublicIahnNodeMessageTableInspectInfo
+    );
 }
