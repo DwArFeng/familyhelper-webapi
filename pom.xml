@@ -33,7 +33,7 @@
         <jstl.version>1.2</jstl.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-codec.version>1.18.0</commons-codec.version>
         <commons-io.version>2.19.0</commons-io.version>
@@ -53,8 +53,8 @@
         <log4j2.version>2.17.2</log4j2.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <dutil.version>beta-0.3.2.a</dutil.version>
-        <snowflake.version>1.6.4.a</snowflake.version>
-        <subgrade.version>1.5.10.a</subgrade.version>
+        <snowflake.version>1.7.1.a</snowflake.version>
+        <subgrade.version>1.5.11.a</subgrade.version>
         <acckeeper.version>1.8.2.a</acckeeper.version>
         <rbac.version>1.8.4.a</rbac.version>
         <familyhelper-finance.version>1.5.0.a</familyhelper-finance.version>
@@ -63,7 +63,7 @@
         <familyhelper-project.version>1.2.2.a</familyhelper-project.version>
         <familyhelper-life.version>1.1.1.a</familyhelper-life.version>
         <familyhelper-note.version>1.2.0.a</familyhelper-note.version>
-        <settingrepo.version>2.3.2.a</settingrepo.version>
+        <settingrepo.version>2.4.0.a</settingrepo.version>
         <notify.version>1.5.2.a</notify.version>
         <familyhelper-plugin.version>1.7.0.a</familyhelper-plugin.version>
         <!-- Maven 插件版本声明 -->
