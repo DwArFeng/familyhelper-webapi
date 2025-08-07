@@ -4,6 +4,11 @@
 
 ### 功能构建
 
+- 优化 node 模块下的 `logging` 目录结构。
+  - 将 `logging/settings-linux.xml` 重命名为 `settings-ref-linux.xml`，以消除文件名的歧义。
+  - 将 `logging/settings-windows.xml` 重命名为 `settings-ref-windows.xml`，以消除文件名的歧义。
+  - 更新 `logging/README.md` 中的相关说明。
+
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.IahnNodeController。
 
