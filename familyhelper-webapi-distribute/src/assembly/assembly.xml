@@ -13,6 +13,13 @@
 
     <fileSets>
         <fileSet>
+            <outputDirectory>docs/familyhelper-webapi</outputDirectory>
+            <directory>../docs</directory>
+            <filtered>false</filtered>
+            <fileMode>644</fileMode>
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+        <fileSet>
             <outputDirectory>conf/familyhelper-webapi/dubbo</outputDirectory>
             <directory>../familyhelper-webapi-node/src/main/resources/dubbo</directory>
             <includes>
