@@ -26,58 +26,60 @@
     </properties>
 
     <build>
-        <!-- Maven 前端插件，用于执行npm指令。 -->
         <plugins>
+            <!-- Maven 执行插件，用于执行 pnpm 指令。 -->
             <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
                 <executions>
+                    <!-- Install all packages dependencies -->
                     <execution>
-                        <id>install node and npm</id>
+                        <id>pnpm install</id>
+                        <phase>generate-resources</phase>
                         <goals>
-                            <goal>install-node-and-npm</goal>
+                            <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v12.16.1</nodeVersion>
+                            <executable>pnpm</executable>
+                            <arguments>
+                                <argument>install</argument>
+                                <argument>--frozen-lockfile</argument>
+                            </arguments>
                         </configuration>
                     </execution>
-                    <!-- Install all project dependencies -->
+                    <!-- Build all packages -->
                     <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
+                        <id>pnpm run build</id>
                         <phase>generate-resources</phase>
-                        <!-- Optional configuration which provides for running any npm command -->
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
                         <configuration>
-                            <arguments>install --no-save</arguments>
+                            <executable>pnpm</executable>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>build</argument>
+                            </arguments>
                         </configuration>
                     </execution>
-                    <!-- Lint files -->
+                    <!-- Check all packages -->
                     <execution>
-                        <id>npm run lint</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
+                        <id>pnpm run check</id>
                         <phase>generate-resources</phase>
-                        <configuration>
-                            <arguments>run lint</arguments>
-                        </configuration>
-                    </execution>
-                    <!-- Build and minify static files -->
-                    <execution>
-                        <id>npm run build</id>
                         <goals>
-                            <goal>npm</goal>
+                            <goal>exec</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <executable>pnpm</executable>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>check</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!-- Maven 清理插件，用于清理dist文件。 -->
+            <!-- Maven 清理插件，用于清理输出文件。 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -85,7 +87,6 @@
                     <filesets>
                         <fileset>
                             <directory>dist</directory>
-                            <directory>node</directory>
                         </fileset>
                     </filesets>
                 </configuration>

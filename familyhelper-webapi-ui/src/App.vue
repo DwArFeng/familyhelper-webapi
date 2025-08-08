@@ -1,22 +1,19 @@
 <template>
   <div id="app">
-    <hello-world msg="启动成功，奖励你一朵小花（๑╹◡╹)ﾉ”"/>
+    <hello-world msg="启动成功，奖励你一朵小花（๑╹◡╹)ﾉ”" />
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue';
+<script setup lang="ts">
+import HelloWorld from './components/HelloWorld.vue'
 
-export default {
+defineOptions({
   name: 'App',
-  components: {
-    HelloWorld,
-  },
-};
+})
 </script>
 
 <style>
-@import "assets/css/global.css";
+@import 'assets/css/global.css';
 </style>
 
 <style>
