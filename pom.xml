@@ -55,8 +55,8 @@
         <dutil.version>beta-0.3.2.a</dutil.version>
         <snowflake.version>1.7.1.a</snowflake.version>
         <subgrade.version>1.5.11.a</subgrade.version>
-        <acckeeper.version>1.8.2.a</acckeeper.version>
-        <rbac.version>1.8.4.a</rbac.version>
+        <acckeeper.version>1.9.1.a</acckeeper.version>
+        <rbac.version>1.9.0.a</rbac.version>
         <familyhelper-finance.version>1.5.0.a</familyhelper-finance.version>
         <familyhelper-clannad.version>1.6.0.a</familyhelper-clannad.version>
         <familyhelper-assets.version>1.0.8.a</familyhelper-assets.version>
@@ -64,7 +64,7 @@
         <familyhelper-life.version>1.1.1.a</familyhelper-life.version>
         <familyhelper-note.version>1.2.0.a</familyhelper-note.version>
         <settingrepo.version>2.4.0.a</settingrepo.version>
-        <notify.version>1.5.2.a</notify.version>
+        <notify.version>1.6.0.a</notify.version>
         <familyhelper-plugin.version>1.7.0.a</familyhelper-plugin.version>
         <!-- Maven 插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
