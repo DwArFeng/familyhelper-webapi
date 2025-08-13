@@ -12,15 +12,34 @@ import java.util.Arrays;
  */
 public class PublicIahnNodeLocaleListInspectInfo implements Dto {
 
-    private static final long serialVersionUID = -7345509011742701451L;
+    private static final long serialVersionUID = 9097881621518830982L;
+
+    /**
+     * 设置类别。
+     *
+     * <p>
+     * 该参数将会经过一定规则进行处理，得到最终的设置类别。
+     *
+     * @since 1.8.0
+     */
+    private String category;
 
     private String[] args;
 
     public PublicIahnNodeLocaleListInspectInfo() {
     }
 
-    public PublicIahnNodeLocaleListInspectInfo(String[] args) {
+    public PublicIahnNodeLocaleListInspectInfo(String category, String[] args) {
+        this.category = category;
         this.args = args;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -34,7 +53,8 @@ public class PublicIahnNodeLocaleListInspectInfo implements Dto {
     @Override
     public String toString() {
         return "PublicIahnNodeLocaleListInspectInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 '}';
     }
 }

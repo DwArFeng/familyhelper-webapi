@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicIahnNodeLocaleListInspectInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import java.util.Objects;
  */
 public class WebInputPublicIahnNodeLocaleListInspectInfo implements Dto {
 
-    private static final long serialVersionUID = -9067124551438378798L;
+    private static final long serialVersionUID = -5867687722936769661L;
 
     public static PublicIahnNodeLocaleListInspectInfo toStackBean(
             WebInputPublicIahnNodeLocaleListInspectInfo webInput
@@ -25,16 +26,30 @@ public class WebInputPublicIahnNodeLocaleListInspectInfo implements Dto {
             return null;
         } else {
             return new PublicIahnNodeLocaleListInspectInfo(
+                    webInput.getCategory(),
                     webInput.getArgs()
             );
         }
     }
+
+    @JSONField(name = "category")
+    @NotNull
+    @NotEmpty
+    private String category;
 
     @JSONField(name = "args")
     @NotNull
     private String[] args;
 
     public WebInputPublicIahnNodeLocaleListInspectInfo() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -48,7 +63,8 @@ public class WebInputPublicIahnNodeLocaleListInspectInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputPublicIahnNodeLocaleListInspectInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 '}';
     }
 }

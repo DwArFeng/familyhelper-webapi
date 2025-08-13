@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeFileDownloadInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Objects;
@@ -16,23 +17,37 @@ import java.util.Objects;
  */
 public class WebInputPublicImageNodeFileDownloadInfo implements Dto {
 
-    private static final long serialVersionUID = -3728169635062656583L;
+    private static final long serialVersionUID = 7321113950113404429L;
 
     public static PublicImageNodeFileDownloadInfo toStackBean(WebInputPublicImageNodeFileDownloadInfo webInput) {
         if (Objects.isNull(webInput)) {
             return null;
         } else {
             return new PublicImageNodeFileDownloadInfo(
+                    webInput.getCategory(),
                     webInput.getArgs()
             );
         }
     }
+
+    @JSONField(name = "category")
+    @NotNull
+    @NotEmpty
+    private String category;
 
     @JSONField(name = "args")
     @NotNull
     private String[] args;
 
     public WebInputPublicImageNodeFileDownloadInfo() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -46,7 +61,8 @@ public class WebInputPublicImageNodeFileDownloadInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputPublicImageNodeFileDownloadInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 '}';
     }
 }

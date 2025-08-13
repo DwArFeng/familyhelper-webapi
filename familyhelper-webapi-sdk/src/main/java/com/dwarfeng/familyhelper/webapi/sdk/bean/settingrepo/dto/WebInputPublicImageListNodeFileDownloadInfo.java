@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageListNodeFileDownloadInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ import java.util.Objects;
  */
 public class WebInputPublicImageListNodeFileDownloadInfo implements Dto {
 
-    private static final long serialVersionUID = 3646002814334355677L;
+    private static final long serialVersionUID = 6826739785360739812L;
 
     public static PublicImageListNodeFileDownloadInfo toStackBean(
             WebInputPublicImageListNodeFileDownloadInfo webInput
@@ -26,11 +27,17 @@ public class WebInputPublicImageListNodeFileDownloadInfo implements Dto {
             return null;
         } else {
             return new PublicImageListNodeFileDownloadInfo(
+                    webInput.getCategory(),
                     webInput.getArgs(),
                     webInput.getIndex()
             );
         }
     }
+
+    @JSONField(name = "category")
+    @NotNull
+    @NotEmpty
+    private String category;
 
     @JSONField(name = "args")
     @NotNull
@@ -41,6 +48,14 @@ public class WebInputPublicImageListNodeFileDownloadInfo implements Dto {
     private int index;
 
     public WebInputPublicImageListNodeFileDownloadInfo() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -62,7 +77,8 @@ public class WebInputPublicImageListNodeFileDownloadInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputPublicImageListNodeFileDownloadInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 ", index=" + index +
                 '}';
     }

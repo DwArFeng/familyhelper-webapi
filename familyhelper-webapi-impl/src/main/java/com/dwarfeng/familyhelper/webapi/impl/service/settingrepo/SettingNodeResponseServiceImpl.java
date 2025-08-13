@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.settingrepo;
 
-import com.dwarfeng.familyhelper.webapi.sdk.util.Constants;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicSettingNodeInspectInfo;
+import com.dwarfeng.familyhelper.webapi.stack.handler.settingrepo.PublicSettingCategoryHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.SettingNodeResponseService;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInitInfo;
 import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeInspectInfo;
@@ -10,10 +10,13 @@ import com.dwarfeng.settingrepo.stack.bean.dto.SettingNodeRemoveInfo;
 import com.dwarfeng.settingrepo.stack.bean.entity.SettingNode;
 import com.dwarfeng.settingrepo.stack.service.SettingNodeMaintainService;
 import com.dwarfeng.settingrepo.stack.service.SettingNodeOperateService;
+import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
+import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +26,20 @@ public class SettingNodeResponseServiceImpl implements SettingNodeResponseServic
     private final SettingNodeMaintainService settingNodeMaintainService;
     private final SettingNodeOperateService settingNodeOperateService;
 
+    private final PublicSettingCategoryHandler publicSettingCategoryHandler;
+
+    private final ServiceExceptionMapper sem;
+
     public SettingNodeResponseServiceImpl(
             @Qualifier("settingrepoSettingNodeMaintainService") SettingNodeMaintainService settingNodeMaintainService,
-            @Qualifier("settingrepoSettingNodeOperateService") SettingNodeOperateService settingNodeOperateService
+            @Qualifier("settingrepoSettingNodeOperateService") SettingNodeOperateService settingNodeOperateService,
+            PublicSettingCategoryHandler publicSettingCategoryHandler,
+            ServiceExceptionMapper sem
     ) {
         this.settingNodeMaintainService = settingNodeMaintainService;
         this.settingNodeOperateService = settingNodeOperateService;
+        this.publicSettingCategoryHandler = publicSettingCategoryHandler;
+        this.sem = sem;
     }
 
     @Override
@@ -82,9 +93,14 @@ public class SettingNodeResponseServiceImpl implements SettingNodeResponseServic
 
     @Override
     public SettingNodeInspectResult inspectForPublic(PublicSettingNodeInspectInfo info) throws ServiceException {
-        SettingNodeInspectInfo originalInfo = new SettingNodeInspectInfo(
-                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
-        );
-        return settingNodeOperateService.inspect(originalInfo);
+        try {
+            SettingNodeInspectInfo originalInfo = new SettingNodeInspectInfo(
+                    publicSettingCategoryHandler.parsePublicSettingCategory(info.getCategory()),
+                    info.getArgs()
+            );
+            return settingNodeOperateService.inspect(originalInfo);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logParse("查看指定的公共设置节点时发生异常", LogLevel.WARN, e, sem);
+        }
     }
 }

@@ -12,7 +12,17 @@ import java.util.Arrays;
  */
 public class PublicIahnNodeMessageInspectInfo implements Dto {
 
-    private static final long serialVersionUID = 3447562147937229906L;
+    private static final long serialVersionUID = -3188651732296055971L;
+
+    /**
+     * 设置类别。
+     *
+     * <p>
+     * 该参数将会经过一定规则进行处理，得到最终的设置类别。
+     *
+     * @since 1.8.0
+     */
+    private String category;
 
     private String[] args;
 
@@ -60,13 +70,22 @@ public class PublicIahnNodeMessageInspectInfo implements Dto {
     }
 
     public PublicIahnNodeMessageInspectInfo(
-            String[] args, String language, String country, String variant, String mekId
+            String category, String[] args, String language, String country, String variant, String mekId
     ) {
+        this.category = category;
         this.args = args;
         this.language = language;
         this.country = country;
         this.variant = variant;
         this.mekId = mekId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -112,7 +131,8 @@ public class PublicIahnNodeMessageInspectInfo implements Dto {
     @Override
     public String toString() {
         return "PublicIahnNodeMessageInspectInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 ", language='" + language + '\'' +
                 ", country='" + country + '\'' +
                 ", variant='" + variant + '\'' +

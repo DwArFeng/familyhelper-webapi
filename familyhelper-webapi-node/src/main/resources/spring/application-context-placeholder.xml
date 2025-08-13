@@ -11,7 +11,8 @@
 
     <!-- 设置配置文件的路径 -->
     <context:property-placeholder
-            location="classpath:dubbo/*.properties,classpath:familyhelper/*.properties"
+            location="classpath:dubbo/*.properties,classpath:familyhelper/*.properties,
+            classpath:settingrepo/*.properties"
             local-override="true"
             properties-ref="refProperties"
     />
@@ -24,6 +25,8 @@
                 <value>file:conf/familyhelper-webapi/dubbo/*.properties</value>
                 <!--suppress SpringXmlModelInspection -->
                 <value>file:conf/familyhelper-webapi/familyhelper/*.properties</value>
+                <!--suppress SpringXmlModelInspection -->
+                <value>file:conf/familyhelper-webapi/settingrepo/*.properties</value>
             </list>
         </property>
     </bean>

@@ -12,15 +12,34 @@ import java.util.Arrays;
  */
 public class PublicImageListNodeSizeInfo implements Dto {
 
-    private static final long serialVersionUID = 4935751439362617423L;
+    private static final long serialVersionUID = 2278910351526009582L;
+
+    /**
+     * 设置类别。
+     *
+     * <p>
+     * 该参数将会经过一定规则进行处理，得到最终的设置类别。
+     *
+     * @since 1.8.0
+     */
+    private String category;
 
     private String[] args;
 
     public PublicImageListNodeSizeInfo() {
     }
 
-    public PublicImageListNodeSizeInfo(String[] args) {
+    public PublicImageListNodeSizeInfo(String category, String[] args) {
+        this.category = category;
         this.args = args;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -34,7 +53,8 @@ public class PublicImageListNodeSizeInfo implements Dto {
     @Override
     public String toString() {
         return "PublicImageListNodeSizeInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 '}';
     }
 }

@@ -12,15 +12,34 @@ import java.util.Arrays;
  */
 public class PublicImageNodeInspectInfo implements Dto {
 
-    private static final long serialVersionUID = 1024468286816613946L;
+    private static final long serialVersionUID = 1957300603558591171L;
+
+    /**
+     * 设置类别。
+     *
+     * <p>
+     * 该参数将会经过一定规则进行处理，得到最终的设置类别。
+     *
+     * @since 1.8.0
+     */
+    private String category;
 
     private String[] args;
 
     public PublicImageNodeInspectInfo() {
     }
 
-    public PublicImageNodeInspectInfo(String[] args) {
+    public PublicImageNodeInspectInfo(String category, String[] args) {
+        this.category = category;
         this.args = args;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -34,7 +53,8 @@ public class PublicImageNodeInspectInfo implements Dto {
     @Override
     public String toString() {
         return "PublicImageNodeInspectInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 '}';
     }
 }

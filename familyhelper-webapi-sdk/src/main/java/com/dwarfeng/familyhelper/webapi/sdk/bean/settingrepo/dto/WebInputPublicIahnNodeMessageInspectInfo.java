@@ -19,13 +19,14 @@ import java.util.Objects;
  */
 public class WebInputPublicIahnNodeMessageInspectInfo implements Dto {
 
-    private static final long serialVersionUID = 3988963975799922737L;
+    private static final long serialVersionUID = -7580914747565634924L;
 
     public static PublicIahnNodeMessageInspectInfo toStackBean(WebInputPublicIahnNodeMessageInspectInfo webInput) {
         if (Objects.isNull(webInput)) {
             return null;
         } else {
             return new PublicIahnNodeMessageInspectInfo(
+                    webInput.getCategory(),
                     webInput.getArgs(),
                     webInput.getLanguage(),
                     webInput.getCountry(),
@@ -34,6 +35,11 @@ public class WebInputPublicIahnNodeMessageInspectInfo implements Dto {
             );
         }
     }
+
+    @JSONField(name = "category")
+    @NotNull
+    @NotEmpty
+    private String category;
 
     @JSONField(name = "args")
     @NotNull
@@ -61,6 +67,14 @@ public class WebInputPublicIahnNodeMessageInspectInfo implements Dto {
     private String mekId;
 
     public WebInputPublicIahnNodeMessageInspectInfo() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -106,7 +120,8 @@ public class WebInputPublicIahnNodeMessageInspectInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputPublicIahnNodeMessageInspectInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 ", language='" + language + '\'' +
                 ", country='" + country + '\'' +
                 ", variant='" + variant + '\'' +

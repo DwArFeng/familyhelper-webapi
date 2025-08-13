@@ -12,7 +12,17 @@ import java.util.Arrays;
  */
 public class PublicImageListNodeFileDownloadInfo implements Dto {
 
-    private static final long serialVersionUID = 4851862667080258448L;
+    private static final long serialVersionUID = 3217970445734892105L;
+
+    /**
+     * 设置类别。
+     *
+     * <p>
+     * 该参数将会经过一定规则进行处理，得到最终的设置类别。
+     *
+     * @since 1.8.0
+     */
+    private String category;
 
     private String[] args;
     private int index;
@@ -20,9 +30,18 @@ public class PublicImageListNodeFileDownloadInfo implements Dto {
     public PublicImageListNodeFileDownloadInfo() {
     }
 
-    public PublicImageListNodeFileDownloadInfo(String[] args, int index) {
+    public PublicImageListNodeFileDownloadInfo(String category, String[] args, int index) {
+        this.category = category;
         this.args = args;
         this.index = index;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -44,7 +63,8 @@ public class PublicImageListNodeFileDownloadInfo implements Dto {
     @Override
     public String toString() {
         return "PublicImageListNodeFileDownloadInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 ", index=" + index +
                 '}';
     }

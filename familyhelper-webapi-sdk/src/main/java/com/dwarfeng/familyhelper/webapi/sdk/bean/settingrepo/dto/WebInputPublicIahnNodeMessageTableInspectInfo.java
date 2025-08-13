@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicIahnNodeMessageTableInspectInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import java.util.Objects;
  */
 public class WebInputPublicIahnNodeMessageTableInspectInfo implements Dto {
 
-    private static final long serialVersionUID = 1648599110465388226L;
+    private static final long serialVersionUID = 5461505850492898061L;
 
     public static PublicIahnNodeMessageTableInspectInfo toStackBean(
             WebInputPublicIahnNodeMessageTableInspectInfo webInput
@@ -25,16 +26,30 @@ public class WebInputPublicIahnNodeMessageTableInspectInfo implements Dto {
             return null;
         } else {
             return new PublicIahnNodeMessageTableInspectInfo(
+                    webInput.getCategory(),
                     webInput.getArgs()
             );
         }
     }
+
+    @JSONField(name = "category")
+    @NotNull
+    @NotEmpty
+    private String category;
 
     @JSONField(name = "args")
     @NotNull
     private String[] args;
 
     public WebInputPublicIahnNodeMessageTableInspectInfo() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -48,7 +63,8 @@ public class WebInputPublicIahnNodeMessageTableInspectInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputPublicIahnNodeMessageTableInspectInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 '}';
     }
 }

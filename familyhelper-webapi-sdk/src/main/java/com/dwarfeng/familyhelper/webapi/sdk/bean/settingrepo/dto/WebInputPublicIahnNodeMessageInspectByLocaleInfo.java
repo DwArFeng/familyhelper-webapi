@@ -6,6 +6,7 @@ import com.dwarfeng.settingrepo.sdk.util.Constraints;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Objects;
@@ -18,7 +19,7 @@ import java.util.Objects;
  */
 public class WebInputPublicIahnNodeMessageInspectByLocaleInfo implements Dto {
 
-    private static final long serialVersionUID = 4877578194655340886L;
+    private static final long serialVersionUID = -1384107402392231659L;
 
     public static PublicIahnNodeMessageInspectByLocaleInfo toStackBean(
             WebInputPublicIahnNodeMessageInspectByLocaleInfo webInput
@@ -27,6 +28,7 @@ public class WebInputPublicIahnNodeMessageInspectByLocaleInfo implements Dto {
             return null;
         } else {
             return new PublicIahnNodeMessageInspectByLocaleInfo(
+                    webInput.getCategory(),
                     webInput.getArgs(),
                     webInput.getLanguage(),
                     webInput.getCountry(),
@@ -34,6 +36,11 @@ public class WebInputPublicIahnNodeMessageInspectByLocaleInfo implements Dto {
             );
         }
     }
+
+    @JSONField(name = "category")
+    @NotNull
+    @NotEmpty
+    private String category;
 
     @JSONField(name = "args")
     @NotNull
@@ -55,6 +62,14 @@ public class WebInputPublicIahnNodeMessageInspectByLocaleInfo implements Dto {
     private String variant;
 
     public WebInputPublicIahnNodeMessageInspectByLocaleInfo() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -92,7 +107,8 @@ public class WebInputPublicIahnNodeMessageInspectByLocaleInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputPublicIahnNodeMessageInspectByLocaleInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 ", language='" + language + '\'' +
                 ", country='" + country + '\'' +
                 ", variant='" + variant + '\'' +

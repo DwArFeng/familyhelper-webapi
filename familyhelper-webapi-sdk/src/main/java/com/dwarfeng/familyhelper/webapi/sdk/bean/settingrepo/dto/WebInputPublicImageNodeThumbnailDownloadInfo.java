@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeThumbnailDownloadInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import java.util.Objects;
  */
 public class WebInputPublicImageNodeThumbnailDownloadInfo implements Dto {
 
-    private static final long serialVersionUID = 764600831233291821L;
+    private static final long serialVersionUID = 7001581169336084698L;
 
     public static PublicImageNodeThumbnailDownloadInfo toStackBean(
             WebInputPublicImageNodeThumbnailDownloadInfo webInput
@@ -25,16 +26,30 @@ public class WebInputPublicImageNodeThumbnailDownloadInfo implements Dto {
             return null;
         } else {
             return new PublicImageNodeThumbnailDownloadInfo(
+                    webInput.getCategory(),
                     webInput.getArgs()
             );
         }
     }
+
+    @JSONField(name = "category")
+    @NotNull
+    @NotEmpty
+    private String category;
 
     @JSONField(name = "args")
     @NotNull
     private String[] args;
 
     public WebInputPublicImageNodeThumbnailDownloadInfo() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -48,7 +63,8 @@ public class WebInputPublicImageNodeThumbnailDownloadInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputPublicImageNodeThumbnailDownloadInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 '}';
     }
 }

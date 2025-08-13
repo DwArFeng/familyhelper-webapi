@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicTextNodeInspectInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Objects;
@@ -16,23 +17,37 @@ import java.util.Objects;
  */
 public class WebInputPublicTextNodeInspectInfo implements Dto {
 
-    private static final long serialVersionUID = -4111080814660053601L;
+    private static final long serialVersionUID = -2126330435073866558L;
 
     public static PublicTextNodeInspectInfo toStackBean(WebInputPublicTextNodeInspectInfo webInput) {
         if (Objects.isNull(webInput)) {
             return null;
         } else {
             return new PublicTextNodeInspectInfo(
+                    webInput.getCategory(),
                     webInput.getArgs()
             );
         }
     }
+
+    @JSONField(name = "category")
+    @NotNull
+    @NotEmpty
+    private String category;
 
     @JSONField(name = "args")
     @NotNull
     private String[] args;
 
     public WebInputPublicTextNodeInspectInfo() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -46,7 +61,8 @@ public class WebInputPublicTextNodeInspectInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputPublicTextNodeInspectInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 '}';
     }
 }

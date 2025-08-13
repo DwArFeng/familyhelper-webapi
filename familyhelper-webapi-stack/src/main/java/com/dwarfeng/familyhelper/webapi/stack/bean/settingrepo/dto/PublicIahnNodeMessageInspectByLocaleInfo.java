@@ -12,7 +12,17 @@ import java.util.Arrays;
  */
 public class PublicIahnNodeMessageInspectByLocaleInfo implements Dto {
 
-    private static final long serialVersionUID = 5540087836274498797L;
+    private static final long serialVersionUID = 9165460859937314338L;
+
+    /**
+     * 设置类别。
+     *
+     * <p>
+     * 该参数将会经过一定规则进行处理，得到最终的设置类别。
+     *
+     * @since 1.8.0
+     */
+    private String category;
 
     private String[] args;
 
@@ -57,11 +67,22 @@ public class PublicIahnNodeMessageInspectByLocaleInfo implements Dto {
     public PublicIahnNodeMessageInspectByLocaleInfo() {
     }
 
-    public PublicIahnNodeMessageInspectByLocaleInfo(String[] args, String language, String country, String variant) {
+    public PublicIahnNodeMessageInspectByLocaleInfo(
+            String category, String[] args, String language, String country, String variant
+    ) {
+        this.category = category;
         this.args = args;
         this.language = language;
         this.country = country;
         this.variant = variant;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String[] getArgs() {
@@ -99,7 +120,8 @@ public class PublicIahnNodeMessageInspectByLocaleInfo implements Dto {
     @Override
     public String toString() {
         return "PublicIahnNodeMessageInspectByLocaleInfo{" +
-                "args=" + Arrays.toString(args) +
+                "category='" + category + '\'' +
+                ", args=" + Arrays.toString(args) +
                 ", language='" + language + '\'' +
                 ", country='" + country + '\'' +
                 ", variant='" + variant + '\'' +

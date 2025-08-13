@@ -1,16 +1,19 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.settingrepo;
 
-import com.dwarfeng.familyhelper.webapi.sdk.util.Constants;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.*;
+import com.dwarfeng.familyhelper.webapi.stack.handler.settingrepo.PublicSettingCategoryHandler;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.IahnNodeResponseService;
 import com.dwarfeng.settingrepo.stack.bean.dto.*;
 import com.dwarfeng.settingrepo.stack.bean.entity.IahnNode;
 import com.dwarfeng.settingrepo.stack.service.IahnNodeMaintainService;
 import com.dwarfeng.settingrepo.stack.service.IahnNodeOperateService;
+import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
+import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
+import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +23,20 @@ public class IahnNodeResponseServiceImpl implements IahnNodeResponseService {
     private final IahnNodeMaintainService iahnNodeMaintainService;
     private final IahnNodeOperateService iahnNodeOperateService;
 
+    private final PublicSettingCategoryHandler publicSettingCategoryHandler;
+
+    private final ServiceExceptionMapper sem;
+
     public IahnNodeResponseServiceImpl(
-            @Qualifier("settingrepoIahnNodeMaintainService")
-            IahnNodeMaintainService iahnNodeMaintainService,
-            @Qualifier("settingrepoIahnNodeOperateService")
-            IahnNodeOperateService iahnNodeOperateService
+            @Qualifier("settingrepoIahnNodeMaintainService") IahnNodeMaintainService iahnNodeMaintainService,
+            @Qualifier("settingrepoIahnNodeOperateService") IahnNodeOperateService iahnNodeOperateService,
+            PublicSettingCategoryHandler publicSettingCategoryHandler,
+            ServiceExceptionMapper sem
     ) {
         this.iahnNodeMaintainService = iahnNodeMaintainService;
         this.iahnNodeOperateService = iahnNodeOperateService;
+        this.publicSettingCategoryHandler = publicSettingCategoryHandler;
+        this.sem = sem;
     }
 
     @Override
@@ -111,48 +120,76 @@ public class IahnNodeResponseServiceImpl implements IahnNodeResponseService {
     @Override
     public IahnNodeMessageInspectResult inspectMessageForPublic(PublicIahnNodeMessageInspectInfo info)
             throws ServiceException {
-        IahnNodeMessageInspectInfo originalInfo = new IahnNodeMessageInspectInfo(
-                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs(),
-                info.getLanguage(), info.getCountry(), info.getVariant(), info.getMekId()
-        );
-        return iahnNodeOperateService.inspectMessage(originalInfo);
+        try {
+            IahnNodeMessageInspectInfo originalInfo = new IahnNodeMessageInspectInfo(
+                    publicSettingCategoryHandler.parsePublicSettingCategory(info.getCategory()),
+                    info.getArgs(),
+                    info.getLanguage(), info.getCountry(), info.getVariant(), info.getMekId()
+            );
+            return iahnNodeOperateService.inspectMessage(originalInfo);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logParse("检查公共国际化节点的消息时发生异常", LogLevel.WARN, e, sem);
+
+        }
     }
 
     @Override
     public IahnNodeMessageInspectByLocaleResult batchInspectMessageByLocaleForPublic(
             PublicIahnNodeMessageInspectByLocaleInfo info
     ) throws ServiceException {
-        IahnNodeMessageInspectByLocaleInfo originalInfo = new IahnNodeMessageInspectByLocaleInfo(
-                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs(),
-                info.getLanguage(), info.getCountry(), info.getVariant()
-        );
-        return iahnNodeOperateService.batchInspectMessageByLocale(originalInfo);
+        try {
+            IahnNodeMessageInspectByLocaleInfo originalInfo = new IahnNodeMessageInspectByLocaleInfo(
+                    publicSettingCategoryHandler.parsePublicSettingCategory(info.getCategory()),
+                    info.getArgs(),
+                    info.getLanguage(), info.getCountry(), info.getVariant()
+            );
+            return iahnNodeOperateService.batchInspectMessageByLocale(originalInfo);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logParse(
+                    "批量检查指定本地化的公共国际化节点消息时发生异常", LogLevel.WARN, e, sem
+            );
+        }
     }
 
     @Override
     public IahnNodeLocaleListInspectResult inspectLocaleListForPublic(PublicIahnNodeLocaleListInspectInfo info)
             throws ServiceException {
-        IahnNodeLocaleListInspectInfo originalInfo = new IahnNodeLocaleListInspectInfo(
-                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
-        );
-        return iahnNodeOperateService.inspectLocaleList(originalInfo);
+        try {
+            IahnNodeLocaleListInspectInfo originalInfo = new IahnNodeLocaleListInspectInfo(
+                    publicSettingCategoryHandler.parsePublicSettingCategory(info.getCategory()),
+                    info.getArgs()
+            );
+            return iahnNodeOperateService.inspectLocaleList(originalInfo);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logParse("检查公共国际化节点的本地化列表时发生异常", LogLevel.WARN, e, sem);
+        }
     }
 
     @Override
     public IahnNodeMekListInspectResult inspectMekListForPublic(PublicIahnNodeMekListInspectInfo info)
             throws ServiceException {
-        IahnNodeMekListInspectInfo originalInfo = new IahnNodeMekListInspectInfo(
-                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
-        );
-        return iahnNodeOperateService.inspectMekList(originalInfo);
+        try {
+            IahnNodeMekListInspectInfo originalInfo = new IahnNodeMekListInspectInfo(
+                    publicSettingCategoryHandler.parsePublicSettingCategory(info.getCategory()),
+                    info.getArgs()
+            );
+            return iahnNodeOperateService.inspectMekList(originalInfo);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logParse("检查公共国际化节点的 Mek 列表时发生异常", LogLevel.WARN, e, sem);
+        }
     }
 
     @Override
     public IahnNodeMessageTableInspectResult inspectMessageTableForPublic(PublicIahnNodeMessageTableInspectInfo info)
             throws ServiceException {
-        IahnNodeMessageTableInspectInfo originalInfo = new IahnNodeMessageTableInspectInfo(
-                Constants.SETTINGREPO_PUBLIC_SETTING_CATEGORY, info.getArgs()
-        );
-        return iahnNodeOperateService.inspectMessageTable(originalInfo);
+        try {
+            IahnNodeMessageTableInspectInfo originalInfo = new IahnNodeMessageTableInspectInfo(
+                    publicSettingCategoryHandler.parsePublicSettingCategory(info.getCategory()),
+                    info.getArgs()
+            );
+            return iahnNodeOperateService.inspectMessageTable(originalInfo);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logParse("检查公共国际化节点的消息表时发生异常", LogLevel.WARN, e, sem);
+        }
     }
 }
