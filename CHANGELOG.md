@@ -4,6 +4,11 @@
 
 ### 功能构建
 
+- Wiki 更新。
+  - docs/wiki/zh-CN/Introduction.md。
+
+- 更新 README.md。
+
 - 重构配置仓库公共公共设置类别处理逻辑。
   - 增加公共设置类别处理器。
   - 更改相关 DTO 实体。
