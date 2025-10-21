@@ -1,7 +1,5 @@
 package com.dwarfeng.familyhelper.webapi.sdk.bean.life;
 
-import com.dwarfeng.familyhelper.life.sdk.bean.entity.*;
-import com.dwarfeng.familyhelper.life.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.life.disp.*;
 import com.dwarfeng.familyhelper.webapi.stack.bean.life.disp.*;
 import org.mapstruct.InheritInverseConfiguration;
@@ -14,293 +12,124 @@ import org.mapstruct.Mapper;
  * 该映射器中包含了 <code>sdk</code> 模块中所有实体与 <code>stack</code> 模块中对应实体的映射方法。
  *
  * @author DwArFeng
- * @since 1.6.0
+ * @since 1.8.1
  */
 @Mapper
 public interface BeanMapper {
 
-    JSFixedFastJsonPbSet pbSetToJsFixedFastJson(PbSet pbSet);
+    // -----------------------------------------------------------Familyhelper-webapi Disp-----------------------------------------------------------
+    JSFixedFastJsonDispActivity dispActivityToJSFixedFastJson(DispActivity dispActivity);
 
     @InheritInverseConfiguration
-    PbSet pbSetFromJsFixedFastJson(JSFixedFastJsonPbSet jsFixedFastJsonPbSet);
+    DispActivity dispActivityFromJSFixedFastJson(JSFixedFastJsonDispActivity jSFixedFastJsonDispActivity);
 
-    JSFixedFastJsonDispPbSet dispPbSetToJsFixedFastJson(DispPbSet dispPbSet);
-
-    @InheritInverseConfiguration
-    DispPbSet dispPbSetFromJsFixedFastJson(JSFixedFastJsonDispPbSet jsFixedFastJsonDispPbSet);
-
-    JSFixedFastJsonPopb popbToJsFixedFastJson(Popb popb);
-
-    @InheritInverseConfiguration
-    Popb popbFromJsFixedFastJson(JSFixedFastJsonPopb jsFixedFastJsonPopb);
-
-    JSFixedFastJsonDispPopb dispPopbToJsFixedFastJson(DispPopb dispPopb);
-
-    @InheritInverseConfiguration
-    DispPopb dispPopbFromJsFixedFastJson(JSFixedFastJsonDispPopb jsFixedFastJsonDispPopb);
-
-    JSFixedFastJsonPbNode pbNodeToJsFixedFastJson(PbNode pbNode);
-
-    @InheritInverseConfiguration
-    PbNode pbNodeFromJsFixedFastJson(JSFixedFastJsonPbNode jsFixedFastJsonPbNode);
-
-    JSFixedFastJsonDispPbNode dispPbNodeToJsFixedFastJson(DispPbNode dispPbNode);
-
-    @InheritInverseConfiguration
-    DispPbNode dispPbNodeFromJsFixedFastJson(JSFixedFastJsonDispPbNode jsFixedFastJsonDispPbNode);
-
-    JSFixedFastJsonPbItem pbItemToJsFixedFastJson(PbItem pbItem);
-
-    @InheritInverseConfiguration
-    PbItem pbItemFromJsFixedFastJson(JSFixedFastJsonPbItem jsFixedFastJsonPbItem);
-
-    JSFixedFastJsonDispPbItem dispPbItemToJsFixedFastJson(DispPbItem dispPbItem);
-
-    @InheritInverseConfiguration
-    DispPbItem dispPbItemFromJsFixedFastJson(JSFixedFastJsonDispPbItem jsFixedFastJsonDispPbItem);
-
-    JSFixedFastJsonPbRecord pbRecordToJsFixedFastJson(PbRecord pbRecord);
-
-    @InheritInverseConfiguration
-    PbRecord pbRecordFromJsFixedFastJson(JSFixedFastJsonPbRecord jsFixedFastJsonPbRecord);
-
-    JSFixedFastJsonPbFileInfo pbFileInfoToJsFixedFastJson(PbFileInfo pbFileInfo);
-
-    @InheritInverseConfiguration
-    PbFileInfo pbFileInfoFromJsFixedFastJson(JSFixedFastJsonPbFileInfo jsFixedFastJsonPbFileInfo);
-
-    FastJsonActivityTypeIndicator activityTypeIndicatorToFastJson(ActivityTypeIndicator activityTypeIndicator);
-
-    @InheritInverseConfiguration
-    ActivityTypeIndicator activityTypeIndicatorFromFastJson(
-            FastJsonActivityTypeIndicator fastJsonActivityTypeIndicator
-    );
-
-    JSFixedFastJsonActivityTemplateDriverInfo activityTemplateDriverInfoToJsFixedFastJson(
-            ActivityTemplateDriverInfo activityTemplateDriverInfo
-    );
-
-    @InheritInverseConfiguration
-    ActivityTemplateDriverInfo activityTemplateDriverInfoFromJsFixedFastJson(
-            JSFixedFastJsonActivityTemplateDriverInfo jsFixedFastJsonActivityTemplateDriverInfo
-    );
-
-    FastJsonActivityTemplateDriverSupport activityTemplateDriverSupportToFastJson(
-            ActivityTemplateDriverSupport activityTemplateDriverSupport
-    );
-
-    @InheritInverseConfiguration
-    ActivityTemplateDriverSupport activityTemplateDriverSupportFromFastJson(
-            FastJsonActivityTemplateDriverSupport fastJsonActivityTemplateDriverSupport
-    );
-
-    JSFixedFastJsonActivityDataSet activityDataSetToJsFixedFastJson(ActivityDataSet activityDataSet);
-
-    @InheritInverseConfiguration
-    ActivityDataSet activityDataSetFromJsFixedFastJson(JSFixedFastJsonActivityDataSet jsFixedFastJsonActivityDataSet);
-
-    JSFixedFastJsonDispActivityDataSet dispActivityDataSetToJsFixedFastJson(DispActivityDataSet dispActivityDataSet);
-
-    @InheritInverseConfiguration
-    DispActivityDataSet dispActivityDataSetFromJsFixedFastJson(
-            JSFixedFastJsonDispActivityDataSet jsFixedFastJsonDispActivityDataSet
-    );
-
-    JSFixedFastJsonPoad poadToJsFixedFastJson(Poad poad);
-
-    @InheritInverseConfiguration
-    Poad poadFromJsFixedFastJson(JSFixedFastJsonPoad jsFixedFastJsonPoad);
-
-    JSFixedFastJsonDispPoad dispPoadToJsFixedFastJson(DispPoad dispPoad);
-
-    @InheritInverseConfiguration
-    DispPoad dispPoadFromJsFixedFastJson(JSFixedFastJsonDispPoad jsFixedFastJsonDispPoad);
-
-    JSFixedFastJsonActivityDataNode activityDataNodeToJsFixedFastJson(ActivityDataNode activityDataNode);
-
-    @InheritInverseConfiguration
-    ActivityDataNode activityDataNodeFromJsFixedFastJson(
-            JSFixedFastJsonActivityDataNode jsFixedFastJsonActivityDataNode
-    );
-
-    JSFixedFastJsonDispActivityDataNode dispActivityDataNodeToJsFixedFastJson(
-            DispActivityDataNode dispActivityDataNode
-    );
-
-    @InheritInverseConfiguration
-    DispActivityDataNode dispActivityDataNodeFromJsFixedFastJson(
-            JSFixedFastJsonDispActivityDataNode jsFixedFastJsonDispActivityDataNode
-    );
-
-    JSFixedFastJsonActivityDataItem activityDataItemToJsFixedFastJson(ActivityDataItem activityDataItem);
-
-    @InheritInverseConfiguration
-    ActivityDataItem activityDataItemFromJsFixedFastJson(
-            JSFixedFastJsonActivityDataItem jsFixedFastJsonActivityDataItem
-    );
-
-    JSFixedFastJsonDispActivityDataItem dispActivityDataItemToJsFixedFastJson(
+    JSFixedFastJsonDispActivityDataItem dispActivityDataItemToJSFixedFastJson(
             DispActivityDataItem dispActivityDataItem
     );
 
     @InheritInverseConfiguration
-    DispActivityDataItem dispActivityDataItemFromJsFixedFastJson(
-            JSFixedFastJsonDispActivityDataItem jsFixedFastJsonDispActivityDataItem
+    DispActivityDataItem dispActivityDataItemFromJSFixedFastJson(
+            JSFixedFastJsonDispActivityDataItem jSFixedFastJsonDispActivityDataItem
     );
 
-    JSFixedFastJsonActivityDataRecord activityDataRecordToJsFixedFastJson(ActivityDataRecord activityDataRecord);
+    JSFixedFastJsonDispActivityDataNode dispActivityDataNodeToJSFixedFastJson(
+            DispActivityDataNode dispActivityDataNode
+    );
 
     @InheritInverseConfiguration
-    ActivityDataRecord activityDataRecordFromJsFixedFastJson(
-            JSFixedFastJsonActivityDataRecord jsFixedFastJsonActivityDataRecord
+    DispActivityDataNode dispActivityDataNodeFromJSFixedFastJson(
+            JSFixedFastJsonDispActivityDataNode jSFixedFastJsonDispActivityDataNode
     );
 
-    JSFixedFastJsonDispActivityDataRecord dispActivityDataRecordToJsFixedFastJson(
+    JSFixedFastJsonDispActivityDataRecord dispActivityDataRecordToJSFixedFastJson(
             DispActivityDataRecord dispActivityDataRecord
     );
 
     @InheritInverseConfiguration
-    DispActivityDataRecord dispActivityDataRecordFromJsFixedFastJson(
-            JSFixedFastJsonDispActivityDataRecord jsFixedFastJsonDispActivityDataRecord
+    DispActivityDataRecord dispActivityDataRecordFromJSFixedFastJson(
+            JSFixedFastJsonDispActivityDataRecord jSFixedFastJsonDispActivityDataRecord
     );
 
-    JSFixedFastJsonActivityTemplate activityTemplateToJsFixedFastJson(ActivityTemplate activityTemplate);
+    JSFixedFastJsonDispActivityDataSet dispActivityDataSetToJSFixedFastJson(DispActivityDataSet dispActivityDataSet);
 
     @InheritInverseConfiguration
-    ActivityTemplate activityTemplateFromJsFixedFastJson(
-            JSFixedFastJsonActivityTemplate jsFixedFastJsonActivityTemplate
+    DispActivityDataSet dispActivityDataSetFromJSFixedFastJson(
+            JSFixedFastJsonDispActivityDataSet jSFixedFastJsonDispActivityDataSet
     );
 
-    JSFixedFastJsonDispActivityTemplate dispActivityTemplateToJsFixedFastJson(
-            DispActivityTemplate dispActivityTemplate
-    );
-
-    @InheritInverseConfiguration
-    DispActivityTemplate dispActivityTemplateFromJsFixedFastJson(
-            JSFixedFastJsonDispActivityTemplate jsFixedFastJsonDispActivityTemplate
-    );
-
-    JSFixedFastJsonPoat poatToJsFixedFastJson(Poat poat);
-
-    @InheritInverseConfiguration
-    Poat poatFromJsFixedFastJson(JSFixedFastJsonPoat jsFixedFastJsonPoat);
-
-    JSFixedFastJsonDispPoat dispPoatToJsFixedFastJson(DispPoat dispPoat);
-
-    @InheritInverseConfiguration
-    DispPoat dispPoatFromJsFixedFastJson(JSFixedFastJsonDispPoat jsFixedFastJsonDispPoat);
-
-    JSFixedFastJsonPoatac poatacToJsFixedFastJson(Poatac poatac);
-
-    @InheritInverseConfiguration
-    Poatac poatacFromJsFixedFastJson(JSFixedFastJsonPoatac jsFixedFastJsonPoatac);
-
-    JSFixedFastJsonDispPoatac dispPoatacToJsFixedFastJson(DispPoatac dispPoatac);
-
-    @InheritInverseConfiguration
-    DispPoatac dispPoatacFromJsFixedFastJson(JSFixedFastJsonDispPoatac jsFixedFastJsonDispPoatac);
-
-    JSFixedFastJsonActivityTemplateCoverInfo activityTemplateCoverInfoToJsFixedFastJson(
-            ActivityTemplateCoverInfo activityTemplateCoverInfo
-    );
-
-    @InheritInverseConfiguration
-    ActivityTemplateCoverInfo activityTemplateCoverInfoFromJsFixedFastJson(
-            JSFixedFastJsonActivityTemplateCoverInfo jsFixedFastJsonActivityTemplateCoverInfo
-    );
-
-    JSFixedFastJsonActivityTemplateDataInfo activityTemplateDataInfoToJsFixedFastJson(
-            ActivityTemplateDataInfo activityTemplateDataInfo
-    );
-
-    @InheritInverseConfiguration
-    ActivityTemplateDataInfo activityTemplateDataInfoFromJsFixedFastJson(
-            JSFixedFastJsonActivityTemplateDataInfo jsFixedFastJsonActivityTemplateDataInfo
-    );
-
-    JSFixedFastJsonDispActivityTemplateDataInfo dispActivityTemplateDataInfoToJsFixedFastJson(
-            DispActivityTemplateDataInfo dispActivityTemplateDataInfo
-    );
-
-    @InheritInverseConfiguration
-    DispActivityTemplateDataInfo dispActivityTemplateDataInfoFromJsFixedFastJson(
-            JSFixedFastJsonDispActivityTemplateDataInfo jsFixedFastJsonDispActivityTemplateDataInfo
-    );
-
-    JSFixedFastJsonActivityTemplateParticipant activityTemplateParticipantToJsFixedFastJson(
-            ActivityTemplateParticipant activityTemplateParticipant
-    );
-
-    @InheritInverseConfiguration
-    ActivityTemplateParticipant activityTemplateParticipantFromJsFixedFastJson(
-            JSFixedFastJsonActivityTemplateParticipant jsFixedFastJsonActivityTemplateParticipant
-    );
-
-    JSFixedFastJsonDispActivityTemplateParticipant dispActivityTemplateParticipantToJsFixedFastJson(
-            DispActivityTemplateParticipant dispActivityTemplateParticipant
-    );
-
-    @InheritInverseConfiguration
-    DispActivityTemplateParticipant dispActivityTemplateParticipantFromJsFixedFastJson(
-            JSFixedFastJsonDispActivityTemplateParticipant jsFixedFastJsonDispActivityTemplateParticipant
-    );
-
-    JSFixedFastJsonActivityTemplateFileInfo activityTemplateFileInfoToJsFixedFastJson(
-            ActivityTemplateFileInfo activityTemplateFileInfo
-    );
-
-    @InheritInverseConfiguration
-    ActivityTemplateFileInfo activityTemplateFileInfoFromJsFixedFastJson(
-            JSFixedFastJsonActivityTemplateFileInfo jsFixedFastJsonActivityTemplateFileInfo
-    );
-
-    JSFixedFastJsonActivity activityToJsFixedFastJson(Activity activity);
-
-    @InheritInverseConfiguration
-    Activity activityFromJsFixedFastJson(JSFixedFastJsonActivity jsFixedFastJsonActivity);
-
-    JSFixedFastJsonDispActivity dispActivityToJsFixedFastJson(DispActivity dispActivity);
-
-    @InheritInverseConfiguration
-    DispActivity dispActivityFromJsFixedFastJson(JSFixedFastJsonDispActivity jsFixedFastJsonDispActivity);
-
-    JSFixedFastJsonPoac poacToJsFixedFastJson(Poac poac);
-
-    @InheritInverseConfiguration
-    Poac poacFromJsFixedFastJson(JSFixedFastJsonPoac jsFixedFastJsonPoac);
-
-    JSFixedFastJsonDispPoac dispPoacToJsFixedFastJson(DispPoac dispPoac);
-
-    @InheritInverseConfiguration
-    DispPoac dispPoacFromJsFixedFastJson(JSFixedFastJsonDispPoac jsFixedFastJsonDispPoac);
-
-    JSFixedFastJsonActivityCoverInfo activityCoverInfoToJsFixedFastJson(ActivityCoverInfo activityCoverInfo);
-
-    @InheritInverseConfiguration
-    ActivityCoverInfo activityCoverInfoFromJsFixedFastJson(
-            JSFixedFastJsonActivityCoverInfo jsFixedFastJsonActivityCoverInfo
-    );
-
-    JSFixedFastJsonActivityParticipant activityParticipantToJsFixedFastJson(ActivityParticipant activityParticipant);
-
-    @InheritInverseConfiguration
-    ActivityParticipant activityParticipantFromJsFixedFastJson(
-            JSFixedFastJsonActivityParticipant jsFixedFastJsonActivityParticipant
-    );
-
-    JSFixedFastJsonDispActivityParticipant dispActivityParticipantToJsFixedFastJson(
+    JSFixedFastJsonDispActivityParticipant dispActivityParticipantToJSFixedFastJson(
             DispActivityParticipant dispActivityParticipant
     );
 
     @InheritInverseConfiguration
-    DispActivityParticipant dispActivityParticipantFromJsFixedFastJson(
-            JSFixedFastJsonDispActivityParticipant jsFixedFastJsonDispActivityParticipant
+    DispActivityParticipant dispActivityParticipantFromJSFixedFastJson(
+            JSFixedFastJsonDispActivityParticipant jSFixedFastJsonDispActivityParticipant
     );
 
-    JSFixedFastJsonActivityFileInfo activityFileInfoToJsFixedFastJson(ActivityFileInfo activityFileInfo);
+    JSFixedFastJsonDispActivityTemplate dispActivityTemplateToJSFixedFastJson(
+            DispActivityTemplate dispActivityTemplate
+    );
 
     @InheritInverseConfiguration
-    ActivityFileInfo activityFileInfoFromJsFixedFastJson(
-            JSFixedFastJsonActivityFileInfo jsFixedFastJsonActivityFileInfo
+    DispActivityTemplate dispActivityTemplateFromJSFixedFastJson(
+            JSFixedFastJsonDispActivityTemplate jSFixedFastJsonDispActivityTemplate
     );
+
+    JSFixedFastJsonDispActivityTemplateDataInfo dispActivityTemplateDataInfoToJSFixedFastJson(
+            DispActivityTemplateDataInfo dispActivityTemplateDataInfo
+    );
+
+    @InheritInverseConfiguration
+    DispActivityTemplateDataInfo dispActivityTemplateDataInfoFromJSFixedFastJson(
+            JSFixedFastJsonDispActivityTemplateDataInfo jSFixedFastJsonDispActivityTemplateDataInfo
+    );
+
+    JSFixedFastJsonDispActivityTemplateParticipant dispActivityTemplateParticipantToJSFixedFastJson(
+            DispActivityTemplateParticipant dispActivityTemplateParticipant
+    );
+
+    @InheritInverseConfiguration
+    DispActivityTemplateParticipant dispActivityTemplateParticipantFromJSFixedFastJson(
+            JSFixedFastJsonDispActivityTemplateParticipant jSFixedFastJsonDispActivityTemplateParticipant
+    );
+
+    JSFixedFastJsonDispPbItem dispPbItemToJSFixedFastJson(DispPbItem dispPbItem);
+
+    @InheritInverseConfiguration
+    DispPbItem dispPbItemFromJSFixedFastJson(JSFixedFastJsonDispPbItem jSFixedFastJsonDispPbItem);
+
+    JSFixedFastJsonDispPbNode dispPbNodeToJSFixedFastJson(DispPbNode dispPbNode);
+
+    @InheritInverseConfiguration
+    DispPbNode dispPbNodeFromJSFixedFastJson(JSFixedFastJsonDispPbNode jSFixedFastJsonDispPbNode);
+
+    JSFixedFastJsonDispPbSet dispPbSetToJSFixedFastJson(DispPbSet dispPbSet);
+
+    @InheritInverseConfiguration
+    DispPbSet dispPbSetFromJSFixedFastJson(JSFixedFastJsonDispPbSet jSFixedFastJsonDispPbSet);
+
+    JSFixedFastJsonDispPoac dispPoacToJSFixedFastJson(DispPoac dispPoac);
+
+    @InheritInverseConfiguration
+    DispPoac dispPoacFromJSFixedFastJson(JSFixedFastJsonDispPoac jSFixedFastJsonDispPoac);
+
+    JSFixedFastJsonDispPoad dispPoadToJSFixedFastJson(DispPoad dispPoad);
+
+    @InheritInverseConfiguration
+    DispPoad dispPoadFromJSFixedFastJson(JSFixedFastJsonDispPoad jSFixedFastJsonDispPoad);
+
+    JSFixedFastJsonDispPoat dispPoatToJSFixedFastJson(DispPoat dispPoat);
+
+    @InheritInverseConfiguration
+    DispPoat dispPoatFromJSFixedFastJson(JSFixedFastJsonDispPoat jSFixedFastJsonDispPoat);
+
+    JSFixedFastJsonDispPoatac dispPoatacToJSFixedFastJson(DispPoatac dispPoatac);
+
+    @InheritInverseConfiguration
+    DispPoatac dispPoatacFromJSFixedFastJson(JSFixedFastJsonDispPoatac jSFixedFastJsonDispPoatac);
+
+    JSFixedFastJsonDispPopb dispPopbToJSFixedFastJson(DispPopb dispPopb);
+
+    @InheritInverseConfiguration
+    DispPopb dispPopbFromJSFixedFastJson(JSFixedFastJsonDispPopb jSFixedFastJsonDispPopb);
 }

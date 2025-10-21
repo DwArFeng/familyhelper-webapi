@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 优化实体映射器机制。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.life.BeanMapper。
+
 - 优化开发环境支持。
   - 在 .gitignore 中添加 VSCode 相关文件的忽略规则。
   - 在 .gitignore 中添加 Cursor IDE 相关文件的忽略规则。
