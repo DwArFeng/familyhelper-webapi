@@ -19,6 +19,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -75,6 +76,7 @@ public class ActivityTemplateParticipantController {
     @GetMapping("/activity-template-participant/{longId}&{stringId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_participant.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -90,6 +92,7 @@ public class ActivityTemplateParticipantController {
     @GetMapping("/activity-template-participant/{longId}&{stringId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_participant.get")
     public FastJsonResponseData<JSFixedFastJsonActivityTemplateParticipant> get(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -109,6 +112,7 @@ public class ActivityTemplateParticipantController {
     @GetMapping("/activity-template-participant/{longId}&{stringId}/disp")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_participant.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispActivityTemplateParticipant> getDisp(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -130,6 +134,7 @@ public class ActivityTemplateParticipantController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_participant.child_for_activity_template")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplateParticipant>>
     childForActivityTemplate(
             HttpServletRequest request, @PathVariable("activityTemplateId") Long activityTemplateId,
@@ -153,6 +158,7 @@ public class ActivityTemplateParticipantController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_participant.child_for_activity_template_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityTemplateParticipant>>
     childForActivityTemplateDisp(
             HttpServletRequest request, @PathVariable("activityTemplateId") Long activityTemplateId,
@@ -177,6 +183,7 @@ public class ActivityTemplateParticipantController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_participant.create")
     public FastJsonResponseData<JSFixedFastJsonActivityTemplateParticipantKey> create(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateParticipantCreateInfo createInfo,
@@ -201,6 +208,7 @@ public class ActivityTemplateParticipantController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_participant.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateParticipantUpdateInfo updateInfo,
@@ -223,6 +231,7 @@ public class ActivityTemplateParticipantController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_participant.remove_activity_template_participant")
     public FastJsonResponseData<Object> removeActivityTemplateParticipant(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateParticipantRemoveInfo removeInfo,

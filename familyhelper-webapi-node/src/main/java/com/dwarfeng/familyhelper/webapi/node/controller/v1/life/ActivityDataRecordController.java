@@ -18,6 +18,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -70,6 +71,7 @@ public class ActivityDataRecordController {
     @GetMapping("/activity-data-record/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             boolean exists = service.exists(new LongIdKey(id));
@@ -83,6 +85,7 @@ public class ActivityDataRecordController {
     @GetMapping("/activity-data-record/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.get")
     public FastJsonResponseData<JSFixedFastJsonActivityDataRecord> get(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -101,6 +104,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityDataRecord>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -120,6 +124,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.child_for_item_recorded_date_asc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityDataRecord>>
     childForItemRecordedDateAsc(
             @PathVariable("activityDataItemId") Long activityDataItemId,
@@ -143,6 +148,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.child_for_item_recorded_date_desc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityDataRecord>>
     childForItemRecordedDateDesc(
             @PathVariable("activityDataItemId") Long activityDataItemId,
@@ -166,6 +172,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.child_for_activity_recorded_date_asc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityDataRecord>>
     childForActivityRecordedDateAsc(
             @PathVariable("activityId") Long activityId,
@@ -189,6 +196,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.child_for_activity_recorded_date_desc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityDataRecord>>
     childForActivityRecordedDateDesc(
             @PathVariable("activityId") Long activityId,
@@ -212,6 +220,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispActivityDataRecord> getDisp(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -231,6 +240,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.all_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataRecord>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
@@ -249,6 +259,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.child_for_item_recorded_date_asc_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataRecord>>
     childForItemRecordedDateAscDisp(
             HttpServletRequest request,
@@ -274,6 +285,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.child_for_item_recorded_date_desc_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataRecord>>
     childForItemRecordedDateDescDisp(
             HttpServletRequest request,
@@ -299,6 +311,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.child_for_activity_recorded_date_asc_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataRecord>>
     childForActivityRecordedDateAscDisp(
             HttpServletRequest request,
@@ -324,6 +337,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.child_for_activity_recorded_date_desc_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataRecord>>
     childForActivityRecordedDateDescDisp(
             HttpServletRequest request,
@@ -349,6 +363,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.create")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> create(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityDataRecordCreateInfo createInfo,
@@ -370,6 +385,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.update")
     public FastJsonResponseData<Void> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityDataRecordUpdateInfo updateInfo,
@@ -390,6 +406,7 @@ public class ActivityDataRecordController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_data_record_controller.remove")
     public FastJsonResponseData<Void> remove(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey key,

@@ -16,6 +16,7 @@ import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -82,6 +83,7 @@ public class ActivityTemplateFileController {
     @GetMapping("/activity-template-file/{longId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("longId") Long longId) {
         try {
             boolean exists = service.exists(new LongIdKey(longId));
@@ -95,6 +97,7 @@ public class ActivityTemplateFileController {
     @GetMapping("/activity-template-file/{longId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.get")
     public FastJsonResponseData<JSFixedFastJsonActivityTemplateFileInfo> get(
             HttpServletRequest request, @PathVariable("longId") Long longId
     ) {
@@ -112,6 +115,7 @@ public class ActivityTemplateFileController {
     @GetMapping("activity-template/{activityTemplateId}/activity-template-file/default")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.child_for_activity_template")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplateFileInfo>>
     childForActivityTemplate(
             HttpServletRequest request,
@@ -135,6 +139,7 @@ public class ActivityTemplateFileController {
     @GetMapping("activity-template/{activityTemplateId}/activity-template-file/inspected-date-desc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.child_for_activity_template_inspected_date_desc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplateFileInfo>>
     childForActivityTemplateInspectedDateDesc(
             HttpServletRequest request,
@@ -158,6 +163,7 @@ public class ActivityTemplateFileController {
     @GetMapping("activity-template/{activityTemplateId}/activity-template-file/modified-date-desc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.child_for_activity_template_modified_date_desc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplateFileInfo>>
     childForActivityTemplateModifiedDateDesc(
             HttpServletRequest request,
@@ -181,6 +187,7 @@ public class ActivityTemplateFileController {
     @GetMapping("activity-template/{activityTemplateId}/activity-template-file/origin-name-asc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.child_for_activity_template_origin_name_asc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplateFileInfo>>
     childForActivityTemplateOriginNameAsc(
             HttpServletRequest request,
@@ -204,6 +211,7 @@ public class ActivityTemplateFileController {
     @GetMapping("activity-template/{activityTemplateId}/activity-template-file/created-date-asc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.child_for_activity_template_created_date_asc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplateFileInfo>>
     childForActivityTemplateCreatedDateAsc(
             HttpServletRequest request,
@@ -228,6 +236,7 @@ public class ActivityTemplateFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.download_activity_template_file")
     public ResponseEntity<Object> downloadActivityTemplateFile(
             HttpServletRequest request, @PathVariable("activityTemplateFileId") Long activityTemplateFileId
     ) {
@@ -253,6 +262,7 @@ public class ActivityTemplateFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.upload_activity_template_file")
     public FastJsonResponseData<Object> uploadActivityTemplateFile(
             HttpServletRequest request, @PathVariable("activityTemplateId") Long activityTemplateId
     ) {
@@ -300,6 +310,7 @@ public class ActivityTemplateFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.update_activity_template_file")
     public FastJsonResponseData<Object> updateActivityTemplateFile(
             HttpServletRequest request, @PathVariable("activityTemplateFileId") Long activityTemplateFileId
     ) {
@@ -346,6 +357,7 @@ public class ActivityTemplateFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_file.remove_activity_template_file")
     public FastJsonResponseData<Object> removeActivityTemplateFile(
             HttpServletRequest request, @RequestBody WebInputLongIdKey activityTemplateFileKey
     ) {

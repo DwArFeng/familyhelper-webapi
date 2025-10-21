@@ -20,6 +20,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -72,6 +73,7 @@ public class PbSetController {
     @GetMapping("/pb-set/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             boolean exists = service.exists(new LongIdKey(id));
@@ -85,6 +87,7 @@ public class PbSetController {
     @GetMapping("/pb-set/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.get")
     public FastJsonResponseData<JSFixedFastJsonPbSet> get(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             PbSet pbSet = service.get(new LongIdKey(id));
@@ -99,6 +102,7 @@ public class PbSetController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbSet>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
@@ -115,6 +119,7 @@ public class PbSetController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispPbSet> getDisp(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -132,6 +137,7 @@ public class PbSetController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.all_permitted_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbSet>> allPermittedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -152,6 +158,7 @@ public class PbSetController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.all_owned_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbSet>> allOwnedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -172,6 +179,7 @@ public class PbSetController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.create_pb_set")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createPbSet(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbSetCreateInfo pbSetCreateInfo, BindingResult bindingResult
@@ -191,6 +199,7 @@ public class PbSetController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.update_pb_set")
     public FastJsonResponseData<Object> updatePbSet(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbSetUpdateInfo webInputPbSetUpdateInfo,
@@ -212,6 +221,7 @@ public class PbSetController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.remove_pb_set")
     public FastJsonResponseData<Object> removePbSet(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey pbSetKey, BindingResult bindingResult
@@ -230,6 +240,7 @@ public class PbSetController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.upsert_permission")
     public FastJsonResponseData<Object> upsertPermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbSetPermissionUpsertInfo webInputPermissionUpsertInfo,
@@ -251,6 +262,7 @@ public class PbSetController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_set.remove_permission")
     public FastJsonResponseData<Object> removePermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbSetPermissionRemoveInfo webInputPermissionRemoveInfo,

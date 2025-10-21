@@ -14,6 +14,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -64,6 +65,7 @@ public class PoatController {
     @GetMapping("/poat/{longId}&{stringId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poat.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -79,6 +81,7 @@ public class PoatController {
     @GetMapping("/poat/{longId}&{stringId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poat.get")
     public FastJsonResponseData<JSFixedFastJsonPoat> get(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -94,6 +97,7 @@ public class PoatController {
     @GetMapping("/poat/{longId}&{stringId}/disp")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poat.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispPoat> getDisp(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -111,6 +115,7 @@ public class PoatController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poat.child_for_activity_template")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPoat>> childForActivityTemplate(
             HttpServletRequest request, @PathVariable("activityTemplateId") Long activityTemplateId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
@@ -132,6 +137,7 @@ public class PoatController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poat.child_for_activity_template_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPoat>> childForActivityTemplateDisp(
             HttpServletRequest request, @PathVariable("activityTemplateId") Long activityTemplateId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {

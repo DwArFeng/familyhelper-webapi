@@ -10,6 +10,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -50,6 +51,7 @@ public class ActivityTemplateDriverSupportController {
     @GetMapping("/activity-template-driver-support/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_support.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -63,6 +65,7 @@ public class ActivityTemplateDriverSupportController {
     @GetMapping("/activity-template-driver-support/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_support.get")
     public FastJsonResponseData<FastJsonActivityTemplateDriverSupport> get(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
@@ -81,6 +84,7 @@ public class ActivityTemplateDriverSupportController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_support.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonActivityTemplateDriverSupport>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -98,6 +102,7 @@ public class ActivityTemplateDriverSupportController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_support.id_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonActivityTemplateDriverSupport>> idLike(
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows

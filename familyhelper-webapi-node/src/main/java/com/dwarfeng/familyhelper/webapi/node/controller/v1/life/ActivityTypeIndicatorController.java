@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -56,6 +57,7 @@ public class ActivityTypeIndicatorController {
     @GetMapping("/activity-type-indicator/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_type_indicator.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             boolean exists = service.exists(new StringIdKey(id));
@@ -69,6 +71,7 @@ public class ActivityTypeIndicatorController {
     @GetMapping("/activity-type-indicator/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_type_indicator.get")
     public FastJsonResponseData<FastJsonActivityTypeIndicator> get(
             HttpServletRequest request, @PathVariable("id") String id
     ) {
@@ -87,6 +90,7 @@ public class ActivityTypeIndicatorController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_type_indicator.insert")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputActivityTypeIndicator webInputActivityTypeIndicator,
@@ -107,6 +111,7 @@ public class ActivityTypeIndicatorController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_type_indicator.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTypeIndicator webInputActivityTypeIndicator,
@@ -124,6 +129,7 @@ public class ActivityTypeIndicatorController {
     @DeleteMapping("/activity-type-indicator/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_type_indicator.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
         try {
             service.delete(new StringIdKey(id));
@@ -138,6 +144,7 @@ public class ActivityTypeIndicatorController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_type_indicator.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonActivityTypeIndicator>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {

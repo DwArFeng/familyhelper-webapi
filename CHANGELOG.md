@@ -4,6 +4,34 @@
 
 ### 功能构建
 
+- 部分 Controller 增加 `@PermissionRequired` 注解。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityCoverController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataItemController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataSetController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityParticipantController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateCoverController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateDataInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateDriverInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateDriverSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTemplateParticipantController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbItemController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbSetController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PoacController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PoadController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PoatacController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PoatController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PopbController。
+
 - 优化实体映射器机制。
   - com.dwarfeng.familyhelper.webapi.sdk.bean.life.BeanMapper。
 

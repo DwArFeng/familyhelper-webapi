@@ -14,6 +14,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -64,6 +65,7 @@ public class PoacController {
     @GetMapping("/poac/{longId}&{stringId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poac.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -80,6 +82,7 @@ public class PoacController {
     @GetMapping("/poac/{longId}&{stringId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poac.get")
     public FastJsonResponseData<JSFixedFastJsonPoac> get(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -96,6 +99,7 @@ public class PoacController {
     @GetMapping("/poac/{longId}&{stringId}/disp")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poac.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispPoac> getDisp(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -113,6 +117,7 @@ public class PoacController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poac.child_for_activity")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPoac>> childForActivity(
             HttpServletRequest request, @PathVariable("activityId") Long activityId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
@@ -134,6 +139,7 @@ public class PoacController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.poac.child_for_activity_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPoac>> childForActivityDisp(
             HttpServletRequest request, @PathVariable("activityId") Long activityId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {

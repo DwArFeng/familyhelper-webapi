@@ -17,6 +17,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -69,6 +70,7 @@ public class ActivityTemplateController {
     @GetMapping("/activity-template/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             boolean exists = service.exists(new LongIdKey(id));
@@ -82,6 +84,7 @@ public class ActivityTemplateController {
     @GetMapping("/activity-template/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.get")
     public FastJsonResponseData<JSFixedFastJsonActivityTemplate> get(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -98,6 +101,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplate>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -117,6 +121,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispActivityTemplate> getDisp(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -136,6 +141,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.all_permitted_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityTemplate>> allPermittedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -156,6 +162,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.all_owned_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityTemplate>> allOwnedDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -176,6 +183,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.create_activity_template")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createActivityTemplate(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateCreateInfo activityTemplateCreateInfo,
@@ -196,6 +204,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.update_activity_template")
     public FastJsonResponseData<Object> updateActivityTemplate(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateUpdateInfo webInputActivityTemplateUpdateInfo,
@@ -217,6 +226,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.remove_activity_template")
     public FastJsonResponseData<Object> removeActivityTemplate(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey activityTemplateKey, BindingResult bindingResult
@@ -235,6 +245,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.upsert_permission")
     public FastJsonResponseData<Object> upsertPermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplatePermissionUpsertInfo webInputPermissionUpsertInfo,
@@ -256,6 +267,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.remove_permission")
     public FastJsonResponseData<Object> removePermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplatePermissionRemoveInfo webInputPermissionRemoveInfo,
@@ -277,6 +289,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.upsert_activity_permission")
     public FastJsonResponseData<Object> upsertActivityPermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateActivityPermissionUpsertInfo webInputPermissionUpsertInfo,
@@ -299,6 +312,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.remove_activity_permission")
     public FastJsonResponseData<Object> removeActivityPermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateActivityPermissionRemoveInfo webInputPermissionRemoveInfo,
@@ -321,6 +335,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.create_activity")
     public FastJsonResponseData<Object> createActivity(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateActivityCreateInfo info,
@@ -343,6 +358,7 @@ public class ActivityTemplateController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_controller.create_activity_for_test")
     public FastJsonResponseData<Object> createActivityForTest(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateActivityCreateInfo info,

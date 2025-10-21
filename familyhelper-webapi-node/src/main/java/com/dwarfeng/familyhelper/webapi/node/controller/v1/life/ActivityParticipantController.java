@@ -19,6 +19,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -73,6 +74,7 @@ public class ActivityParticipantController {
     @GetMapping("/activity-participant/{longId}&{stringId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_participant_controller.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -88,6 +90,7 @@ public class ActivityParticipantController {
     @GetMapping("/activity-participant/{longId}&{stringId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_participant_controller.get")
     public FastJsonResponseData<JSFixedFastJsonActivityParticipant> get(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -107,6 +110,7 @@ public class ActivityParticipantController {
     @GetMapping("/activity-participant/{longId}&{stringId}/disp")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_participant_controller.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispActivityParticipant> getDisp(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -128,6 +132,7 @@ public class ActivityParticipantController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_participant_controller.child_for_activity")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityParticipant>>
     childForActivity(
             HttpServletRequest request, @PathVariable("activityId") Long activityId,
@@ -151,6 +156,7 @@ public class ActivityParticipantController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_participant_controller.child_for_activity_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityParticipant>>
     childForActivityDisp(
             HttpServletRequest request, @PathVariable("activityId") Long activityId,
@@ -175,6 +181,7 @@ public class ActivityParticipantController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_participant_controller.create")
     public FastJsonResponseData<JSFixedFastJsonActivityParticipantKey> create(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityParticipantCreateInfo createInfo,
@@ -199,6 +206,7 @@ public class ActivityParticipantController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_participant_controller.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityParticipantUpdateInfo updateInfo,
@@ -218,6 +226,7 @@ public class ActivityParticipantController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_participant_controller.remove_activity_participant")
     public FastJsonResponseData<Object> removeActivityParticipant(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityParticipantRemoveInfo removeInfo,

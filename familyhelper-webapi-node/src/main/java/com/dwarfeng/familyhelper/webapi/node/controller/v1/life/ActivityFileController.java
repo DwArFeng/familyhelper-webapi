@@ -15,6 +15,7 @@ import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -84,6 +85,7 @@ public class ActivityFileController {
     @GetMapping("/activity-file/{longId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("longId") Long longId) {
         try {
             boolean exists = service.exists(new LongIdKey(longId));
@@ -97,6 +99,7 @@ public class ActivityFileController {
     @GetMapping("/activity-file/{longId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.get")
     public FastJsonResponseData<JSFixedFastJsonActivityFileInfo> get(
             HttpServletRequest request, @PathVariable("longId") Long longId
     ) {
@@ -114,6 +117,7 @@ public class ActivityFileController {
     @GetMapping("activity/{activityId}/activity-file/default")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.child_for_activity")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityFileInfo>>
     childForActivity(
             HttpServletRequest request,
@@ -137,6 +141,7 @@ public class ActivityFileController {
     @GetMapping("activity/{activityId}/activity-file/inspected-date-desc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.child_for_activity_inspected_date_desc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityFileInfo>>
     childForActivityInspectedDateDesc(
             HttpServletRequest request,
@@ -160,6 +165,7 @@ public class ActivityFileController {
     @GetMapping("activity/{activityId}/activity-file/modified-date-desc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.child_for_activity_modified_date_desc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityFileInfo>>
     childForActivityModifiedDateDesc(
             HttpServletRequest request,
@@ -183,6 +189,7 @@ public class ActivityFileController {
     @GetMapping("activity/{activityId}/activity-file/origin-name-asc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.child_for_activity_origin_name_asc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityFileInfo>>
     childForActivityOriginNameAsc(
             HttpServletRequest request,
@@ -206,6 +213,7 @@ public class ActivityFileController {
     @GetMapping("activity/{activityId}/activity-file/created-date-asc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.child_for_activity_created_date_asc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityFileInfo>>
     childForActivityCreatedDateAsc(
             HttpServletRequest request,
@@ -230,6 +238,7 @@ public class ActivityFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.download_activity_file")
     public ResponseEntity<Object> downloadActivityFile(
             HttpServletRequest request, @PathVariable("activityFileId") Long activityFileId
     ) {
@@ -253,6 +262,7 @@ public class ActivityFileController {
     @PostMapping("/activity-file/{activityFileId}/request-activity-file-stream-voucher")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.request_activity_file_stream_voucher")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> requestActivityFileStreamVoucher(
             HttpServletRequest request, @PathVariable("activityFileId") Long activityFileId
     ) {
@@ -303,6 +313,7 @@ public class ActivityFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.upload_activity_file")
     public FastJsonResponseData<Object> uploadActivityFile(
             HttpServletRequest request, @PathVariable("activityId") Long activityId
     ) {
@@ -350,6 +361,7 @@ public class ActivityFileController {
     @PostMapping("/activity/{activityId}/activity-file/upload-stream")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.upload_activity_file_stream")
     public FastJsonResponseData<Object> uploadActivityFileStream(
             HttpServletRequest request, @PathVariable("activityId") Long activityId
     ) {
@@ -393,6 +405,7 @@ public class ActivityFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.update_activity_file")
     public FastJsonResponseData<Object> updateActivityFile(
             HttpServletRequest request, @PathVariable("activityFileId") Long activityFileId
     ) {
@@ -440,6 +453,7 @@ public class ActivityFileController {
     @PostMapping("/activity-file/{activityFileId}/update-stream")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.update_activity_file_stream")
     public FastJsonResponseData<Object> updateActivityFileStream(
             HttpServletRequest request, @PathVariable("activityFileId") Long activityFileId
     ) {
@@ -484,6 +498,7 @@ public class ActivityFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_file_controller.remove_activity_file")
     public FastJsonResponseData<Object> removeActivityFile(
             HttpServletRequest request, @RequestBody WebInputLongIdKey activityFileKey
     ) {

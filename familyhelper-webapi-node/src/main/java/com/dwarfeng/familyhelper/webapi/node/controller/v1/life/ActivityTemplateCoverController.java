@@ -16,6 +16,7 @@ import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -77,6 +78,7 @@ public class ActivityTemplateCoverController {
     @GetMapping("/activity-template-cover/{longId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_cover_controller.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("longId") Long longId) {
         try {
             boolean exists = service.exists(new LongIdKey(longId));
@@ -90,6 +92,7 @@ public class ActivityTemplateCoverController {
     @GetMapping("/activity-template-cover/{longId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_cover_controller.get")
     public FastJsonResponseData<JSFixedFastJsonActivityTemplateCoverInfo> get(
             HttpServletRequest request, @PathVariable("longId") Long longId
     ) {
@@ -107,6 +110,7 @@ public class ActivityTemplateCoverController {
     @GetMapping("/activity-template/{activityTemplateId}/activity-template-cover")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_cover_controller.child_for_activity_template")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplateCoverInfo>>
     childForActivityTemplate(
             HttpServletRequest request,
@@ -132,6 +136,7 @@ public class ActivityTemplateCoverController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_cover_controller.download")
     public ResponseEntity<Object> download(
             HttpServletRequest request, @PathVariable("activityTemplateCoverId") Long activityTemplateCoverId
     ) {
@@ -157,6 +162,7 @@ public class ActivityTemplateCoverController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_cover_controller.upload")
     public FastJsonResponseData<Object> upload(
             HttpServletRequest request, @PathVariable("itemId") Long itemId
     ) {
@@ -203,6 +209,7 @@ public class ActivityTemplateCoverController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_cover_controller.remove")
     public FastJsonResponseData<Object> remove(
             HttpServletRequest request, @RequestBody WebInputLongIdKey activityTemplateCoverKey
     ) {
@@ -224,6 +231,7 @@ public class ActivityTemplateCoverController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_cover_controller.update_order")
     public FastJsonResponseData<Object> updateOrder(
             HttpServletRequest request, @RequestBody WebInputActivityTemplateCoverOrderUpdateInfo updateInfo
     ) {

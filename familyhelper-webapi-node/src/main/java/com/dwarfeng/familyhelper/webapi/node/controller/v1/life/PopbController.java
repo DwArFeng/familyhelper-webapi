@@ -14,6 +14,7 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -64,6 +65,7 @@ public class PopbController {
     @GetMapping("/popb/{longId}&{stringId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.popb.exists")
     public FastJsonResponseData<Boolean> exists(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -79,6 +81,7 @@ public class PopbController {
     @GetMapping("/popb/{longId}&{stringId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.popb.get")
     public FastJsonResponseData<JSFixedFastJsonPopb> get(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -94,6 +97,7 @@ public class PopbController {
     @GetMapping("/popb/{longId}&{stringId}/disp")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.popb.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispPopb> getDisp(
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
@@ -111,6 +115,7 @@ public class PopbController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.popb.child_for_pb_set")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPopb>> childForPbSet(
             HttpServletRequest request, @PathVariable("pbSetId") Long pbSetId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
@@ -130,6 +135,7 @@ public class PopbController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.popb.child_for_pb_set_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPopb>> childForPbSetDisp(
             HttpServletRequest request, @PathVariable("pbSetId") Long pbSetId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {

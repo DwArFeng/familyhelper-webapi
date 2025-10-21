@@ -15,6 +15,7 @@ import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -81,6 +82,7 @@ public class PbFileController {
     @GetMapping("/pb-file/{longId}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_file.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("longId") Long longId) {
         try {
             boolean exists = service.exists(new LongIdKey(longId));
@@ -94,6 +96,7 @@ public class PbFileController {
     @GetMapping("/pb-file/{longId}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_file.get")
     public FastJsonResponseData<JSFixedFastJsonPbFileInfo> get(
             HttpServletRequest request, @PathVariable("longId") Long longId
     ) {
@@ -109,6 +112,7 @@ public class PbFileController {
     @GetMapping("pb-record/{pbRecordId}/pb-file/default")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_file.child_for_pb_record")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbFileInfo>> childForPbRecord(
             HttpServletRequest request,
             @PathVariable("pbRecordId") long pbRecordId,
@@ -131,6 +135,7 @@ public class PbFileController {
     @GetMapping("pb-record/{pbRecordId}/pb-file/inspected-date-desc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_file.child_for_pb_record_inspected_date_desc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbFileInfo>> childForPbRecordInspectedDateDesc(
             HttpServletRequest request,
             @PathVariable("pbRecordId") long pbRecordId,
@@ -153,6 +158,7 @@ public class PbFileController {
     @GetMapping("pb-record/{pbRecordId}/pb-file/origin-name-asc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_file.child_for_pb_record_origin_name_asc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbFileInfo>> childForPbRecordOriginNameAsc(
             HttpServletRequest request,
             @PathVariable("pbRecordId") long pbRecordId,
@@ -175,6 +181,7 @@ public class PbFileController {
     @GetMapping("pb-record/{pbRecordId}/pb-file/uploaded-date-asc")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_file.child_for_pb_record_uploaded_date_asc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbFileInfo>> childForPbRecordUploadedDateAsc(
             HttpServletRequest request,
             @PathVariable("pbRecordId") long pbRecordId,
@@ -198,6 +205,7 @@ public class PbFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_file.download_pb_file")
     public ResponseEntity<Object> downloadPbFile(
             HttpServletRequest request, @PathVariable("pbFileId") Long pbFileId
     ) {
@@ -221,6 +229,7 @@ public class PbFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_file.upload_pb_file")
     public FastJsonResponseData<Object> uploadPbFile(
             HttpServletRequest request, @PathVariable("pbRecordId") Long pbRecordId
     ) {
@@ -266,6 +275,7 @@ public class PbFileController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_file.remove_pb_file")
     public FastJsonResponseData<Object> removePbFile(
             HttpServletRequest request, @RequestBody WebInputLongIdKey pbFileKey
     ) {

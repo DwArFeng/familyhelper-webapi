@@ -16,6 +16,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -65,6 +66,7 @@ public class PbRecordController {
     @GetMapping("/pb-record/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_record.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             boolean exists = service.exists(new LongIdKey(id));
@@ -78,6 +80,7 @@ public class PbRecordController {
     @GetMapping("/pb-record/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_record.get")
     public FastJsonResponseData<JSFixedFastJsonPbRecord> get(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             PbRecord pbRecord = service.get(new LongIdKey(id));
@@ -92,6 +95,7 @@ public class PbRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_record.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbRecord>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -111,6 +115,7 @@ public class PbRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_record.child_for_pb_item_recorded_date_asc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbRecord>> childForPbItemRecordedDateAsc(
             HttpServletRequest request,
             @PathVariable(required = false, value = "pbItemId") Long pbItemId,
@@ -138,6 +143,7 @@ public class PbRecordController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_record.child_for_pb_item_recorded_date_desc")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbRecord>> childForPbItemRecordedDateDesc(
             HttpServletRequest request,
             @PathVariable(required = false, value = "pbItemId") Long pbItemId,
@@ -163,6 +169,7 @@ public class PbRecordController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_record.create_pb_record")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createPbRecord(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbRecordCreateInfo pbRecordCreateInfo, BindingResult bindingResult
@@ -183,6 +190,7 @@ public class PbRecordController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_record.update_pb_record")
     public FastJsonResponseData<Object> updatePbRecord(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbRecordUpdateInfo webInputPbRecordUpdateInfo, BindingResult bindingResult
@@ -203,6 +211,7 @@ public class PbRecordController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_record.remove_pb_record")
     public FastJsonResponseData<Object> removePbRecord(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey pbRecordKey, BindingResult bindingResult

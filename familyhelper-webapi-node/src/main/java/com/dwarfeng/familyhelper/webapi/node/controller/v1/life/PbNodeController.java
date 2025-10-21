@@ -18,6 +18,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -70,6 +71,7 @@ public class PbNodeController {
     @GetMapping("/pb-node/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             boolean exists = service.exists(new LongIdKey(id));
@@ -83,6 +85,7 @@ public class PbNodeController {
     @GetMapping("/pb-node/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.get")
     public FastJsonResponseData<JSFixedFastJsonPbNode> get(HttpServletRequest request, @PathVariable("id") Long id) {
         try {
             PbNode pbNode = service.get(new LongIdKey(id));
@@ -97,6 +100,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.all")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbNode>> all(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
@@ -115,6 +119,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.child_for_pb_set")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbNode>> childForPbSet(
             @PathVariable(required = false, value = "pbSetId") Long pbSetId,
             @RequestParam("page") int page, @RequestParam("rows") int rows
@@ -139,6 +144,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.child_for_pb_set_root")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbNode>> childForPbSetRoot(
             HttpServletRequest request,
             @PathVariable("pbSetId") long pbSetId,
@@ -162,6 +168,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.child_for_parent")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbNode>> childForParent(
             HttpServletRequest request,
             @PathVariable("parentId") long parentId,
@@ -187,6 +194,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.child_for_pb_set_name_like")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbNode>> childForPbSetNameLike(
             @PathVariable(required = false, value = "pbSetId") Long pbSetId,
             @RequestParam("pattern") String pattern,
@@ -213,6 +221,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.get_disp")
     public FastJsonResponseData<JSFixedFastJsonDispPbNode> getDisp(
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
@@ -230,6 +239,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.all_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbNode>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
@@ -251,6 +261,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.child_for_pb_set_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbNode>> childForPbSetDisp(
             HttpServletRequest request,
             @PathVariable(required = false, value = "pbSetId") Long pbSetId,
@@ -277,6 +288,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.child_for_pb_set_root_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbNode>> childForPbSetRootDisp(
             HttpServletRequest request,
             @PathVariable("pbSetId") long pbSetId,
@@ -301,6 +313,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.child_for_parent_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbNode>> childForParentDisp(
             HttpServletRequest request,
             @PathVariable("parentId") long parentId,
@@ -327,6 +340,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.child_for_pb_set_name_like_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbNode>> childForPbSetNameLikeDisp(
             HttpServletRequest request,
             @PathVariable(required = false, value = "pbSetId") Long pbSetId,
@@ -356,6 +370,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.node_path_from_root")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbNode>> nodePathFromRoot(
             HttpServletRequest request, @PathVariable(value = "id") Long id
     ) {
@@ -375,6 +390,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.node_path_from_root_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbNode>> nodePathFromRootDisp(
             HttpServletRequest request, @PathVariable(value = "id") Long id
     ) {
@@ -395,6 +411,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.item_path_from_root")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonPbNode>> itemPathFromRoot(
             HttpServletRequest request, @PathVariable(value = "itemId") Long itemId
     ) {
@@ -414,6 +431,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.item_path_from_root_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbNode>> itemPathFromRootDisp(
             HttpServletRequest request, @PathVariable(value = "itemId") Long itemId
     ) {
@@ -434,6 +452,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.create_pb_node")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createPbNode(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbNodeCreateInfo pbNodeCreateInfo, BindingResult bindingResult
@@ -454,6 +473,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.update_pb_node")
     public FastJsonResponseData<Object> updatePbNode(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbNodeUpdateInfo webInputPbNodeUpdateInfo, BindingResult bindingResult
@@ -474,6 +494,7 @@ public class PbNodeController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.pb_node.remove_pb_node")
     public FastJsonResponseData<Object> removePbNode(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey pbNodeKey, BindingResult bindingResult

@@ -13,6 +13,7 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
+import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -57,6 +58,7 @@ public class ActivityTemplateDriverInfoController {
     @GetMapping("/activity-template-driver-info/{id}/exists")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_info_controller.exists")
     public FastJsonResponseData<Boolean> exists(HttpServletRequest request, @PathVariable("id") long id) {
         try {
             boolean exists = service.exists(new LongIdKey(id));
@@ -70,6 +72,7 @@ public class ActivityTemplateDriverInfoController {
     @GetMapping("/activity-template-driver-info/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_info_controller.get")
     public FastJsonResponseData<JSFixedFastJsonActivityTemplateDriverInfo> get(
             HttpServletRequest request, @PathVariable("id") long id
     ) {
@@ -88,6 +91,7 @@ public class ActivityTemplateDriverInfoController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_info_controller.insert")
     public FastJsonResponseData<FastJsonLongIdKey> insert(
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class) WebInputActivityTemplateDriverInfo webInputActivityTemplateDriverInfo,
@@ -108,6 +112,7 @@ public class ActivityTemplateDriverInfoController {
     @BehaviorAnalyse
     @BindingCheck
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_info_controller.update")
     public FastJsonResponseData<Object> update(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityTemplateDriverInfo webInputActivityTemplateDriverInfo,
@@ -125,6 +130,7 @@ public class ActivityTemplateDriverInfoController {
     @DeleteMapping("/activity-template-driver-info/{id}")
     @BehaviorAnalyse
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_info_controller.delete")
     public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") long id) {
         try {
             service.delete(new LongIdKey(id));
@@ -139,6 +145,7 @@ public class ActivityTemplateDriverInfoController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.life.activity_template_driver_info_controller.child_for_activity_template")
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonActivityTemplateDriverInfo>>
     childForActivityTemplate(
             HttpServletRequest request, @PathVariable("activityTemplateId") Long activityTemplateId,
