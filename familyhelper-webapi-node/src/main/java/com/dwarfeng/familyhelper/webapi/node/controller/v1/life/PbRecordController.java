@@ -162,6 +162,7 @@ public class PbRecordController {
     @PostMapping("/pb-record/create")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createPbRecord(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbRecordCreateInfo pbRecordCreateInfo, BindingResult bindingResult
@@ -181,6 +182,7 @@ public class PbRecordController {
     @PostMapping("/pb-record/update")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> updatePbRecord(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbRecordUpdateInfo webInputPbRecordUpdateInfo, BindingResult bindingResult
@@ -200,6 +202,7 @@ public class PbRecordController {
     @PostMapping("/pb-record/remove")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> removePbRecord(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey pbRecordKey, BindingResult bindingResult

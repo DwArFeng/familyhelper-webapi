@@ -433,6 +433,7 @@ public class PbNodeController {
     @PostMapping("/pb-node/create")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createPbNode(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbNodeCreateInfo pbNodeCreateInfo, BindingResult bindingResult
@@ -452,6 +453,7 @@ public class PbNodeController {
     @PostMapping("/pb-node/update")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> updatePbNode(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbNodeUpdateInfo webInputPbNodeUpdateInfo, BindingResult bindingResult
@@ -471,6 +473,7 @@ public class PbNodeController {
     @PostMapping("/pb-node/remove")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> removePbNode(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey pbNodeKey, BindingResult bindingResult

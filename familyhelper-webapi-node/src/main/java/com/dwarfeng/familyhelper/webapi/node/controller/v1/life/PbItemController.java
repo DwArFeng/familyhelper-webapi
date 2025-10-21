@@ -296,6 +296,7 @@ public class PbItemController {
     @PostMapping("/pb-item/create")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createPbItem(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbItemCreateInfo pbItemCreateInfo, BindingResult bindingResult
@@ -315,6 +316,7 @@ public class PbItemController {
     @PostMapping("/pb-item/update")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> updatePbItem(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbItemUpdateInfo webInputPbItemUpdateInfo, BindingResult bindingResult
@@ -334,6 +336,7 @@ public class PbItemController {
     @PostMapping("/pb-item/remove")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> removePbItem(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey pbItemKey, BindingResult bindingResult

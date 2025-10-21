@@ -451,6 +451,7 @@ public class ActivityDataNodeController {
     @PostMapping("/activity-data-node/create")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createActivityDataNode(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityDataNodeCreateInfo activityDataNodeCreateInfo,
@@ -471,6 +472,7 @@ public class ActivityDataNodeController {
     @PostMapping("/activity-data-node/update")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> updateActivityDataNode(
             HttpServletRequest request,
             @RequestBody @Validated WebInputActivityDataNodeUpdateInfo webInputActivityDataNodeUpdateInfo,
@@ -491,6 +493,7 @@ public class ActivityDataNodeController {
     @PostMapping("/activity-data-node/remove")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> removeActivityDataNode(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey activityDataNodeKey, BindingResult bindingResult

@@ -23,7 +23,12 @@
 
 ### Bug 修复
 
-- (无)
+- 补全部分 Controller 中缺失的 `@LoginRequired` 注解。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityDataNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbItemController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.PbSetController。
 
 ### 功能移除
 

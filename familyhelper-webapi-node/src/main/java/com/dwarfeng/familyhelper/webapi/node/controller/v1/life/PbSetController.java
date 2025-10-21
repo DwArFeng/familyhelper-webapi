@@ -171,6 +171,7 @@ public class PbSetController {
     @PostMapping("/pb-set/create")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createPbSet(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbSetCreateInfo pbSetCreateInfo, BindingResult bindingResult
@@ -189,6 +190,7 @@ public class PbSetController {
     @PostMapping("/pb-set/update")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> updatePbSet(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbSetUpdateInfo webInputPbSetUpdateInfo,
@@ -209,6 +211,7 @@ public class PbSetController {
     @PostMapping("/pb-set/remove")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> removePbSet(
             HttpServletRequest request,
             @RequestBody @Validated WebInputLongIdKey pbSetKey, BindingResult bindingResult
@@ -226,6 +229,7 @@ public class PbSetController {
     @PostMapping("/pb-set/upsert-permission")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> upsertPermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbSetPermissionUpsertInfo webInputPermissionUpsertInfo,
@@ -246,6 +250,7 @@ public class PbSetController {
     @PostMapping("/pb-set/remove-permission")
     @BehaviorAnalyse
     @BindingCheck
+    @LoginRequired
     public FastJsonResponseData<Object> removePermission(
             HttpServletRequest request,
             @RequestBody @Validated WebInputPbSetPermissionRemoveInfo webInputPermissionRemoveInfo,
