@@ -17,7 +17,7 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BeanMapper {
 
-    // -----------------------------------------------------------Settingrepo Dto-----------------------------------------------------------
+    // -----------------------------------------------------------Familyhelper-webapi-----------------------------------------------------------
     WebInputPublicImageListNodeFileDownloadInfo publicImageListNodeFileDownloadInfoToWebInput(
             PublicImageListNodeFileDownloadInfo publicImageListNodeFileDownloadInfo
     );

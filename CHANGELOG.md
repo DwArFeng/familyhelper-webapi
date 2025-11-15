@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 优化部分类的代码注释。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.BeanMapper。
+
 - 优化部分类的文档注释。
   - com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.IahnNodeResponseService。
 
