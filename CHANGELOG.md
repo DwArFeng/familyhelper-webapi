@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- Wiki 更新。
+  - docs/wiki/zh-CN/VersionBlacklist.md。
+
 - 优化部分类的代码注释。
   - com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.BeanMapper。
 
