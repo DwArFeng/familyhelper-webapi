@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 优化部分类的文档注释。
+  - com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.IahnNodeResponseService。
+
 - 部分 Controller 增加 `@PermissionRequired` 注解。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.life.ActivityCoverController。

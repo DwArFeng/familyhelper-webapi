@@ -11,6 +11,7 @@ import com.dwarfeng.subgrade.stack.service.Service;
 
 /**
  * 国际化节点响应服务。
+ *
  * <p>
  * Iahn 是 I18n 的别名，Iahn 的作用是国际化。
  *
