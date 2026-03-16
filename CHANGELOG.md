@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- `familyhelper-webapi-stack` 子模块类优化注释、文档注释格式、代码换行格式。
+  - com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler。
+
 - familyhelper-webapi-ui 模块前端依赖升级。
   - 升级 `vue` 依赖版本为 `^3.5.30` 以规避漏洞。
   - 升级 `eslint` 依赖版本为 `^9.39.4` 以规避漏洞。
