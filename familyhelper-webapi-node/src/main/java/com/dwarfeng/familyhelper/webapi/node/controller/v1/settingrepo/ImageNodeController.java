@@ -3,9 +3,9 @@ package com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo;
 import com.alibaba.fastjson.JSONArray;
 import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.familyhelper.webapi.node.webmvc.Base64RequestParam;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicImageNodeFileDownloadInfo;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicImageNodeInspectInfo;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.WebInputPublicImageNodeThumbnailDownloadInfo;
-import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeFileDownloadInfo;
-import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.PublicImageNodeInspectInfo;
 import com.dwarfeng.familyhelper.webapi.stack.service.settingrepo.ImageNodeResponseService;
 import com.dwarfeng.settingrepo.sdk.bean.dto.FastJsonImageNodeInspectResult;
 import com.dwarfeng.settingrepo.sdk.bean.dto.WebInputImageNodeFileDownloadInfo;
@@ -383,11 +383,13 @@ public class ImageNodeController {
     @BindingCheck
     public FastJsonResponseData<FastJsonImageNodeInspectResult> inspectForPublic(
             HttpServletRequest request,
-            @RequestBody @Validated PublicImageNodeInspectInfo publicImageNodeInspectInfo,
+            @RequestBody @Validated WebInputPublicImageNodeInspectInfo inspectInfo,
             BindingResult bindingResult
     ) {
         try {
-            ImageNodeInspectResult inspect = service.inspectForPublic(publicImageNodeInspectInfo);
+            ImageNodeInspectResult inspect = service.inspectForPublic(
+                    WebInputPublicImageNodeInspectInfo.toStackBean(inspectInfo)
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonImageNodeInspectResult.of(inspect)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -403,12 +405,14 @@ public class ImageNodeController {
     @SkipRecord
     public ResponseEntity<Object> downloadFileForPublic(
             HttpServletRequest request,
-            @Base64RequestParam("download-info") PublicImageNodeFileDownloadInfo downloadInfo
+            @Base64RequestParam("download-info") WebInputPublicImageNodeFileDownloadInfo downloadInfo
     ) {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            ImageNodeFile imageNodeFile = service.downloadFileForPublic(downloadInfo);
+            ImageNodeFile imageNodeFile = service.downloadFileForPublic(
+                    WebInputPublicImageNodeFileDownloadInfo.toStackBean(downloadInfo)
+            );
             // 将文件名转换成 HTTP 标准文件名编码下的格式。
             String fileName = adjustFileNameEncoding(imageNodeFile.getOriginName());
             headers.add("Content-Disposition", "attachment;filename=" + fileName);
@@ -427,11 +431,13 @@ public class ImageNodeController {
     @BindingCheck
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> requestFileStreamVoucherForPublic(
             HttpServletRequest request,
-            @RequestBody @Validated PublicImageNodeFileDownloadInfo downloadInfo,
+            @RequestBody @Validated WebInputPublicImageNodeFileDownloadInfo downloadInfo,
             BindingResult bindingResult
     ) {
         try {
-            LongIdKey voucherKey = service.requestFileStreamVoucherForPublic(downloadInfo);
+            LongIdKey voucherKey = service.requestFileStreamVoucherForPublic(
+                    WebInputPublicImageNodeFileDownloadInfo.toStackBean(downloadInfo)
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(voucherKey)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);

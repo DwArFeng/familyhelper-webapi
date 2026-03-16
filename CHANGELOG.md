@@ -33,7 +33,8 @@
 
 ### Bug 修复
 
-- (无)
+- 修复部分 Controller 类中部分方法入口参数类型错误的问题。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ImageNodeController。
 
 ### 功能移除
 
