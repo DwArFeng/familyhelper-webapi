@@ -89,7 +89,7 @@
                     </filesets>
                 </configuration>
             </plugin>
-            <!-- Maven war插件，用于打包war包。 -->
+            <!-- Maven war 插件，用于打包 war 包。 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
