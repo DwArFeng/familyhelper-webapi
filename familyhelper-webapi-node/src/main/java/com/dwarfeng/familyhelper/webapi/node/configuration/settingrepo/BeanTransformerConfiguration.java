@@ -1,5 +1,7 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.settingrepo;
 
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.disp.JSFixedFastJsonDispNavigationNodeItem;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.disp.DispNavigationNodeItem;
 import com.dwarfeng.settingrepo.sdk.bean.entity.*;
 import com.dwarfeng.settingrepo.stack.bean.entity.*;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
@@ -79,6 +81,31 @@ public class BeanTransformerConfiguration {
         return new MapStructBeanTransformer<>(
                 FileNode.class, FastJsonFileNode.class,
                 com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.NavigationNodeBeanTransformer")
+    public BeanTransformer<NavigationNode, FastJsonNavigationNode> navigationNodeBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                NavigationNode.class, FastJsonNavigationNode.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.navigationNodeItemBeanTransformer")
+    public BeanTransformer<NavigationNodeItem, FastJsonNavigationNodeItem> navigationNodeItemBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                NavigationNodeItem.class, FastJsonNavigationNodeItem.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.dispNavigationNodeItemBeanTransformer")
+    public BeanTransformer<DispNavigationNodeItem, JSFixedFastJsonDispNavigationNodeItem>
+    dispNavigationNodeItemBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                DispNavigationNodeItem.class, JSFixedFastJsonDispNavigationNodeItem.class,
+                com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.BeanMapper.class
         );
     }
 }

@@ -5,6 +5,8 @@
 ### 功能构建
 
 - 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.NavigationNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.NavigationNodeItemController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.FileListNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.FileNodeController。
 

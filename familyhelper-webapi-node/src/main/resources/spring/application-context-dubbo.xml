@@ -1259,6 +1259,30 @@
             check="false"
             group="${dubbo.consumer.settingrepo.group}"
     />
+    <dubbo:reference
+            id="settingrepoNavigationNodeMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.NavigationNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoNavigationNodeOperateService"
+            interface="com.dwarfeng.settingrepo.stack.service.NavigationNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoNavigationNodeItemMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.NavigationNodeItemMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
     <!-- Notify。 -->
     <dubbo:reference
             id="notifyNotifySettingMaintainService"
