@@ -1212,6 +1212,38 @@
             group="${dubbo.consumer.settingrepo.group}"
     />
     <dubbo:reference
+            id="settingrepoFileListNodeOperateService"
+            interface="com.dwarfeng.settingrepo.stack.service.FileListNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoFileListNodeMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.FileListNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoFileNodeMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.FileNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoFileNodeOperateService"
+            interface="com.dwarfeng.settingrepo.stack.service.FileNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
             id="settingrepoIahnNodeMaintainService"
             interface="com.dwarfeng.settingrepo.stack.service.IahnNodeMaintainService"
             retries="3"
@@ -1396,6 +1428,22 @@
     <dubbo:reference
             id="familyhelperPluginSettingRepoDubboRestImageListNodeOperateService"
             interface="com.dwarfeng.familyhelper.plugin.settingrepo.service.DubboRestImageListNodeOperateService"
+            retries="0"
+            timeout="3600000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_plugin_settingrepo.group}"
+    />
+    <dubbo:reference
+            id="familyhelperPluginSettingRepoDubboRestFileListNodeOperateService"
+            interface="com.dwarfeng.familyhelper.plugin.settingrepo.service.DubboRestFileListNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.familyhelper_plugin_settingrepo.group}"
+    />
+    <dubbo:reference
+            id="familyhelperPluginSettingRepoDubboRestFileNodeOperateService"
+            interface="com.dwarfeng.familyhelper.plugin.settingrepo.service.DubboRestFileNodeOperateService"
             retries="0"
             timeout="3600000"
             check="false"

@@ -65,4 +65,20 @@ public class BeanTransformerConfiguration {
                 com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
         );
     }
+
+    @Bean("settingrepo.fileListNodeBeanTransformer")
+    public BeanTransformer<FileListNode, FastJsonFileListNode> fileListNodeBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                FileListNode.class, FastJsonFileListNode.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.fileNodeBeanTransformer")
+    public BeanTransformer<FileNode, FastJsonFileNode> fileNodeBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                FileNode.class, FastJsonFileNode.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
 }

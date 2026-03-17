@@ -4,6 +4,10 @@
 
 ### 功能构建
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.FileListNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.FileNodeController。
+
 - `familyhelper-webapi-node` 子模块类优化注释、文档注释格式、代码换行格式。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.TextNodeController。
 

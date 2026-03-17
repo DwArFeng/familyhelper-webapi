@@ -18,6 +18,69 @@ import org.mapstruct.Mapper;
 public interface BeanMapper {
 
     // -----------------------------------------------------------Familyhelper-webapi-----------------------------------------------------------
+    WebInputPublicFileNodeThumbnailDownloadInfo publicFileNodeThumbnailDownloadInfoToWebInput(
+            PublicFileNodeThumbnailDownloadInfo publicFileNodeThumbnailDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileNodeThumbnailDownloadInfo publicFileNodeThumbnailDownloadInfoFromWebInput(
+            WebInputPublicFileNodeThumbnailDownloadInfo webInputPublicFileNodeThumbnailDownloadInfo
+    );
+
+    WebInputPublicFileNodeInspectInfo publicFileNodeInspectInfoToWebInput(
+            PublicFileNodeInspectInfo publicFileNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileNodeInspectInfo publicFileNodeInspectInfoFromWebInput(
+            WebInputPublicFileNodeInspectInfo webInputPublicFileNodeInspectInfo
+    );
+
+    WebInputPublicFileNodeFileDownloadInfo publicFileNodeFileDownloadInfoToWebInput(
+            PublicFileNodeFileDownloadInfo publicFileNodeFileDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileNodeFileDownloadInfo publicFileNodeFileDownloadInfoFromWebInput(
+            WebInputPublicFileNodeFileDownloadInfo webInputPublicFileNodeFileDownloadInfo
+    );
+
+    WebInputPublicFileListNodeThumbnailDownloadInfo publicFileListNodeThumbnailDownloadInfoToWebInput(
+            PublicFileListNodeThumbnailDownloadInfo publicFileListNodeThumbnailDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileListNodeThumbnailDownloadInfo publicFileListNodeThumbnailDownloadInfoFromWebInput(
+            WebInputPublicFileListNodeThumbnailDownloadInfo webInputPublicFileListNodeThumbnailDownloadInfo
+    );
+
+    WebInputPublicFileListNodeSizeInfo publicFileListNodeSizeInfoToWebInput(
+            PublicFileListNodeSizeInfo publicFileListNodeSizeInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileListNodeSizeInfo publicFileListNodeSizeInfoFromWebInput(
+            WebInputPublicFileListNodeSizeInfo webInputPublicFileListNodeSizeInfo
+    );
+
+    WebInputPublicFileListNodeInspectInfo publicFileListNodeInspectInfoToWebInput(
+            PublicFileListNodeInspectInfo publicFileListNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileListNodeInspectInfo publicFileListNodeInspectInfoFromWebInput(
+            WebInputPublicFileListNodeInspectInfo webInputPublicFileListNodeInspectInfo
+    );
+
+    WebInputPublicFileListNodeFileDownloadInfo publicFileListNodeFileDownloadInfoToWebInput(
+            PublicFileListNodeFileDownloadInfo publicFileListNodeFileDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileListNodeFileDownloadInfo publicFileListNodeFileDownloadInfoFromWebInput(
+            WebInputPublicFileListNodeFileDownloadInfo webInputPublicFileListNodeFileDownloadInfo
+    );
+
     WebInputPublicImageListNodeFileDownloadInfo publicImageListNodeFileDownloadInfoToWebInput(
             PublicImageListNodeFileDownloadInfo publicImageListNodeFileDownloadInfo
     );
