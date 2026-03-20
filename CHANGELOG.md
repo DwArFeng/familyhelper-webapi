@@ -4,6 +4,10 @@
 
 ### 功能构建
 
+- Wiki 更新。
+  - docs/wiki/en-US/README.md。
+  - docs/wiki/zh-CN/README.md。
+
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.NavigationNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.NavigationNodeItemController。
