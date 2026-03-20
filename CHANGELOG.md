@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- Wiki 编写。
+  - docs/wiki/zh-CN/ConfDirectory.md。
+
 - Wiki 更新。
   - docs/wiki/en-US/README.md。
   - docs/wiki/zh-CN/README.md。
