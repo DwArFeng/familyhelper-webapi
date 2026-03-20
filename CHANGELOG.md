@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- `familyhelper-webapi-node` 子模块类优化注释、文档注释格式、代码换行格式。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.TextNodeController。
+
 - `familyhelper-webapi-stack` 子模块类优化注释、文档注释格式、代码换行格式。
   - com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler。
 

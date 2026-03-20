@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 设置节点控制器。
+ * 文本节点控制器。
  *
  * @author DwArFeng
  * @since 1.3.0
