@@ -5,6 +5,8 @@
 ### 功能构建
 
 - 项目配置结构优化。
+  - 使用 `Configuration API` 代替 `application-context-*.xml` 进行 `LoginAop` 配置。
+  - 使用 `Configuration API` 代替 `application-context-*.xml` 进行 `PermissionAop` 配置。
   - 使用 `Configuration API` 代替 `application-context-*.xml` 进行 `BindingCheckAop` 配置。
 
 - 依赖结构优化。
