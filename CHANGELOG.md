@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 项目配置结构优化。
+  - 使用 `Configuration API` 代替 `application-context-*.xml` 进行 `BindingCheckAop` 配置。
+
 - 依赖结构优化。
   - 将 `com.dwarfeng:snowflake-distributed-service-api` 依赖提升至 `familyhelper-webapi-node` 子模块。
   - 将 `com.dwarfeng:account-keeper-api` 依赖提升至 `familyhelper-webapi-node` 子模块。

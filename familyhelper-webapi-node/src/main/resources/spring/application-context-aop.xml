@@ -11,11 +11,4 @@
 
     <!-- 启用 AOP 注解。 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-
-    <!-- BindingCheckAdvisor。 -->
-    <bean id="bindingCheckAopManager" class="com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheckAdvisor"/>
-    <bean
-            id="defaultBindingCheckAopManager"
-            class="com.dwarfeng.subgrade.sdk.interceptor.http.DefaultBindingCheckAopManager"
-    />
 </beans>
