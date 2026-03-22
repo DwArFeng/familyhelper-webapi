@@ -4,6 +4,13 @@
 
 ### 功能构建
 
+- 依赖升级。
+  - 升级 `subgrade` 依赖版本为 `1.7.3.a` 并解决兼容性问题，以应用其新功能。
+  - 升级 `acckeeper` 依赖版本为 `2.1.1.a` 并解决兼容性问题，以应用其新功能。
+  - 升级 `rbac` 依赖版本为 `2.0.2.a` 并解决兼容性问题，以应用其新功能。
+  - 升级 `dutil` 依赖版本为 `0.4.1.a-beta` 以规避漏洞。
+  - 升级 `snowflake` 依赖版本为 `1.8.3.a` 以规避漏洞。
+
 - 项目配置结构优化。
   - 使用 `Configuration API` 代替 `application-context-*.xml` 进行 `LoginAop` 配置。
   - 使用 `Configuration API` 代替 `application-context-*.xml` 进行 `PermissionAop` 配置。

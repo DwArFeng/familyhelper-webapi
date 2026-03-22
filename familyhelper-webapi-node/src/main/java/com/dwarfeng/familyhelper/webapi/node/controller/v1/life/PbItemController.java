@@ -198,7 +198,7 @@ public class PbItemController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispPbItem dispPbItem = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPbItem.of(dispPbItem)));
         } catch (Exception e) {
@@ -215,7 +215,7 @@ public class PbItemController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispPbItem>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispPbItem> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispPbItem> transform = PagingUtil.transform(
                     allDisp, dispPbItemBeanTransformer);
@@ -239,7 +239,7 @@ public class PbItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             LongIdKey pbNodeKey = null;
             if (Objects.nonNull(pbNodeId)) {
                 pbNodeKey = new LongIdKey(pbNodeId);
@@ -266,7 +266,7 @@ public class PbItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispPbItem> childForPbSetRoot = service.childForPbSetRootDisp(
                     accountKey, new LongIdKey(pbSetId), new PagingInfo(page, rows)
             );
@@ -291,7 +291,7 @@ public class PbItemController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispPbItem> childForPbBookRoot = service.childForPbSetNameLikeDisp(
                     accountKey, new LongIdKey(pbSetId), pattern, new PagingInfo(page, rows)
             );
@@ -315,7 +315,7 @@ public class PbItemController {
             @RequestBody @Validated WebInputPbItemCreateInfo pbItemCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             LongIdKey result = service.createPbItem(
                     accountKey, WebInputPbItemCreateInfo.toStackBean(pbItemCreateInfo)
             );
@@ -336,7 +336,7 @@ public class PbItemController {
             @RequestBody @Validated WebInputPbItemUpdateInfo webInputPbItemUpdateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.updatePbItem(
                     accountKey, WebInputPbItemUpdateInfo.toStackBean(webInputPbItemUpdateInfo)
             );
@@ -357,7 +357,7 @@ public class PbItemController {
             @RequestBody @Validated WebInputLongIdKey pbItemKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removePbItem(accountKey, WebInputLongIdKey.toStackBean(pbItemKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

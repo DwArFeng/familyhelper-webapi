@@ -124,7 +124,7 @@ public class PbSetController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispPbSet dispPbSet = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPbSet.of(dispPbSet)));
         } catch (Exception e) {
@@ -142,7 +142,7 @@ public class PbSetController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispPbSet> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispPbSet> transform = PagingUtil.transform(
@@ -163,7 +163,7 @@ public class PbSetController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispPbSet> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispPbSet> transform = PagingUtil.transform(
@@ -185,7 +185,7 @@ public class PbSetController {
             @RequestBody @Validated WebInputPbSetCreateInfo pbSetCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             LongIdKey result = service.createPbSet(
                     accountKey, WebInputPbSetCreateInfo.toStackBean(pbSetCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
@@ -206,7 +206,7 @@ public class PbSetController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.updatePbSet(
                     accountKey, WebInputPbSetUpdateInfo.toStackBean(webInputPbSetUpdateInfo)
             );
@@ -227,7 +227,7 @@ public class PbSetController {
             @RequestBody @Validated WebInputLongIdKey pbSetKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removePbSet(accountKey, WebInputLongIdKey.toStackBean(pbSetKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -247,7 +247,7 @@ public class PbSetController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.upsertPermission(
                     accountKey, WebInputPbSetPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
             );
@@ -269,7 +269,7 @@ public class PbSetController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removePermission(
                     accountKey, WebInputPbSetPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );

@@ -1,8 +1,8 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration;
 
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
-import com.dwarfeng.rbacds.api.integration.subgrade.PermissionHandlerImpl;
-import com.dwarfeng.rbacds.stack.service.PermissionLookupService;
+import com.dwarfeng.rbacds.api.integration.subgrade.LegacyPermissionHandler;
+import com.dwarfeng.rbacds.stack.service.InspectService;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequiredAdvisor;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequiredAopManager;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.TokenHandlerPermissionRequiredAopManager;
@@ -14,15 +14,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PermissionAopConfiguration {
 
+    private static final String SCOPE_ID = "legacy";
+
     private final TokenHandler tokenHandler;
-    private final PermissionLookupService permissionLookupService;
+    private final InspectService inspectService;
 
     public PermissionAopConfiguration(
             TokenHandler tokenHandler,
-            @Qualifier("rbacPermissionLookupService") PermissionLookupService permissionLookupService
+            @Qualifier("rbacInspectService") InspectService inspectService
     ) {
         this.tokenHandler = tokenHandler;
-        this.permissionLookupService = permissionLookupService;
+        this.inspectService = inspectService;
     }
 
     @Bean
@@ -30,9 +32,10 @@ public class PermissionAopConfiguration {
         return new PermissionRequiredAdvisor();
     }
 
+    @SuppressWarnings("deprecation")
     @Bean
     public PermissionHandler permissionHandler() {
-        return new PermissionHandlerImpl(permissionLookupService);
+        return new LegacyPermissionHandler(inspectService, SCOPE_ID);
     }
 
     @Bean

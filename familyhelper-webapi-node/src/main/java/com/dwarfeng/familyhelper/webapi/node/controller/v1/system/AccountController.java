@@ -6,7 +6,6 @@ import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputPasswordResetInfo;
 import com.dwarfeng.acckeeper.sdk.bean.dto.WebInputPasswordUpdateInfo;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispAccount;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.vo.FastJsonAccount;
-import com.dwarfeng.familyhelper.webapi.sdk.cna.ValidateList;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.vo.Account;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
@@ -33,7 +32,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.stream.Collectors;
 
 /**
  * 账号控制器。
@@ -98,62 +96,6 @@ public class AccountController {
         }
     }
 
-    @PostMapping("/account/{accountId}/role/{roleId}")
-    @BehaviorAnalyse
-    @LoginRequired
-    @PermissionRequired("webapi.controller_permitted.system.account.add_role_relation")
-    public FastJsonResponseData<Object> addRoleRelation(
-            HttpServletRequest request,
-            @PathVariable("accountId") String accountId, @PathVariable("roleId") String roleId
-    ) {
-        try {
-            accountResponseService.addRoleRelation(new StringIdKey(accountId), new StringIdKey(roleId));
-            return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            LOGGER.warn("Controller 异常, 信息如下: ", e);
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @DeleteMapping("/account/{accountId}/role/{roleId}")
-    @BehaviorAnalyse
-    @LoginRequired
-    @PermissionRequired("webapi.controller_permitted.system.account.delete_role_relation")
-    public FastJsonResponseData<Object> deleteRoleRelation(
-            HttpServletRequest request,
-            @PathVariable("accountId") String accountId, @PathVariable("roleId") String roleId
-    ) {
-        try {
-            accountResponseService.deleteRoleRelation(new StringIdKey(accountId), new StringIdKey(roleId));
-            return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            LOGGER.warn("Controller 异常, 信息如下: ", e);
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @PostMapping("/account/{accountId}/reset-role-relation")
-    @BehaviorAnalyse
-    @LoginRequired
-    @BindingCheck
-    @PermissionRequired("webapi.controller_permitted.system.account.reset_role_relation")
-    public FastJsonResponseData<Object> resetRoleRelation(
-            HttpServletRequest request,
-            @PathVariable("accountId") String accountId,
-            @RequestBody @Validated ValidateList<WebInputStringIdKey> roleKeys, BindingResult bindingResult
-    ) {
-        try {
-            accountResponseService.resetRoleRelation(
-                    new StringIdKey(accountId),
-                    roleKeys.stream().map(WebInputStringIdKey::toStackBean).collect(Collectors.toList())
-            );
-            return FastJsonResponseData.of(ResponseDataUtil.good(null));
-        } catch (Exception e) {
-            LOGGER.warn("Controller 异常, 信息如下: ", e);
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
     @GetMapping("/account/all")
     @BehaviorAnalyse
     @SkipRecord
@@ -165,27 +107,6 @@ public class AccountController {
         try {
             PagedData<Account> all = accountResponseService.all(new PagingInfo(page, rows));
             PagedData<FastJsonAccount> transform = PagingUtil.transform(all, accountBeanTransformer);
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
-        } catch (Exception e) {
-            LOGGER.warn("Controller 异常, 信息如下: ", e);
-            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
-        }
-    }
-
-    @GetMapping("/role/{roleId}/account")
-    @BehaviorAnalyse
-    @SkipRecord
-    @LoginRequired
-    @PermissionRequired("webapi.controller_permitted.system.account.child_for_role")
-    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAccount>> childForRole(
-            HttpServletRequest request,
-            @PathVariable("roleId") String roleId, @RequestParam("page") int page, @RequestParam("rows") int rows
-    ) {
-        try {
-            PagedData<Account> childForRole = accountResponseService.childForRole(
-                    new StringIdKey(roleId), new PagingInfo(page, rows)
-            );
-            PagedData<FastJsonAccount> transform = PagingUtil.transform(childForRole, accountBeanTransformer);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -240,7 +161,7 @@ public class AccountController {
             HttpServletRequest request, @PathVariable("id") String id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispAccount dispAccount = accountResponseService.getDisp(new StringIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonDispAccount.of(dispAccount)));
         } catch (Exception e) {
@@ -258,7 +179,7 @@ public class AccountController {
             HttpServletRequest request,
             @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispAccount> idLike = accountResponseService.idLikeDisp(
                     pattern, new PagingInfo(page, rows), inspectAccountKey
             );

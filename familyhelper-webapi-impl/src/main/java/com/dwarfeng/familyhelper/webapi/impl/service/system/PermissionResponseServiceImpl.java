@@ -1,78 +1,59 @@
 package com.dwarfeng.familyhelper.webapi.impl.service.system;
 
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.PermissionInspectInfo;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.PermissionInspectResult;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.PermissionResponseService;
-import com.dwarfeng.rbacds.stack.bean.entity.Permission;
-import com.dwarfeng.rbacds.stack.service.PermissionLookupService;
-import com.dwarfeng.rbacds.stack.service.PermissionMaintainService;
-import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
-import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
-import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
+import com.dwarfeng.rbacds.stack.bean.dto.PermissionViewOfUserInspectInfo;
+import com.dwarfeng.rbacds.stack.bean.key.ScopedUserKey;
+import com.dwarfeng.rbacds.stack.service.InspectService;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Objects;
 
-@Service
+@Service("systemPermissionResponseService")
 public class PermissionResponseServiceImpl implements PermissionResponseService {
 
-    private final PermissionMaintainService permissionMaintainService;
-    private final PermissionLookupService permissionLookupService;
+    private final InspectService inspectService;
 
     public PermissionResponseServiceImpl(
-            @Qualifier("rbacPermissionMaintainService") PermissionMaintainService permissionMaintainService,
-            @Qualifier("rbacPermissionLookupService") PermissionLookupService permissionLookupService
+            @Qualifier("rbacInspectService") InspectService inspectService
     ) {
-        this.permissionMaintainService = permissionMaintainService;
-        this.permissionLookupService = permissionLookupService;
+        this.inspectService = inspectService;
     }
 
     @Override
-    public boolean exists(StringIdKey key) throws ServiceException {
-        return permissionMaintainService.exists(key);
+    public PermissionInspectResult inspectPermission(PermissionInspectInfo info) throws ServiceException {
+        // 将 PermissionInspectInfo 转换为 PermissionViewOfUserInspectInfo。
+        PermissionViewOfUserInspectInfo rbacdsInfo = toRbacdsPermissionViewOfUserInspectInfo(info);
+
+        // 调用 InspectService 的 inspectPermissionViewOfUser 方法进行权限查看。
+        com.dwarfeng.rbacds.stack.bean.dto.PermissionViewOfUserInspectResult rbacdsResult =
+                inspectService.inspectPermissionViewOfUser(rbacdsInfo);
+
+        // 将 com.dwarfeng.rbacds.stack.bean.dto.PermissionViewOfUserInspectResult 转换为 PermissionInspectResult。
+        return toWebapiPermissionInspectResult(rbacdsResult);
     }
 
-    @Override
-    public Permission get(StringIdKey key) throws ServiceException {
-        return permissionMaintainService.get(key);
+    private PermissionViewOfUserInspectInfo toRbacdsPermissionViewOfUserInspectInfo(PermissionInspectInfo info) {
+        if (Objects.isNull(info)) {
+            return null;
+        } else {
+            return new PermissionViewOfUserInspectInfo(
+                    new ScopedUserKey(info.getScopeKey().getStringId(), info.getAccountKey().getStringId()),
+                    null, null, null, false
+            );
+        }
     }
 
-    @Override
-    public StringIdKey insert(Permission permission) throws ServiceException {
-        return permissionMaintainService.insert(permission);
-    }
-
-    @Override
-    public void update(Permission permission) throws ServiceException {
-        permissionMaintainService.update(permission);
-    }
-
-    @Override
-    public void delete(StringIdKey key) throws ServiceException {
-        permissionMaintainService.delete(key);
-    }
-
-    @Override
-    public PagedData<Permission> all(PagingInfo pagingInfo) throws ServiceException {
-        return permissionMaintainService.lookup(pagingInfo);
-    }
-
-    @Override
-    public PagedData<Permission> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
-        return permissionMaintainService.lookup(PermissionMaintainService.ID_LIKE, new Object[]{pattern}, pagingInfo);
-    }
-
-    @Override
-    public PagedData<com.dwarfeng.rbacds.stack.bean.entity.Permission> childForGroup(
-            StringIdKey groupKey, PagingInfo pagingInfo
-    ) throws ServiceException {
-        return permissionMaintainService.lookup(
-                PermissionMaintainService.CHILD_FOR_GROUP, new Object[]{groupKey}, pagingInfo
-        );
-    }
-
-    @Override
-    public List<Permission> lookupForUser(StringIdKey userKey) throws ServiceException {
-        return permissionLookupService.lookupForUser(userKey);
+    private PermissionInspectResult toWebapiPermissionInspectResult(
+            com.dwarfeng.rbacds.stack.bean.dto.PermissionViewOfUserInspectResult result
+    ) {
+        if (Objects.isNull(result)) {
+            return null;
+        } else {
+            return new PermissionInspectResult(result.getMatchedPermissions());
+        }
     }
 }

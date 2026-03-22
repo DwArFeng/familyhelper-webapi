@@ -129,7 +129,7 @@ public class ActivityController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispActivity dispActivity = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(
                     ResponseDataUtil.good(JSFixedFastJsonDispActivity.of(dispActivity))
@@ -149,7 +149,7 @@ public class ActivityController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispActivity> allPermittedDisp = service.allPermittedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispActivity> transform = PagingUtil.transform(
@@ -170,7 +170,7 @@ public class ActivityController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispActivity> allOwnedDisp = service.allOwnedDisp(
                     accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispActivity> transform = PagingUtil.transform(
@@ -193,7 +193,7 @@ public class ActivityController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             LongIdKey result = service.createActivity(
                     accountKey, WebInputActivityCreateInfo.toStackBean(activityCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(result)));
@@ -214,7 +214,7 @@ public class ActivityController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.updateActivity(
                     accountKey, WebInputActivityUpdateInfo.toStackBean(webInputActivityUpdateInfo)
             );
@@ -235,7 +235,7 @@ public class ActivityController {
             @RequestBody @Validated WebInputLongIdKey activityKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removeActivity(accountKey, WebInputLongIdKey.toStackBean(activityKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -255,7 +255,7 @@ public class ActivityController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.upsertPermission(
                     accountKey, WebInputActivityPermissionUpsertInfo.toStackBean(webInputPermissionUpsertInfo)
             );
@@ -277,7 +277,7 @@ public class ActivityController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removePermission(
                     accountKey, WebInputActivityPermissionRemoveInfo.toStackBean(webInputPermissionRemoveInfo)
             );
@@ -299,7 +299,7 @@ public class ActivityController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.lockActivity(accountKey, WebInputLongIdKey.toStackBean(activityKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

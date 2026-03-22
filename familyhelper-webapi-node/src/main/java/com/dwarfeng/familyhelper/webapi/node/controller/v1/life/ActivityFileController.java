@@ -245,7 +245,7 @@ public class ActivityFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             ActivityFile activityFile = service.downloadActivityFile(
                     accountKey, new LongIdKey(activityFileId)
             );
@@ -267,7 +267,7 @@ public class ActivityFileController {
             HttpServletRequest request, @PathVariable("activityFileId") Long activityFileId
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             LongIdKey voucherKey = service.requestActivityFileStreamVoucher(accountKey, new LongIdKey(activityFileId));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(voucherKey)));
         } catch (Exception e) {
@@ -319,7 +319,7 @@ public class ActivityFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -367,7 +367,7 @@ public class ActivityFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -411,7 +411,7 @@ public class ActivityFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -459,7 +459,7 @@ public class ActivityFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -503,7 +503,7 @@ public class ActivityFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey activityFileKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removeActivityFile(accountKey, WebInputLongIdKey.toStackBean(activityFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

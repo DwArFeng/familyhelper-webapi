@@ -1,15 +1,11 @@
 package com.dwarfeng.familyhelper.webapi.sdk.bean.system;
 
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispAccount;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispPermissionGroup;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.system.dto.JSFixedFastJsonDeriveResponse;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.system.dto.JSFixedFastJsonLoginResponse;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.system.dto.*;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.vo.FastJsonAccount;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.vo.WebInputAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispAccount;
-import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispPermissionGroup;
-import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.DeriveResponse;
-import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.LoginResponse;
+import com.dwarfeng.familyhelper.webapi.stack.bean.system.dto.*;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.vo.Account;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -32,21 +28,45 @@ public interface BeanMapper {
     @InheritInverseConfiguration
     DispAccount dispAccountFromFastJson(FastJsonDispAccount fastJsonDispAccount);
 
-    FastJsonDispPermissionGroup dispPermissionGroupToFastJson(DispPermissionGroup dispPermissionGroup);
-
-    @InheritInverseConfiguration
-    DispPermissionGroup dispPermissionGroupFromFastJson(FastJsonDispPermissionGroup fastJsonDispPermissionGroup);
-
     // -----------------------------------------------------------Familyhelper-webapi DTO-----------------------------------------------------------
-    JSFixedFastJsonDeriveResponse deriveResponseToJSFixedFastJson(DeriveResponse deriveResponse);
+    FastJsonLoginResult loginResultToFastJson(LoginResult loginResult);
 
     @InheritInverseConfiguration
-    DeriveResponse deriveResponseFromJSFixedFastJson(JSFixedFastJsonDeriveResponse jSFixedFastJsonDeriveResponse);
+    LoginResult loginResultFromFastJson(FastJsonLoginResult fastJsonLoginResult);
 
-    JSFixedFastJsonLoginResponse loginResponseToJSFixedFastJson(LoginResponse loginResponse);
+    FastJsonPermissionInspectResult permissionInspectResultToFastJson(PermissionInspectResult permissionInspectResult);
 
     @InheritInverseConfiguration
-    LoginResponse loginResponseFromJSFixedFastJson(JSFixedFastJsonLoginResponse jSFixedFastJsonLoginResponse);
+    PermissionInspectResult permissionInspectResultFromFastJson(
+            FastJsonPermissionInspectResult fastJsonPermissionInspectResult
+    );
+
+    FastJsonPostponeResult postponeResultToFastJson(PostponeResult postponeResult);
+
+    @InheritInverseConfiguration
+    PostponeResult postponeResultFromFastJson(FastJsonPostponeResult fastJsonPostponeResult);
+
+    WebInputLoginInfo loginInfoToWebInput(LoginInfo loginInfo);
+
+    @InheritInverseConfiguration
+    LoginInfo loginInfoFromWebInput(WebInputLoginInfo webInputLoginInfo);
+
+    WebInputLogoutInfo logoutInfoToWebInput(LogoutInfo logoutInfo);
+
+    @InheritInverseConfiguration
+    LogoutInfo logoutInfoFromWebInput(WebInputLogoutInfo webInputLogoutInfo);
+
+    WebInputPermissionInspectInfo permissionInspectInfoToWebInput(PermissionInspectInfo permissionInspectInfo);
+
+    @InheritInverseConfiguration
+    PermissionInspectInfo permissionInspectInfoFromWebInput(
+            WebInputPermissionInspectInfo webInputPermissionInspectInfo
+    );
+
+    WebInputPostponeInfo postponeInfoToWebInput(PostponeInfo postponeInfo);
+
+    @InheritInverseConfiguration
+    PostponeInfo postponeInfoFromWebInput(WebInputPostponeInfo webInputPostponeInfo);
 
     // -----------------------------------------------------------Familyhelper-webapi VO-----------------------------------------------------------
     FastJsonAccount accountToFastJson(Account account);

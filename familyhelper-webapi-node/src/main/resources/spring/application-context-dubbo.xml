@@ -36,7 +36,8 @@
     <!-- region acckeeper -->
 
     <dubbo:reference
-            id="acckeeperLoginService" interface="com.dwarfeng.acckeeper.stack.service.LoginService"
+            id="acckeeperAccessService"
+            interface="com.dwarfeng.acckeeper.stack.service.AccessService"
             retries="0"
             timeout="60000"
             check="false"
@@ -105,19 +106,35 @@
             check="false"
             group="${dubbo.consumer.acckeeper.group}"
     />
+    <dubbo:reference
+            id="acckeeperProtectorSupportMaintainService"
+            interface="com.dwarfeng.acckeeper.stack.service.ProtectorSupportMaintainService"
+            retries="0"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
+    <dubbo:reference
+            id="acckeeperProtectorVariableMaintainService"
+            interface="com.dwarfeng.acckeeper.stack.service.ProtectorVariableMaintainService"
+            retries="0"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
+    <dubbo:reference
+            id="acckeeperProtectorInfoMaintainService"
+            interface="com.dwarfeng.acckeeper.stack.service.ProtectorInfoMaintainService"
+            retries="0"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
 
     <!-- endregion -->
 
     <!-- region rbac -->
 
-    <dubbo:reference
-            id="rbacPermissionLookupService"
-            interface="com.dwarfeng.rbacds.stack.service.PermissionLookupService"
-            retries="3"
-            timeout="60000"
-            check="false"
-            group="${dubbo.consumer.rbac.group}"
-    />
     <dubbo:reference
             id="rbacUserMaintainService" interface="com.dwarfeng.rbacds.stack.service.UserMaintainService"
             retries="3"
@@ -152,6 +169,62 @@
     <dubbo:reference
             id="rbacPermissionGroupMaintainService"
             interface="com.dwarfeng.rbacds.stack.service.PermissionGroupMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.rbac.group}"
+    />
+    <dubbo:reference
+            id="rbacScopeMaintainService"
+            interface="com.dwarfeng.rbacds.stack.service.ScopeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.rbac.group}"
+    />
+    <dubbo:reference
+            id="rbacRoleUserRelationMaintainService"
+            interface="com.dwarfeng.rbacds.stack.service.RoleUserRelationMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.rbac.group}"
+    />
+    <dubbo:reference
+            id="rbacFilterSupportMaintainService"
+            interface="com.dwarfeng.rbacds.stack.service.FilterSupportMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.rbac.group}"
+    />
+    <dubbo:reference
+            id="rbacPexpOperateService"
+            interface="com.dwarfeng.rbacds.stack.service.PexpOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.rbac.group}"
+    />
+    <dubbo:reference
+            id="rbacPermissionOperateService"
+            interface="com.dwarfeng.rbacds.stack.service.PermissionOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.rbac.group}"
+    />
+    <dubbo:reference
+            id="rbacPermissionGroupOperateService"
+            interface="com.dwarfeng.rbacds.stack.service.PermissionGroupOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.rbac.group}"
+    />
+    <dubbo:reference
+            id="rbacInspectService"
+            interface="com.dwarfeng.rbacds.stack.service.InspectService"
             retries="3"
             timeout="60000"
             check="false"

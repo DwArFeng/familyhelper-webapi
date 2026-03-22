@@ -227,7 +227,7 @@ public class MemoFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             MemoFile memoFile = service.downloadMemoFile(accountKey, new LongIdKey(memoFileId));
             // 将文件名转换成 HTTP 标准文件名编码下的格式。
             String fileName = adjustFileNameEncoding(memoFile.getOriginName());
@@ -249,7 +249,7 @@ public class MemoFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -257,7 +257,8 @@ public class MemoFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -295,7 +296,7 @@ public class MemoFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -303,7 +304,8 @@ public class MemoFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -339,7 +341,7 @@ public class MemoFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey memoFileKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removeMemoFile(accountKey, WebInputLongIdKey.toStackBean(memoFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

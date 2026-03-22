@@ -12,8 +12,6 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
 
-import java.util.List;
-
 /**
  * 账号响应服务。
  *
@@ -26,15 +24,7 @@ public interface AccountResponseService extends Service {
 
     Account get(StringIdKey key) throws ServiceException;
 
-    void addRoleRelation(StringIdKey accountKey, StringIdKey roleKey) throws ServiceException;
-
-    void deleteRoleRelation(StringIdKey accountKey, StringIdKey roleKey) throws ServiceException;
-
-    void resetRoleRelation(StringIdKey accountKey, List<StringIdKey> roleKeys) throws ServiceException;
-
     PagedData<Account> all(PagingInfo pagingInfo) throws ServiceException;
-
-    PagedData<Account> childForRole(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException;
 
     PagedData<Account> childForProfileGuest(StringIdKey profileKey, PagingInfo pagingInfo) throws ServiceException;
 

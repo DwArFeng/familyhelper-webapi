@@ -98,7 +98,7 @@ public class PonbController {
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispPonb dispPonb = service.getDisp(new PonbKey(longId, stringId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPonb.of(dispPonb)));
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class PonbController {
             HttpServletRequest request, @PathVariable("noteBookId") Long noteBookId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispPonb> childForNoteBookDisp = service.childForNoteBookDisp(
                     new LongIdKey(noteBookId), new PagingInfo(page, rows), inspectAccountKey
             );

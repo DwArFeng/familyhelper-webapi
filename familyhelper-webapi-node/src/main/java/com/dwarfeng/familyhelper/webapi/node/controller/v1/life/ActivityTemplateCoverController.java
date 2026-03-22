@@ -143,7 +143,7 @@ public class ActivityTemplateCoverController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             ActivityTemplateCover activityTemplateCover = service.download(
                     accountKey, new LongIdKey(activityTemplateCoverId)
             );
@@ -168,7 +168,7 @@ public class ActivityTemplateCoverController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -176,7 +176,8 @@ public class ActivityTemplateCoverController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -214,7 +215,7 @@ public class ActivityTemplateCoverController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey activityTemplateCoverKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.remove(accountKey, WebInputLongIdKey.toStackBean(activityTemplateCoverKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -236,7 +237,7 @@ public class ActivityTemplateCoverController {
             HttpServletRequest request, @RequestBody WebInputActivityTemplateCoverOrderUpdateInfo updateInfo
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.updateOrder(
                     accountKey, WebInputActivityTemplateCoverOrderUpdateInfo.toStackBean(updateInfo)
             );

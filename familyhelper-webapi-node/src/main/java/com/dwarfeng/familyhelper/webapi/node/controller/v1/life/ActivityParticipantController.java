@@ -115,7 +115,7 @@ public class ActivityParticipantController {
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispActivityParticipant dispActivityParticipant = service.getDisp(
                     new ActivityParticipantKey(longId, stringId), inspectAccountKey
             );
@@ -163,7 +163,7 @@ public class ActivityParticipantController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispActivityParticipant> childForActivityDisp = service.childForActivityDisp(
                     inspectAccountKey, new LongIdKey(activityId), new PagingInfo(page, rows)
             );
@@ -188,7 +188,7 @@ public class ActivityParticipantController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             ActivityParticipantKey result = service.create(
                     accountKey,
                     WebInputActivityParticipantCreateInfo.toStackBean(createInfo)
@@ -213,7 +213,7 @@ public class ActivityParticipantController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.update(accountKey, WebInputActivityParticipantUpdateInfo.toStackBean(updateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -233,7 +233,7 @@ public class ActivityParticipantController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.remove(accountKey, WebInputActivityParticipantRemoveInfo.toStackBean(removeInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

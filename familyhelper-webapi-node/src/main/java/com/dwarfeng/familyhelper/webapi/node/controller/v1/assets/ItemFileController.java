@@ -229,7 +229,7 @@ public class ItemFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             ItemFile itemFile = service.downloadItemFile(accountKey, new LongIdKey(itemFileId));
             // 将文件名转换成 HTTP 标准文件名编码下的格式。
             String fileName = adjustFileNameEncoding(itemFile.getOriginName());
@@ -248,7 +248,7 @@ public class ItemFileController {
             HttpServletRequest request, @PathVariable("itemFileId") Long itemFileId
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             LongIdKey voucherKey = service.requestItemFileStreamVoucher(accountKey, new LongIdKey(itemFileId));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(voucherKey)));
         } catch (Exception e) {
@@ -296,7 +296,7 @@ public class ItemFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -304,7 +304,8 @@ public class ItemFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -341,7 +342,7 @@ public class ItemFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -349,7 +350,8 @@ public class ItemFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -382,7 +384,7 @@ public class ItemFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -390,7 +392,8 @@ public class ItemFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -427,7 +430,7 @@ public class ItemFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -435,7 +438,8 @@ public class ItemFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -467,7 +471,7 @@ public class ItemFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey itemFileKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removeItemFile(accountKey, WebInputLongIdKey.toStackBean(itemFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

@@ -102,7 +102,7 @@ public class PopbController {
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispPopb dispPopb = service.getDisp(new PopbKey(longId, stringId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPopb.of(dispPopb)));
         } catch (Exception e) {
@@ -140,7 +140,7 @@ public class PopbController {
             HttpServletRequest request, @PathVariable("pbSetId") Long pbSetId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispPopb> childForPbSetDisp = service.childForPbSetDisp(
                     new LongIdKey(pbSetId), new PagingInfo(page, rows), inspectAccountKey
             );

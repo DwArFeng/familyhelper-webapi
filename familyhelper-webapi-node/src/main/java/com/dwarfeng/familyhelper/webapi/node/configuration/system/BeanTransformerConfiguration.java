@@ -3,18 +3,14 @@ package com.dwarfeng.familyhelper.webapi.node.configuration.system;
 import com.dwarfeng.acckeeper.sdk.bean.entity.*;
 import com.dwarfeng.acckeeper.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispAccount;
-import com.dwarfeng.familyhelper.webapi.sdk.bean.system.disp.FastJsonDispPermissionGroup;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.system.vo.FastJsonAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispAccount;
-import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispPermissionGroup;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.vo.Account;
 import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonPermission;
 import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonPermissionGroup;
 import com.dwarfeng.rbacds.sdk.bean.entity.FastJsonRole;
-import com.dwarfeng.rbacds.sdk.bean.entity.JSFixedFastJsonPexp;
 import com.dwarfeng.rbacds.stack.bean.entity.Permission;
 import com.dwarfeng.rbacds.stack.bean.entity.PermissionGroup;
-import com.dwarfeng.rbacds.stack.bean.entity.Pexp;
 import com.dwarfeng.rbacds.stack.bean.entity.Role;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
@@ -56,14 +52,6 @@ public class BeanTransformerConfiguration {
         );
     }
 
-    @Bean("system.pexpBeanTransformer")
-    public BeanTransformer<Pexp, JSFixedFastJsonPexp> pexpBeanTransformer() {
-        return new MapStructBeanTransformer<>(
-                Pexp.class, JSFixedFastJsonPexp.class,
-                com.dwarfeng.rbacds.sdk.bean.BeanMapper.class
-        );
-    }
-
     @Bean("system.permissionGroupBeanTransformer")
     public BeanTransformer<PermissionGroup, FastJsonPermissionGroup> permissionGroupBeanTransformer() {
         return new MapStructBeanTransformer<>(
@@ -72,18 +60,10 @@ public class BeanTransformerConfiguration {
         );
     }
 
-    @Bean("system.dispPermissionGroupBeanTransformer")
-    public BeanTransformer<DispPermissionGroup, FastJsonDispPermissionGroup> dispPermissionGroupBeanTransformer() {
-        return new MapStructBeanTransformer<>(
-                DispPermissionGroup.class, FastJsonDispPermissionGroup.class,
-                com.dwarfeng.familyhelper.webapi.sdk.bean.system.BeanMapper.class
-        );
-    }
-
     @Bean("system.loginStateBeanTransformer")
-    public BeanTransformer<LoginState, JSFixedFastJsonLoginState> loginStateBeanTransformer() {
+    public BeanTransformer<LoginState, FastJsonLoginState> loginStateBeanTransformer() {
         return new MapStructBeanTransformer<>(
-                LoginState.class, JSFixedFastJsonLoginState.class,
+                LoginState.class, FastJsonLoginState.class,
                 com.dwarfeng.acckeeper.sdk.bean.BeanMapper.class
         );
     }

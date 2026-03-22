@@ -147,9 +147,10 @@ public class ActivityTemplateFileController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<ActivityTemplateFileInfo> childForActivityTemplate = service.childForActivityTemplateInspectedDateDesc(
-                    new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
-            );
+            PagedData<ActivityTemplateFileInfo> childForActivityTemplate =
+                    service.childForActivityTemplateInspectedDateDesc(
+                            new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
+                    );
             PagedData<JSFixedFastJsonActivityTemplateFileInfo> transform = PagingUtil.transform(
                     childForActivityTemplate, beanTransformer
             );
@@ -171,9 +172,10 @@ public class ActivityTemplateFileController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<ActivityTemplateFileInfo> childForActivityTemplate = service.childForActivityTemplateModifiedDateDesc(
-                    new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
-            );
+            PagedData<ActivityTemplateFileInfo> childForActivityTemplate =
+                    service.childForActivityTemplateModifiedDateDesc(
+                            new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
+                    );
             PagedData<JSFixedFastJsonActivityTemplateFileInfo> transform = PagingUtil.transform(
                     childForActivityTemplate, beanTransformer
             );
@@ -195,9 +197,10 @@ public class ActivityTemplateFileController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<ActivityTemplateFileInfo> childForActivityTemplate = service.childForActivityTemplateOriginNameAsc(
-                    new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
-            );
+            PagedData<ActivityTemplateFileInfo> childForActivityTemplate =
+                    service.childForActivityTemplateOriginNameAsc(
+                            new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
+                    );
             PagedData<JSFixedFastJsonActivityTemplateFileInfo> transform = PagingUtil.transform(
                     childForActivityTemplate, beanTransformer
             );
@@ -219,9 +222,10 @@ public class ActivityTemplateFileController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            PagedData<ActivityTemplateFileInfo> childForActivityTemplate = service.childForActivityTemplateCreatedDateAsc(
-                    new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
-            );
+            PagedData<ActivityTemplateFileInfo> childForActivityTemplate =
+                    service.childForActivityTemplateCreatedDateAsc(
+                            new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
+                    );
             PagedData<JSFixedFastJsonActivityTemplateFileInfo> transform = PagingUtil.transform(
                     childForActivityTemplate, beanTransformer
             );
@@ -243,7 +247,7 @@ public class ActivityTemplateFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             ActivityTemplateFile activityTemplateFile = service.downloadActivityTemplateFile(
                     accountKey, new LongIdKey(activityTemplateFileId)
             );
@@ -268,7 +272,7 @@ public class ActivityTemplateFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -276,7 +280,8 @@ public class ActivityTemplateFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -316,7 +321,7 @@ public class ActivityTemplateFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -324,7 +329,8 @@ public class ActivityTemplateFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -362,7 +368,7 @@ public class ActivityTemplateFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey activityTemplateFileKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removeActivityTemplateFile(accountKey, WebInputLongIdKey.toStackBean(activityTemplateFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

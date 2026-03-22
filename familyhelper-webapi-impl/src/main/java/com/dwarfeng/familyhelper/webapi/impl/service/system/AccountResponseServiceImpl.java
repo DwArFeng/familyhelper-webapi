@@ -15,9 +15,6 @@ import com.dwarfeng.familyhelper.clannad.stack.service.ProfileMaintainService;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.disp.DispAccount;
 import com.dwarfeng.familyhelper.webapi.stack.bean.system.vo.Account;
 import com.dwarfeng.familyhelper.webapi.stack.service.system.AccountResponseService;
-import com.dwarfeng.rbacds.stack.bean.entity.Role;
-import com.dwarfeng.rbacds.stack.bean.entity.User;
-import com.dwarfeng.rbacds.stack.service.RoleMaintainService;
 import com.dwarfeng.rbacds.stack.service.UserMaintainService;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
@@ -29,7 +26,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AccountResponseServiceImpl implements AccountResponseService {
@@ -47,7 +43,6 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             familyhelperLifeUserMaintainService;
     private final com.dwarfeng.familyhelper.note.stack.service.UserMaintainService
             familyhelperNoteUserMaintainService;
-    private final com.dwarfeng.rbacds.stack.service.RoleMaintainService rbacRoleMaintainService;
     private final PoprMaintainService poprMaintainService;
     private final com.dwarfeng.familyhelper.project.stack.service.UserMaintainService
             familyhelperProjectUserMaintainService;
@@ -69,7 +64,6 @@ public class AccountResponseServiceImpl implements AccountResponseService {
             com.dwarfeng.familyhelper.life.stack.service.UserMaintainService familyhelperLifeUserMaintainService,
             @Qualifier("familyhelperNoteUserMaintainService")
             com.dwarfeng.familyhelper.note.stack.service.UserMaintainService familyhelperNoteUserMaintainService,
-            @Qualifier("rbacRoleMaintainService") RoleMaintainService rbacRoleMaintainService,
             @Qualifier("familyhelperClannadPoprMaintainService") PoprMaintainService poprMaintainService,
             @Qualifier("familyhelperProjectUserMaintainService")
             com.dwarfeng.familyhelper.project.stack.service.UserMaintainService familyhelperProjectUserMaintainService,
@@ -86,7 +80,6 @@ public class AccountResponseServiceImpl implements AccountResponseService {
         this.familyhelperAssetsUserMaintainService = familyhelperAssetsUserMaintainService;
         this.familyhelperLifeUserMaintainService = familyhelperLifeUserMaintainService;
         this.familyhelperNoteUserMaintainService = familyhelperNoteUserMaintainService;
-        this.rbacRoleMaintainService = rbacRoleMaintainService;
         this.poprMaintainService = poprMaintainService;
         this.familyhelperProjectUserMaintainService = familyhelperProjectUserMaintainService;
         this.notifyUserMaintainService = notifyUserMaintainService;
@@ -111,36 +104,9 @@ public class AccountResponseServiceImpl implements AccountResponseService {
     }
 
     @Override
-    public void addRoleRelation(StringIdKey accountKey, StringIdKey roleKey) throws ServiceException {
-        rbacUserMaintainService.addRoleRelation(accountKey, roleKey);
-    }
-
-    @Override
-    public void deleteRoleRelation(StringIdKey accountKey, StringIdKey roleKey) throws ServiceException {
-        rbacUserMaintainService.deleteRoleRelation(accountKey, roleKey);
-    }
-
-    @Override
-    public void resetRoleRelation(StringIdKey accountKey, List<StringIdKey> roleKeys) throws ServiceException {
-        List<StringIdKey> oldRoleKeys = rbacRoleMaintainService.lookup(
-                RoleMaintainService.ROLE_FOR_USER, new Object[]{accountKey}
-        ).getData().stream().map(Role::getKey).collect(Collectors.toList());
-        rbacUserMaintainService.batchDeleteRoleRelations(accountKey, oldRoleKeys);
-        rbacUserMaintainService.batchAddRoleRelations(accountKey, roleKeys);
-    }
-
-    @Override
     public PagedData<Account> all(PagingInfo pagingInfo) throws ServiceException {
         PagedData<com.dwarfeng.acckeeper.stack.bean.entity.Account> lookup = accountMaintainService.lookup(pagingInfo);
         return this.transformPagedAcckeeperAccount(lookup);
-    }
-
-    @Override
-    public PagedData<Account> childForRole(StringIdKey accountKey, PagingInfo pagingInfo) throws ServiceException {
-        PagedData<User> lookup = rbacUserMaintainService.lookup(
-                UserMaintainService.CHILD_FOR_ROLE, new Object[]{accountKey}, pagingInfo
-        );
-        return this.transformPagedRbacUser(lookup);
     }
 
     @Override

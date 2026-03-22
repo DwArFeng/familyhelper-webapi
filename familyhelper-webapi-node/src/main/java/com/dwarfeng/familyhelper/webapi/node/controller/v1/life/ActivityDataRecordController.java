@@ -225,7 +225,7 @@ public class ActivityDataRecordController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispActivityDataRecord dispActivityDataRecord = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(
                     ResponseDataUtil.good(JSFixedFastJsonDispActivityDataRecord.of(dispActivityDataRecord))
@@ -244,7 +244,7 @@ public class ActivityDataRecordController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispActivityDataRecord>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispActivityDataRecord> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispActivityDataRecord> transform = PagingUtil.transform(
                     allDisp, dispBeanTransformer);
@@ -267,7 +267,7 @@ public class ActivityDataRecordController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispActivityDataRecord> childForActivityDataNode = service.childForItemRecordedDateAscDisp(
                     accountKey, new LongIdKey(activityDataItemId), new PagingInfo(page, rows)
             );
@@ -293,7 +293,7 @@ public class ActivityDataRecordController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispActivityDataRecord> childForActivityDataNode = service.childForItemRecordedDateDescDisp(
                     accountKey, new LongIdKey(activityDataItemId), new PagingInfo(page, rows)
             );
@@ -319,7 +319,7 @@ public class ActivityDataRecordController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispActivityDataRecord> childForActivityDataNode = service.childForActivityRecordedDateAscDisp(
                     accountKey, new LongIdKey(activityId), new PagingInfo(page, rows)
             );
@@ -345,7 +345,7 @@ public class ActivityDataRecordController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispActivityDataRecord> childForActivityDataNode = service.childForActivityRecordedDateDescDisp(
                     accountKey, new LongIdKey(activityId), new PagingInfo(page, rows)
             );
@@ -370,7 +370,7 @@ public class ActivityDataRecordController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             LongIdKey result = service.create(
                     accountKey, WebInputActivityDataRecordCreateInfo.toStackBean(createInfo)
             );
@@ -392,7 +392,7 @@ public class ActivityDataRecordController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.update(accountKey, WebInputActivityDataRecordUpdateInfo.toStackBean(updateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -413,7 +413,7 @@ public class ActivityDataRecordController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.remove(accountKey, WebInputLongIdKey.toStackBean(key));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

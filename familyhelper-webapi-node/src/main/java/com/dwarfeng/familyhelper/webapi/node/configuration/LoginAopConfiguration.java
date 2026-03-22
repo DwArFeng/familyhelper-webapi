@@ -1,8 +1,8 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration;
 
 import com.dwarfeng.acckeeper.api.integration.subgrade.LoginHandlerImpl;
+import com.dwarfeng.acckeeper.stack.service.AccessService;
 import com.dwarfeng.acckeeper.stack.service.AccountOperateService;
-import com.dwarfeng.acckeeper.stack.service.LoginService;
 import com.dwarfeng.familyhelper.webapi.stack.handler.system.TokenHandler;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequiredAdvisor;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequiredAopManager;
@@ -16,16 +16,16 @@ import org.springframework.context.annotation.Configuration;
 public class LoginAopConfiguration {
 
     private final TokenHandler tokenHandler;
-    private final LoginService loginService;
+    private final AccessService accessService;
     private final AccountOperateService accountOperateService;
 
     public LoginAopConfiguration(
             TokenHandler tokenHandler,
-            @Qualifier("acckeeperLoginService") LoginService loginService,
+            @Qualifier("acckeeperAccessService") AccessService accessService,
             @Qualifier("acckeeperAccountOperateService") AccountOperateService accountOperateService
     ) {
         this.tokenHandler = tokenHandler;
-        this.loginService = loginService;
+        this.accessService = accessService;
         this.accountOperateService = accountOperateService;
     }
 
@@ -36,7 +36,7 @@ public class LoginAopConfiguration {
 
     @Bean
     public LoginHandler loginHandler() {
-        return new LoginHandlerImpl(loginService, accountOperateService);
+        return new LoginHandlerImpl(accessService, accountOperateService);
     }
 
     @Bean

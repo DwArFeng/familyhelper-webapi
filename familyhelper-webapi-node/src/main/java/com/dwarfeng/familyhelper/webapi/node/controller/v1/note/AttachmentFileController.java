@@ -100,7 +100,9 @@ public class AttachmentFileController {
     ) {
         try {
             AttachmentFileInfo attachmentFileInfo = service.get(new LongIdKey(longId));
-            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonAttachmentFileInfo.of(attachmentFileInfo)));
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    JSFixedFastJsonAttachmentFileInfo.of(attachmentFileInfo)
+            ));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
@@ -231,7 +233,7 @@ public class AttachmentFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             AttachmentFile attachmentFile = service.downloadAttachmentFile(
                     accountKey, new LongIdKey(attachmentFileId)
             );
@@ -255,7 +257,7 @@ public class AttachmentFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -302,7 +304,7 @@ public class AttachmentFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -347,7 +349,7 @@ public class AttachmentFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey attachmentFileKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removeAttachmentFile(accountKey, WebInputLongIdKey.toStackBean(attachmentFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

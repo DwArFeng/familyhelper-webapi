@@ -46,15 +46,18 @@ public class MessageAuthorizationController {
 
     private final ServiceExceptionMapper sem;
 
-    private final BeanTransformer<MessageAuthorization, FastJsonMessageAuthorization> messageAuthorizationBeanTransformer;
-    private final BeanTransformer<DispMessageAuthorization, FastJsonDispMessageAuthorization> dispMessageAuthorizationBeanTransformer;
+    private final BeanTransformer<MessageAuthorization, FastJsonMessageAuthorization>
+            messageAuthorizationBeanTransformer;
+    private final BeanTransformer<DispMessageAuthorization, FastJsonDispMessageAuthorization>
+            dispMessageAuthorizationBeanTransformer;
 
     private final TokenHandler tokenHandler;
 
     public MessageAuthorizationController(
             MessageAuthorizationResponseService service, ServiceExceptionMapper sem,
             BeanTransformer<MessageAuthorization, FastJsonMessageAuthorization> messageAuthorizationBeanTransformer,
-            BeanTransformer<DispMessageAuthorization, FastJsonDispMessageAuthorization> dispMessageAuthorizationBeanTransformer,
+            BeanTransformer<DispMessageAuthorization, FastJsonDispMessageAuthorization>
+                    dispMessageAuthorizationBeanTransformer,
             TokenHandler tokenHandler
     ) {
         this.service = service;
@@ -200,7 +203,7 @@ public class MessageAuthorizationController {
             @PathVariable("authorizedSendUserId") String authorizedSendUserId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispMessageAuthorization disp = service.getDisp(
                     new MessageAuthorizationKey(receiveUserId, authorizedSendUserId), inspectAccountKey
             );
@@ -219,8 +222,10 @@ public class MessageAuthorizationController {
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
-            PagedData<DispMessageAuthorization> allDisp = service.allDisp(new PagingInfo(page, rows), inspectAccountKey);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
+            PagedData<DispMessageAuthorization> allDisp = service.allDisp(
+                    new PagingInfo(page, rows), inspectAccountKey
+            );
             PagedData<FastJsonDispMessageAuthorization> transform = PagingUtil.transform(
                     allDisp, dispMessageAuthorizationBeanTransformer
             );
@@ -241,7 +246,7 @@ public class MessageAuthorizationController {
     ) {
         try {
             StringIdKey receiveUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispMessageAuthorization> childForReceiveUserDisp = service.childForReceiveUserDisp(
                     receiveUserKey, new PagingInfo(page, rows), inspectAccountKey
             );
@@ -265,7 +270,7 @@ public class MessageAuthorizationController {
     ) {
         try {
             StringIdKey authorizedSendUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispMessageAuthorization> childForAuthorizedSendUserDisp = service.childForAuthorizedSendUserDisp(
                     authorizedSendUserKey, new PagingInfo(page, rows), inspectAccountKey
             );
@@ -283,17 +288,19 @@ public class MessageAuthorizationController {
     @BehaviorAnalyse
     @SkipRecord
     @LoginRequired
-    public FastJsonResponseData<FastJsonPagedData<FastJsonDispMessageAuthorization>> childForAuthorizedSendUserIdLikeDisp(
+    public FastJsonResponseData<FastJsonPagedData<FastJsonDispMessageAuthorization>>
+    childForAuthorizedSendUserIdLikeDisp(
             HttpServletRequest request,
             @PathVariable("accountId") String accountId, @RequestParam("pattern") String pattern,
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
             StringIdKey authorizedSendUserKey = new StringIdKey(accountId);
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
-            PagedData<DispMessageAuthorization> childForAuthorizedSendUserIdLikeDisp = service.childForAuthorizedSendUserIdLikeDisp(
-                    authorizedSendUserKey, pattern, new PagingInfo(page, rows), inspectAccountKey
-            );
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
+            PagedData<DispMessageAuthorization> childForAuthorizedSendUserIdLikeDisp =
+                    service.childForAuthorizedSendUserIdLikeDisp(
+                            authorizedSendUserKey, pattern, new PagingInfo(page, rows), inspectAccountKey
+                    );
             PagedData<FastJsonDispMessageAuthorization> transform = PagingUtil.transform(
                     childForAuthorizedSendUserIdLikeDisp, dispMessageAuthorizationBeanTransformer
             );

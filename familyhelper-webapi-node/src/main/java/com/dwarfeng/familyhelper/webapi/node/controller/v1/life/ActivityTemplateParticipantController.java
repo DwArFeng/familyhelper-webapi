@@ -117,7 +117,7 @@ public class ActivityTemplateParticipantController {
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispActivityTemplateParticipant dispActivityTemplateParticipant = service.getDisp(
                     new ActivityTemplateParticipantKey(longId, stringId), inspectAccountKey
             );
@@ -165,10 +165,11 @@ public class ActivityTemplateParticipantController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
-            PagedData<DispActivityTemplateParticipant> childForActivityTemplateDisp = service.childForActivityTemplateDisp(
-                    inspectAccountKey, new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
-            );
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
+            PagedData<DispActivityTemplateParticipant> childForActivityTemplateDisp =
+                    service.childForActivityTemplateDisp(
+                            inspectAccountKey, new LongIdKey(activityTemplateId), new PagingInfo(page, rows)
+                    );
             PagedData<JSFixedFastJsonDispActivityTemplateParticipant> transform = PagingUtil.transform(
                     childForActivityTemplateDisp, dispBeanTransformer
             );
@@ -190,7 +191,7 @@ public class ActivityTemplateParticipantController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             ActivityTemplateParticipantKey result = service.create(
                     accountKey,
                     WebInputActivityTemplateParticipantCreateInfo.toStackBean(createInfo)
@@ -215,7 +216,7 @@ public class ActivityTemplateParticipantController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.update(
                     accountKey,
                     WebInputActivityTemplateParticipantUpdateInfo.toStackBean(updateInfo)
@@ -238,7 +239,7 @@ public class ActivityTemplateParticipantController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.remove(accountKey, WebInputActivityTemplateParticipantRemoveInfo.toStackBean(removeInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

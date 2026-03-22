@@ -102,7 +102,7 @@ public class PoadController {
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispPoad dispPoad = service.getDisp(new PoadKey(longId, stringId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPoad.of(dispPoad)));
         } catch (Exception e) {
@@ -142,7 +142,7 @@ public class PoadController {
             HttpServletRequest request, @PathVariable("activityDataSetId") Long activityDataSetId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispPoad> childForActivityDataSetDisp = service.childForActivityDataSetDisp(
                     new LongIdKey(activityDataSetId), new PagingInfo(page, rows), inspectAccountKey
             );

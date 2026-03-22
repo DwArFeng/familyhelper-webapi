@@ -144,7 +144,7 @@ public class BankCardController {
             HttpServletRequest request, @PathVariable("id") Long id
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispBankCard dispBankCard = service.getDisp(new LongIdKey(id), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispBankCard.of(dispBankCard)));
         } catch (Exception e) {
@@ -160,7 +160,7 @@ public class BankCardController {
     public FastJsonResponseData<JSFixedFastJsonPagedData<JSFixedFastJsonDispBankCard>> allDisp(
             HttpServletRequest request, @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispBankCard> allDisp = service.allDisp(accountKey, new PagingInfo(page, rows));
             PagedData<JSFixedFastJsonDispBankCard> transform = PagingUtil.transform(
                     allDisp, dispBankCardBeanTransformer);
@@ -183,7 +183,7 @@ public class BankCardController {
             @RequestParam("page") int page, @RequestParam("rows") int rows
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             LongIdKey accountBookKey = null;
             if (Objects.nonNull(accountBookId)) {
                 accountBookKey = new LongIdKey(accountBookId);
@@ -207,7 +207,7 @@ public class BankCardController {
             @RequestBody @Validated WebInputBankCardCreateInfo bankCardCreateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             LongIdKey result = service.createBankCard(
                     accountKey, WebInputBankCardCreateInfo.toStackBean(bankCardCreateInfo)
             );
@@ -226,7 +226,7 @@ public class BankCardController {
             @RequestBody @Validated WebInputBankCardUpdateInfo webInputBankCardUpdateInfo, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.updateBankCard(
                     accountKey, WebInputBankCardUpdateInfo.toStackBean(webInputBankCardUpdateInfo)
             );
@@ -245,7 +245,7 @@ public class BankCardController {
             @RequestBody @Validated WebInputLongIdKey bankCardKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removeBankCard(accountKey, WebInputLongIdKey.toStackBean(bankCardKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
@@ -262,7 +262,7 @@ public class BankCardController {
             BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.recordBalance(
                     accountKey, WebInputBankCardBalanceRecordInfo.toStackBean(bankCardBalanceRecordInfo)
             );
@@ -280,7 +280,7 @@ public class BankCardController {
             @RequestBody @Validated WebInputLongIdKey bankCardKey, BindingResult bindingResult
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.rollbackBalance(accountKey, WebInputLongIdKey.toStackBean(bankCardKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

@@ -142,7 +142,7 @@ public class CertificateFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             CertificateFile certificateFile = service.downloadCertificateFile(
                     accountKey, new LongIdKey(certificateFileId)
             );
@@ -163,8 +163,10 @@ public class CertificateFileController {
             HttpServletRequest request, @PathVariable("certificateFileId") Long certificateFileId
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
-            LongIdKey voucherKey = service.requestCertificateFileStreamVoucher(accountKey, new LongIdKey(certificateFileId));
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
+            LongIdKey voucherKey = service.requestCertificateFileStreamVoucher(
+                    accountKey, new LongIdKey(certificateFileId)
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(voucherKey)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -180,7 +182,9 @@ public class CertificateFileController {
             @RequestParam("voucher-id") Long voucherId
     ) throws Exception {
         try {
-            CertificateFileStream certificateFileStream = service.downloadCertificateFileStreamByVoucher(new LongIdKey(voucherId));
+            CertificateFileStream certificateFileStream = service.downloadCertificateFileStreamByVoucher(
+                    new LongIdKey(voucherId)
+            );
 
             // 将文件名转换成 HTTP 标准文件名编码下的格式。
             String fileName = adjustFileNameEncoding(certificateFileStream.getOriginName());
@@ -211,7 +215,7 @@ public class CertificateFileController {
         HttpHeaders headers = new HttpHeaders();
         Object body;
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             CertificateThumbnail certificateThumbnail = service.downloadCertificateThumbnail(
                     accountKey, new LongIdKey(certificateFileId)
             );
@@ -235,7 +239,7 @@ public class CertificateFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -243,7 +247,8 @@ public class CertificateFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -280,7 +285,7 @@ public class CertificateFileController {
     ) {
         try {
             // 通过请求解析用户。
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
 
             // 确认请求合法。
             if (!commonsMultipartResolver.isMultipart(request)) {
@@ -288,7 +293,8 @@ public class CertificateFileController {
             }
 
             //获取 multiRequest 中的文件。
-            MultipartHttpServletRequest multipartHttpServletRequest = commonsMultipartResolver.resolveMultipart(request);
+            MultipartHttpServletRequest multipartHttpServletRequest =
+                    commonsMultipartResolver.resolveMultipart(request);
             MultipartFile file = multipartHttpServletRequest.getFile("file");
             if (Objects.isNull(file)) {
                 throw new IllegalStateException("请求体中缺少 file 属性");
@@ -300,7 +306,9 @@ public class CertificateFileController {
             try (InputStream fin = file.getInputStream()) {
                 service.uploadCertificateFileStream(
                         accountKey,
-                        new CertificateFileStreamUploadInfo(new LongIdKey(certificateId), originFileName, contentLength, fin)
+                        new CertificateFileStreamUploadInfo(
+                                new LongIdKey(certificateId), originFileName, contentLength, fin
+                        )
                 );
             }
 
@@ -320,7 +328,7 @@ public class CertificateFileController {
             HttpServletRequest request, @RequestBody WebInputLongIdKey certificateFileKey
     ) {
         try {
-            StringIdKey accountKey = tokenHandler.getUserKey(request);
+            StringIdKey accountKey = new StringIdKey(tokenHandler.getUserId(request));
             service.removeCertificateFile(accountKey, WebInputLongIdKey.toStackBean(certificateFileKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {

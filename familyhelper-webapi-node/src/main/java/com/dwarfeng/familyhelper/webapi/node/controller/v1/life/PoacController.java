@@ -104,7 +104,7 @@ public class PoacController {
             HttpServletRequest request, @PathVariable("longId") Long longId, @PathVariable("stringId") String stringId
     ) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             DispPoac dispPoac = service.getDisp(new PoacKey(longId, stringId), inspectAccountKey);
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonDispPoac.of(dispPoac)));
         } catch (Exception e) {
@@ -144,7 +144,7 @@ public class PoacController {
             HttpServletRequest request, @PathVariable("activityId") Long activityId,
             @RequestParam("page") int page, @RequestParam("rows") int rows) {
         try {
-            StringIdKey inspectAccountKey = tokenHandler.getUserKey(request);
+            StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispPoac> childForActivityDisp = service.childForActivityDisp(
                     new LongIdKey(activityId), new PagingInfo(page, rows), inspectAccountKey
             );
