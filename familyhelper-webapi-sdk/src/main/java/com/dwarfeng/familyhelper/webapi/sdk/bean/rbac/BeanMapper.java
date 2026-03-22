@@ -23,7 +23,8 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BeanMapper {
 
-    // -----------------------------------------------------------Familyhelper-webapi Disp-----------------------------------------------------------
+    // region Familyhelper-webapi Disp
+
     FastJsonDispPermission dispPermissionToFastJson(DispPermission dispPermission);
 
     @InheritInverseConfiguration
@@ -43,4 +44,6 @@ public interface BeanMapper {
 
     @InheritInverseConfiguration
     DispRoleUserRelation dispRoleUserRelationFromFastJson(FastJsonDispRoleUserRelation fastJsonDispRoleUserRelation);
+
+    // endregion
 }

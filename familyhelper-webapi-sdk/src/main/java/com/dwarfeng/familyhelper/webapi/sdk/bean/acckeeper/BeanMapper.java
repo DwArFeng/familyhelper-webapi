@@ -17,7 +17,8 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BeanMapper {
 
-    // -----------------------------------------------------------Familyhelper-webapi Disp-----------------------------------------------------------
+    // region Familyhelper-webapi Disp
+
     FastJsonDispDeriveHistory dispDeriveHistoryToFastJson(DispDeriveHistory dispDeriveHistory);
 
     @InheritInverseConfiguration
@@ -88,4 +89,6 @@ public interface BeanMapper {
     DispProtectDetailRecord dispProtectDetailRecordFromJSFixedFastJson(
             JSFixedFastJsonDispProtectDetailRecord jSFixedFastJsonDispProtectDetailRecord
     );
+
+    // endregion
 }

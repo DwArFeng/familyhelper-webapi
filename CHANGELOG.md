@@ -4,6 +4,14 @@
 
 ### 功能构建
 
+- `familyhelper-webapi-sdk` 子模块类优化注释、文档注释格式、代码换行格式。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.acckeeper.BeanMapper。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.life.BeanMapper。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.notify.BeanMapper。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.rbac.BeanMapper。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.BeanMapper。
+  - com.dwarfeng.familyhelper.webapi.sdk.bean.system.BeanMapper。
+
 - 依赖升级。
   - 升级 `subgrade` 依赖版本为 `1.7.3.a` 并解决兼容性问题，以应用其新功能。
   - 升级 `acckeeper` 依赖版本为 `2.1.1.a` 并解决兼容性问题，以应用其新功能。

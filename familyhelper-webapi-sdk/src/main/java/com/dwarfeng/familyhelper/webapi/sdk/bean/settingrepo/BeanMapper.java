@@ -19,50 +19,28 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BeanMapper {
 
-    // -----------------------------------------------------------Familyhelper-webapi-----------------------------------------------------------
-    WebInputPublicFileNodeThumbnailDownloadInfo publicFileNodeThumbnailDownloadInfoToWebInput(
-            PublicFileNodeThumbnailDownloadInfo publicFileNodeThumbnailDownloadInfo
+    // region Familyhelper-webapi Disp
+
+    JSFixedFastJsonDispNavigationNodeItem dispNavigationNodeItemToFastJson(
+            DispNavigationNodeItem dispNavigationNodeItem
     );
 
     @InheritInverseConfiguration
-    PublicFileNodeThumbnailDownloadInfo publicFileNodeThumbnailDownloadInfoFromWebInput(
-            WebInputPublicFileNodeThumbnailDownloadInfo webInputPublicFileNodeThumbnailDownloadInfo
+    DispNavigationNodeItem dispNavigationNodeItemFromFastJson(
+            JSFixedFastJsonDispNavigationNodeItem JSFixedFastJsonDispNavigationNodeItem
     );
 
-    WebInputPublicFileNodeInspectInfo publicFileNodeInspectInfoToWebInput(
-            PublicFileNodeInspectInfo publicFileNodeInspectInfo
-    );
+    // endregion
 
-    @InheritInverseConfiguration
-    PublicFileNodeInspectInfo publicFileNodeInspectInfoFromWebInput(
-            WebInputPublicFileNodeInspectInfo webInputPublicFileNodeInspectInfo
-    );
+    // region Familyhelper-webapi DTO
 
-    WebInputPublicFileNodeFileDownloadInfo publicFileNodeFileDownloadInfoToWebInput(
-            PublicFileNodeFileDownloadInfo publicFileNodeFileDownloadInfo
+    WebInputPublicFileListNodeFileDownloadInfo publicFileListNodeFileDownloadInfoToWebInput(
+            PublicFileListNodeFileDownloadInfo publicFileListNodeFileDownloadInfo
     );
 
     @InheritInverseConfiguration
-    PublicFileNodeFileDownloadInfo publicFileNodeFileDownloadInfoFromWebInput(
-            WebInputPublicFileNodeFileDownloadInfo webInputPublicFileNodeFileDownloadInfo
-    );
-
-    WebInputPublicFileListNodeThumbnailDownloadInfo publicFileListNodeThumbnailDownloadInfoToWebInput(
-            PublicFileListNodeThumbnailDownloadInfo publicFileListNodeThumbnailDownloadInfo
-    );
-
-    @InheritInverseConfiguration
-    PublicFileListNodeThumbnailDownloadInfo publicFileListNodeThumbnailDownloadInfoFromWebInput(
-            WebInputPublicFileListNodeThumbnailDownloadInfo webInputPublicFileListNodeThumbnailDownloadInfo
-    );
-
-    WebInputPublicFileListNodeSizeInfo publicFileListNodeSizeInfoToWebInput(
-            PublicFileListNodeSizeInfo publicFileListNodeSizeInfo
-    );
-
-    @InheritInverseConfiguration
-    PublicFileListNodeSizeInfo publicFileListNodeSizeInfoFromWebInput(
-            WebInputPublicFileListNodeSizeInfo webInputPublicFileListNodeSizeInfo
+    PublicFileListNodeFileDownloadInfo publicFileListNodeFileDownloadInfoFromWebInput(
+            WebInputPublicFileListNodeFileDownloadInfo webInputPublicFileListNodeFileDownloadInfo
     );
 
     WebInputPublicFileListNodeInspectInfo publicFileListNodeInspectInfoToWebInput(
@@ -74,13 +52,94 @@ public interface BeanMapper {
             WebInputPublicFileListNodeInspectInfo webInputPublicFileListNodeInspectInfo
     );
 
-    WebInputPublicFileListNodeFileDownloadInfo publicFileListNodeFileDownloadInfoToWebInput(
-            PublicFileListNodeFileDownloadInfo publicFileListNodeFileDownloadInfo
+    WebInputPublicFileListNodeSizeInfo publicFileListNodeSizeInfoToWebInput(
+            PublicFileListNodeSizeInfo publicFileListNodeSizeInfo
     );
 
     @InheritInverseConfiguration
-    PublicFileListNodeFileDownloadInfo publicFileListNodeFileDownloadInfoFromWebInput(
-            WebInputPublicFileListNodeFileDownloadInfo webInputPublicFileListNodeFileDownloadInfo
+    PublicFileListNodeSizeInfo publicFileListNodeSizeInfoFromWebInput(
+            WebInputPublicFileListNodeSizeInfo webInputPublicFileListNodeSizeInfo
+    );
+
+    WebInputPublicFileListNodeThumbnailDownloadInfo publicFileListNodeThumbnailDownloadInfoToWebInput(
+            PublicFileListNodeThumbnailDownloadInfo publicFileListNodeThumbnailDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileListNodeThumbnailDownloadInfo publicFileListNodeThumbnailDownloadInfoFromWebInput(
+            WebInputPublicFileListNodeThumbnailDownloadInfo webInputPublicFileListNodeThumbnailDownloadInfo
+    );
+
+    WebInputPublicFileNodeFileDownloadInfo publicFileNodeFileDownloadInfoToWebInput(
+            PublicFileNodeFileDownloadInfo publicFileNodeFileDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileNodeFileDownloadInfo publicFileNodeFileDownloadInfoFromWebInput(
+            WebInputPublicFileNodeFileDownloadInfo webInputPublicFileNodeFileDownloadInfo
+    );
+
+    WebInputPublicFileNodeInspectInfo publicFileNodeInspectInfoToWebInput(
+            PublicFileNodeInspectInfo publicFileNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileNodeInspectInfo publicFileNodeInspectInfoFromWebInput(
+            WebInputPublicFileNodeInspectInfo webInputPublicFileNodeInspectInfo
+    );
+
+    WebInputPublicFileNodeThumbnailDownloadInfo publicFileNodeThumbnailDownloadInfoToWebInput(
+            PublicFileNodeThumbnailDownloadInfo publicFileNodeThumbnailDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicFileNodeThumbnailDownloadInfo publicFileNodeThumbnailDownloadInfoFromWebInput(
+            WebInputPublicFileNodeThumbnailDownloadInfo webInputPublicFileNodeThumbnailDownloadInfo
+    );
+
+    WebInputPublicIahnNodeLocaleListInspectInfo publicIahnNodeLocaleListInspectInfoToWebInput(
+            PublicIahnNodeLocaleListInspectInfo publicIahnNodeLocaleListInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeLocaleListInspectInfo publicIahnNodeLocaleListInspectInfoFromWebInput(
+            WebInputPublicIahnNodeLocaleListInspectInfo webInputPublicIahnNodeLocaleListInspectInfo
+    );
+
+    WebInputPublicIahnNodeMekListInspectInfo publicIahnNodeMekListInspectInfoToWebInput(
+            PublicIahnNodeMekListInspectInfo publicIahnNodeMekListInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeMekListInspectInfo publicIahnNodeMekListInspectInfoFromWebInput(
+            WebInputPublicIahnNodeMekListInspectInfo webInputPublicIahnNodeMekListInspectInfo
+    );
+
+    WebInputPublicIahnNodeMessageInspectByLocaleInfo publicIahnNodeMessageInspectByLocaleInfoToWebInput(
+            PublicIahnNodeMessageInspectByLocaleInfo publicIahnNodeMessageInspectByLocaleInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeMessageInspectByLocaleInfo publicIahnNodeMessageInspectByLocaleInfoFromWebInput(
+            WebInputPublicIahnNodeMessageInspectByLocaleInfo webInputPublicIahnNodeMessageInspectByLocaleInfo
+    );
+
+    WebInputPublicIahnNodeMessageInspectInfo publicIahnNodeMessageInspectInfoToWebInput(
+            PublicIahnNodeMessageInspectInfo publicIahnNodeMessageInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeMessageInspectInfo publicIahnNodeMessageInspectInfoFromWebInput(
+            WebInputPublicIahnNodeMessageInspectInfo webInputPublicIahnNodeMessageInspectInfo
+    );
+
+    WebInputPublicIahnNodeMessageTableInspectInfo publicIahnNodeMessageTableInspectInfoToWebInput(
+            PublicIahnNodeMessageTableInspectInfo publicIahnNodeMessageTableInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicIahnNodeMessageTableInspectInfo publicIahnNodeMessageTableInspectInfoFromWebInput(
+            WebInputPublicIahnNodeMessageTableInspectInfo webInputPublicIahnNodeMessageTableInspectInfo
     );
 
     WebInputPublicImageListNodeFileDownloadInfo publicImageListNodeFileDownloadInfoToWebInput(
@@ -146,6 +205,24 @@ public interface BeanMapper {
             WebInputPublicImageNodeThumbnailDownloadInfo webInputPublicImageNodeThumbnailDownloadInfo
     );
 
+    WebInputPublicNavigationNodeInspectInfo publicNavigationNodeInspectInfoToWebInput(
+            PublicNavigationNodeInspectInfo publicNavigationNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicNavigationNodeInspectInfo publicNavigationNodeInspectInfoFromWebInput(
+            WebInputPublicNavigationNodeInspectInfo webInputPublicNavigationNodeInspectInfo
+    );
+
+    WebInputPublicNavigationNodeSizeInfo publicNavigationNodeSizeInfoToWebInput(
+            PublicNavigationNodeSizeInfo publicNavigationNodeSizeInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicNavigationNodeSizeInfo publicNavigationNodeSizeInfoFromWebInput(
+            WebInputPublicNavigationNodeSizeInfo webInputPublicNavigationNodeSizeInfo
+    );
+
     WebInputPublicSettingNodeInspectInfo publicSettingNodeInspectInfoToWebInput(
             PublicSettingNodeInspectInfo publicSettingNodeInspectInfo
     );
@@ -164,75 +241,5 @@ public interface BeanMapper {
             WebInputPublicTextNodeInspectInfo webInputPublicTextNodeInspectInfo
     );
 
-    WebInputPublicIahnNodeLocaleListInspectInfo publicIahnNodeLocaleListInspectInfoToWebInput(
-            PublicIahnNodeLocaleListInspectInfo publicIahnNodeLocaleListInspectInfo
-    );
-
-    @InheritInverseConfiguration
-    PublicIahnNodeLocaleListInspectInfo publicIahnNodeLocaleListInspectInfoFromWebInput(
-            WebInputPublicIahnNodeLocaleListInspectInfo webInputPublicIahnNodeLocaleListInspectInfo
-    );
-
-    WebInputPublicIahnNodeMekListInspectInfo publicIahnNodeMekListInspectInfoToWebInput(
-            PublicIahnNodeMekListInspectInfo publicIahnNodeMekListInspectInfo
-    );
-
-    @InheritInverseConfiguration
-    PublicIahnNodeMekListInspectInfo publicIahnNodeMekListInspectInfoFromWebInput(
-            WebInputPublicIahnNodeMekListInspectInfo webInputPublicIahnNodeMekListInspectInfo
-    );
-
-    WebInputPublicIahnNodeMessageInspectByLocaleInfo publicIahnNodeMessageInspectByLocaleInfoToWebInput(
-            PublicIahnNodeMessageInspectByLocaleInfo publicIahnNodeMessageInspectByLocaleInfo
-    );
-
-    @InheritInverseConfiguration
-    PublicIahnNodeMessageInspectByLocaleInfo publicIahnNodeMessageInspectByLocaleInfoFromWebInput(
-            WebInputPublicIahnNodeMessageInspectByLocaleInfo webInputPublicIahnNodeMessageInspectByLocaleInfo
-    );
-
-    WebInputPublicIahnNodeMessageInspectInfo publicIahnNodeMessageInspectInfoToWebInput(
-            PublicIahnNodeMessageInspectInfo publicIahnNodeMessageInspectInfo
-    );
-
-    @InheritInverseConfiguration
-    PublicIahnNodeMessageInspectInfo publicIahnNodeMessageInspectInfoFromWebInput(
-            WebInputPublicIahnNodeMessageInspectInfo webInputPublicIahnNodeMessageInspectInfo
-    );
-
-    WebInputPublicIahnNodeMessageTableInspectInfo publicIahnNodeMessageTableInspectInfoToWebInput(
-            PublicIahnNodeMessageTableInspectInfo publicIahnNodeMessageTableInspectInfo
-    );
-
-    @InheritInverseConfiguration
-    PublicIahnNodeMessageTableInspectInfo publicIahnNodeMessageTableInspectInfoFromWebInput(
-            WebInputPublicIahnNodeMessageTableInspectInfo webInputPublicIahnNodeMessageTableInspectInfo
-    );
-
-    // -----------------------------------------------------------Familyhelper-webapi Disp-----------------------------------------------------------
-    JSFixedFastJsonDispNavigationNodeItem dispNavigationNodeItemToFastJson(DispNavigationNodeItem dispNavigationNodeItem);
-
-    @InheritInverseConfiguration
-    DispNavigationNodeItem dispNavigationNodeItemFromFastJson(
-            JSFixedFastJsonDispNavigationNodeItem JSFixedFastJsonDispNavigationNodeItem
-    );
-
-    // -----------------------------------------------------------Familyhelper-webapi DTO-----------------------------------------------------------
-    WebInputPublicNavigationNodeInspectInfo publicNavigationNodeInspectInfoToWebInput(
-            PublicNavigationNodeInspectInfo publicNavigationNodeInspectInfo
-    );
-
-    @InheritInverseConfiguration
-    PublicNavigationNodeInspectInfo publicNavigationNodeInspectInfoFromWebInput(
-            WebInputPublicNavigationNodeInspectInfo webInputPublicNavigationNodeInspectInfo
-    );
-
-    WebInputPublicNavigationNodeSizeInfo publicNavigationNodeSizeInfoToWebInput(
-            PublicNavigationNodeSizeInfo publicNavigationNodeSizeInfo
-    );
-
-    @InheritInverseConfiguration
-    PublicNavigationNodeSizeInfo publicNavigationNodeSizeInfoFromWebInput(
-            WebInputPublicNavigationNodeSizeInfo webInputPublicNavigationNodeSizeInfo
-    );
+    // endregion
 }

@@ -22,13 +22,17 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BeanMapper {
 
-    // -----------------------------------------------------------Familyhelper-webapi Disp-----------------------------------------------------------
+    // region Familyhelper-webapi Disp
+
     FastJsonDispAccount dispAccountToFastJson(DispAccount dispAccount);
 
     @InheritInverseConfiguration
     DispAccount dispAccountFromFastJson(FastJsonDispAccount fastJsonDispAccount);
 
-    // -----------------------------------------------------------Familyhelper-webapi DTO-----------------------------------------------------------
+    // endregion
+
+    // region Familyhelper-webapi DTO
+
     FastJsonLoginResult loginResultToFastJson(LoginResult loginResult);
 
     @InheritInverseConfiguration
@@ -68,7 +72,10 @@ public interface BeanMapper {
     @InheritInverseConfiguration
     PostponeInfo postponeInfoFromWebInput(WebInputPostponeInfo webInputPostponeInfo);
 
-    // -----------------------------------------------------------Familyhelper-webapi VO-----------------------------------------------------------
+    // endregion
+
+    // region Familyhelper-webapi VO
+
     FastJsonAccount accountToFastJson(Account account);
 
     @InheritInverseConfiguration
@@ -78,4 +85,6 @@ public interface BeanMapper {
 
     @InheritInverseConfiguration
     Account accountFromWebInput(WebInputAccount webInputAccount);
+
+    // endregion
 }
