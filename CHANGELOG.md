@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.ResetController。
+
 - 增加依赖。
   - 增加依赖 `dwarfeng:account-keeper-impl` 以应用其新功能。
   - 增加依赖 `dwarfeng:rbac-distributed-service-impl` 以应用其新功能。
