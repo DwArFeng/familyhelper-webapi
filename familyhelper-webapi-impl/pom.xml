@@ -123,6 +123,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-impl</artifactId>
         </dependency>
+        <!-- Rbac 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>rbac-distributed-service-impl</artifactId>
+        </dependency>
         <!-- Settingrepo 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

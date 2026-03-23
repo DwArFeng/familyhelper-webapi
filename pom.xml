@@ -429,6 +429,11 @@
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
+                <artifactId>rbac-distributed-service-impl</artifactId>
+                <version>${rbac.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
                 <artifactId>rbac-distributed-service-api</artifactId>
                 <version>${rbac.version}</version>
             </dependency>
