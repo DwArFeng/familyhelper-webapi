@@ -4,6 +4,11 @@
 
 ### 功能构建
 
+- 依赖结构优化。
+  - 将 `com.dwarfeng:snowflake-distributed-service-api` 依赖提升至 `familyhelper-webapi-node` 子模块。
+  - 将 `com.dwarfeng:account-keeper-api` 依赖提升至 `familyhelper-webapi-node` 子模块。
+  - 将 `com.dwarfeng:rbac-distributed-service-api` 依赖提升至 `familyhelper-webapi-node` 子模块。
+
 - 优化文件格式。
   - 优化 `application-context-*.xml` 文件的格式。
 
