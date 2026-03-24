@@ -130,6 +130,15 @@
             check="false"
             group="${dubbo.consumer.acckeeper.group}"
     />
+    <dubbo:reference
+            id="acckeeperDubboResetter.dubboResetService"
+            interface="com.dwarfeng.acckeeper.impl.handler.resetter.DubboResetter$DubboResetService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            cluster="broadcast2"
+            group="${dubbo.consumer.acckeeper.group}"
+    />
 
     <!-- endregion -->
 

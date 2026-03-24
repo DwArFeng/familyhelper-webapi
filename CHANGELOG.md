@@ -5,6 +5,7 @@
 ### 功能构建
 
 - 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.acckeeper.ResetController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.ResetController。
 
 - 增加依赖。
