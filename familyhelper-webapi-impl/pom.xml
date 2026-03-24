@@ -123,6 +123,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-impl</artifactId>
         </dependency>
+        <!-- Acckeeper 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>account-keeper-impl</artifactId>
+        </dependency>
         <!-- Rbac 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

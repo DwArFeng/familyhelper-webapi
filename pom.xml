@@ -413,6 +413,11 @@
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
+                <artifactId>account-keeper-impl</artifactId>
+                <version>${acckeeper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
                 <artifactId>account-keeper-api</artifactId>
                 <version>${acckeeper.version}</version>
             </dependency>

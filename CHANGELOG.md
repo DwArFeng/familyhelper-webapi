@@ -5,6 +5,7 @@
 ### 功能构建
 
 - 增加依赖。
+  - 增加依赖 `dwarfeng:account-keeper-impl` 以应用其新功能。
   - 增加依赖 `dwarfeng:rbac-distributed-service-impl` 以应用其新功能。
 
 - `familyhelper-webapi-sdk` 子模块类优化注释、文档注释格式、代码换行格式。
