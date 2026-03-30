@@ -143,24 +143,6 @@ public class AccountResponseServiceImpl implements AccountResponseService {
                 lookup.getRows(), lookup.getCount(), accounts);
     }
 
-    private PagedData<Account> transformPagedRbacUser(
-            PagedData<com.dwarfeng.rbacds.stack.bean.entity.User> lookup
-    ) throws ServiceException {
-        List<Account> accounts = new ArrayList<>();
-        for (com.dwarfeng.rbacds.stack.bean.entity.User user : lookup.getData()) {
-            StringIdKey key = user.getKey();
-            com.dwarfeng.acckeeper.stack.bean.entity.Account acckeeperAccount = accountMaintainService.get(key);
-            accounts.add(new Account(
-                    key,
-                    acckeeperAccount.getDisplayName(),
-                    acckeeperAccount.isEnabled(),
-                    acckeeperAccount.getRemark()
-            ));
-        }
-        return new PagedData<>(lookup.getCurrentPage(), lookup.getTotalPages(),
-                lookup.getRows(), lookup.getCount(), accounts);
-    }
-
     private PagedData<Account> transformPagedClannadPopr(PagedData<Popr> lookup) throws ServiceException {
         List<Account> accounts = new ArrayList<>();
         for (Popr popr : lookup.getData()) {

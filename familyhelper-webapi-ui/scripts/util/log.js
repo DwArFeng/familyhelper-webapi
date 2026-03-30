@@ -1,4 +1,4 @@
-// noinspection DuplicatedCode
+// noinspection JSUnusedGlobalSymbols,DuplicatedCode
 
 // 导入依赖模块。
 const fs = require('node:fs')

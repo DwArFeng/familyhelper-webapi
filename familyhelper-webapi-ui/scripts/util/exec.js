@@ -1,4 +1,4 @@
-// noinspection DuplicatedCode
+// noinspection JSUnusedGlobalSymbols,DuplicatedCode
 
 const childProcess = require('child_process')
 const LogUtil = require('./log')
