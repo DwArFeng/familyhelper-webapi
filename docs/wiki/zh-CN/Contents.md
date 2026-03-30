@@ -15,3 +15,7 @@
 ## 配置
 
 - [Conf Directory](./ConfDirectory.md) - 配置目录说明，详细说明如何配置本项目，即 `conf/` 目录下的内容。
+
+## API 参考
+
+- [API 参考 - V1](./ApiReferenceV1.md) - HTTP API 说明入口，按 `controller/v1` 下业务域划分。

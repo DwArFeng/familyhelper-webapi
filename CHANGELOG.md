@@ -4,6 +4,20 @@
 
 ### 功能构建
 
+- Wiki 编写。
+  - docs/wiki/zh-CN/ApiReferenceV1.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Acckeeper.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Assets.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Clannad.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Finance.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Life.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Note.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Notify.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Project.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Rbac.md。
+  - docs/wiki/zh-CN/ApiReferenceV1Settingrepo.md。
+  - docs/wiki/zh-CN/ApiReferenceV1System.md。
+
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.acckeeper.ResetController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.ResetController。
