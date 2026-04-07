@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 为 Controller 添加新方法。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.PermissionController。
+
 - 依赖升级。
   - 升级 `rbac` 依赖版本为 `2.0.3.a` 以应用其新功能。
 

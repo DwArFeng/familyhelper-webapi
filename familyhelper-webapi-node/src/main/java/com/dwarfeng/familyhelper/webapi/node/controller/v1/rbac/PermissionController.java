@@ -238,6 +238,54 @@ public class PermissionController {
         }
     }
 
+    @GetMapping("/scope/{scopeId}/permission/group-is-null")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.rbac.permission.child_for_scope_group_is_null")
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermission>> childForScopeGroupIsNull(
+            HttpServletRequest request, @PathVariable("scopeId") String scopeId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<Permission> data = service.childForScopeGroupIsNull(
+                    new StringIdKey(scopeId), new PagingInfo(page, rows)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    JSFixedFastJsonPagedData.of(PagingUtil.transform(data, beanTransformer))
+            ));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/scope/{scopeId}/permission/group-is-null/permission-string-id-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    @PermissionRequired(
+            "webapi.controller_permitted.rbac.permission.child_for_scope_group_is_null_permission_string_id_like"
+    )
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonPermission>>
+    childForScopeGroupIsNullPermissionStringIdLike(
+            HttpServletRequest request, @PathVariable("scopeId") String scopeId,
+            @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<Permission> data = service.childForScopeGroupIsNullPermissionStringIdLike(
+                    new StringIdKey(scopeId), pattern, new PagingInfo(page, rows)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    JSFixedFastJsonPagedData.of(PagingUtil.transform(data, beanTransformer))
+            ));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/permission/create")
     @BehaviorAnalyse
     @BindingCheck
@@ -411,6 +459,54 @@ public class PermissionController {
     ) {
         try {
             PagedData<DispPermission> data = service.nameLikeDisp(pattern, new PagingInfo(page, rows));
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    JSFixedFastJsonPagedData.of(PagingUtil.transform(data, dispBeanTransformer))
+            ));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/scope/{scopeId}/permission/group-is-null/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.rbac.permission.child_for_scope_group_is_null_disp")
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispPermission>> childForScopeGroupIsNullDisp(
+            HttpServletRequest request, @PathVariable("scopeId") String scopeId,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<DispPermission> data = service.childForScopeGroupIsNullDisp(
+                    new StringIdKey(scopeId), new PagingInfo(page, rows)
+            );
+            return FastJsonResponseData.of(ResponseDataUtil.good(
+                    JSFixedFastJsonPagedData.of(PagingUtil.transform(data, dispBeanTransformer))
+            ));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    @GetMapping("/scope/{scopeId}/permission/group-is-null/permission-string-id-like/disp")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    @PermissionRequired(
+            "webapi.controller_permitted.rbac.permission.child_for_scope_group_is_null_permission_string_id_like_disp"
+    )
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispPermission>>
+    childForScopeGroupIsNullPermissionStringIdLikeDisp(
+            HttpServletRequest request, @PathVariable("scopeId") String scopeId,
+            @RequestParam("pattern") String pattern,
+            @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<DispPermission> data = service.childForScopeGroupIsNullPermissionStringIdLikeDisp(
+                    new StringIdKey(scopeId), pattern, new PagingInfo(page, rows)
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(
                     JSFixedFastJsonPagedData.of(PagingUtil.transform(data, dispBeanTransformer))
             ));

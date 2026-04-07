@@ -47,6 +47,34 @@ public interface PermissionResponseService extends Service {
             StringIdKey scopeKey, String pattern, PagingInfo pagingInfo
     ) throws ServiceException;
 
+    PagedData<Permission> childForScopeGroupIsNull(StringIdKey scopeKey, PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<Permission> childForScopeGroupIsNullPermissionStringIdLike(
+            StringIdKey scopeKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException;
+
+    DispPermission getDisp(PermissionKey key) throws ServiceException;
+
+    PagedData<DispPermission> allDisp(PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<DispPermission> childForScopeDisp(StringIdKey scopeKey, PagingInfo pagingInfo) throws ServiceException;
+
+    PagedData<DispPermission> childForGroupDisp(PermissionGroupKey groupKey, PagingInfo pagingInfo)
+            throws ServiceException;
+
+    PagedData<DispPermission> permissionStringIdLikeDisp(String pattern, PagingInfo pagingInfo)
+            throws ServiceException;
+
+    PagedData<DispPermission> nameLikeDisp(String pattern, PagingInfo pagingInfo)
+            throws ServiceException;
+
+    PagedData<DispPermission> childForScopeGroupIsNullDisp(StringIdKey scopeKey, PagingInfo pagingInfo)
+            throws ServiceException;
+
+    PagedData<DispPermission> childForScopeGroupIsNullPermissionStringIdLikeDisp(
+            StringIdKey scopeKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException;
+
     /**
      * 创建权限。
      *
@@ -71,19 +99,4 @@ public interface PermissionResponseService extends Service {
      * @throws ServiceException 服务异常。
      */
     void remove(PermissionRemoveInfo info) throws ServiceException;
-
-    DispPermission getDisp(PermissionKey key) throws ServiceException;
-
-    PagedData<DispPermission> allDisp(PagingInfo pagingInfo) throws ServiceException;
-
-    PagedData<DispPermission> childForScopeDisp(StringIdKey scopeKey, PagingInfo pagingInfo) throws ServiceException;
-
-    PagedData<DispPermission> childForGroupDisp(PermissionGroupKey groupKey, PagingInfo pagingInfo)
-            throws ServiceException;
-
-    PagedData<DispPermission> permissionStringIdLikeDisp(String pattern, PagingInfo pagingInfo)
-            throws ServiceException;
-
-    PagedData<DispPermission> nameLikeDisp(String pattern, PagingInfo pagingInfo)
-            throws ServiceException;
 }

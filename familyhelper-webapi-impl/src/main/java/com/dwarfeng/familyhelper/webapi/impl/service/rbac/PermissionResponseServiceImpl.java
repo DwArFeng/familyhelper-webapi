@@ -85,7 +85,7 @@ public class PermissionResponseServiceImpl implements PermissionResponseService 
     public PagedData<Permission> childForGroup(PermissionGroupKey groupKey, PagingInfo pagingInfo)
             throws ServiceException {
         return permissionMaintainService.lookup(
-                PermissionMaintainService.CHILD_FOR_GROUP,
+                PermissionMaintainService.CHILD_FOR_GROUP_PERMISSION_STRING_ID_ASC,
                 new Object[]{groupKey},
                 pagingInfo
         );
@@ -123,18 +123,24 @@ public class PermissionResponseServiceImpl implements PermissionResponseService 
     }
 
     @Override
-    public PermissionCreateResult create(PermissionCreateInfo info) throws ServiceException {
-        return permissionOperateService.create(info);
+    public PagedData<Permission> childForScopeGroupIsNull(StringIdKey scopeKey, PagingInfo pagingInfo)
+            throws ServiceException {
+        return permissionMaintainService.lookup(
+                PermissionMaintainService.CHILD_FOR_SCOPE_GROUP_IS_NULL_PERMISSION_STRING_ID_ASC,
+                new Object[]{scopeKey},
+                pagingInfo
+        );
     }
 
     @Override
-    public void update(PermissionUpdateInfo info) throws ServiceException {
-        permissionOperateService.update(info);
-    }
-
-    @Override
-    public void remove(PermissionRemoveInfo info) throws ServiceException {
-        permissionOperateService.remove(info);
+    public PagedData<Permission> childForScopeGroupIsNullPermissionStringIdLike(
+            StringIdKey scopeKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException {
+        return permissionMaintainService.lookup(
+                PermissionMaintainService.CHILD_FOR_SCOPE_GROUP_IS_NULL_PERMISSION_STRING_ID_LIKE_PERMISSION_STRING_ID_ASC,
+                new Object[]{scopeKey, pattern},
+                pagingInfo
+        );
     }
 
     @Override
@@ -192,6 +198,46 @@ public class PermissionResponseServiceImpl implements PermissionResponseService 
                 pagingInfo
         );
         return toDispPagedData(pagedData);
+    }
+
+    @Override
+    public PagedData<DispPermission> childForScopeGroupIsNullDisp(
+            StringIdKey scopeKey, PagingInfo pagingInfo
+    ) throws ServiceException {
+        PagedData<Permission> pagedData = permissionMaintainService.lookup(
+                PermissionMaintainService.CHILD_FOR_SCOPE_GROUP_IS_NULL_PERMISSION_STRING_ID_ASC,
+                new Object[]{scopeKey},
+                pagingInfo
+        );
+        return toDispPagedData(pagedData);
+    }
+
+    @Override
+    public PagedData<DispPermission> childForScopeGroupIsNullPermissionStringIdLikeDisp(
+            StringIdKey scopeKey, String pattern, PagingInfo pagingInfo
+    ) throws ServiceException {
+        PagedData<Permission> pagedData = permissionMaintainService.lookup(
+                PermissionMaintainService
+                        .CHILD_FOR_SCOPE_GROUP_IS_NULL_PERMISSION_STRING_ID_LIKE_PERMISSION_STRING_ID_ASC,
+                new Object[]{scopeKey, pattern},
+                pagingInfo
+        );
+        return toDispPagedData(pagedData);
+    }
+
+    @Override
+    public PermissionCreateResult create(PermissionCreateInfo info) throws ServiceException {
+        return permissionOperateService.create(info);
+    }
+
+    @Override
+    public void update(PermissionUpdateInfo info) throws ServiceException {
+        permissionOperateService.update(info);
+    }
+
+    @Override
+    public void remove(PermissionRemoveInfo info) throws ServiceException {
+        permissionOperateService.remove(info);
     }
 
     private DispPermission toDisp(Permission permission) throws ServiceException {
