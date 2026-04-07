@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- Wiki 编写。
+  - docs/wiki/zh-CN/SystemRequirements.md。
+
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.KvNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.KvNodeItemController。
