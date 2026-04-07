@@ -241,5 +241,28 @@ public interface BeanMapper {
             WebInputPublicTextNodeInspectInfo webInputPublicTextNodeInspectInfo
     );
 
+    WebInputPublicKvNodeCountInfo publicKvNodeCountInfoToWebInput(PublicKvNodeCountInfo publicKvNodeCountInfo);
+
+    @InheritInverseConfiguration
+    PublicKvNodeCountInfo publicKvNodeCountInfoFromWebInput(
+            WebInputPublicKvNodeCountInfo webInputPublicKvNodeCountInfo
+    );
+
+    WebInputPublicKvNodeInspectInfo publicKvNodeInspectInfoToWebInput(PublicKvNodeInspectInfo publicKvNodeInspectInfo);
+
+    @InheritInverseConfiguration
+    PublicKvNodeInspectInfo publicKvNodeInspectInfoFromWebInput(
+            WebInputPublicKvNodeInspectInfo webInputPublicKvNodeInspectInfo
+    );
+
+    WebInputPublicKvNodeItemInspectInfo publicKvNodeItemInspectInfoToWebInput(
+            PublicKvNodeItemInspectInfo publicKvNodeItemInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicKvNodeItemInspectInfo publicKvNodeItemInspectInfoFromWebInput(
+            WebInputPublicKvNodeItemInspectInfo webInputPublicKvNodeItemInspectInfo
+    );
+
     // endregion
 }

@@ -108,4 +108,20 @@ public class BeanTransformerConfiguration {
                 com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.BeanMapper.class
         );
     }
+
+    @Bean("settingrepo.kvNodeBeanTransformer")
+    public BeanTransformer<KvNode, FastJsonKvNode> kvNodeBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                KvNode.class, FastJsonKvNode.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.kvNodeItemBeanTransformer")
+    public BeanTransformer<KvNodeItem, FastJsonKvNodeItem> kvNodeItemBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                KvNodeItem.class, FastJsonKvNodeItem.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
 }

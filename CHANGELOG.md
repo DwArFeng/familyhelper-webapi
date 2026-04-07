@@ -4,6 +4,10 @@
 
 ### 功能构建
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.KvNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.KvNodeItemController。
+
 - familyhelper-webapi-ui 模块前端依赖升级。
   - 升级 `vite` 依赖版本为 `^6.4.2` 以规避漏洞。
 

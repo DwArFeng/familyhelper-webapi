@@ -1412,6 +1412,30 @@
             check="false"
             group="${dubbo.consumer.settingrepo.group}"
     />
+    <dubbo:reference
+            id="settingrepoKvNodeItemMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.KvNodeItemMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoKvNodeMaintainService"
+            interface="com.dwarfeng.settingrepo.stack.service.KvNodeMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
+    <dubbo:reference
+            id="settingrepoKvNodeOperateService"
+            interface="com.dwarfeng.settingrepo.stack.service.KvNodeOperateService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.settingrepo.group}"
+    />
 
     <!-- endregion -->
 
