@@ -6,7 +6,7 @@
         version="3.0"
 >
 
-    <!--定义 WEB 应用的显示名称。-->
+    <!-- 定义 WEB 应用的显示名称。-->
     <display-name>familyhelper-webapi</display-name>
 
     <!-- 配置 Spring ContextLoaderListener 及其对应参数。 -->
