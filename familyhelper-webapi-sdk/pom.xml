@@ -9,8 +9,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>familyhelper-webapi</artifactId>
         <groupId>com.dwarfeng</groupId>
+        <artifactId>familyhelper-webapi</artifactId>
         <version>2.1.0.a-SNAPSHOT</version>
     </parent>
 
