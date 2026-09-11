@@ -141,6 +141,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>fileio-sdk</artifactId>
         </dependency>
+        <!-- Audit 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>audit-sdk</artifactId>
+        </dependency>
         <!-- 程序自身引用 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

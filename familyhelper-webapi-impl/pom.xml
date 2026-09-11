@@ -148,6 +148,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>fileio-impl</artifactId>
         </dependency>
+        <!-- Audit 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>audit-impl</artifactId>
+        </dependency>
         <!-- Voucher 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

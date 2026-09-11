@@ -91,5 +91,10 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>fileio-stack</artifactId>
         </dependency>
+        <!-- Audit 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>audit-stack</artifactId>
+        </dependency>
     </dependencies>
 </project>
