@@ -86,5 +86,10 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>notify-stack</artifactId>
         </dependency>
+        <!-- Fileio 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>fileio-stack</artifactId>
+        </dependency>
     </dependencies>
 </project>

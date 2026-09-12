@@ -143,6 +143,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>notify-impl</artifactId>
         </dependency>
+        <!-- Fileio 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>fileio-impl</artifactId>
+        </dependency>
         <!-- Familyhelper-plugin 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
