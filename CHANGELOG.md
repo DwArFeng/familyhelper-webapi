@@ -4,6 +4,31 @@
 
 ### 功能构建
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportConfController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExporterInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExporterSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportMetadataController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportTaskController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportTaskSettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportTemplateController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportConfController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImporterInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImporterSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportMetadataController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportTaskController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportTaskSettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportTemplateController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ReaderInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ReaderSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ResetController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.WriterInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.WriterSupportController。
+
 - 增加依赖。
   - 增加依赖 `fileio` 以应用其新功能，版本为 `1.0.1.a`。
 

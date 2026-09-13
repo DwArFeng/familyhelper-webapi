@@ -165,6 +165,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>familyhelper-plugin-settingrepo</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>familyhelper-plugin-fileio</artifactId>
+            <version>${familyhelper-plugin.version}</version>
+        </dependency>
         <!-- 程序自身组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

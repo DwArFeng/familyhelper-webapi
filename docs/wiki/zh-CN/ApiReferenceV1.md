@@ -16,6 +16,7 @@
 - [life](./ApiReferenceV1Life.md) — 日常生活相关接口
 - [note](./ApiReferenceV1Note.md) — 学习笔记相关接口
 - [notify](./ApiReferenceV1Notify.md) — 通知管理相关接口
+- [fileio](./ApiReferenceV1Fileio.md) — 文件导入导出相关接口
 - [project](./ApiReferenceV1Project.md) — 项目管理相关接口
 - [rbac](./ApiReferenceV1Rbac.md) — 权限管理相关接口
 - [settingrepo](./ApiReferenceV1Settingrepo.md) — 配置仓库相关接口

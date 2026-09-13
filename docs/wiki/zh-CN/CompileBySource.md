@@ -64,6 +64,7 @@
 - com.dwarfeng:familyhelper-note
 - com.dwarfeng:settingrepo
 - com.dwarfeng:notify
+- com.dwarfeng:fileio
 - com.dwarfeng:familyhelper-plugin
 
 ### 下载依赖源码
@@ -167,6 +168,13 @@
   github: [https://github.com/DwArFeng/familyhelper-plugin](https://github.com/DwArFeng/familyhelper-plugin)
 
   gitee: [https://gitee.com/dwarfeng/familyhelper-plugin](https://gitee.com/dwarfeng/familyhelper-plugin)
+
+
+- com.dwarfeng:fileio
+
+  github: [https://github.com/DwArFeng/fileio](https://github.com/DwArFeng/fileio)
+
+  gitee: [https://gitee.com/dwarfeng/fileio](https://gitee.com/dwarfeng/fileio)
 
 ## 下载源码
 
