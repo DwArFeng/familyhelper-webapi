@@ -34,8 +34,8 @@ conf
 
 ## dubbo 目录
 
-| 文件名                   | 说明           |
-|-----------------------|--------------|
+| 文件名                | 说明               |
+|-----------------------|--------------------|
 | connection.properties | Dubbo 连接配置文件 |
 
 ### connection.properties
@@ -78,10 +78,10 @@ dubbo.consumer.snowflake.group=
 
 ## familyhelper 目录
 
-| 文件名                    | 说明                               |
-|------------------------|----------------------------------|
-| exception.properties   | ServiceException 的异常代码的偏移量配置     |
-| file-upload.properties | 文件上传的配置                          |
+| 文件名                 | 说明                                         |
+|------------------------|----------------------------------------------|
+| exception.properties   | ServiceException 的异常代码的偏移量配置      |
+| file-upload.properties | 文件上传的配置                               |
 | http.properties        | HTTP 相关配置，包括认证 Token 的 Header 名称 |
 
 ### http.properties
@@ -127,10 +127,10 @@ file_upload.max_size_per_file=-1
 
 ## logging 目录
 
-| 文件名                      | 说明                     |
-|--------------------------|------------------------|
-| README.md                | 说明文件                   |
-| settings.xml             | 日志配置的配置文件              |
+| 文件名                   | 说明                                 |
+|--------------------------|--------------------------------------|
+| README.md                | 说明文件                             |
+| settings.xml             | 日志配置的配置文件                   |
 | settings-ref-linux.xml   | Linux 系统中日志配置的配置参考文件   |
 | settings-ref-windows.xml | Windows 系统中日志配置的配置参考文件 |
 
@@ -182,8 +182,8 @@ file_upload.max_size_per_file=-1
 
 ## settingrepo 目录
 
-| 文件名                                | 说明                 |
-|------------------------------------|--------------------|
+| 文件名                             | 说明                           |
+|------------------------------------|--------------------------------|
 | public-setting-category.properties | 公共设置类别的 SPEL 表达式配置 |
 
 ### public-setting-category.properties

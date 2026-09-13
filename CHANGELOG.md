@@ -4,6 +4,13 @@
 
 ### 功能构建
 
+- Wiki 更新。
+  - docs/wiki/zh-CN/ApiReferenceV1System.md。
+  - docs/wiki/zh-CN/CompileBySource.md。
+  - docs/wiki/zh-CN/ConfDirectory.md。
+  - docs/wiki/zh-CN/SystemRequirements.md。
+  - docs/wiki/zh-CN/VersionBlacklist.md。
+
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportConfController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportController。
