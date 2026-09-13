@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 依赖新增。
+  - 增加依赖 `voucher` 以应用其新功能，版本为 `1.3.0.a`。
+
 - `familyhelper-webapi-node` 子模块类优化注释、文档注释格式、代码换行格式。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.PermissionController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.PexpController。
