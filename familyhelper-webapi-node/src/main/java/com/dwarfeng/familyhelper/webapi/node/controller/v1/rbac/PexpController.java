@@ -64,10 +64,6 @@ public class PexpController {
         this.dispBeanTransformer = dispBeanTransformer;
     }
 
-    private PexpKey key(String scopeId, String roleId, String pexpStringId) {
-        return new PexpKey(scopeId, roleId, pexpStringId);
-    }
-
     @GetMapping("/pexp/{scopeId}&{roleId}&{pexpStringId}/exists")
     @BehaviorAnalyse
     @LoginRequired
@@ -303,5 +299,9 @@ public class PexpController {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
+    }
+
+    private PexpKey key(String scopeId, String roleId, String pexpStringId) {
+        return new PexpKey(scopeId, roleId, pexpStringId);
     }
 }

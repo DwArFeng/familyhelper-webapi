@@ -65,10 +65,6 @@ public class RoleUserRelationController {
         this.dispBeanTransformer = dispBeanTransformer;
     }
 
-    private RoleUserRelationKey key(String roleId, String userId) {
-        return new RoleUserRelationKey(roleId, userId);
-    }
-
     @GetMapping("/role-user-relation/{roleId}&{userId}/exists")
     @BehaviorAnalyse
     @LoginRequired
@@ -301,5 +297,9 @@ public class RoleUserRelationController {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
+    }
+
+    private RoleUserRelationKey key(String roleId, String userId) {
+        return new RoleUserRelationKey(roleId, userId);
     }
 }

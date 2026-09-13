@@ -67,14 +67,6 @@ public class PermissionController {
         this.dispBeanTransformer = dispBeanTransformer;
     }
 
-    private PermissionKey key(String scopeId, String permissionStringId) {
-        return new PermissionKey(scopeId, permissionStringId);
-    }
-
-    private PermissionGroupKey groupKey(String scopeId, String permissionGroupStringId) {
-        return new PermissionGroupKey(scopeId, permissionGroupStringId);
-    }
-
     @GetMapping("/permission/{scopeId}&{permissionStringId}/exists")
     @BehaviorAnalyse
     @LoginRequired
@@ -514,5 +506,13 @@ public class PermissionController {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
+    }
+
+    private PermissionKey key(String scopeId, String permissionStringId) {
+        return new PermissionKey(scopeId, permissionStringId);
+    }
+
+    private PermissionGroupKey groupKey(String scopeId, String permissionGroupStringId) {
+        return new PermissionGroupKey(scopeId, permissionGroupStringId);
     }
 }

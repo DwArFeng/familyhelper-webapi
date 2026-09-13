@@ -4,7 +4,10 @@
 
 ### 功能构建
 
-- (无)
+- `familyhelper-webapi-node` 子模块类优化注释、文档注释格式、代码换行格式。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.PermissionController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.PexpController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.RoleUserRelationController。
 
 ### Bug 修复
 
