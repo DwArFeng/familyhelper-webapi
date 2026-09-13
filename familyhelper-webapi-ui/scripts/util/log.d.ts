@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 export declare function debug(message: string): void
 
 export declare function info(message: string): void
