@@ -66,7 +66,7 @@
         <settingrepo.version>3.0.1.a</settingrepo.version>
         <notify.version>2.0.0.a</notify.version>
         <fileio.version>1.0.1.a</fileio.version>
-        <familyhelper-plugin.version>1.7.1.a</familyhelper-plugin.version>
+        <familyhelper-plugin.version>1.8.0.a</familyhelper-plugin.version>
         <!-- Maven 插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
