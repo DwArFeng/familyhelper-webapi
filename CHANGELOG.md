@@ -4,6 +4,26 @@
 
 ### 功能构建
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditCategoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditEntryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditEntryLookupController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditEntryPropertyController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditPropertyIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionAlarmController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionAlarmTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionDriverInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionDriverSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionJobController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionTaskController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionTaskEventController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectorInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectorSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectorVariableController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.ResetController。
+
 - 依赖新增。
   - 增加依赖 `audit` 以应用其新功能，版本为 `1.2.0.a`。
   - 增加依赖 `voucher` 以应用其新功能，版本为 `1.3.0.a`。
@@ -58,6 +78,26 @@
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ResetController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.WriterInfoController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.WriterSupportController。
+
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditCategoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditEntryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditEntryLookupController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditEntryPropertyController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditPropertyIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionAlarmController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionAlarmTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionDriverInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionDriverSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionJobController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionTaskController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionTaskEventController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectorInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectorSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectorVariableController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.ResetController。
 
 - 增加依赖。
   - 增加依赖 `fileio` 以应用其新功能，版本为 `1.0.1.a`。
