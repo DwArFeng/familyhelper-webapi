@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- Wiki 更新。
+  - docs/wiki/zh-CN/ApiReferenceV1Settingrepo.md。
+
 - 新建 Controller。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditCategoryController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditEntryController。
