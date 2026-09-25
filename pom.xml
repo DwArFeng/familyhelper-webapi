@@ -615,6 +615,11 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>audit-api</artifactId>
+                <version>${audit.version}</version>
+            </dependency>
             <!-- Voucher 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
