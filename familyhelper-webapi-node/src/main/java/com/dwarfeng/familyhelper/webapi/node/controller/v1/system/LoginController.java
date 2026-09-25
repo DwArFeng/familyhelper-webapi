@@ -11,6 +11,10 @@ import com.dwarfeng.familyhelper.webapi.stack.service.system.LoginResponseServic
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
@@ -57,14 +61,22 @@ public class LoginController {
     @PostMapping("/login")
     @BehaviorAnalyse
     @BindingCheck
+    @AuditRecord("webapi.system.login.login")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "system.loginLoginResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonLoginResult> login(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputLoginInfo webInput,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "system.loginLoginParamContributor", prefix = "param.login_info."
+            )
+            WebInputLoginInfo loginInfo,
             BindingResult bindingResult
     ) {
         try {
             return FastJsonResponseData.of(ResponseDataUtil.good(
-                    FastJsonLoginResult.of(service.login(WebInputLoginInfo.toStackBean(webInput)))
+                    FastJsonLoginResult.of(service.login(WebInputLoginInfo.toStackBean(loginInfo)))
             ));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);

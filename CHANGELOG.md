@@ -4,6 +4,10 @@
 
 ### 功能构建
 
+- 为部分 Controller 添加审计记录机制。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginController。
+
 - 为项目增加审计记录功能。
 
 - 依赖升级。

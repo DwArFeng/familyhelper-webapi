@@ -17,6 +17,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -177,7 +181,8 @@ public class AccountController {
     @PermissionRequired("webapi.controller_permitted.system.account.id_like_disp")
     public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonDispAccount>> idLikeDisp(
             HttpServletRequest request,
-            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows) {
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
         try {
             StringIdKey inspectAccountKey = new StringIdKey(tokenHandler.getUserId(request));
             PagedData<DispAccount> idLike = accountResponseService.idLikeDisp(
@@ -196,9 +201,21 @@ public class AccountController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.system.account.register")
+    @AuditRecord("webapi.system.account.register")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "system.accountRegisterResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> register(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputAccountRegisterInfo accountRegisterInfo, BindingResult bindingResult) {
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "system.accountRegisterAccountRegisterInfoParamContributor",
+                    prefix = "param.account_register_info."
+            )
+            WebInputAccountRegisterInfo accountRegisterInfo,
+            BindingResult bindingResult
+    ) {
         try {
             accountResponseService.register(WebInputAccountRegisterInfo.toStackBean(accountRegisterInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
@@ -213,9 +230,21 @@ public class AccountController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.system.account.update")
+    @AuditRecord("webapi.system.account.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "system.accountUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputAccountUpdateInfo accountUpdateInfo, BindingResult bindingResult) {
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "system.accountUpdateAccountUpdateInfoParamContributor",
+                    prefix = "param.account_update_info."
+            )
+            WebInputAccountUpdateInfo accountUpdateInfo,
+            BindingResult bindingResult
+    ) {
         try {
             accountResponseService.update(WebInputAccountUpdateInfo.toStackBean(accountUpdateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
@@ -229,9 +258,20 @@ public class AccountController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.system.account.remove")
+    @AuditRecord("webapi.system.account.remove")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "system.accountRemoveResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> remove(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputStringIdKey accountKey, BindingResult bindingResult) {
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "system.accountRemoveAccountKeyParamContributor", prefix = "param.account_key."
+            )
+            WebInputStringIdKey accountKey,
+            BindingResult bindingResult
+    ) {
         try {
             accountResponseService.delete(WebInputStringIdKey.toStackBean(accountKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
@@ -246,9 +286,21 @@ public class AccountController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.system.account.update_password")
+    @AuditRecord("webapi.system.account.update_password")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "system.accountUpdatePasswordResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> updatePassword(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPasswordUpdateInfo passwordUpdateInfo, BindingResult bindingResult) {
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "system.accountUpdatePasswordPasswordUpdateInfoParamContributor",
+                    prefix = "param.password_update_info."
+            )
+            WebInputPasswordUpdateInfo passwordUpdateInfo,
+            BindingResult bindingResult
+    ) {
         try {
             accountResponseService.updatePassword(WebInputPasswordUpdateInfo.toStackBean(passwordUpdateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonAccount.of(null)));
@@ -263,9 +315,20 @@ public class AccountController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.system.account.reset_password")
+    @AuditRecord("webapi.system.account.reset_password")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "system.accountResetPasswordResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> resetPassword(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPasswordResetInfo passwordResetInfo, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "system.accountResetPasswordPasswordResetInfoParamContributor",
+                    prefix = "param.password_reset_info."
+            )
+            WebInputPasswordResetInfo passwordResetInfo,
+            BindingResult bindingResult
     ) {
         try {
             accountResponseService.resetPassword(WebInputPasswordResetInfo.toStackBean(passwordResetInfo));
@@ -280,9 +343,20 @@ public class AccountController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.system.account.invalid")
+    @AuditRecord("webapi.system.account.invalid")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "system.accountInvalidResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> invalid(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputStringIdKey accountKey, BindingResult bindingResult) {
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "system.accountInvalidAccountKeyParamContributor", prefix = "param.account_key."
+            )
+            WebInputStringIdKey accountKey,
+            BindingResult bindingResult
+    ) {
         try {
             accountResponseService.invalid(WebInputStringIdKey.toStackBean(accountKey));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
