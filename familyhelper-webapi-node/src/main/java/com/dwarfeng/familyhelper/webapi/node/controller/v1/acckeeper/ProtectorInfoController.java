@@ -11,6 +11,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -91,14 +95,23 @@ public class ProtectorInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.acckeeper.protector_info.insert")
+    @AuditRecord("webapi.acckeeper.protector_info.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "acckeeper.protectorInfoInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputProtectorInfo webInputProtectorInfo,
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "acckeeper.protectorInfoInsertProtectorInfoParamContributor",
+                    prefix = "param.protector_info."
+            )
+            WebInputProtectorInfo protectorInfo,
             BindingResult bindingResult
     ) {
         try {
-            ProtectorInfo protectorInfo = WebInputProtectorInfo.toStackBean(webInputProtectorInfo);
-            StringIdKey insert = service.insert(protectorInfo);
+            StringIdKey insert = service.insert(WebInputProtectorInfo.toStackBean(protectorInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -111,14 +124,23 @@ public class ProtectorInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.acckeeper.protector_info.update")
+    @AuditRecord("webapi.acckeeper.protector_info.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "acckeeper.protectorInfoUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputProtectorInfo webInputProtectorInfo,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "acckeeper.protectorInfoUpdateProtectorInfoParamContributor",
+                    prefix = "param.protector_info."
+            )
+            WebInputProtectorInfo protectorInfo,
             BindingResult bindingResult
     ) {
         try {
-            ProtectorInfo protectorInfo = WebInputProtectorInfo.toStackBean(webInputProtectorInfo);
-            service.update(protectorInfo);
+            service.update(WebInputProtectorInfo.toStackBean(protectorInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -130,7 +152,20 @@ public class ProtectorInfoController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.acckeeper.protector_info.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
+    @AuditRecord("webapi.acckeeper.protector_info.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "acckeeper.protectorInfoDeleteResultContributor", prefix = "result.")
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "acckeeper.protectorInfoDeleteIdParamContributor",
+                    prefix = "param.id."
+            )
+            String id
+    ) {
         try {
             service.delete(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));

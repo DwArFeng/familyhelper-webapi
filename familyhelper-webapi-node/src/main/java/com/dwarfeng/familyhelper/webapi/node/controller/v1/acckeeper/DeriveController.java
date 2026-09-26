@@ -8,6 +8,10 @@ import com.dwarfeng.familyhelper.webapi.stack.service.acckeeper.DeriveResponseSe
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -52,14 +56,24 @@ public class DeriveController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.acckeeper.derive.dynamic_derive")
+    @AuditRecord("webapi.acckeeper.derive.dynamic_derive")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "acckeeper.deriveDynamicDeriveResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonDynamicDeriveResult> dynamicDerive(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputDynamicDeriveInfo webInput,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "acckeeper.deriveDynamicDeriveDynamicDeriveInfoParamContributor",
+                    prefix = "param.dynamic_derive_info."
+            )
+            WebInputDynamicDeriveInfo dynamicDeriveInfo,
             BindingResult bindingResult
     ) {
         try {
             return FastJsonResponseData.of(ResponseDataUtil.good(
-                    FastJsonDynamicDeriveResult.of(service.dynamicDerive(WebInputDynamicDeriveInfo.toStackBean(webInput)))
+                    FastJsonDynamicDeriveResult.of(service.dynamicDerive(WebInputDynamicDeriveInfo.toStackBean(dynamicDeriveInfo)))
             ));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -72,14 +86,24 @@ public class DeriveController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.acckeeper.derive.static_derive")
+    @AuditRecord("webapi.acckeeper.derive.static_derive")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "acckeeper.deriveStaticDeriveResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonStaticDeriveResult> staticDerive(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputStaticDeriveInfo webInput,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "acckeeper.deriveStaticDeriveStaticDeriveInfoParamContributor",
+                    prefix = "param.static_derive_info."
+            )
+            WebInputStaticDeriveInfo staticDeriveInfo,
             BindingResult bindingResult
     ) {
         try {
             return FastJsonResponseData.of(ResponseDataUtil.good(
-                    FastJsonStaticDeriveResult.of(service.staticDerive(WebInputStaticDeriveInfo.toStackBean(webInput)))
+                    FastJsonStaticDeriveResult.of(service.staticDerive(WebInputStaticDeriveInfo.toStackBean(staticDeriveInfo)))
             ));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);

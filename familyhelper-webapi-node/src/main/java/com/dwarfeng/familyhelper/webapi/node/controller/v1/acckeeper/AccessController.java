@@ -5,6 +5,10 @@ import com.dwarfeng.familyhelper.webapi.stack.service.acckeeper.AccessResponseSe
 import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -47,14 +51,23 @@ public class AccessController {
     @PostMapping("/access/dynamic-login")
     @BehaviorAnalyse
     @BindingCheck
+    @AuditRecord("webapi.acckeeper.access.dynamic_login")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "acckeeper.accessDynamicLoginResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonDynamicLoginResult> dynamicLogin(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputDynamicLoginInfo webInput,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "acckeeper.accessDynamicLoginDynamicLoginInfoParamContributor",
+                    prefix = "param.dynamic_login_info."
+            )
+            WebInputDynamicLoginInfo dynamicLoginInfo,
             BindingResult bindingResult
     ) {
         try {
             return FastJsonResponseData.of(ResponseDataUtil.good(
-                    FastJsonDynamicLoginResult.of(service.dynamicLogin(WebInputDynamicLoginInfo.toStackBean(webInput)))
+                    FastJsonDynamicLoginResult.of(service.dynamicLogin(WebInputDynamicLoginInfo.toStackBean(dynamicLoginInfo)))
             ));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -65,14 +78,23 @@ public class AccessController {
     @PostMapping("/access/static-login")
     @BehaviorAnalyse
     @BindingCheck
+    @AuditRecord("webapi.acckeeper.access.static_login")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "acckeeper.accessStaticLoginResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonStaticLoginResult> staticLogin(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputStaticLoginInfo webInput,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "acckeeper.accessStaticLoginStaticLoginInfoParamContributor",
+                    prefix = "param.static_login_info."
+            )
+            WebInputStaticLoginInfo staticLoginInfo,
             BindingResult bindingResult
     ) {
         try {
             return FastJsonResponseData.of(ResponseDataUtil.good(
-                    FastJsonStaticLoginResult.of(service.staticLogin(WebInputStaticLoginInfo.toStackBean(webInput)))
+                    FastJsonStaticLoginResult.of(service.staticLogin(WebInputStaticLoginInfo.toStackBean(staticLoginInfo)))
             ));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);

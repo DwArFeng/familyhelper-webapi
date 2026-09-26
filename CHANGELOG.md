@@ -5,6 +5,10 @@
 ### 功能构建
 
 - 为部分 Controller 添加审计记录机制。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.acckeeper.AccessController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.acckeeper.DeriveController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.acckeeper.ProtectorInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.acckeeper.ResetController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.AccountController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.system.LoginController。
 
