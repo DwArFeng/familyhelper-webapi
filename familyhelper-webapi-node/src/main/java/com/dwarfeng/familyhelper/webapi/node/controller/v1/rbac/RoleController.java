@@ -11,6 +11,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -90,13 +94,23 @@ public class RoleController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.role.insert")
+    @AuditRecord("webapi.rbac.role.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.roleInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputRole webInputRole, BindingResult bindingResult
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "rbac.roleInsertRoleParamContributor",
+                    prefix = "param.role."
+            )
+            WebInputRole role,
+            BindingResult bindingResult
     ) {
         try {
-            Role role = WebInputRole.toStackBean(webInputRole);
-            StringIdKey insert = service.insert(role);
+            StringIdKey insert = service.insert(WebInputRole.toStackBean(role));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -109,12 +123,23 @@ public class RoleController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.role.update")
+    @AuditRecord("webapi.rbac.role.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.roleUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputRole webInputRole, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "rbac.roleUpdateRoleParamContributor",
+                    prefix = "param.role."
+            )
+            WebInputRole role,
+            BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputRole.toStackBean(webInputRole));
+            service.update(WebInputRole.toStackBean(role));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -126,7 +151,20 @@ public class RoleController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.role.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
+    @AuditRecord("webapi.rbac.role.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.roleDeleteResultContributor", prefix = "result.")
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "rbac.roleDeleteIdParamContributor",
+                    prefix = "param.id."
+            )
+            String id
+    ) {
         try {
             service.delete(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));

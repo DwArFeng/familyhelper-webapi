@@ -14,6 +14,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -105,12 +109,23 @@ public class RoleUserRelationController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.role_user_relation.insert")
+    @AuditRecord("webapi.rbac.role_user_relation.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.roleUserRelationInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonRoleUserRelationKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputRoleUserRelation webInput, BindingResult bindingResult
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "rbac.roleUserRelationInsertRoleUserRelationParamContributor",
+                    prefix = "param.role_user_relation."
+            )
+            WebInputRoleUserRelation roleUserRelation,
+            BindingResult bindingResult
     ) {
         try {
-            RoleUserRelation entity = WebInputRoleUserRelation.toStackBean(webInput);
+            RoleUserRelation entity = WebInputRoleUserRelation.toStackBean(roleUserRelation);
             RoleUserRelationKey result = service.insert(entity);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonRoleUserRelationKey.of(result)));
         } catch (Exception e) {
@@ -124,12 +139,23 @@ public class RoleUserRelationController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.role_user_relation.update")
+    @AuditRecord("webapi.rbac.role_user_relation.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.roleUserRelationUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputRoleUserRelation webInput, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "rbac.roleUserRelationUpdateRoleUserRelationParamContributor",
+                    prefix = "param.role_user_relation."
+            )
+            WebInputRoleUserRelation roleUserRelation,
+            BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputRoleUserRelation.toStackBean(webInput));
+            service.update(WebInputRoleUserRelation.toStackBean(roleUserRelation));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -141,10 +167,25 @@ public class RoleUserRelationController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.role_user_relation.delete")
+    @AuditRecord("webapi.rbac.role_user_relation.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.roleUserRelationDeleteResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("roleId") String roleId,
-            @PathVariable("userId") String userId
+            @PathVariable("roleId")
+            @AuditParamContribute(
+                    contributor = "rbac.roleUserRelationDeleteRoleIdParamContributor",
+                    prefix = "param.role_id."
+            )
+            String roleId,
+            @PathVariable("userId")
+            @AuditParamContribute(
+                    contributor = "rbac.roleUserRelationDeleteUserIdParamContributor",
+                    prefix = "param.user_id."
+            )
+            String userId
     ) {
         try {
             service.delete(key(roleId, userId));

@@ -5,6 +5,13 @@
 ### 功能构建
 
 - 为部分 Controller 添加审计记录机制。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.PermissionController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.PermissionGroupController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.PexpController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.RoleController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.RoleUserRelationController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.ScopeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.UserController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.acckeeper.AccessController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.acckeeper.DeriveController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.acckeeper.ProtectorInfoController。

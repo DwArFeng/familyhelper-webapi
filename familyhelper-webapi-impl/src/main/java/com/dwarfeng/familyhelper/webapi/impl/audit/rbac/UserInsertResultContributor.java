@@ -1,0 +1,52 @@
+package com.dwarfeng.familyhelper.webapi.impl.audit.rbac;
+
+import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecordContext;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.Contributor;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.contributor.GeneralFastJsonResponseDataContributor;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.springframework.stereotype.Component;
+
+import java.util.*;
+
+/**
+ * 插入用户返回值贡献器。
+ *
+ * <p>
+ * 该贡献器记录 FastJson 响应外壳，并在插入成功时从 {@link FastJsonStringIdKey} 中提取新建标识。
+ *
+ * @author DwArFeng
+ * @since 2.3.0
+ */
+@Component("rbac.userInsertResultContributor")
+public class UserInsertResultContributor implements Contributor {
+
+    private static final List<GeneralFastJsonResponseDataContributor.Rule<FastJsonStringIdKey>> CONTRIBUTOR_RULES;
+
+    static {
+        List<GeneralFastJsonResponseDataContributor.Rule<FastJsonStringIdKey>> CONTRIBUTOR_RULES_DEJA_VU =
+                new ArrayList<>();
+        CONTRIBUTOR_RULES_DEJA_VU.add(GeneralFastJsonResponseDataContributor.Rule.of(
+                "string_id", data -> {
+                    if (Objects.isNull(data)) {
+                        return null;
+                    }
+                    return data.getStringId();
+                }
+        ));
+        CONTRIBUTOR_RULES = Collections.unmodifiableList(CONTRIBUTOR_RULES_DEJA_VU);
+    }
+
+    private final GeneralFastJsonResponseDataContributor<FastJsonStringIdKey> contributor;
+
+    public UserInsertResultContributor() {
+        this.contributor = new GeneralFastJsonResponseDataContributor<>(CONTRIBUTOR_RULES);
+    }
+
+    @Override
+    public @NonNull Map<String, Object> resolveProperties(@NonNull AuditRecordContext context, @Nullable Object source)
+            throws Exception {
+        return contributor.resolveProperties(context, source);
+    }
+}

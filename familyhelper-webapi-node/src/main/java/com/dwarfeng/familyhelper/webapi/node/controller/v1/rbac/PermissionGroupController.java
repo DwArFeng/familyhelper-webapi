@@ -16,6 +16,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -517,14 +521,25 @@ public class PermissionGroupController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.permission_group.create")
+    @AuditRecord("webapi.rbac.permission_group.create")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.permissionGroupCreateResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonPermissionGroupCreateResult> create(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPermissionGroupCreateInfo webInput, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "rbac.permissionGroupCreatePermissionGroupCreateInfoParamContributor",
+                    prefix = "param.permission_group_create_info."
+            )
+            WebInputPermissionGroupCreateInfo permissionGroupCreateInfo,
+            BindingResult bindingResult
     ) {
         try {
             return FastJsonResponseData.of(ResponseDataUtil.good(
                     FastJsonPermissionGroupCreateResult.of(
-                            service.create(WebInputPermissionGroupCreateInfo.toStackBean(webInput))
+                            service.create(WebInputPermissionGroupCreateInfo.toStackBean(permissionGroupCreateInfo))
                     )
             ));
         } catch (Exception e) {
@@ -538,12 +553,23 @@ public class PermissionGroupController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.permission_group.update")
+    @AuditRecord("webapi.rbac.permission_group.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.permissionGroupUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPermissionGroupUpdateInfo webInput, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "rbac.permissionGroupUpdatePermissionGroupUpdateInfoParamContributor",
+                    prefix = "param.permission_group_update_info."
+            )
+            WebInputPermissionGroupUpdateInfo permissionGroupUpdateInfo,
+            BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputPermissionGroupUpdateInfo.toStackBean(webInput));
+            service.update(WebInputPermissionGroupUpdateInfo.toStackBean(permissionGroupUpdateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -556,12 +582,23 @@ public class PermissionGroupController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.permission_group.remove")
+    @AuditRecord("webapi.rbac.permission_group.remove")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.permissionGroupRemoveResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> remove(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPermissionGroupRemoveInfo webInput, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "rbac.permissionGroupRemovePermissionGroupRemoveInfoParamContributor",
+                    prefix = "param.permission_group_remove_info."
+            )
+            WebInputPermissionGroupRemoveInfo permissionGroupRemoveInfo,
+            BindingResult bindingResult
     ) {
         try {
-            service.remove(WebInputPermissionGroupRemoveInfo.toStackBean(webInput));
+            service.remove(WebInputPermissionGroupRemoveInfo.toStackBean(permissionGroupRemoveInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);

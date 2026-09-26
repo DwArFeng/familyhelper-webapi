@@ -16,6 +16,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -251,13 +255,24 @@ public class PexpController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.pexp.create")
+    @AuditRecord("webapi.rbac.pexp.create")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.pexpCreateResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonPexpCreateResult> create(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPexpCreateInfo webInput, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "rbac.pexpCreatePexpCreateInfoParamContributor",
+                    prefix = "param.pexp_create_info."
+            )
+            WebInputPexpCreateInfo pexpCreateInfo,
+            BindingResult bindingResult
     ) {
         try {
             return FastJsonResponseData.of(ResponseDataUtil.good(
-                    FastJsonPexpCreateResult.of(service.create(WebInputPexpCreateInfo.toStackBean(webInput)))
+                    FastJsonPexpCreateResult.of(service.create(WebInputPexpCreateInfo.toStackBean(pexpCreateInfo)))
             ));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -270,12 +285,23 @@ public class PexpController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.pexp.update")
+    @AuditRecord("webapi.rbac.pexp.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.pexpUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPexpUpdateInfo webInput, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "rbac.pexpUpdatePexpUpdateInfoParamContributor",
+                    prefix = "param.pexp_update_info."
+            )
+            WebInputPexpUpdateInfo pexpUpdateInfo,
+            BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputPexpUpdateInfo.toStackBean(webInput));
+            service.update(WebInputPexpUpdateInfo.toStackBean(pexpUpdateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -288,12 +314,23 @@ public class PexpController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.rbac.pexp.remove")
+    @AuditRecord("webapi.rbac.pexp.remove")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "rbac.pexpRemoveResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> remove(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputPexpRemoveInfo webInput, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "rbac.pexpRemovePexpRemoveInfoParamContributor",
+                    prefix = "param.pexp_remove_info."
+            )
+            WebInputPexpRemoveInfo pexpRemoveInfo,
+            BindingResult bindingResult
     ) {
         try {
-            service.remove(WebInputPexpRemoveInfo.toStackBean(webInput));
+            service.remove(WebInputPexpRemoveInfo.toStackBean(pexpRemoveInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
