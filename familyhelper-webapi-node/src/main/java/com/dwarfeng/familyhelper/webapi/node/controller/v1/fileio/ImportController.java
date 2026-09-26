@@ -12,6 +12,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.FastJsonResponseData;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -76,13 +80,22 @@ public class ImportController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.import.create_task")
+    @AuditRecord("webapi.fileio.import.create_task")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importCreateTaskResultContributor", prefix = "result.")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> createTask(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputTaskCreateInfo webInputTaskCreateInfo
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "fileio.importCreateTaskTaskCreateInfoParamContributor",
+                    prefix = "param.task_create_info."
+            )
+            WebInputTaskCreateInfo taskCreateInfo
     ) {
         try {
-            TaskCreateInfo taskCreateInfo = WebInputTaskCreateInfo.toStackBean(webInputTaskCreateInfo);
-            LongIdKey key = service.createTask(taskCreateInfo);
+            LongIdKey key = service.createTask(WebInputTaskCreateInfo.toStackBean(taskCreateInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonLongIdKey.of(key)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常，信息如下：", e);
@@ -95,13 +108,22 @@ public class ImportController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.import.upsert_task_metadata")
+    @AuditRecord("webapi.fileio.import.upsert_task_metadata")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importUpsertTaskMetadataResultContributor", prefix = "result.")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> upsertTaskMetadata(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputMetadataUpsertInfo webInputMetadataUpsertInfo
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "fileio.importUpsertTaskMetadataMetadataUpsertInfoParamContributor",
+                    prefix = "param.metadata_upsert_info."
+            )
+            WebInputMetadataUpsertInfo metadataUpsertInfo
     ) {
         try {
-            MetadataUpsertInfo metadataUpsertInfo = WebInputMetadataUpsertInfo.toStackBean(webInputMetadataUpsertInfo);
-            service.upsertTaskMetadata(metadataUpsertInfo);
+            service.upsertTaskMetadata(WebInputMetadataUpsertInfo.toStackBean(metadataUpsertInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常，信息如下：", e);
@@ -115,10 +137,25 @@ public class ImportController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.import.upload")
+    @AuditRecord("webapi.fileio.import.upload")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importUploadResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> upload(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("taskId") long taskId,
-            @PathVariable("identifier") String identifier
+            @PathVariable("taskId")
+            @AuditParamContribute(
+                    contributor = "fileio.importUploadTaskIdParamContributor",
+                    prefix = "param.task_id."
+            )
+            long taskId,
+            @PathVariable("identifier")
+            @AuditParamContribute(
+                    contributor = "fileio.importUploadIdentifierParamContributor",
+                    prefix = "param.identifier."
+            )
+            String identifier
     ) {
         try {
 
@@ -160,10 +197,25 @@ public class ImportController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.import.upload_stream")
+    @AuditRecord("webapi.fileio.import.upload_stream")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importUploadStreamResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> uploadStream(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("taskId") long taskId,
-            @PathVariable("identifier") String identifier
+            @PathVariable("taskId")
+            @AuditParamContribute(
+                    contributor = "fileio.importUploadStreamTaskIdParamContributor",
+                    prefix = "param.task_id."
+            )
+            long taskId,
+            @PathVariable("identifier")
+            @AuditParamContribute(
+                    contributor = "fileio.importUploadStreamIdentifierParamContributor",
+                    prefix = "param.identifier."
+            )
+            String identifier
     ) {
         try {
             // 确认请求合法。
@@ -200,13 +252,22 @@ public class ImportController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.import.execute_task")
+    @AuditRecord("webapi.fileio.import.execute_task")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importExecuteTaskResultContributor", prefix = "result.")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> executeTask(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputTaskExecuteInfo webInputTaskExecuteInfo
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "fileio.importExecuteTaskTaskExecuteInfoParamContributor",
+                    prefix = "param.task_execute_info."
+            )
+            WebInputTaskExecuteInfo taskExecuteInfo
     ) {
         try {
-            TaskExecuteInfo taskExecuteInfo = WebInputTaskExecuteInfo.toStackBean(webInputTaskExecuteInfo);
-            service.executeTask(taskExecuteInfo);
+            service.executeTask(WebInputTaskExecuteInfo.toStackBean(taskExecuteInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常，信息如下：", e);
@@ -219,13 +280,22 @@ public class ImportController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.import.execute_task_async")
+    @AuditRecord("webapi.fileio.import.execute_task_async")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importExecuteTaskAsyncResultContributor", prefix = "result.")
     public FastJsonResponseData<JSFixedFastJsonLongIdKey> executeTaskAsync(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputTaskExecuteInfo webInputTaskExecuteInfo
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "fileio.importExecuteTaskAsyncTaskExecuteInfoParamContributor",
+                    prefix = "param.task_execute_info."
+            )
+            WebInputTaskExecuteInfo taskExecuteInfo
     ) {
         try {
-            TaskExecuteInfo taskExecuteInfo = WebInputTaskExecuteInfo.toStackBean(webInputTaskExecuteInfo);
-            service.executeTaskAsync(taskExecuteInfo);
+            service.executeTaskAsync(WebInputTaskExecuteInfo.toStackBean(taskExecuteInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常，信息如下：", e);

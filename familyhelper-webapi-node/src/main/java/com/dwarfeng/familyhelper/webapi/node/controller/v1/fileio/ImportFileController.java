@@ -14,6 +14,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
@@ -121,10 +125,25 @@ public class ImportFileController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.import_file.delete")
+    @AuditRecord("webapi.fileio.import_file.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importFileDeleteResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("taskId") long taskId,
-            @PathVariable("identifier") String identifier
+            @PathVariable("taskId")
+            @AuditParamContribute(
+                    contributor = "fileio.importFileDeleteTaskIdParamContributor",
+                    prefix = "param.task_id."
+            )
+            long taskId,
+            @PathVariable("identifier")
+            @AuditParamContribute(
+                    contributor = "fileio.importFileDeleteIdentifierParamContributor",
+                    prefix = "param.identifier."
+            )
+            String identifier
     ) {
         try {
             service.delete(new TaskItemKey(taskId, identifier));
@@ -308,10 +327,25 @@ public class ImportFileController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.import_file.upload")
+    @AuditRecord("webapi.fileio.import_file.upload")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importFileUploadResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> upload(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("taskId") long taskId,
-            @PathVariable("identifier") String identifier
+            @PathVariable("taskId")
+            @AuditParamContribute(
+                    contributor = "fileio.importFileUploadTaskIdParamContributor",
+                    prefix = "param.task_id."
+            )
+            long taskId,
+            @PathVariable("identifier")
+            @AuditParamContribute(
+                    contributor = "fileio.importFileUploadIdentifierParamContributor",
+                    prefix = "param.identifier."
+            )
+            String identifier
     ) {
         try {
             // 确认请求合法。
@@ -355,10 +389,25 @@ public class ImportFileController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.import_file.upload_stream")
+    @AuditRecord("webapi.fileio.import_file.upload_stream")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importFileUploadStreamResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> uploadStream(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("taskId") long taskId,
-            @PathVariable("identifier") String identifier
+            @PathVariable("taskId")
+            @AuditParamContribute(
+                    contributor = "fileio.importFileUploadStreamTaskIdParamContributor",
+                    prefix = "param.task_id."
+            )
+            long taskId,
+            @PathVariable("identifier")
+            @AuditParamContribute(
+                    contributor = "fileio.importFileUploadStreamIdentifierParamContributor",
+                    prefix = "param.identifier."
+            )
+            String identifier
     ) {
         try {
             // 确认请求合法。

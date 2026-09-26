@@ -5,6 +5,20 @@
 ### 功能构建
 
 - 为部分 Controller 添加审计记录机制。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportConfController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExporterInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportTaskSettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportTemplateController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportConfController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImporterInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportFileController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportTaskSettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ImportTemplateController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ReaderInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.WriterInfoController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.DispatcherInfoController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.MetaIndicatorController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifyHistoryController。

@@ -12,6 +12,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -98,13 +102,22 @@ public class ExportConfController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.export_conf.insert")
+    @AuditRecord("webapi.fileio.export_conf.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.exportConfInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<JSFixedFastJsonTaskSettingItemKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputExportConf webInputExportConf
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "fileio.exportConfInsertExportConfParamContributor",
+                    prefix = "param.export_conf."
+            )
+            WebInputExportConf exportConf
     ) {
         try {
-            ExportConf exportConf = WebInputExportConf.toStackBean(webInputExportConf);
-            TaskSettingItemKey insert = service.insert(exportConf);
+            TaskSettingItemKey insert = service.insert(WebInputExportConf.toStackBean(exportConf));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonTaskSettingItemKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常，信息如下：", e);
@@ -117,13 +130,23 @@ public class ExportConfController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.export_conf.update")
+    @AuditRecord("webapi.fileio.export_conf.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.exportConfUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputExportConf webInputExportConf,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "fileio.exportConfUpdateExportConfParamContributor",
+                    prefix = "param.export_conf."
+            )
+            WebInputExportConf exportConf,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputExportConf.toStackBean(webInputExportConf));
+            service.update(WebInputExportConf.toStackBean(exportConf));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常，信息如下：", e);
@@ -135,10 +158,25 @@ public class ExportConfController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.export_conf.delete")
+    @AuditRecord("webapi.fileio.export_conf.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.exportConfDeleteResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("taskSettingId") long taskSettingId,
-            @PathVariable("identifier") String identifier
+            @PathVariable("taskSettingId")
+            @AuditParamContribute(
+                    contributor = "fileio.exportConfDeleteTaskSettingIdParamContributor",
+                    prefix = "param.task_setting_id."
+            )
+            long taskSettingId,
+            @PathVariable("identifier")
+            @AuditParamContribute(
+                    contributor = "fileio.exportConfDeleteIdentifierParamContributor",
+                    prefix = "param.identifier."
+            )
+            String identifier
     ) {
         try {
             service.delete(new TaskSettingItemKey(taskSettingId, identifier));

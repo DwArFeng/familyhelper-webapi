@@ -12,6 +12,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -98,13 +102,22 @@ public class ImporterInfoController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.importer_info.insert")
+    @AuditRecord("webapi.fileio.importer_info.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importerInfoInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<JSFixedFastJsonTaskSettingItemKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputImporterInfo webInputImporterInfo
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "fileio.importerInfoInsertImporterInfoParamContributor",
+                    prefix = "param.importer_info."
+            )
+            WebInputImporterInfo importerInfo
     ) {
         try {
-            ImporterInfo importerInfo = WebInputImporterInfo.toStackBean(webInputImporterInfo);
-            TaskSettingItemKey insert = service.insert(importerInfo);
+            TaskSettingItemKey insert = service.insert(WebInputImporterInfo.toStackBean(importerInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonTaskSettingItemKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常，信息如下：", e);
@@ -117,13 +130,23 @@ public class ImporterInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.importer_info.update")
+    @AuditRecord("webapi.fileio.importer_info.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importerInfoUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputImporterInfo webInputImporterInfo,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "fileio.importerInfoUpdateImporterInfoParamContributor",
+                    prefix = "param.importer_info."
+            )
+            WebInputImporterInfo importerInfo,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputImporterInfo.toStackBean(webInputImporterInfo));
+            service.update(WebInputImporterInfo.toStackBean(importerInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常，信息如下：", e);
@@ -135,10 +158,25 @@ public class ImporterInfoController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.importer_info.delete")
+    @AuditRecord("webapi.fileio.importer_info.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.importerInfoDeleteResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("taskSettingId") long taskSettingId,
-            @PathVariable("identifier") String identifier
+            @PathVariable("taskSettingId")
+            @AuditParamContribute(
+                    contributor = "fileio.importerInfoDeleteTaskSettingIdParamContributor",
+                    prefix = "param.task_setting_id."
+            )
+            long taskSettingId,
+            @PathVariable("identifier")
+            @AuditParamContribute(
+                    contributor = "fileio.importerInfoDeleteIdentifierParamContributor",
+                    prefix = "param.identifier."
+            )
+            String identifier
     ) {
         try {
             service.delete(new TaskSettingItemKey(taskSettingId, identifier));

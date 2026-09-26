@@ -17,6 +17,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.sdk.validation.group.Insert;
@@ -167,13 +171,24 @@ public class ExportTemplateController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.export_template.create")
+    @AuditRecord("webapi.fileio.export_template.create")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.exportTemplateCreateResultContributor", prefix = "result.")
     public FastJsonResponseData<JSFixedFastJsonTaskSettingItemKey> create(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputTemplateCreateInfo webInputTemplateCreateInfo
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "fileio.exportTemplateCreateTemplateCreateInfoParamContributor",
+                    prefix = "param.template_create_info."
+            )
+            WebInputTemplateCreateInfo templateCreateInfo
     ) {
         try {
-            TemplateCreateInfo templateCreateInfo = WebInputTemplateCreateInfo.toStackBean(webInputTemplateCreateInfo);
-            TaskSettingItemKey taskSettingItemKey = service.create(templateCreateInfo);
+            TaskSettingItemKey taskSettingItemKey = service.create(
+                    WebInputTemplateCreateInfo.toStackBean(templateCreateInfo)
+            );
             return FastJsonResponseData.of(
                     ResponseDataUtil.good(JSFixedFastJsonTaskSettingItemKey.of(taskSettingItemKey))
             );
@@ -188,13 +203,22 @@ public class ExportTemplateController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.export_template.remove")
+    @AuditRecord("webapi.fileio.export_template.remove")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.exportTemplateRemoveResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> remove(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputTemplateRemoveInfo webInputTemplateRemoveInfo
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "fileio.exportTemplateRemoveTemplateRemoveInfoParamContributor",
+                    prefix = "param.template_remove_info."
+            )
+            WebInputTemplateRemoveInfo templateRemoveInfo
     ) {
         try {
-            TemplateRemoveInfo templateRemoveInfo = WebInputTemplateRemoveInfo.toStackBean(webInputTemplateRemoveInfo);
-            service.remove(templateRemoveInfo);
+            service.remove(WebInputTemplateRemoveInfo.toStackBean(templateRemoveInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常，信息如下：", e);
@@ -330,10 +354,25 @@ public class ExportTemplateController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.export_template.upload")
+    @AuditRecord("webapi.fileio.export_template.upload")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.exportTemplateUploadResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> upload(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("taskSettingId") long taskSettingId,
-            @PathVariable("identifier") String identifier
+            @PathVariable("taskSettingId")
+            @AuditParamContribute(
+                    contributor = "fileio.exportTemplateUploadTaskSettingIdParamContributor",
+                    prefix = "param.task_setting_id."
+            )
+            long taskSettingId,
+            @PathVariable("identifier")
+            @AuditParamContribute(
+                    contributor = "fileio.exportTemplateUploadIdentifierParamContributor",
+                    prefix = "param.identifier."
+            )
+            String identifier
     ) {
         try {
 
@@ -377,10 +416,25 @@ public class ExportTemplateController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.fileio.export_template.upload_stream")
+    @AuditRecord("webapi.fileio.export_template.upload_stream")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "fileio.exportTemplateUploadStreamResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> uploadStream(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("taskSettingId") long taskSettingId,
-            @PathVariable("identifier") String identifier
+            @PathVariable("taskSettingId")
+            @AuditParamContribute(
+                    contributor = "fileio.exportTemplateUploadStreamTaskSettingIdParamContributor",
+                    prefix = "param.task_setting_id."
+            )
+            long taskSettingId,
+            @PathVariable("identifier")
+            @AuditParamContribute(
+                    contributor = "fileio.exportTemplateUploadStreamIdentifierParamContributor",
+                    prefix = "param.identifier."
+            )
+            String identifier
     ) {
         try {
             // 确认请求合法。
