@@ -11,6 +11,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -91,14 +95,23 @@ public class DispatcherInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.insert")
+    @AuditRecord("webapi.notify.dispatcher_info.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.dispatcherInfoInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputDispatcherInfo webInputDispatcherInfo,
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "notify.dispatcherInfoInsertDispatcherInfoParamContributor",
+                    prefix = "param.dispatcher_info."
+            )
+            WebInputDispatcherInfo dispatcherInfo,
             BindingResult bindingResult
     ) {
         try {
-            DispatcherInfo dispatcherInfo = WebInputDispatcherInfo.toStackBean(webInputDispatcherInfo);
-            StringIdKey insert = service.insert(dispatcherInfo);
+            StringIdKey insert = service.insert(WebInputDispatcherInfo.toStackBean(dispatcherInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -111,13 +124,23 @@ public class DispatcherInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.update")
+    @AuditRecord("webapi.notify.dispatcher_info.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.dispatcherInfoUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputDispatcherInfo webInputDispatcherInfo,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "notify.dispatcherInfoUpdateDispatcherInfoParamContributor",
+                    prefix = "param.dispatcher_info."
+            )
+            WebInputDispatcherInfo dispatcherInfo,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputDispatcherInfo.toStackBean(webInputDispatcherInfo));
+            service.update(WebInputDispatcherInfo.toStackBean(dispatcherInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -129,7 +152,20 @@ public class DispatcherInfoController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.dispatcher_info.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
+    @AuditRecord("webapi.notify.dispatcher_info.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.dispatcherInfoDeleteResultContributor", prefix = "result.")
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "notify.dispatcherInfoDeleteIdParamContributor",
+                    prefix = "param.id."
+            )
+            String id
+    ) {
         try {
             service.delete(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));

@@ -12,6 +12,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
@@ -97,10 +101,31 @@ public class NotifyInfoRecordController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.notify_info_record.delete")
+    @AuditRecord("webapi.notify.notify_info_record.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.notifyInfoRecordDeleteResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("notifyHistoryId") long notifyHistoryId, @PathVariable("type") int type,
-            @PathVariable("recordId") String recordId
+            @PathVariable("notifyHistoryId")
+            @AuditParamContribute(
+                    contributor = "notify.notifyInfoRecordDeleteNotifyHistoryIdParamContributor",
+                    prefix = "param.notify_history_id."
+            )
+            long notifyHistoryId,
+            @PathVariable("type")
+            @AuditParamContribute(
+                    contributor = "notify.notifyInfoRecordDeleteTypeParamContributor",
+                    prefix = "param.type."
+            )
+            int type,
+            @PathVariable("recordId")
+            @AuditParamContribute(
+                    contributor = "notify.notifyInfoRecordDeleteRecordIdParamContributor",
+                    prefix = "param.record_id."
+            )
+            String recordId
     ) {
         try {
             service.delete(new NotifyInfoRecordKey(notifyHistoryId, type, recordId));

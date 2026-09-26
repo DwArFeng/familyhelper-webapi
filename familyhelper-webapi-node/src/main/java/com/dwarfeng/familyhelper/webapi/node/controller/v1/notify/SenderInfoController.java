@@ -12,6 +12,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -95,16 +99,23 @@ public class SenderInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.sender_info.insert")
+    @AuditRecord("webapi.notify.sender_info.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.senderInfoInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonSenderInfoKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputSenderInfo webInputSenderInfo,
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "notify.senderInfoInsertSenderInfoParamContributor",
+                    prefix = "param.sender_info."
+            )
+            WebInputSenderInfo senderInfo,
             BindingResult bindingResult
     ) {
         try {
-            SenderInfo senderInfo = WebInputSenderInfo.toStackBean(
-                    webInputSenderInfo
-            );
-            SenderInfoKey insert = service.insert(senderInfo);
+            SenderInfoKey insert = service.insert(WebInputSenderInfo.toStackBean(senderInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonSenderInfoKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -117,13 +128,23 @@ public class SenderInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.sender_info.update")
+    @AuditRecord("webapi.notify.sender_info.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.senderInfoUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputSenderInfo webInputSenderInfo,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "notify.senderInfoUpdateSenderInfoParamContributor",
+                    prefix = "param.sender_info."
+            )
+            WebInputSenderInfo senderInfo,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputSenderInfo.toStackBean(webInputSenderInfo));
+            service.update(WebInputSenderInfo.toStackBean(senderInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -135,9 +156,25 @@ public class SenderInfoController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.sender_info.delete")
+    @AuditRecord("webapi.notify.sender_info.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.senderInfoDeleteResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("notifySettingId") long notifySettingId, @PathVariable("topicId") String topicId
+            @PathVariable("notifySettingId")
+            @AuditParamContribute(
+                    contributor = "notify.senderInfoDeleteNotifySettingIdParamContributor",
+                    prefix = "param.notify_setting_id."
+            )
+            long notifySettingId,
+            @PathVariable("topicId")
+            @AuditParamContribute(
+                    contributor = "notify.senderInfoDeleteTopicIdParamContributor",
+                    prefix = "param.topic_id."
+            )
+            String topicId
     ) {
         try {
             service.delete(new SenderInfoKey(notifySettingId, topicId));

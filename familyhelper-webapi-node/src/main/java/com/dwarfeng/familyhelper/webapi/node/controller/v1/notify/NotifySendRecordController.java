@@ -13,6 +13,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
 import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
@@ -103,10 +107,31 @@ public class NotifySendRecordController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.notify_send_record.delete")
+    @AuditRecord("webapi.notify.notify_send_record.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.notifySendRecordDeleteResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("notifyHistoryId") long notifyHistoryId, @PathVariable("topicId") String topicId,
-            @PathVariable("userId") String userId
+            @PathVariable("notifyHistoryId")
+            @AuditParamContribute(
+                    contributor = "notify.notifySendRecordDeleteNotifyHistoryIdParamContributor",
+                    prefix = "param.notify_history_id."
+            )
+            long notifyHistoryId,
+            @PathVariable("topicId")
+            @AuditParamContribute(
+                    contributor = "notify.notifySendRecordDeleteTopicIdParamContributor",
+                    prefix = "param.topic_id."
+            )
+            String topicId,
+            @PathVariable("userId")
+            @AuditParamContribute(
+                    contributor = "notify.notifySendRecordDeleteUserIdParamContributor",
+                    prefix = "param.user_id."
+            )
+            String userId
     ) {
         try {
             service.delete(new NotifySendRecordKey(notifyHistoryId, topicId, userId));

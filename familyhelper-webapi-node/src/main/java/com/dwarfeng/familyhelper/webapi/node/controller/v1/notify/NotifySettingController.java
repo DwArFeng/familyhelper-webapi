@@ -11,6 +11,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -90,16 +94,23 @@ public class NotifySettingController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.notify_setting.insert")
+    @AuditRecord("webapi.notify.notify_setting.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.notifySettingInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonLongIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputNotifySetting webInputNotifySetting,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "notify.notifySettingInsertNotifySettingParamContributor",
+                    prefix = "param.notify_setting."
+            )
+            WebInputNotifySetting notifySetting,
             BindingResult bindingResult
     ) {
         try {
-            NotifySetting notifySetting = WebInputNotifySetting.toStackBean(
-                    webInputNotifySetting
-            );
-            LongIdKey insert = service.insert(notifySetting);
+            LongIdKey insert = service.insert(WebInputNotifySetting.toStackBean(notifySetting));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonLongIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -112,13 +123,23 @@ public class NotifySettingController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.notify_setting.update")
+    @AuditRecord("webapi.notify.notify_setting.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.notifySettingUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputNotifySetting webInputNotifySetting,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "notify.notifySettingUpdateNotifySettingParamContributor",
+                    prefix = "param.notify_setting."
+            )
+            WebInputNotifySetting notifySetting,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputNotifySetting.toStackBean(webInputNotifySetting));
+            service.update(WebInputNotifySetting.toStackBean(notifySetting));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -130,7 +151,20 @@ public class NotifySettingController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.notify_setting.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") Long id) {
+    @AuditRecord("webapi.notify.notify_setting.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.notifySettingDeleteResultContributor", prefix = "result.")
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "notify.notifySettingDeleteIdParamContributor",
+                    prefix = "param.id."
+            )
+            Long id
+    ) {
         try {
             service.delete(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));

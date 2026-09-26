@@ -5,6 +5,15 @@
 ### 功能构建
 
 - 为部分 Controller 添加审计记录机制。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.DispatcherInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.MetaIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifyHistoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifyInfoRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifySendRecordController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.NotifySettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.RouterInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.SenderInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.notify.TopicController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingCategoryController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.SettingNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.rbac.PermissionController。

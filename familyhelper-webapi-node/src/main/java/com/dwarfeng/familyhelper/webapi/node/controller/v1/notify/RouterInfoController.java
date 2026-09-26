@@ -11,6 +11,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -91,14 +95,23 @@ public class RouterInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.router_info.insert")
+    @AuditRecord("webapi.notify.router_info.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.routerInfoInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonLongIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputRouterInfo webInputRouterInfo,
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "notify.routerInfoInsertRouterInfoParamContributor",
+                    prefix = "param.router_info."
+            )
+            WebInputRouterInfo routerInfo,
             BindingResult bindingResult
     ) {
         try {
-            RouterInfo routerInfo = WebInputRouterInfo.toStackBean(webInputRouterInfo);
-            LongIdKey insert = service.insert(routerInfo);
+            LongIdKey insert = service.insert(WebInputRouterInfo.toStackBean(routerInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonLongIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -111,13 +124,23 @@ public class RouterInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.router_info.update")
+    @AuditRecord("webapi.notify.router_info.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.routerInfoUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputRouterInfo webInputRouterInfo,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "notify.routerInfoUpdateRouterInfoParamContributor",
+                    prefix = "param.router_info."
+            )
+            WebInputRouterInfo routerInfo,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputRouterInfo.toStackBean(webInputRouterInfo));
+            service.update(WebInputRouterInfo.toStackBean(routerInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -129,7 +152,20 @@ public class RouterInfoController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.notify.router_info.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") long id) {
+    @AuditRecord("webapi.notify.router_info.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "notify.routerInfoDeleteResultContributor", prefix = "result.")
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "notify.routerInfoDeleteIdParamContributor",
+                    prefix = "param.id."
+            )
+            long id
+    ) {
         try {
             service.delete(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
