@@ -11,6 +11,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -87,13 +91,24 @@ public class SettingCategoryController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.insert")
+    @AuditRecord("webapi.settingrepo.setting_category.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "settingrepo.settingCategoryInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputSettingCategory webInputSettingCategory, BindingResult bindingResult
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "settingrepo.settingCategoryInsertSettingCategoryParamContributor",
+                    prefix = "param.setting_category."
+            )
+            WebInputSettingCategory settingCategory,
+            BindingResult bindingResult
     ) {
         try {
-            SettingCategory settingCategory = WebInputSettingCategory.toStackBean(webInputSettingCategory);
-            StringIdKey insert = service.insert(settingCategory);
+            SettingCategory category = WebInputSettingCategory.toStackBean(settingCategory);
+            StringIdKey insert = service.insert(category);
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -106,12 +121,23 @@ public class SettingCategoryController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.update")
+    @AuditRecord("webapi.settingrepo.setting_category.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "settingrepo.settingCategoryUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputSettingCategory webInputSettingCategory, BindingResult bindingResult
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "settingrepo.settingCategoryUpdateSettingCategoryParamContributor",
+                    prefix = "param.setting_category."
+            )
+            WebInputSettingCategory settingCategory,
+            BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputSettingCategory.toStackBean(webInputSettingCategory));
+            service.update(WebInputSettingCategory.toStackBean(settingCategory));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -123,7 +149,19 @@ public class SettingCategoryController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.settingrepo.setting_category.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
+    @AuditRecord("webapi.settingrepo.setting_category.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "settingrepo.settingCategoryDeleteResultContributor", prefix = "result.")
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "settingrepo.settingCategoryDeleteIdParamContributor", prefix = "param.id."
+            )
+            String id
+    ) {
         try {
             service.delete(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
