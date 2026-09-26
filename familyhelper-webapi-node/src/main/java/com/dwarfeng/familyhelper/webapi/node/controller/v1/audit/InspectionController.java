@@ -11,6 +11,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -89,14 +93,23 @@ public class InspectionController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.inspection.insert")
+    @AuditRecord("webapi.audit.inspection.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.inspectionInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonLongIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputInspection webInputInspection,
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "audit.inspectionInsertInspectionParamContributor",
+                    prefix = "param.inspection."
+            )
+            WebInputInspection inspection,
             BindingResult bindingResult
     ) {
         try {
-            Inspection inspection = WebInputInspection.toStackBean(webInputInspection);
-            LongIdKey insert = service.insert(inspection);
+            LongIdKey insert = service.insert(WebInputInspection.toStackBean(inspection));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonLongIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -109,13 +122,23 @@ public class InspectionController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.inspection.update")
+    @AuditRecord("webapi.audit.inspection.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.inspectionUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputInspection webInputInspection,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "audit.inspectionUpdateInspectionParamContributor",
+                    prefix = "param.inspection."
+            )
+            WebInputInspection inspection,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputInspection.toStackBean(webInputInspection));
+            service.update(WebInputInspection.toStackBean(inspection));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -127,7 +150,20 @@ public class InspectionController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.inspection.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") Long id) {
+    @AuditRecord("webapi.audit.inspection.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.inspectionDeleteResultContributor", prefix = "result.")
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "audit.inspectionDeleteIdParamContributor",
+                    prefix = "param.id."
+            )
+            Long id
+    ) {
         try {
             service.delete(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));

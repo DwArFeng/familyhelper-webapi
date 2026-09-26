@@ -14,6 +14,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.PagingUtil;
 import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -108,15 +112,25 @@ public class AuditPropertyIndicatorController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.audit_property_indicator.insert")
+    @AuditRecord("webapi.audit.audit_property_indicator.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.auditPropertyIndicatorInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonAuditPropertyIndicatorKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputAuditPropertyIndicator webInputAuditPropertyIndicator,
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "audit.auditPropertyIndicatorInsertAuditPropertyIndicatorParamContributor",
+                    prefix = "param.audit_property_indicator."
+            )
+            WebInputAuditPropertyIndicator auditPropertyIndicator,
             BindingResult bindingResult
     ) {
         try {
-            AuditPropertyIndicator auditPropertyIndicator =
-                    WebInputAuditPropertyIndicator.toStackBean(webInputAuditPropertyIndicator);
-            AuditPropertyIndicatorKey insert = service.insert(auditPropertyIndicator);
+            AuditPropertyIndicatorKey insert = service.insert(
+                    WebInputAuditPropertyIndicator.toStackBean(auditPropertyIndicator)
+            );
             return FastJsonResponseData.of(
                     ResponseDataUtil.good(FastJsonAuditPropertyIndicatorKey.of(insert))
             );
@@ -131,13 +145,23 @@ public class AuditPropertyIndicatorController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.audit_property_indicator.update")
+    @AuditRecord("webapi.audit.audit_property_indicator.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.auditPropertyIndicatorUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputAuditPropertyIndicator webInputAuditPropertyIndicator,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "audit.auditPropertyIndicatorUpdateAuditPropertyIndicatorParamContributor",
+                    prefix = "param.audit_property_indicator."
+            )
+            WebInputAuditPropertyIndicator auditPropertyIndicator,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputAuditPropertyIndicator.toStackBean(webInputAuditPropertyIndicator));
+            service.update(WebInputAuditPropertyIndicator.toStackBean(auditPropertyIndicator));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -149,10 +173,25 @@ public class AuditPropertyIndicatorController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.audit_property_indicator.delete")
+    @AuditRecord("webapi.audit.audit_property_indicator.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.auditPropertyIndicatorDeleteResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @PathVariable("auditCategoryId") String auditCategoryId,
-            @PathVariable("propertyId") String propertyId
+            @PathVariable("auditCategoryId")
+            @AuditParamContribute(
+                    contributor = "audit.auditPropertyIndicatorDeleteAuditCategoryIdParamContributor",
+                    prefix = "param.audit_category_id."
+            )
+            String auditCategoryId,
+            @PathVariable("propertyId")
+            @AuditParamContribute(
+                    contributor = "audit.auditPropertyIndicatorDeletePropertyIdParamContributor",
+                    prefix = "param.property_id."
+            )
+            String propertyId
     ) {
         try {
             AuditPropertyIndicatorKey key = new AuditPropertyIndicatorKey(auditCategoryId, propertyId);

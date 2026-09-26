@@ -13,6 +13,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -98,15 +102,23 @@ public class InspectionDriverInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.inspection_driver_info.insert")
+    @AuditRecord("webapi.audit.inspection_driver_info.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.inspectionDriverInfoInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonLongIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputInspectionDriverInfo webInputInspectionDriverInfo,
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "audit.inspectionDriverInfoInsertInspectionDriverInfoParamContributor",
+                    prefix = "param.inspection_driver_info."
+            )
+            WebInputInspectionDriverInfo inspectionDriverInfo,
             BindingResult bindingResult
     ) {
         try {
-            InspectionDriverInfo inspectionDriverInfo =
-                    WebInputInspectionDriverInfo.toStackBean(webInputInspectionDriverInfo);
-            LongIdKey insert = service.insert(inspectionDriverInfo);
+            LongIdKey insert = service.insert(WebInputInspectionDriverInfo.toStackBean(inspectionDriverInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonLongIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -119,13 +131,23 @@ public class InspectionDriverInfoController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.inspection_driver_info.update")
+    @AuditRecord("webapi.audit.inspection_driver_info.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.inspectionDriverInfoUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputInspectionDriverInfo webInputInspectionDriverInfo,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "audit.inspectionDriverInfoUpdateInspectionDriverInfoParamContributor",
+                    prefix = "param.inspection_driver_info."
+            )
+            WebInputInspectionDriverInfo inspectionDriverInfo,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputInspectionDriverInfo.toStackBean(webInputInspectionDriverInfo));
+            service.update(WebInputInspectionDriverInfo.toStackBean(inspectionDriverInfo));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -137,7 +159,20 @@ public class InspectionDriverInfoController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.inspection_driver_info.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") Long id) {
+    @AuditRecord("webapi.audit.inspection_driver_info.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.inspectionDriverInfoDeleteResultContributor", prefix = "result.")
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "audit.inspectionDriverInfoDeleteIdParamContributor",
+                    prefix = "param.id."
+            )
+            Long id
+    ) {
         try {
             service.delete(new LongIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));

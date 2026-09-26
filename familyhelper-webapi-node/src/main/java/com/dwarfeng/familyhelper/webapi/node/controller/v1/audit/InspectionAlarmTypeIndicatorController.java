@@ -11,6 +11,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -91,16 +95,27 @@ public class InspectionAlarmTypeIndicatorController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.inspection_alarm_type_indicator.insert")
+    @AuditRecord("webapi.audit.inspection_alarm_type_indicator.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(
+            contributor = "audit.inspectionAlarmTypeIndicatorInsertResultContributor", prefix = "result."
+    )
     public FastJsonResponseData<FastJsonStringIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
             @RequestBody @Validated(Insert.class)
-            WebInputInspectionAlarmTypeIndicator webInputInspectionAlarmTypeIndicator,
+            @AuditParamContribute(
+                    contributor = "audit.inspectionAlarmTypeIndicatorInsertInspectionAlarmTypeIndicatorParamContributor",
+                    prefix = "param.inspection_alarm_type_indicator."
+            )
+            WebInputInspectionAlarmTypeIndicator inspectionAlarmTypeIndicator,
             BindingResult bindingResult
     ) {
         try {
-            InspectionAlarmTypeIndicator inspectionAlarmTypeIndicator =
-                    WebInputInspectionAlarmTypeIndicator.toStackBean(webInputInspectionAlarmTypeIndicator);
-            StringIdKey insert = service.insert(inspectionAlarmTypeIndicator);
+            StringIdKey insert = service.insert(
+                    WebInputInspectionAlarmTypeIndicator.toStackBean(inspectionAlarmTypeIndicator)
+            );
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -113,13 +128,25 @@ public class InspectionAlarmTypeIndicatorController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.inspection_alarm_type_indicator.update")
+    @AuditRecord("webapi.audit.inspection_alarm_type_indicator.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(
+            contributor = "audit.inspectionAlarmTypeIndicatorUpdateResultContributor", prefix = "result."
+    )
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputInspectionAlarmTypeIndicator webInputInspectionAlarmTypeIndicator,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "audit.inspectionAlarmTypeIndicatorUpdateInspectionAlarmTypeIndicatorParamContributor",
+                    prefix = "param.inspection_alarm_type_indicator."
+            )
+            WebInputInspectionAlarmTypeIndicator inspectionAlarmTypeIndicator,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputInspectionAlarmTypeIndicator.toStackBean(webInputInspectionAlarmTypeIndicator));
+            service.update(WebInputInspectionAlarmTypeIndicator.toStackBean(inspectionAlarmTypeIndicator));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -131,7 +158,22 @@ public class InspectionAlarmTypeIndicatorController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.inspection_alarm_type_indicator.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
+    @AuditRecord("webapi.audit.inspection_alarm_type_indicator.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(
+            contributor = "audit.inspectionAlarmTypeIndicatorDeleteResultContributor", prefix = "result."
+    )
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "audit.inspectionAlarmTypeIndicatorDeleteIdParamContributor",
+                    prefix = "param.id."
+            )
+            String id
+    ) {
         try {
             service.delete(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));

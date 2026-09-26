@@ -5,6 +5,13 @@
 ### 功能构建
 
 - 为部分 Controller 添加审计记录机制。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditCategoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditPropertyIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionAlarmTypeIndicatorController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionDriverInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectionJobController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectorInfoController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportConfController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExportController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.fileio.ExporterInfoController。

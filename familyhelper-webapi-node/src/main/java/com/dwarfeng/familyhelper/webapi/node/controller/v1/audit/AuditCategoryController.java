@@ -11,6 +11,10 @@ import com.dwarfeng.subgrade.sdk.bean.dto.ResponseDataUtil;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditInvocationContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditParamContribute;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditRecord;
+import com.dwarfeng.subgrade.sdk.interceptor.audit.AuditResultContribute;
 import com.dwarfeng.subgrade.sdk.interceptor.http.BindingCheck;
 import com.dwarfeng.subgrade.sdk.interceptor.login.LoginRequired;
 import com.dwarfeng.subgrade.sdk.interceptor.permission.PermissionRequired;
@@ -89,14 +93,23 @@ public class AuditCategoryController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.audit_category.insert")
+    @AuditRecord("webapi.audit.audit_category.insert")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.auditCategoryInsertResultContributor", prefix = "result.")
     public FastJsonResponseData<FastJsonStringIdKey> insert(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated(Insert.class) WebInputAuditCategory webInputAuditCategory,
+            @RequestBody @Validated(Insert.class)
+            @AuditParamContribute(
+                    contributor = "audit.auditCategoryInsertAuditCategoryParamContributor",
+                    prefix = "param.audit_category."
+            )
+            WebInputAuditCategory auditCategory,
             BindingResult bindingResult
     ) {
         try {
-            AuditCategory auditCategory = WebInputAuditCategory.toStackBean(webInputAuditCategory);
-            StringIdKey insert = service.insert(auditCategory);
+            StringIdKey insert = service.insert(WebInputAuditCategory.toStackBean(auditCategory));
             return FastJsonResponseData.of(ResponseDataUtil.good(FastJsonStringIdKey.of(insert)));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -109,13 +122,23 @@ public class AuditCategoryController {
     @BindingCheck
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.audit_category.update")
+    @AuditRecord("webapi.audit.audit_category.update")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.auditCategoryUpdateResultContributor", prefix = "result.")
     public FastJsonResponseData<Object> update(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
             HttpServletRequest request,
-            @RequestBody @Validated WebInputAuditCategory webInputAuditCategory,
+            @RequestBody @Validated
+            @AuditParamContribute(
+                    contributor = "audit.auditCategoryUpdateAuditCategoryParamContributor",
+                    prefix = "param.audit_category."
+            )
+            WebInputAuditCategory auditCategory,
             BindingResult bindingResult
     ) {
         try {
-            service.update(WebInputAuditCategory.toStackBean(webInputAuditCategory));
+            service.update(WebInputAuditCategory.toStackBean(auditCategory));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
         } catch (Exception e) {
             LOGGER.warn("Controller 异常, 信息如下: ", e);
@@ -127,7 +150,20 @@ public class AuditCategoryController {
     @BehaviorAnalyse
     @LoginRequired
     @PermissionRequired("webapi.controller_permitted.audit.audit_category.delete")
-    public FastJsonResponseData<Object> delete(HttpServletRequest request, @PathVariable("id") String id) {
+    @AuditRecord("webapi.audit.audit_category.delete")
+    @AuditInvocationContribute(contributor = "system.methodContributor", prefix = "method.")
+    @AuditResultContribute(contributor = "audit.auditCategoryDeleteResultContributor", prefix = "result.")
+    public FastJsonResponseData<Object> delete(
+            @AuditParamContribute(contributor = "system.requestRequestContributor", prefix = "request.request.")
+            @AuditParamContribute(contributor = "system.requestTokenContributor", prefix = "request.token.")
+            HttpServletRequest request,
+            @PathVariable("id")
+            @AuditParamContribute(
+                    contributor = "audit.auditCategoryDeleteIdParamContributor",
+                    prefix = "param.id."
+            )
+            String id
+    ) {
         try {
             service.delete(new StringIdKey(id));
             return FastJsonResponseData.of(ResponseDataUtil.good(null));
