@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- Wiki 更新。
+  - docs/wiki/zh-CN/ApiReferenceV1Acckeeper.md。
+
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditCategoryController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectorSupportController。
