@@ -36,4 +36,22 @@ public class InspectorSupportResponseServiceImpl implements InspectorSupportResp
     public PagedData<InspectorSupport> all(PagingInfo pagingInfo) throws ServiceException {
         return inspectorSupportMaintainService.lookup(pagingInfo);
     }
+
+    @Override
+    public PagedData<InspectorSupport> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
+        return inspectorSupportMaintainService.lookup(
+                InspectorSupportMaintainService.ID_LIKE,
+                new Object[]{pattern},
+                pagingInfo
+        );
+    }
+
+    @Override
+    public PagedData<InspectorSupport> labelLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
+        return inspectorSupportMaintainService.lookup(
+                InspectorSupportMaintainService.LABEL_LIKE,
+                new Object[]{pattern},
+                pagingInfo
+        );
+    }
 }

@@ -68,7 +68,7 @@ public class AuditPropertyIndicatorResponseServiceImpl implements AuditPropertyI
             StringIdKey auditCategoryKey, PagingInfo pagingInfo
     ) throws ServiceException {
         return auditPropertyIndicatorMaintainService.lookup(
-                AuditPropertyIndicatorMaintainService.CHILD_FOR_AUDIT_CATEGORY,
+                AuditPropertyIndicatorMaintainService.CHILD_FOR_AUDIT_CATEGORY_ORDER_ASC,
                 new Object[]{auditCategoryKey},
                 pagingInfo
         );
@@ -91,7 +91,7 @@ public class AuditPropertyIndicatorResponseServiceImpl implements AuditPropertyI
             StringIdKey auditCategoryKey, PagingInfo pagingInfo
     ) throws ServiceException {
         PagedData<AuditPropertyIndicator> lookup = auditPropertyIndicatorMaintainService.lookup(
-                AuditPropertyIndicatorMaintainService.CHILD_FOR_AUDIT_CATEGORY,
+                AuditPropertyIndicatorMaintainService.CHILD_FOR_AUDIT_CATEGORY_ORDER_ASC,
                 new Object[]{auditCategoryKey},
                 pagingInfo
         );

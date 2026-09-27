@@ -4,6 +4,10 @@
 
 ### 功能构建
 
+- 为 Controller 添加新方法。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditCategoryController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.InspectorSupportController。
+
 - 为部分 Controller 添加审计记录机制。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditCategoryController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.audit.AuditPropertyIndicatorController。

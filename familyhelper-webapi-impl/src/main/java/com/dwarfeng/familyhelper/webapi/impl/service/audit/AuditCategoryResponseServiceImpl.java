@@ -50,4 +50,22 @@ public class AuditCategoryResponseServiceImpl implements AuditCategoryResponseSe
     public PagedData<AuditCategory> all(PagingInfo pagingInfo) throws ServiceException {
         return auditCategoryMaintainService.lookup(pagingInfo);
     }
+
+    @Override
+    public PagedData<AuditCategory> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
+        return auditCategoryMaintainService.lookup(
+                AuditCategoryMaintainService.ID_LIKE,
+                new Object[]{pattern},
+                pagingInfo
+        );
+    }
+
+    @Override
+    public PagedData<AuditCategory> nameLike(String pattern, PagingInfo pagingInfo) throws ServiceException {
+        return auditCategoryMaintainService.lookup(
+                AuditCategoryMaintainService.NAME_LIKE,
+                new Object[]{pattern},
+                pagingInfo
+        );
+    }
 }

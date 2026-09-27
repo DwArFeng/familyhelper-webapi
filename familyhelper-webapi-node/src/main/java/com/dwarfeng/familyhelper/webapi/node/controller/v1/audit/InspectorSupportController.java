@@ -95,4 +95,48 @@ public class InspectorSupportController {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
+
+    /**
+     * @since 2.3.0
+     */
+    @GetMapping("/inspector-support/id-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.audit.inspector_support.id_like")
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonInspectorSupport>> idLike(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<InspectorSupport> idLike = service.idLike(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonInspectorSupport> transform = PagingUtil.transform(idLike, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    /**
+     * @since 2.3.0
+     */
+    @GetMapping("/inspector-support/label-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.audit.inspector_support.label_like")
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonInspectorSupport>> labelLike(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<InspectorSupport> labelLike = service.labelLike(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonInspectorSupport> transform = PagingUtil.transform(labelLike, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
 }

@@ -20,4 +20,14 @@ public interface InspectorSupportResponseService extends Service {
     InspectorSupport get(StringIdKey key) throws ServiceException;
 
     PagedData<InspectorSupport> all(PagingInfo pagingInfo) throws ServiceException;
+
+    /**
+     * @since 2.3.0
+     */
+    PagedData<InspectorSupport> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
+
+    /**
+     * @since 2.3.0
+     */
+    PagedData<InspectorSupport> labelLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
 }

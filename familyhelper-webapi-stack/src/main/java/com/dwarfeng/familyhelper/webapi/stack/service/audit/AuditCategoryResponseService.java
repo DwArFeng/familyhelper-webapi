@@ -26,4 +26,14 @@ public interface AuditCategoryResponseService extends Service {
     void delete(StringIdKey key) throws ServiceException;
 
     PagedData<AuditCategory> all(PagingInfo pagingInfo) throws ServiceException;
+
+    /**
+     * @since 2.3.0
+     */
+    PagedData<AuditCategory> idLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
+
+    /**
+     * @since 2.3.0
+     */
+    PagedData<AuditCategory> nameLike(String pattern, PagingInfo pagingInfo) throws ServiceException;
 }

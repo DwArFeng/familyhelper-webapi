@@ -190,4 +190,48 @@ public class AuditCategoryController {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
+
+    /**
+     * @since 2.3.0
+     */
+    @GetMapping("/audit-category/id-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.audit.audit_category.id_like")
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAuditCategory>> idLike(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<AuditCategory> idLike = service.idLike(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonAuditCategory> transform = PagingUtil.transform(idLike, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
+    /**
+     * @since 2.3.0
+     */
+    @GetMapping("/audit-category/name-like")
+    @BehaviorAnalyse
+    @SkipRecord
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.audit.audit_category.name_like")
+    public FastJsonResponseData<JSFixedFastJsonPagedData<FastJsonAuditCategory>> nameLike(
+            HttpServletRequest request,
+            @RequestParam("pattern") String pattern, @RequestParam("page") int page, @RequestParam("rows") int rows
+    ) {
+        try {
+            PagedData<AuditCategory> nameLike = service.nameLike(pattern, new PagingInfo(page, rows));
+            PagedData<FastJsonAuditCategory> transform = PagingUtil.transform(nameLike, beanTransformer);
+            return FastJsonResponseData.of(ResponseDataUtil.good(JSFixedFastJsonPagedData.of(transform)));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
 }
