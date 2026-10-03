@@ -158,6 +158,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>voucher-stack</artifactId>
         </dependency>
+        <!-- LogicEngine 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>logic-engine-impl</artifactId>
+        </dependency>
         <!-- Familyhelper-plugin 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>

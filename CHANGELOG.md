@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 增加依赖。
+  - 增加依赖 `logic-engine` 以应用其新功能，版本为 `1.2.0.a`。
+
 - 优化部分响应服务实现类的实现逻辑。
   - com.dwarfeng.familyhelper.webapi.impl.service.audit.InspectorInfoResponseServiceImpl。
   - com.dwarfeng.familyhelper.webapi.impl.service.audit.InspectionAlarmResponseServiceImpl。

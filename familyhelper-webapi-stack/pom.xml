@@ -96,5 +96,10 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>audit-stack</artifactId>
         </dependency>
+        <!-- LogicEngine 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>logic-engine-stack</artifactId>
+        </dependency>
     </dependencies>
 </project>
