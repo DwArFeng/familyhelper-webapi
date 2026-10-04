@@ -4,6 +4,22 @@
 
 ### 功能构建
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.DriverInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.DriverSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.GuarderInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.GuarderSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.JobController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.ManualDispatchController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.PerformerInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.PerformerSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.ResetController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.SectionController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.StateController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.TaskController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.TaskEventController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.logicengine.TaskVariableController。
+
 - 增加依赖。
   - 增加依赖 `logic-engine` 以应用其新功能，版本为 `1.2.0.a`。
 

@@ -1937,6 +1937,124 @@
 
     <!-- endregion -->
 
+    <!-- region logicengine -->
+
+    <dubbo:reference
+            id="logicengineDriverInfoMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.DriverInfoMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineDriverSupportMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.DriverSupportMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineGuarderInfoMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.GuarderInfoMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineGuarderSupportMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.GuarderSupportMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicenginePerformerInfoMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.PerformerInfoMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicenginePerformerSupportMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.PerformerSupportMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineSectionMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.SectionMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineStateMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.StateMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineTaskMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.TaskMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineTaskEventMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.TaskEventMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineTaskVariableMaintainService"
+            interface="com.dwarfeng.logicengine.stack.service.TaskVariableMaintainService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineJobService"
+            interface="com.dwarfeng.logicengine.stack.service.JobService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineManualDispatchService"
+            interface="com.dwarfeng.logicengine.stack.service.ManualDispatchService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+    <dubbo:reference
+            id="logicengineDubboResetter.dubboResetService"
+            interface="com.dwarfeng.logicengine.impl.handler.resetter.DubboResetter$DubboResetService"
+            retries="3"
+            timeout="60000"
+            check="false"
+            cluster="broadcast2"
+            group="${dubbo.consumer.logicengine.group}"
+    />
+
+    <!-- endregion -->
+
     <!-- region familyhelper-plugin-assets -->
 
     <dubbo:reference
