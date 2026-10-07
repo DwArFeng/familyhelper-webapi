@@ -43,7 +43,9 @@ public class InspectionTaskResponseServiceImpl implements InspectionTaskResponse
 
     @Override
     public PagedData<InspectionTask> all(PagingInfo pagingInfo) throws ServiceException {
-        return inspectionTaskMaintainService.lookup(pagingInfo);
+        return inspectionTaskMaintainService.lookup(
+                InspectionTaskMaintainService.CREATED_DATE_DESC, new Object[0], pagingInfo
+        );
     }
 
     @Override
@@ -64,7 +66,9 @@ public class InspectionTaskResponseServiceImpl implements InspectionTaskResponse
 
     @Override
     public PagedData<DispInspectionTask> allDisp(PagingInfo pagingInfo) throws ServiceException {
-        PagedData<InspectionTask> lookup = inspectionTaskMaintainService.lookup(pagingInfo);
+        PagedData<InspectionTask> lookup = inspectionTaskMaintainService.lookup(
+                InspectionTaskMaintainService.CREATED_DATE_DESC, new Object[0], pagingInfo
+        );
         return toDispPagedData(lookup);
     }
 

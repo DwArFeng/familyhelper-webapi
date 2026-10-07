@@ -4,6 +4,10 @@
 
 ### 功能构建
 
+- 优化部分响应服务实现类的实现逻辑。
+  - com.dwarfeng.familyhelper.webapi.impl.service.audit.InspectionAlarmResponseServiceImpl。
+  - com.dwarfeng.familyhelper.webapi.impl.service.audit.InspectionTaskResponseServiceImpl。
+
 - 依赖升级。
   - 升级 `audit` 依赖版本为 `1.3.0.a` 以应用其新功能。
 

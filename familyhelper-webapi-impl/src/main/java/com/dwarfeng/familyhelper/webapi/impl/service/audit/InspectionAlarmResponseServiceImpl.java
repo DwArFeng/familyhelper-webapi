@@ -54,14 +54,16 @@ public class InspectionAlarmResponseServiceImpl implements InspectionAlarmRespon
 
     @Override
     public PagedData<InspectionAlarm> all(PagingInfo pagingInfo) throws ServiceException {
-        return inspectionAlarmMaintainService.lookup(pagingInfo);
+        return inspectionAlarmMaintainService.lookup(
+                InspectionAlarmMaintainService.HAPPENED_DATE_DESC, new Object[0], pagingInfo
+        );
     }
 
     @Override
     public PagedData<InspectionAlarm> childForInspection(LongIdKey inspectionKey, PagingInfo pagingInfo)
             throws ServiceException {
         return inspectionAlarmMaintainService.lookup(
-                InspectionAlarmMaintainService.CHILD_FOR_INSPECTION,
+                InspectionAlarmMaintainService.CHILD_FOR_INSPECTION_HAPPENED_DATE_DESC,
                 new Object[]{inspectionKey},
                 pagingInfo
         );
@@ -71,7 +73,7 @@ public class InspectionAlarmResponseServiceImpl implements InspectionAlarmRespon
     public PagedData<InspectionAlarm> childForInspectionTask(LongIdKey inspectionTaskKey, PagingInfo pagingInfo)
             throws ServiceException {
         return inspectionAlarmMaintainService.lookup(
-                InspectionAlarmMaintainService.CHILD_FOR_INSPECTION_TASK,
+                InspectionAlarmMaintainService.CHILD_FOR_INSPECTION_TASK_HAPPENED_DATE_DESC,
                 new Object[]{inspectionTaskKey},
                 pagingInfo
         );
@@ -81,7 +83,7 @@ public class InspectionAlarmResponseServiceImpl implements InspectionAlarmRespon
     public PagedData<InspectionAlarm> childForInspectorInfo(LongIdKey inspectorInfoKey, PagingInfo pagingInfo)
             throws ServiceException {
         return inspectionAlarmMaintainService.lookup(
-                InspectionAlarmMaintainService.CHILD_FOR_INSPECTOR_INFO,
+                InspectionAlarmMaintainService.CHILD_FOR_INSPECTOR_INFO_HAPPENED_DATE_DESC,
                 new Object[]{inspectorInfoKey},
                 pagingInfo
         );
@@ -95,7 +97,9 @@ public class InspectionAlarmResponseServiceImpl implements InspectionAlarmRespon
 
     @Override
     public PagedData<DispInspectionAlarm> allDisp(PagingInfo pagingInfo) throws ServiceException {
-        PagedData<InspectionAlarm> lookup = inspectionAlarmMaintainService.lookup(pagingInfo);
+        PagedData<InspectionAlarm> lookup = inspectionAlarmMaintainService.lookup(
+                InspectionAlarmMaintainService.HAPPENED_DATE_DESC, new Object[0], pagingInfo
+        );
         return toDispPagedData(lookup);
     }
 
@@ -103,7 +107,7 @@ public class InspectionAlarmResponseServiceImpl implements InspectionAlarmRespon
     public PagedData<DispInspectionAlarm> childForInspectionDisp(LongIdKey inspectionKey, PagingInfo pagingInfo)
             throws ServiceException {
         PagedData<InspectionAlarm> lookup = inspectionAlarmMaintainService.lookup(
-                InspectionAlarmMaintainService.CHILD_FOR_INSPECTION,
+                InspectionAlarmMaintainService.CHILD_FOR_INSPECTION_HAPPENED_DATE_DESC,
                 new Object[]{inspectionKey},
                 pagingInfo
         );
@@ -115,7 +119,7 @@ public class InspectionAlarmResponseServiceImpl implements InspectionAlarmRespon
             LongIdKey inspectionTaskKey, PagingInfo pagingInfo
     ) throws ServiceException {
         PagedData<InspectionAlarm> lookup = inspectionAlarmMaintainService.lookup(
-                InspectionAlarmMaintainService.CHILD_FOR_INSPECTION_TASK,
+                InspectionAlarmMaintainService.CHILD_FOR_INSPECTION_TASK_HAPPENED_DATE_DESC,
                 new Object[]{inspectionTaskKey},
                 pagingInfo
         );
@@ -127,7 +131,7 @@ public class InspectionAlarmResponseServiceImpl implements InspectionAlarmRespon
             LongIdKey inspectorInfoKey, PagingInfo pagingInfo
     ) throws ServiceException {
         PagedData<InspectionAlarm> lookup = inspectionAlarmMaintainService.lookup(
-                InspectionAlarmMaintainService.CHILD_FOR_INSPECTOR_INFO,
+                InspectionAlarmMaintainService.CHILD_FOR_INSPECTOR_INFO_HAPPENED_DATE_DESC,
                 new Object[]{inspectorInfoKey},
                 pagingInfo
         );
