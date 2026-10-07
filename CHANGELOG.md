@@ -5,6 +5,7 @@
 ### 功能构建
 
 - 优化部分响应服务实现类的实现逻辑。
+  - com.dwarfeng.familyhelper.webapi.impl.service.audit.InspectorInfoResponseServiceImpl。
   - com.dwarfeng.familyhelper.webapi.impl.service.audit.InspectionAlarmResponseServiceImpl。
   - com.dwarfeng.familyhelper.webapi.impl.service.audit.InspectionTaskResponseServiceImpl。
 

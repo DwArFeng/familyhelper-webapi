@@ -65,7 +65,7 @@ public class InspectorInfoResponseServiceImpl implements InspectorInfoResponseSe
     public PagedData<InspectorInfo> childForInspection(LongIdKey inspectionKey, PagingInfo pagingInfo)
             throws ServiceException {
         return inspectorInfoMaintainService.lookup(
-                InspectorInfoMaintainService.CHILD_FOR_INSPECTION,
+                InspectorInfoMaintainService.CHILD_FOR_INSPECTION_INDEX_ASC,
                 new Object[]{inspectionKey},
                 pagingInfo
         );
@@ -87,7 +87,7 @@ public class InspectorInfoResponseServiceImpl implements InspectorInfoResponseSe
     public PagedData<DispInspectorInfo> childForInspectionDisp(LongIdKey inspectionKey, PagingInfo pagingInfo)
             throws ServiceException {
         PagedData<InspectorInfo> lookup = inspectorInfoMaintainService.lookup(
-                InspectorInfoMaintainService.CHILD_FOR_INSPECTION,
+                InspectorInfoMaintainService.CHILD_FOR_INSPECTION_INDEX_ASC,
                 new Object[]{inspectionKey},
                 pagingInfo
         );
