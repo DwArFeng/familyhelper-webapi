@@ -69,6 +69,7 @@ public class TaskController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @GetMapping("/task/{id}")
     @BehaviorAnalyse
     @LoginRequired
@@ -83,6 +84,7 @@ public class TaskController {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @GetMapping("/task/all")
     @BehaviorAnalyse
     @SkipRecord

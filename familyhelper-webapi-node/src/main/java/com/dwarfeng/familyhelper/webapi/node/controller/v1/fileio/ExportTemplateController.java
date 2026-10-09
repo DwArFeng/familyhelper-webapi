@@ -198,7 +198,6 @@ public class ExportTemplateController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/export-template/remove")
     @BehaviorAnalyse
     @LoginRequired

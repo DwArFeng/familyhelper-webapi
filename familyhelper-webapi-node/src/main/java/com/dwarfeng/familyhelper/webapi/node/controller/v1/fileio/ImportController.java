@@ -103,7 +103,6 @@ public class ImportController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/import/upsert-task-metadata")
     @BehaviorAnalyse
     @LoginRequired
@@ -247,7 +246,6 @@ public class ImportController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/import/execute-task")
     @BehaviorAnalyse
     @LoginRequired
@@ -275,7 +273,6 @@ public class ImportController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/import/execute-task-async")
     @BehaviorAnalyse
     @LoginRequired

@@ -96,7 +96,6 @@ public class ExportController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/export/upsert-task-metadata")
     @BehaviorAnalyse
     @LoginRequired
@@ -124,7 +123,6 @@ public class ExportController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/export/execute-task")
     @BehaviorAnalyse
     @LoginRequired
@@ -152,7 +150,6 @@ public class ExportController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/export/execute-task-async")
     @BehaviorAnalyse
     @LoginRequired

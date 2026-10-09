@@ -198,7 +198,6 @@ public class ImportTemplateController {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @PostMapping("/import-template/remove")
     @BehaviorAnalyse
     @LoginRequired
