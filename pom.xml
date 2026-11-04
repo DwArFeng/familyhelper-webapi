@@ -63,13 +63,13 @@
         <familyhelper-project.version>1.2.2.a</familyhelper-project.version>
         <familyhelper-life.version>1.2.0.a</familyhelper-life.version>
         <familyhelper-note.version>1.2.0.a</familyhelper-note.version>
-        <settingrepo.version>3.0.1.a</settingrepo.version>
+        <settingrepo.version>3.2.1.a</settingrepo.version>
         <notify.version>2.0.0.a</notify.version>
         <fileio.version>1.0.1.a</fileio.version>
         <audit.version>1.3.0.a</audit.version>
         <voucher.version>1.3.0.a</voucher.version>
-        <logic-engine.version>1.2.0.a</logic-engine.version>
-        <familyhelper-plugin.version>1.8.0.a</familyhelper-plugin.version>
+        <logic-engine.version>1.2.1.a</logic-engine.version>
+        <familyhelper-plugin.version>1.9.1.a</familyhelper-plugin.version>
         <!-- Maven 插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
