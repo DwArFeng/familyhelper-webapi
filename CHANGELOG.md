@@ -4,6 +4,18 @@
 
 ### 功能构建
 
+- 新建 Controller。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.LongTextNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.TextListNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.VideoNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.VideoListNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.WarmupSettingController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.WarmupDriverInfoController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.WarmupDriverSupportController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.IahnNodeLocaleController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.IahnNodeMekController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.IahnNodeMessageController。
+
 - 为 Controller 添加新方法。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.IahnNodeController。
   - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.NavigationNodeController。

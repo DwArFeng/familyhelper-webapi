@@ -1,8 +1,10 @@
 package com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo;
 
 import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.disp.JSFixedFastJsonDispNavigationNodeItem;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.disp.JSFixedFastJsonDispWarmupDriverInfo;
 import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.dto.*;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.disp.DispNavigationNodeItem;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.disp.DispWarmupDriverInfo;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.dto.*;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -28,6 +30,13 @@ public interface BeanMapper {
     @InheritInverseConfiguration
     DispNavigationNodeItem dispNavigationNodeItemFromFastJson(
             JSFixedFastJsonDispNavigationNodeItem JSFixedFastJsonDispNavigationNodeItem
+    );
+
+    JSFixedFastJsonDispWarmupDriverInfo dispWarmupDriverInfoToFastJson(DispWarmupDriverInfo dispWarmupDriverInfo);
+
+    @InheritInverseConfiguration
+    DispWarmupDriverInfo dispWarmupDriverInfoFromFastJson(
+            JSFixedFastJsonDispWarmupDriverInfo JSFixedFastJsonDispWarmupDriverInfo
     );
 
     // endregion
@@ -262,6 +271,78 @@ public interface BeanMapper {
     @InheritInverseConfiguration
     PublicKvNodeItemInspectInfo publicKvNodeItemInspectInfoFromWebInput(
             WebInputPublicKvNodeItemInspectInfo webInputPublicKvNodeItemInspectInfo
+    );
+
+    WebInputPublicLongTextNodeTextDownloadInfo publicLongTextNodeTextDownloadInfoToWebInput(
+            PublicLongTextNodeTextDownloadInfo publicLongTextNodeTextDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicLongTextNodeTextDownloadInfo publicLongTextNodeTextDownloadInfoFromWebInput(
+            WebInputPublicLongTextNodeTextDownloadInfo webInputPublicLongTextNodeTextDownloadInfo
+    );
+
+    WebInputPublicVideoListNodeFileDownloadInfo publicVideoListNodeFileDownloadInfoToWebInput(
+            PublicVideoListNodeFileDownloadInfo publicVideoListNodeFileDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicVideoListNodeFileDownloadInfo publicVideoListNodeFileDownloadInfoFromWebInput(
+            WebInputPublicVideoListNodeFileDownloadInfo webInputPublicVideoListNodeFileDownloadInfo
+    );
+
+    WebInputPublicVideoListNodeInspectInfo publicVideoListNodeInspectInfoToWebInput(
+            PublicVideoListNodeInspectInfo publicVideoListNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicVideoListNodeInspectInfo publicVideoListNodeInspectInfoFromWebInput(
+            WebInputPublicVideoListNodeInspectInfo webInputPublicVideoListNodeInspectInfo
+    );
+
+    WebInputPublicVideoListNodeSizeInfo publicVideoListNodeSizeInfoToWebInput(
+            PublicVideoListNodeSizeInfo publicVideoListNodeSizeInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicVideoListNodeSizeInfo publicVideoListNodeSizeInfoFromWebInput(
+            WebInputPublicVideoListNodeSizeInfo webInputPublicVideoListNodeSizeInfo
+    );
+
+    WebInputPublicVideoListNodeThumbnailDownloadInfo publicVideoListNodeThumbnailDownloadInfoToWebInput(
+            PublicVideoListNodeThumbnailDownloadInfo publicVideoListNodeThumbnailDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicVideoListNodeThumbnailDownloadInfo publicVideoListNodeThumbnailDownloadInfoFromWebInput(
+            WebInputPublicVideoListNodeThumbnailDownloadInfo webInputPublicVideoListNodeThumbnailDownloadInfo
+    );
+
+    WebInputPublicVideoNodeFileDownloadInfo publicVideoNodeFileDownloadInfoToWebInput(
+            PublicVideoNodeFileDownloadInfo publicVideoNodeFileDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicVideoNodeFileDownloadInfo publicVideoNodeFileDownloadInfoFromWebInput(
+            WebInputPublicVideoNodeFileDownloadInfo webInputPublicVideoNodeFileDownloadInfo
+    );
+
+    WebInputPublicVideoNodeInspectInfo publicVideoNodeInspectInfoToWebInput(
+            PublicVideoNodeInspectInfo publicVideoNodeInspectInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicVideoNodeInspectInfo publicVideoNodeInspectInfoFromWebInput(
+            WebInputPublicVideoNodeInspectInfo webInputPublicVideoNodeInspectInfo
+    );
+
+    WebInputPublicVideoNodeThumbnailDownloadInfo publicVideoNodeThumbnailDownloadInfoToWebInput(
+            PublicVideoNodeThumbnailDownloadInfo publicVideoNodeThumbnailDownloadInfo
+    );
+
+    @InheritInverseConfiguration
+    PublicVideoNodeThumbnailDownloadInfo publicVideoNodeThumbnailDownloadInfoFromWebInput(
+            WebInputPublicVideoNodeThumbnailDownloadInfo webInputPublicVideoNodeThumbnailDownloadInfo
     );
 
     // endregion

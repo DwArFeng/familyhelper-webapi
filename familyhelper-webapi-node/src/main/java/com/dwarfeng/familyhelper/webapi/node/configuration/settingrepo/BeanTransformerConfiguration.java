@@ -1,7 +1,9 @@
 package com.dwarfeng.familyhelper.webapi.node.configuration.settingrepo;
 
 import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.disp.JSFixedFastJsonDispNavigationNodeItem;
+import com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.disp.JSFixedFastJsonDispWarmupDriverInfo;
 import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.disp.DispNavigationNodeItem;
+import com.dwarfeng.familyhelper.webapi.stack.bean.settingrepo.disp.DispWarmupDriverInfo;
 import com.dwarfeng.settingrepo.sdk.bean.entity.*;
 import com.dwarfeng.settingrepo.stack.bean.entity.*;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
@@ -121,6 +123,95 @@ public class BeanTransformerConfiguration {
     public BeanTransformer<KvNodeItem, FastJsonKvNodeItem> kvNodeItemBeanTransformer() {
         return new MapStructBeanTransformer<>(
                 KvNodeItem.class, FastJsonKvNodeItem.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.warmupSettingBeanTransformer")
+    public BeanTransformer<WarmupSetting, JSFixedFastJsonWarmupSetting> warmupSettingBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                WarmupSetting.class, JSFixedFastJsonWarmupSetting.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.warmupDriverInfoBeanTransformer")
+    public BeanTransformer<WarmupDriverInfo, JSFixedFastJsonWarmupDriverInfo> warmupDriverInfoBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                WarmupDriverInfo.class, JSFixedFastJsonWarmupDriverInfo.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.dispWarmupDriverInfoBeanTransformer")
+    public BeanTransformer<DispWarmupDriverInfo, JSFixedFastJsonDispWarmupDriverInfo>
+    dispWarmupDriverInfoBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                DispWarmupDriverInfo.class, JSFixedFastJsonDispWarmupDriverInfo.class,
+                com.dwarfeng.familyhelper.webapi.sdk.bean.settingrepo.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.warmupDriverSupportBeanTransformer")
+    public BeanTransformer<WarmupDriverSupport, FastJsonWarmupDriverSupport> warmupDriverSupportBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                WarmupDriverSupport.class, FastJsonWarmupDriverSupport.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.longTextNodeBeanTransformer")
+    public BeanTransformer<LongTextNode, FastJsonLongTextNode> longTextNodeBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                LongTextNode.class, FastJsonLongTextNode.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.textListNodeBeanTransformer")
+    public BeanTransformer<TextListNode, FastJsonTextListNode> textListNodeBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                TextListNode.class, FastJsonTextListNode.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.videoNodeBeanTransformer")
+    public BeanTransformer<VideoNode, FastJsonVideoNode> videoNodeBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                VideoNode.class, FastJsonVideoNode.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.videoListNodeBeanTransformer")
+    public BeanTransformer<VideoListNode, FastJsonVideoListNode> videoListNodeBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                VideoListNode.class, FastJsonVideoListNode.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.iahnNodeLocaleBeanTransformer")
+    public BeanTransformer<IahnNodeLocale, FastJsonIahnNodeLocale> iahnNodeLocaleBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                IahnNodeLocale.class, FastJsonIahnNodeLocale.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.iahnNodeMekBeanTransformer")
+    public BeanTransformer<IahnNodeMek, FastJsonIahnNodeMek> iahnNodeMekBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                IahnNodeMek.class, FastJsonIahnNodeMek.class,
+                com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
+        );
+    }
+
+    @Bean("settingrepo.iahnNodeMessageBeanTransformer")
+    public BeanTransformer<IahnNodeMessage, FastJsonIahnNodeMessage> iahnNodeMessageBeanTransformer() {
+        return new MapStructBeanTransformer<>(
+                IahnNodeMessage.class, FastJsonIahnNodeMessage.class,
                 com.dwarfeng.settingrepo.sdk.bean.BeanMapper.class
         );
     }
