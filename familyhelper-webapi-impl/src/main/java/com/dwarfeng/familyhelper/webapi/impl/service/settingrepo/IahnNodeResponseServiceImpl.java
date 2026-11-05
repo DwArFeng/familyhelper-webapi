@@ -118,6 +118,11 @@ public class IahnNodeResponseServiceImpl implements IahnNodeResponseService {
     }
 
     @Override
+    public void clearCache(IahnNodeClearCacheInfo info) throws ServiceException {
+        iahnNodeOperateService.clearCache(info);
+    }
+
+    @Override
     public IahnNodeMessageInspectResult inspectMessageForPublic(PublicIahnNodeMessageInspectInfo info)
             throws ServiceException {
         try {

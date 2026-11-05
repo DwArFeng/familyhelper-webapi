@@ -52,6 +52,15 @@ public interface IahnNodeResponseService extends Service {
     void batchUpsertMessageByMek(IahnNodeMessageUpsertByMekInfo info) throws ServiceException;
 
     /**
+     * 清理国际化节点缓存。
+     *
+     * @param info 缓存清理信息。
+     * @throws ServiceException 服务异常。
+     * @since 3.0.4
+     */
+    void clearCache(IahnNodeClearCacheInfo info) throws ServiceException;
+
+    /**
      * 检查公共国际化节点的消息。
      *
      * @param info 公共国际化节点消息检查信息。

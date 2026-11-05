@@ -49,4 +49,21 @@ public class ResetController {
             return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
         }
     }
+
+    /**
+     * @since 2.4.1
+     */
+    @PostMapping("/reset-warmup")
+    @BehaviorAnalyse
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.reset.reset_warmup")
+    public FastJsonResponseData<Object> resetWarmup(HttpServletRequest request) {
+        try {
+            service.resetWarmup();
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
 }

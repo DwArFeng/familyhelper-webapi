@@ -354,6 +354,28 @@ public class IahnNodeController {
         }
     }
 
+    /**
+     * @since 2.4.1
+     */
+    @PostMapping("/iahn-node/clear-cache")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.iahn_node.clear_cache")
+    public FastJsonResponseData<Object> clearCache(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputIahnNodeClearCacheInfo webInputIahnNodeClearCacheInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            service.clearCache(WebInputIahnNodeClearCacheInfo.toStackBean(webInputIahnNodeClearCacheInfo));
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/iahn-node/inspect-message-for-public")
     @BehaviorAnalyse
     @BindingCheck

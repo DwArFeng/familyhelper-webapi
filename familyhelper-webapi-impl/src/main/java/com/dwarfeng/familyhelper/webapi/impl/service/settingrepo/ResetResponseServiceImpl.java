@@ -22,4 +22,9 @@ public class ResetResponseServiceImpl implements ResetResponseService {
     public void resetFormat() throws ServiceException {
         dubboResetService.resetFormat();
     }
+
+    @Override
+    public void resetWarmup() throws ServiceException {
+        dubboResetService.resetWarmup();
+    }
 }

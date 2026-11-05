@@ -38,6 +38,15 @@ public interface KvNodeResponseService extends Service {
     void clear(KvNodeClearInfo info) throws ServiceException;
 
     /**
+     * 清理键值对节点缓存。
+     *
+     * @param info 缓存清理信息。
+     * @throws ServiceException 服务异常。
+     * @since 3.1.0
+     */
+    void clearCache(KvNodeClearCacheInfo info) throws ServiceException;
+
+    /**
      * 查询公共键值对节点数量。
      *
      * @param info 公共键值对节点数量信息。

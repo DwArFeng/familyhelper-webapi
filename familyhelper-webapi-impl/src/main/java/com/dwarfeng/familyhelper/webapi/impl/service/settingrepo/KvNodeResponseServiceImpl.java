@@ -87,6 +87,11 @@ public class KvNodeResponseServiceImpl implements KvNodeResponseService {
     }
 
     @Override
+    public void clearCache(KvNodeClearCacheInfo info) throws ServiceException {
+        kvNodeOperateService.clearCache(info);
+    }
+
+    @Override
     public KvNodeCountResult countForPublic(PublicKvNodeCountInfo info) throws ServiceException {
         try {
             KvNodeCountInfo originalInfo = new KvNodeCountInfo(

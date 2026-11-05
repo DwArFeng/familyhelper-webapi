@@ -99,6 +99,11 @@ public class NavigationNodeResponseImpl implements NavigationNodeResponseService
     }
 
     @Override
+    public void clearCache(NavigationNodeClearCacheInfo info) throws ServiceException {
+        navigationNodeOperateService.clearCache(info);
+    }
+
+    @Override
     public NavigationNodeSizeResult sizeForPublic(PublicNavigationNodeSizeInfo info) throws ServiceException {
         try {
             NavigationNodeSizeInfo originalInfo = new NavigationNodeSizeInfo(

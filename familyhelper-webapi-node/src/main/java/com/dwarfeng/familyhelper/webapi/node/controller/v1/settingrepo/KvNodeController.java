@@ -223,6 +223,28 @@ public class KvNodeController {
         }
     }
 
+    /**
+     * @since 2.4.1
+     */
+    @PostMapping("/kv-node/clear-cache")
+    @BehaviorAnalyse
+    @BindingCheck
+    @LoginRequired
+    @PermissionRequired("webapi.controller_permitted.settingrepo.kv_node.clear_cache")
+    public FastJsonResponseData<Void> clearCache(
+            HttpServletRequest request,
+            @RequestBody @Validated WebInputKvNodeClearCacheInfo webInputKvNodeClearCacheInfo,
+            BindingResult bindingResult
+    ) {
+        try {
+            service.clearCache(WebInputKvNodeClearCacheInfo.toStackBean(webInputKvNodeClearCacheInfo));
+            return FastJsonResponseData.of(ResponseDataUtil.good(null));
+        } catch (Exception e) {
+            LOGGER.warn("Controller 异常, 信息如下: ", e);
+            return FastJsonResponseData.of(ResponseDataUtil.bad(e, sem));
+        }
+    }
+
     @PostMapping("/kv-node/count-for-public")
     @BehaviorAnalyse
     @BindingCheck

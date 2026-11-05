@@ -4,6 +4,12 @@
 
 ### 功能构建
 
+- 为 Controller 添加新方法。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.IahnNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.NavigationNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.KvNodeController。
+  - com.dwarfeng.familyhelper.webapi.node.controller.v1.settingrepo.ResetController。
+
 - 依赖升级。
   - 升级 `settingrepo` 依赖版本为 `3.2.1.a` 以应用其新功能。
   - 升级 `logic-engine` 依赖版本为 `1.2.1.a` 以应用其新功能。

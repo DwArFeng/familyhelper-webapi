@@ -39,6 +39,15 @@ public interface NavigationNodeResponseService extends Service {
     void formatIndex(NavigationNodeFormatIndexInfo info) throws ServiceException;
 
     /**
+     * 清理导航节点缓存。
+     *
+     * @param info 缓存清理信息。
+     * @throws ServiceException 服务异常。
+     * @since 3.0.4
+     */
+    void clearCache(NavigationNodeClearCacheInfo info) throws ServiceException;
+
+    /**
      * 公共导航节点的大小。
      *
      * @param info 公共导航节点大小信息。

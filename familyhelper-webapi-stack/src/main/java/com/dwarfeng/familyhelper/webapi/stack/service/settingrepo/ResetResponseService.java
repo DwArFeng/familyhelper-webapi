@@ -12,4 +12,6 @@ import com.dwarfeng.subgrade.stack.service.Service;
 public interface ResetResponseService extends Service {
 
     void resetFormat() throws ServiceException;
+
+    void resetWarmup() throws ServiceException;
 }
